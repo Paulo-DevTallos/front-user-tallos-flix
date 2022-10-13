@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Pagina Home</h1>
+    <h1>Pagina Home TallosFlix</h1>
   </div>
 </template>
 
