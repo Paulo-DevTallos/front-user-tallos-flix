@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  front-app-tallos-flix:
+    build: .
+    entrypoint: sh ./.docker/entrypoint.sh
+    container_name: main-app-tallosflix
+    volumes: 
+      - .:/usr/front-user-tallos-flix/app
+    working_dir: /usr/front-user-tallos-flix/app
+    ports:
+      - 8085:8085
+    restart: always
+    tty: true
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+    
