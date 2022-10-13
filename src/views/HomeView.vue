@@ -1,6 +1,7 @@
 <template>
   <div class="teste">
     <h1>Pagina Home TallosFlix</h1>
+    <b-button variant="outline-primary">Teste</b-button>
   </div>
 </template>
 
@@ -12,8 +13,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-.teste {
-  background-color: red;
-}
-</style>
+<style lang="scss" scoped></style>
