@@ -1,11 +1,11 @@
-import { createApp } from 'vue';
 import BootstrapVue3 from 'bootstrap-vue-3';
+import { createApp } from 'vue';
 
-import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import App from './App.vue';
-import router from './router';
 import './assets/main.css';
+import router from './router';
 
 const app = createApp(App);
 
