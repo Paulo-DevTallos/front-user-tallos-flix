@@ -22,13 +22,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import FormLogin from '../components/forms/FormLogin.vue';
-import FormRegister from '../components/forms/FormRegister.vue';
+//import FormRegister from '../components/forms/FormRegister.vue';
 
 export default defineComponent({
   name: 'LoginView',
   components: {
     FormLogin,
-    FormRegister,
+    //FormRegister,
   },
 
   data() {
