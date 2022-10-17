@@ -5,13 +5,24 @@
         <div class="container-logo">
           <img src="/img/logo-tallos.png" alt="Logo Tallos" />
         </div>
-        <div class="input-container-style">
-          <Icon icon="carbon:user" />
-          <input type="text" placeholder="Email" />
+        <div class="container-links">
+          <div>Entrar</div>
+          <div>Cadastrar</div>
         </div>
-        <div class="input-container-style">
-          <Icon icon="carbon:locked" />
-          <input type="text" placeholder="Senha" />
+        <div class="forms-fields">
+          <div class="input-container-style">
+            <Icon icon="carbon:email" />
+            <input type="text" placeholder="Email" />
+          </div>
+          <div class="input-container-style">
+            <Icon icon="carbon:locked" />
+            <input type="text" placeholder="Senha" />
+            <Icon icon="carbon:view-off" id="view-icon" />
+          </div>
+          <a href="#">Esqueci a senha. Enviar por e-mail</a>
+          <div class="btn-container">
+            <button>Entrar</button>
+          </div>
         </div>
       </form>
     </div>
