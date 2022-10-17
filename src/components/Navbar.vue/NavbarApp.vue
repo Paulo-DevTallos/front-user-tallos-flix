@@ -62,4 +62,7 @@
 .dropdown-item {
   color: white !important;
 }
+.dropdown-item:hover {
+
+}
 </style>
