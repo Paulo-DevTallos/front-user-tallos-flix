@@ -13,7 +13,6 @@
           @toggle="togglePassword"
           :isPassword="isPasswordVisible"
         />
-        <!--<Icon icon="carbon:view-off" id="view-icon" />-->
       </div>
       <a href="#">Esqueci a senha. Enviar por e-mail</a>
       <div class="btn-container">
