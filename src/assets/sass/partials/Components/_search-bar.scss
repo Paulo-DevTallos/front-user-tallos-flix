@@ -1,0 +1,33 @@
+@import '../variables';
+
+.search-input{
+    width: 800px;
+    height: 35px;
+    background-color: $primary-color-black-one;
+    border: solid $primary-color-black-seven 1px;
+    display: flex;
+ 
+}
+.text-input{
+    color:$primary-color-black-seven;
+    background-color: $primary-color-black-one;
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    width: 95%;
+    font-size: $font-size-common;
+    &::placeholder {
+        color:$primary-color-black-seven;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+.icon {
+    height: 100%;
+    width: 3%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+}
