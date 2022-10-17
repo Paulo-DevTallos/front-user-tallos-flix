@@ -5,22 +5,42 @@
   background-size: cover;
   
   .content {
+    margin: 0 80px;
     min-height: 100vh;
     @include align-elements(flex, center, center);
   }
 
-
   form {
-    padding: 50px;
+    padding: 0 100px;
     background-color: #fff;
     color: #000;
     display: flex;
     flex-direction: column;
-    
-    img {
-      width: 170px;
+    border-radius: 20px;
+
+    .container-logo {
+      text-align: center;
+      margin: 20px 0;
+
+      img {
+        width: 170px;
+      }
     }
-  
+    
+
+    .input-container-style {
+      margin-bottom: 28px;
+      border-bottom: 2px solid $text-color-gray-one;
+      width: 256.5px;
+    
+      svg {
+        margin-right: 12px;
+      }
+
+      input {
+        border: none;
+        outline: none;
+      }
+    }
   }
-  
 }
