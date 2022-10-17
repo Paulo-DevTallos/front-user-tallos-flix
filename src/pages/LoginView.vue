@@ -2,13 +2,17 @@
   <div class="screen opac-scree">
     <div class="content">
       <form>
-        <div>
-          <img src="/img/logo-tallos.png" alt="Logo Tallos">
+        <div class="container-logo">
+          <img src="/img/logo-tallos.png" alt="Logo Tallos" />
         </div>
-        <label>Email</label>
-        <input type="text" placeholder="email"/>
-        <label>Senha</label> 
-        <input type="text" placeholder="Senha">
+        <div class="input-container-style">
+          <Icon icon="carbon:user" />
+          <input type="text" placeholder="Email" />
+        </div>
+        <div class="input-container-style">
+          <Icon icon="carbon:locked" />
+          <input type="text" placeholder="Senha" />
+        </div>
       </form>
     </div>
   </div>
@@ -16,13 +20,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { Icon } from '@iconify/vue';
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
+  components: {
+    Icon,
+  },
 });
 </script>
 
-<style lang="scss" scoped>
-@import '../assets/sass/main.scss'
-</style>
+<style lang="scss" scoped></style>
