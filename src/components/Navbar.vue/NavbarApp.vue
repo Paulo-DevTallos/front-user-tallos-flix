@@ -16,7 +16,7 @@
       >
         <template #button-content>
           <div class="d-flex align-items-center">
-            <div class="m-2">Nome do usuario</div>
+            <div class="m-2 name-user">Nome do usuario</div>
             <b-avatar
               variant="light-primary"
               size="40"
@@ -31,38 +31,4 @@
   </b-navbar>
 </template>
 
-<style>
-.navbar {
-  background: linear-gradient(
-    0deg,
-    rgba(143, 144, 144, 0.253) 0%,
-    rgba(0, 0, 0, 0.76) 100%
-  ) !important;
-}
-.nav-link {
-  color: white !important;
-  background-color: rgba(255, 255, 255, 0) !important;
-}
-.nav-link:focus {
-  transition: 0.1s;
-  background-color: rgba(255, 255, 255, 0) !important;
-  border-bottom: 5px solid #c37259;
-}
-.navbar-brand {
-  color: white;
-}
-.navbar-collapse {
-  display: flex;
-  justify-content: space-between;
-  width: 50% !important;
-}
-.dropdown-menu {
-  background-color: gray;
-}
-.dropdown-item {
-  color: white !important;
-}
-.dropdown-item:hover {
-
-}
-</style>
+<style lang="scss" scoped></style>
