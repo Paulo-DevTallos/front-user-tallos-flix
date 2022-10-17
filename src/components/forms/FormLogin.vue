@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <form>
+  <form @submit.prevent="teste">
     <div class="forms-fields">
       <div class="input-container-style">
         <Icon icon="carbon:email" />
@@ -53,6 +53,10 @@ export default defineComponent({
     togglePassword(): void {
       this.inputType = this.isPasswordVisible ? 'password' : 'text';
     },
+
+    teste() {
+      console.log('teste');
+    }
   },
 });
 </script>
