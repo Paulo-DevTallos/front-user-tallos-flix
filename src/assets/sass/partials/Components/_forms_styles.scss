@@ -1,0 +1,50 @@
+.forms-fields {
+  display: flex;
+  flex-direction: column;
+
+  .input-container-style {
+    margin-bottom: 20px;
+    border-bottom: 2px solid $text-color-gray-one;
+    width: 100%;
+    padding: 5px 0;
+  
+    svg {
+      margin-right: 12px;
+      color: $primary-color-icon;
+      font-size: 20px;
+    }
+
+    input {
+      border: none;
+      outline: none;
+      width: 80%;
+    }
+
+    #view-icon {
+      margin-right: 0;
+      cursor: pointer;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+    color: $text-color-gray-one;
+  }
+
+  .btn-container {
+    width: 100%;
+    text-align: center; 
+
+    button {
+      margin-top: 75px;
+      width: 185px;
+      height: 38px;
+      background-color: $primary-color-beige-one;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+}
