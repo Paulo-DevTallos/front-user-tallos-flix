@@ -11,7 +11,7 @@
   }
 
   form {
-    padding: 0 100px;
+    padding: 40px 100px;
     background-color: #fff;
     color: #000;
     display: flex;
@@ -20,26 +20,62 @@
 
     .container-logo {
       text-align: center;
-      margin: 20px 0;
+      margin-bottom: 20px;
 
       img {
         width: 170px;
       }
     }
     
+    .container-links {
+      font-family: 'Nunito', sans-serif;
+      @include align-elements(flex, space-between, unset);
+      margin: 20px 0 40px 0;
+      font-size: 25px;
+    }
 
-    .input-container-style {
-      margin-bottom: 28px;
-      border-bottom: 2px solid $text-color-gray-one;
-      width: 256.5px;
-    
-      svg {
-        margin-right: 12px;
+    .forms-fields {
+      display: flex;
+      flex-direction: column;
+
+      .input-container-style {
+        margin-bottom: 28px;
+        border-bottom: 2px solid $text-color-gray-one;
+        width: 100%;
+      
+        svg {
+          margin-right: 12px;
+          color: $primary-color-icon;
+          font-size: 18px;
+        }
+  
+        input {
+          border: none;
+          outline: none;
+          width: 80%;
+        }
+
+        #view-icon {
+          margin-right: 0;
+          cursor: pointer;
+        }
       }
 
-      input {
-        border: none;
-        outline: none;
+      .btn-container {
+        width: 100%;
+        text-align: center; 
+
+        button {
+          margin-top: 75px;
+          width: 185px;
+          height: 38px;
+          background-color: $primary-color-beige-one;
+          color: #fff;
+          border-radius: 10px;
+          border: none;
+          font-size: 20px;
+          text-align: center;
+        }
       }
     }
   }
