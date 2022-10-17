@@ -1,0 +1,6 @@
+@mixin align-elements($display, $vertical, $horizontal) {
+  display: $display;
+  justify-content: $vertical;
+  align-items: $horizontal;
+}
+ 
