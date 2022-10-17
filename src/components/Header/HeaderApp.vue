@@ -15,7 +15,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   methods: {
     redirect() {
-      this.$router.push({ name: 'defaultLayout' });
+      this.$router.push({ name: 'home' });
     },
   },
 });
