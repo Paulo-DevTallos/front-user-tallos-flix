@@ -35,15 +35,13 @@
   
       .slide-controls {
         position: relative;
-        display: flex;
+        @include align-elements(flex, space-between, unset);
         height: 50px;
         width: 100%;
         overflow: hidden;
-        justify-content: space-between;
   
         .slide {
-          display: flex;
-          justify-content: space-between;
+          @include align-elements(flex, space-between, unset);
           height: 100%;
   
           color: $secondary-color-one;
