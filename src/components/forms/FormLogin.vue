@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <form>
     <div class="forms-fields">
@@ -7,8 +8,12 @@
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:locked" />
-        <input type="text" placeholder="Senha" />
-        <Icon icon="carbon:view-off" id="view-icon" />
+        <input :type="inputType" placeholder="Senha" />
+        <RevelingPassword 
+          @toggle="togglePassword"
+          :isPassword="isPasswordVisible"
+        />
+        <!--<Icon icon="carbon:view-off" id="view-icon" />-->
       </div>
       <a href="#">Esqueci a senha. Enviar por e-mail</a>
       <div class="btn-container">
@@ -21,14 +26,34 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
+import RevelingPassword from '../RevelingPassword.vue';
 
 export default defineComponent({
   name: 'FormLogin',
   components: {
     Icon,
+    RevelingPassword,
   },
   props: {
     data_btn: String,
+  },
+
+  data() {
+    return {
+      inputType: 'password',
+    };
+  },
+
+  computed: {
+    isPasswordVisible(): boolean {
+      return this.inputType === 'text';
+    },
+  },
+
+  methods: {
+    togglePassword(): void {
+      this.inputType = this.isPasswordVisible ? 'password' : 'text';
+    },
   },
 });
 </script>
