@@ -13,7 +13,7 @@
           <div class="slider-tab"></div>
         </div>
         <FormLogin :data_btn="btn_login" />
-        <!--<FormRegister :data_btn="btn_register" />-->
+        <FormRegister :data_btn="btn_register" />
       </div>
     </div>
   </div>
@@ -22,13 +22,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import FormLogin from '../components/forms/FormLogin.vue';
-//import FormRegister from '../components/forms/FormRegister.vue';
+import FormRegister from '../components/forms/FormRegister.vue';
 
 export default defineComponent({
   name: 'LoginView',
   components: {
     FormLogin,
-    //FormRegister,
+    FormRegister,
   },
 
   data() {
