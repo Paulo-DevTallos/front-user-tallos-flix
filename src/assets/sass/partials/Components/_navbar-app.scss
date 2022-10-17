@@ -1,7 +1,7 @@
 .navbar {
     background: linear-gradient(0deg,
-            rgba(51, 51, 51, 0.082) 0%,
-            rgba(0, 0, 0, 0.76) 100%) !important;
+            rgba(51, 51, 51, 0.596) 0%,
+            rgba(0, 0, 0, 0.123) 100%) !important;
 
     .navbar-collapse {
         @include align-elements(flex, space-between, unset);
