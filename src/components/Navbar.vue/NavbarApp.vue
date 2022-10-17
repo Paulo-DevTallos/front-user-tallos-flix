@@ -4,7 +4,7 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item>Somente nos Cinemas</b-nav-item>
+        <b-nav-item class="texto-navbar">Somente nos Cinemas</b-nav-item>
         <b-nav-item>Filmes</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
@@ -16,11 +16,11 @@
       >
         <template #button-content>
           <div class="d-flex align-items-center">
-            <div class="m-2 name-user">Nome do usuario</div>
+            <div class="m-2 name-user">Faça Login</div>
             <b-avatar
               variant="light-primary"
               size="40"
-              src="https://placekitten.com/300/300"
+              src="../../../public/img/user-default.png"
             ></b-avatar>
           </div>
         </template>
