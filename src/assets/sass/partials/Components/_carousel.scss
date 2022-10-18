@@ -1,0 +1,24 @@
+.carousel-button-left{
+    display: flex;
+    justify-content: start;
+    padding-left: 2%;
+    .slide-icon {
+        background-color: black;
+        color: $secondary-color-one;
+    }
+}
+.carousel-button-right{
+    display: flex;
+    justify-content: end;
+    padding-right: 2%;
+    .slide-icon {
+        background-color: black;
+        color: $secondary-color-one;
+    }
+}
+    .carousel-field {
+        width: 100%;
+        gap: 2rem;
+        justify-content: center;
+        .carousel-card{width: 17%;}
+    }
