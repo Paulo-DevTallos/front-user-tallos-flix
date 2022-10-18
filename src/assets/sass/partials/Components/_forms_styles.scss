@@ -3,7 +3,7 @@
   flex-direction: column;
 
   .input-container-style {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border-bottom: 2px solid $text-color-gray-one;
     width: 100%;
     padding: 5px 0;
@@ -12,12 +12,39 @@
       margin-right: 12px;
       color: $primary-color-icon;
       font-size: 20px;
+      animation: emerge .3s ease-in-out;
+
+      @keyframes emerge {
+        0% {
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-25%);
+        } 
+        100% {
+          opacity: 1;
+          visibility: visible; 
+          transform: translateY(0);
+        }
+      }
     }
 
     input {
       border: none;
       outline: none;
-      width: 80%;
+      width: 75%;
+      font-size: 14px;
+      animation: roar .4s ease-in-out;
+
+      @keyframes roar {
+        0% {
+          opacity: 0;
+          visibility: hidden;
+        } 
+        100% {
+          opacity: 1;
+          visibility: visible; 
+        }
+      }
     }
 
     #view-icon {
@@ -29,7 +56,9 @@
   a {
     text-decoration: underline;
     color: $text-color-gray-one;
-    margin: 20px 0 15px;
+    animation: roar .4s ease-in-out;
+    font-size: 13px;
+    margin-bottom: 31px;
   }
 
   .btn-container {
@@ -37,14 +66,14 @@
     text-align: center; 
 
     button {
-      margin-top: 75px;
-      width: 185px;
-      height: 38px;
+      margin-top: 50px;
+      width: 170px;
+      height: 35px;
       background-color: $primary-color-beige-one;
       color: #fff;
       border-radius: 10px;
       border: none;
-      font-size: 20px;
+      font-size: 16px;
       text-align: center;
     }
   }
