@@ -4,7 +4,7 @@
     <div class="forms-fields">
       <div class="input-container-style">
         <Icon icon="carbon:email" />
-        <input type="text" placeholder="Email" v-model="user.email"/>
+        <input type="text" id="wd-input" placeholder="Email" v-model="user.email"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:locked" />
