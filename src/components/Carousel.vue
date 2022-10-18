@@ -44,9 +44,8 @@ import { Icon } from '@iconify/vue';
 
 export default defineComponent({
     name: 'carousel-slide',
-         components: { Icon },
+    components: { Icon },
 })
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
