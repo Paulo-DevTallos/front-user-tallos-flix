@@ -1,7 +1,7 @@
 <template>
   <div class="layout-container">
     <header-app />
-    <div>
+    <div class="template-container">
       <router-view></router-view>
     </div>
   </div>
@@ -18,13 +18,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
-@import '@/assets/sass/partials/_variables.scss';
-.layout-container {
-  background-color: $primary-color-black-bg;
-  background-image: url('/img/Header-Background.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 100%;
-}
-</style>
+<style scoped lang="scss"></style>
