@@ -1,14 +1,14 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <form @submit.prevent="teste">
+  <form @submit.prevent="$emit('submitLogin', user)">
     <div class="forms-fields">
       <div class="input-container-style">
         <Icon icon="carbon:email" />
-        <input type="text" placeholder="Email" />
+        <input type="text" placeholder="Email" v-model="user.email"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:locked" />
-        <input :type="inputType" placeholder="Senha" />
+        <input :type="inputType" placeholder="Senha" v-model="user.password"/>
         <RevelingPassword 
           @toggle="togglePassword"
           :isPassword="isPasswordVisible"
@@ -29,6 +29,7 @@ import RevelingPassword from '../RevelingPassword.vue';
 
 export default defineComponent({
   name: 'FormLogin',
+  emits: ['submitLogin'],
   components: {
     Icon,
     RevelingPassword,
@@ -40,6 +41,10 @@ export default defineComponent({
   data() {
     return {
       inputType: 'password',
+      user: {
+        email: '',
+        password: '',
+      },
     };
   },
 
