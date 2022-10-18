@@ -1,7 +1,6 @@
 <template>
-  <header-app />
   <div class="layout-container">
-    <navbar-app />
+    <header-app />
     <div>
       <router-view></router-view>
     </div>
@@ -9,13 +8,11 @@
 </template>
 
 <script lang="ts">
-import NavbarApp from '@/components/Navbar/NavbarApp.vue';
 import { defineComponent } from 'vue';
 import HeaderApp from '../components/Header/HeaderApp.vue';
 export default defineComponent({
   name: 'defaultLayout',
   components: {
-    NavbarApp,
     HeaderApp,
   },
 });
