@@ -1,18 +1,18 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <form @submit.prevent="teste">
+  <form @submit.prevent="$emit('createNewUser', user)">
     <div class="forms-fields">
       <div class="input-container-style">
         <Icon icon="carbon:user" />
-        <input type="text" placeholder="Nome do usuário" />
+        <input type="text" id="wd-input" placeholder="Nome do usuário" v-model="user.name"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:email" />
-        <input type="text" placeholder="E-mail" />
+        <input type="text" class="wd-input" placeholder="E-mail" v-model="user.email"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:locked" />
-        <input :type="inputType" placeholder="Senha" />
+        <input :type="inputType" placeholder="Senha" v-model="user.password"/>
         <RevelingPassword 
           @toggle="togglePassword"
           :isPassword="isPasswordVisible"
@@ -32,10 +32,11 @@ import RevelingPassword from '../RevelingPassword.vue';
 
 export default defineComponent({
   name: 'FormRegister',
+  emits: ['createNewUser'],
   components: {
     Icon,
     RevelingPassword,
-},
+  },
   props: {
     data_btn: String,
   },
@@ -43,6 +44,11 @@ export default defineComponent({
   data() {
     return {
       inputType: 'password',
+      user: {
+        name: '',
+        email: '',
+        password: '',
+      },
     };
   },
 
@@ -56,10 +62,6 @@ export default defineComponent({
     togglePassword(): void {
       this.inputType = this.isPasswordVisible ? 'password' : 'text';
     },
-
-    teste() {
-      console.log('teste');
-    }
   },
 });
 </script>
