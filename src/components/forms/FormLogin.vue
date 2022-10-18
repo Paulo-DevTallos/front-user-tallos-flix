@@ -4,7 +4,7 @@
     <div class="forms-fields">
       <div class="input-container-style">
         <Icon icon="carbon:email" />
-        <input type="text" placeholder="Email" v-model="user.email"/>
+        <input type="text" class="wd-input" placeholder="Email" v-model="user.email"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:locked" />
@@ -16,7 +16,7 @@
       </div>
       <a href="#">Esqueci a senha. Enviar por e-mail</a>
       <div class="btn-container">
-        <button>{{ data_btn }}</button>
+        <button type="submit">{{ data_btn }}</button>
       </div>
     </div>
   </form>

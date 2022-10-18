@@ -16,13 +16,13 @@
         <div class="form-data-container">
           <div class="form-inner">
             <FormLogin
+              @submitLogin="handleSubmitLogin"
               v-if="callFormLogin"
-              class="enter" 
               :data_btn="btn_login" 
             />
             <FormRegister 
+              @createNewUser="handleCreateNewUser"
               v-if="callFormRegister"
-              class="register"
               :data_btn="btn_register" 
             />
           </div>
@@ -62,6 +62,16 @@ export default defineComponent({
     formRegister(): void {
       this.callFormLogin = false;
       this.callFormRegister = true;
+    },
+
+    //evento de login
+    handleSubmitLogin(user: object) {
+      console.log(user);
+    },
+
+    //evento de create new user
+    handleCreateNewUser(user: object) {
+      console.log(user);
     },
   },
 });

@@ -4,11 +4,11 @@
     <div class="forms-fields">
       <div class="input-container-style">
         <Icon icon="carbon:user" />
-        <input type="text" placeholder="Nome do usuário" v-model="user.name"/>
+        <input type="text" id="wd-input" placeholder="Nome do usuário" v-model="user.name"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:email" />
-        <input type="text" placeholder="E-mail" v-model="user.email"/>
+        <input type="text" class="wd-input" placeholder="E-mail" v-model="user.email"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:locked" />
