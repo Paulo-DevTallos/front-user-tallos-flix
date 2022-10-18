@@ -25,9 +25,9 @@ export default defineComponent({
 @import '@/assets/sass/partials/_variables.scss';
 .layout-container {
   background-color: $primary-color-black-bg;
-  background-image: url('img/Header-Background.png');
+  background-image: url('public/img/Header-Background.png');
   background-repeat: no-repeat;
   background-size: contain;
-  height: 100vh;
+  height: 100%;
 }
 </style>
