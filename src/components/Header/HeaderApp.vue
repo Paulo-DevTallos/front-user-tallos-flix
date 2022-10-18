@@ -4,7 +4,7 @@
       class="img-header"
       center
       fluid
-      src="../../../public/img/logo-tallos.png"
+      src="/img/logo-tallos.png"
       @click="redirect"
     ></b-img>
   </header>
