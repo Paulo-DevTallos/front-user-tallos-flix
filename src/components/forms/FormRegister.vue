@@ -8,7 +8,7 @@
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:email" />
-        <input type="text" id="wd-input" placeholder="E-mail" v-model="user.email"/>
+        <input type="text" class="wd-input" placeholder="E-mail" v-model="user.email"/>
       </div>
       <div class="input-container-style">
         <Icon icon="carbon:locked" />
