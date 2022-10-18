@@ -16,6 +16,7 @@
       display: flex;
       flex-direction: column;
       border-radius: 20px;
+      width: 500px;
       
       .container-logo {
         text-align: center;
@@ -35,15 +36,13 @@
   
       .slide-controls {
         position: relative;
-        display: flex;
+        @include align-elements(flex, space-between, unset);
         height: 50px;
         width: 100%;
         overflow: hidden;
-        justify-content: space-between;
   
         .slide {
-          display: flex;
-          justify-content: space-between;
+          @include align-elements(flex, space-between, unset);
           height: 100%;
   
           color: $secondary-color-one;
@@ -93,6 +92,21 @@
         
         #enter:checked~label.register {
           color: $text-color-gray-one;
+        }
+      }
+      
+      .form-inner {
+        width: 100%;
+        overflow: hidden;
+        
+        .inner-slide {
+          display: flex;
+          width: 200%;
+    
+          .form {
+            width: 50%;
+            transition: all .6s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+          }
         }
       }
     }

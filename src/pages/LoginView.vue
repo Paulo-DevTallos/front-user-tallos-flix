@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="screen opac-scree">
     <div class="content">
@@ -12,8 +13,20 @@
           <label for="register" class="slide register">Cadastrar</label>
           <div class="slider-tab"></div>
         </div>
-        <FormLogin :data_btn="btn_login" />
-        <!--<FormRegister :data_btn="btn_register" />-->
+        <div class="form-inner">
+          <div class="inner-slide">
+            <div class="enter form">
+              <FormLogin 
+                :data_btn="btn_login" 
+              />
+            </div>
+            <div class="register form">
+              <FormRegister 
+                :data_btn="btn_register" 
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -22,13 +35,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import FormLogin from '../components/forms/FormLogin.vue';
-//import FormRegister from '../components/forms/FormRegister.vue';
+import FormRegister from '../components/forms/FormRegister.vue';
 
 export default defineComponent({
   name: 'LoginView',
   components: {
     FormLogin,
-    //FormRegister,
+    FormRegister,
   },
 
   data() {
