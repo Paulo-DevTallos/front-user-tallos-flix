@@ -12,7 +12,7 @@
                 <div>
                   <b-card-title>{{ movie.title }}</b-card-title>
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
-                  <b-form-rating></b-form-rating>
+                  <star-rating></star-rating>
                   <b-button size="lg">Ver cinemas</b-button>
                 </div>
               </b-card-body>
