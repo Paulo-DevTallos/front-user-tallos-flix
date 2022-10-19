@@ -4,10 +4,12 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }"
-          >Somente nos Cinemas</b-nav-item
-        >
-        <b-nav-item>Filmes</b-nav-item>
+        <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
+          Somente nos Cinemas
+        </b-nav-item>
+        <b-nav-item :to="{ name: 'movies' }">
+          Filmes
+        </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
     <b-navbar-nav>
