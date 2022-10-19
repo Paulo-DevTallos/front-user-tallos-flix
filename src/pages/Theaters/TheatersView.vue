@@ -1,27 +1,30 @@
 <template>
   <b-container class="pt-5" fluid>
     <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="2">
-      <b-col v-for="movie in movies" :key="movie" col no-gutters class="mb-2">
-        <b-card no-body class="overflow-hidden" border-variant="none">
+      <b-col v-for="movie in movies" :key="movie" col no-gutters class="mt-5">
+        <b-card no-body class="overflow-hidden">
           <b-row>
             <b-col lg="4">
               <b-card-img :src="movie.poster" class="rounded-0"></b-card-img>
             </b-col>
             <b-col lg="7">
-              <b-card-body>
+              <b-card-body class="mt-5 pb-0 card-body">
                 <div class="d-flex flex-column justify-content-start">
                   <b-card-title>{{ movie.title }}</b-card-title>
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
                   <star-rating
-                    class="mb-2 stars"
+                    class="mb-4 stars"
                     disableClick="false"
                     :showControl="false"
                     :numberOfStars="5"
                     starSize="20"
+                    starColor="#FFD84E"
                     inactiveColor="#D9D9D9"
                     v-model="movie.imdb"
                   ></star-rating>
-                  <b-button size="lg">Ver cinemas</b-button>
+                  <b-button size="lg" class="w-75 btn-movie"
+                    >Ver cinemas</b-button
+                  >
                 </div>
               </b-card-body>
             </b-col>
@@ -80,6 +83,10 @@ export default defineComponent({
 }
 .card {
   background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+.card-body {
+  padding-top: 14%;
 }
 .card-title {
   color: white;
@@ -88,7 +95,17 @@ export default defineComponent({
   color: white !important;
 }
 .stars {
-  padding: 0px 10% 0px 0px;
+  padding: 0px 190px 0px 0px;
   width: 100%;
+}
+.btn-movie {
+  background-color: #d36643;
+  border-color: #d36643;
+}
+.btn-movie:hover {
+  background-color: #e57450;
+}
+.btn-movie:active {
+  background-color: #f37e58;
 }
 </style>
