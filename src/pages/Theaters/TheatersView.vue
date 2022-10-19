@@ -8,20 +8,22 @@
               <b-card-img :src="movie.poster" class="rounded-0"></b-card-img>
             </b-col>
             <b-col lg="7">
-              <b-card-body class="mt-5 pb-0 card-body">
-                <div class="d-flex flex-column justify-content-start">
+              <b-card-body class="d-flex flex-column-reverse h-100 pb-0 card-body">
+                <div>
                   <b-card-title>{{ movie.title }}</b-card-title>
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
-                  <star-rating
-                    class="mb-4 stars"
-                    disableClick="false"
-                    :showControl="false"
-                    :numberOfStars="5"
-                    starSize="20"
-                    starColor="#FFD84E"
-                    inactiveColor="#D9D9D9"
-                    v-model="movie.imdb"
-                  ></star-rating>
+                  <div class="rating">
+                    <star-rating
+                      class="mb-4 p-0 m-0"
+                      disableClick="false"
+                      :showControl="false"
+                      :numberOfStars="5"
+                      starSize="20"
+                      starColor="#FFD84E"
+                      inactiveColor="#D9D9D9"
+                      v-model="movie.imdb"
+                    ></star-rating>
+                  </div>
                   <b-button size="lg" class="w-75 btn-movie"
                     >Ver cinemas</b-button
                   >
@@ -76,36 +78,4 @@ export default defineComponent({
   },
 });
 </script>
-<style scoped>
-.card-img {
-  width: 100%;
-  height: 250px;
-}
-.card {
-  background-color: rgba(255, 255, 255, 0);
-  border: none;
-}
-.card-body {
-  padding-top: 14%;
-}
-.card-title {
-  color: white;
-}
-.text-muted {
-  color: white !important;
-}
-.stars {
-  padding: 0px 190px 0px 0px;
-  width: 100%;
-}
-.btn-movie {
-  background-color: #d36643;
-  border-color: #d36643;
-}
-.btn-movie:hover {
-  background-color: #e57450;
-}
-.btn-movie:active {
-  background-color: #f37e58;
-}
-</style>
+<style lang="scss" scoped></style>
