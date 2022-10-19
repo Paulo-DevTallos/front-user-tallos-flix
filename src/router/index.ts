@@ -20,7 +20,7 @@ const router = createRouter({
         {
           path: '',
           name: 'home',
-          component: () => import('../pages/MovieView.vue'),
+          component: () => import('../pages/HomeView.vue'),
         },
         {
           path: 'theaters',
