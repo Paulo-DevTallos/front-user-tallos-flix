@@ -15,7 +15,7 @@ import { defineComponent } from 'vue';
 import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
 export default defineComponent({
-  name: 'MovieView',
+  name: 'HomeView',
   components: {
     SearchBar,
     Carousel,

@@ -6,7 +6,9 @@
   >
     <div class="carousel-inner">
       <div class="carousel-item active carousel-field d-flex">
-        <img src="img/img1.png" class="carousel-card" alt="..." />
+        <router-link class="carousel-card" to="/home/movie">
+          <img src="img/img1.png" alt="..." />
+        </router-link>
         <img src="img/img2.png" class="carousel-card" alt="..." />
         <img src="img/img3.png" class="carousel-card" alt="..." />
         <img src="img/img6.png" class="carousel-card" alt="..." />
