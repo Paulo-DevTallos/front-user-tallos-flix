@@ -1,14 +1,16 @@
 <template>
-  <div>
-    Pagina Movies
+  <div class="page-container">
+    <CardMovie />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import CardMovie from '../../components/Cards/CardMovie.vue';
 
 export default defineComponent({
-  name: 'MovieView',
+    name: "MovieView",
+    components: { CardMovie }
 });
 </script>
 
