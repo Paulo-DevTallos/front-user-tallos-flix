@@ -89,6 +89,8 @@ export default {
           const decode = jwtDecode(token)
 
           commit('LOGIN', decode);
+
+          location.replace('/home');
         }
       })
       .catch((error) => {
