@@ -1,3 +1,4 @@
+import MovieRequests from '@/services/axios/MovieRequests';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -26,6 +27,11 @@ const router = createRouter({
           path: 'theaters',
           name: 'theaters',
           component: () => import('../pages/Theaters/TheatersView.vue'),
+        },
+        {
+          path: 'movie',
+          name: 'movie',
+          component: () => import('../pages/Movies/MovieView.vue'),
         },
       ],
     },
