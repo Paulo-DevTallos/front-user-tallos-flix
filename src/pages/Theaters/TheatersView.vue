@@ -8,7 +8,9 @@
               <b-card-img :src="movie.poster" class="rounded-0"></b-card-img>
             </b-col>
             <b-col lg="7">
-              <b-card-body class="d-flex flex-column-reverse h-100 pb-0 card-body">
+              <b-card-body
+                class="d-flex flex-column-reverse h-100 pb-0 card-body"
+              >
                 <div>
                   <b-card-title>{{ movie.title }}</b-card-title>
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
@@ -71,8 +73,34 @@ export default defineComponent({
           time: '2h5min',
           imdb: 4.7,
         },
-        { poster: '', title: 'Não! Não Olhe!', time: '2h5min', imdb: 5.7 },
-        { poster: '', title: 'Não! Não Olhe!', time: '2h5min', imdb: 5.7 },
+        {
+          poster:
+            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSp-lzoeSCvEzSiLDBiaeBprFOMjlry4SdUot2GfS8inDd-BoyX',
+          title: 'Parasita',
+          time: '2h5min',
+          imdb: 3.7,
+        },
+        {
+          poster:
+            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSGXk4wQrBRtCQheTNJ6L9LgQJLsJiJ76eMNlZpeTtGTJuJK3Q3',
+          title: 'Jurassic World: Domínio',
+          time: '2h5min',
+          imdb: 4,
+        },
+        {
+          poster:
+            'https://upload.wikimedia.org/wikipedia/pt/thumb/0/08/Thor_Love_and_Thunder_poster.jpg/250px-Thor_Love_and_Thunder_poster.jpg',
+          title: 'Thor Amor e Trovão',
+          time: '2h5min',
+          imdb: 3,
+        },
+        {
+          poster:
+            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRY5QGNRfsGSClplqEptKo2HybJwUN8wspofcJvaY-eq8vteUka',
+          title: 'The Batman',
+          time: '2h5min',
+          imdb: 4.7,
+        },
       ],
     };
   },
