@@ -1,8 +1,8 @@
 import { http } from './http';
 
 export default {
-  getAllUsers: (token: any) => {
-    return http.get('users', token);
+  getAllUsers: () => {
+    return http.get('users');
   },
   getMe: (token: any) => {
     return http.get('users/me', token);
@@ -21,5 +21,8 @@ export default {
   },
   deleteUser: (id: string, token: any) => {
     return http.delete(`users/${id}`, token);
+  },
+  login: (userData: object) => {
+    return http.post(`login`, userData);
   },
 };

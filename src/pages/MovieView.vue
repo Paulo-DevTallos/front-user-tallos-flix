@@ -10,7 +10,7 @@
       gap-5
     "
   >
-    <h1>Olá, Sobre qual filme quer conhecer hoje ?</h1>
+    <h1>Olá {{this.$store.state.Users.UserName}}, Sobre qual filme quer conhecer hoje ?</h1>
     <SearchBar />
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <h4>Nos Cinemas</h4>

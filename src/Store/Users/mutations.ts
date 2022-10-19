@@ -8,4 +8,8 @@ export default {
   GET_ME(state: any, payload: any) {
     state.Me = payload;
   },
+  LOGIN(state: any, payload: any) {
+    state.UserName = payload.name;
+    state.UserEmail = payload.email;
+  },
 };
