@@ -11,12 +11,12 @@ import './assets/base.css';
 import './assets/sass/main.scss';
 
 import router from './router';
-import Store from './Store';
+import store from './Store';
 const app = createApp(App);
 
 app.use(router);
 app.use(BootstrapVue3);
-app.use(Store);
+app.use(store);
 app.component('StarRating', StarRating);
 
 app.mount('#app');
