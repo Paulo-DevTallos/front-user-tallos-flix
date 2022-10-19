@@ -1,3 +1,6 @@
-export default{
-    name: 'rafael'
-}
+export default {
+  Movies: [],
+  Series: [],
+  MoviesCount: Number,
+  Movie: Object,
+};
