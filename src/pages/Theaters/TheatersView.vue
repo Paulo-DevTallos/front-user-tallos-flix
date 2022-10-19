@@ -3,7 +3,7 @@
     <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="2">
       <b-col v-for="movie in movies" :key="movie" col no-gutters class="mt-5">
         <b-card no-body class="overflow-hidden">
-          <b-row>
+          <b-row class="d-flex justify-content-center">
             <b-col lg="4">
               <b-card-img :src="movie.poster" class="rounded-0"></b-card-img>
             </b-col>
