@@ -1,8 +1,8 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const http = axios.create({
-    baseURL: 'url do banco',
-    headers: {
-        Authorization: 'Bearer token'
-    }
-})
+  baseURL: 'http://localhost:4000/',
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  },
+});

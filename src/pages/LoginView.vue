@@ -65,13 +65,12 @@ export default defineComponent({
     },
 
     //evento de login
-    handleSubmitLogin(user: object) {
-      console.log(user);
+    async handleSubmitLogin(user: object) {
+      this.$store.dispatch('Users/login', user);
     },
 
     //evento de create new user
     handleCreateNewUser(user: object) {
-      console.log(user);
     },
   },
 });
