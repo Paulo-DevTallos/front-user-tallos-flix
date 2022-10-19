@@ -9,10 +9,18 @@
             </b-col>
             <b-col lg="7">
               <b-card-body>
-                <div>
+                <div class="d-flex flex-column justify-content-start">
                   <b-card-title>{{ movie.title }}</b-card-title>
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
-                  <star-rating></star-rating>
+                  <star-rating
+                    class="mb-2 stars"
+                    disableClick="false"
+                    :showControl="false"
+                    :numberOfStars="5"
+                    starSize="20"
+                    inactiveColor="#D9D9D9"
+                    v-model="movie.imdb"
+                  ></star-rating>
                   <b-button size="lg">Ver cinemas</b-button>
                 </div>
               </b-card-body>
@@ -35,28 +43,28 @@ export default defineComponent({
             'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3hrCpnlQnzqbNGvUd03l72l7JM6C5GOoHvMnhsUBldIgBs7GD',
           title: 'Não! Não Olhe!',
           time: '2h5min',
-          imdb: 10,
+          imdb: 4.5,
         },
         {
           poster:
             'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSBKMx2u2RPY-FyJ_Al7C1oA7TqteTz9SK3RxR9w8LKAafIXIBx',
           title: 'TICKET to PARADISE',
           time: '2h5min',
-          imdb: 8.5,
+          imdb: 3.5,
         },
         {
           poster:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLnv5c0wq18JR5YRrFI6CC_B9kB5Zqz461ZqK-LyzR6-9RiE_W',
           title: 'Minions the rise of gru',
           time: '2h5min',
-          imdb: 7,
+          imdb: 5,
         },
         {
           poster:
             'https://br.web.img3.acsta.net/c_310_420/pictures/21/11/08/16/02/3963914.png',
           title: 'Homem Aranha: sem volta pra casa',
           time: '2h5min',
-          imdb: 9,
+          imdb: 4.7,
         },
         { poster: '', title: 'Não! Não Olhe!', time: '2h5min', imdb: 5.7 },
         { poster: '', title: 'Não! Não Olhe!', time: '2h5min', imdb: 5.7 },
@@ -78,5 +86,9 @@ export default defineComponent({
 }
 .text-muted {
   color: white !important;
+}
+.stars {
+  padding: 0px 10% 0px 0px;
+  width: 100%;
 }
 </style>
