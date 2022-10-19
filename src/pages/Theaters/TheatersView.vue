@@ -59,7 +59,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   data() {
     return {
-      perPage: 3,
+      perPage: 8,
       currentPage: 1,
       movies: [
         {
@@ -125,6 +125,22 @@ export default defineComponent({
           title: 'The Batman',
           time: '2h5min',
           imdb: 4.7,
+        },
+        {
+          id: 9,
+          poster:
+            'https://sm.ign.com/ign_br/movie/t/top-gun-ma/top-gun-maverick_5w3e.jpg',
+          title: 'top gun: maverick críticas',
+          time: '2h10min',
+          imdb: 4.9,
+        },
+        {
+          id: 10,
+          poster:
+            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQqGaPJIo-hYffWgLDcpZ68U0e6uHdHncqwEvTFgmXYIasfL10r',
+          title: 'Bullet Train',
+          time: '2h6m',
+          imdb: 4.4,
         },
       ],
     };
