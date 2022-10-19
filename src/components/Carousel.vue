@@ -6,7 +6,9 @@
   >
     <div class="carousel-inner">
       <div class="carousel-item active carousel-field d-flex">
-        <img src="img/img1.png" class="carousel-card" alt="..." />
+        <router-link class="carousel-card" to="/home/movie">
+          <img src="img/img1.png" alt="..." />
+        </router-link>
         <img src="img/img2.png" class="carousel-card" alt="..." />
         <img src="img/img3.png" class="carousel-card" alt="..." />
         <img src="img/img6.png" class="carousel-card" alt="..." />
@@ -24,7 +26,13 @@
       data-bs-target="#carouselExampleControls"
       data-bs-slide="prev"
     >
-      <Icon icon="carbon:chevron-left" aria-hidden="true" width="37" height="37" class="slide-icon rounded-circle" />
+      <Icon
+        icon="carbon:chevron-left"
+        aria-hidden="true"
+        width="37"
+        height="37"
+        class="slide-icon rounded-circle"
+      />
       <span class="visually-hidden">Previous</span>
     </button>
     <button
@@ -33,20 +41,25 @@
       data-bs-target="#carouselExampleControls"
       data-bs-slide="next"
     >
-     <Icon icon="carbon:chevron-right" aria-hidden="true" width="37" height="37" class="slide-icon rounded-circle"/>
-      <span class="visually-hidden">Next</span>
+      <Icon
+        icon="carbon:chevron-right"
+        aria-hidden="true"
+        width="37"
+        height="37"
+        class="slide-icon rounded-circle"
+      />
+    <span class="visually-hidden">Next</span>
     </button>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
 
 export default defineComponent({
-    name: 'carousel-slide',
-         components: { Icon },
-})
+  name: 'carousel-slide',
+  components: { Icon },
+});
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,0 +1,21 @@
+.home-field {
+  h1 {
+    font-family: 'Nunito', sans-serif;
+    margin-top: 20%;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+  }
+  .home-carousel {
+    width: 100%;
+
+    h4 {
+      color: white;
+      width: 94%;
+      align-self: flex-end;
+      margin-bottom: 18px;
+      font-family: 'Nunito', sans-serif;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+.card-config {
+    background-color: $primary-color-black-one;
+    color: #fff;
+    padding: 20px 16px;
+    display: flex;
+    border-radius: 0;
+
+    .poster-container {
+        width: 35%;
+
+        .poster-wd {
+            img {
+                width: 100%;
+            }
+        }
+
+        .available-field {
+            padding-top: 20px;
+        }
+    }
+
+    .info-movie {
+        width: 65%;
+        text-align: start;
+        padding-left: 25px;
+
+        .card-header {
+            height: 50%;
+
+            h2 {
+                margin-bottom: 15px;
+                font-family: 'Nunito', sans-serif;
+                font-weight: bold;
+            }
+    
+            span {
+                border: 2px solid #d36643;
+                border-radius: 15px;
+                padding: 1px 12px;
+                color: #efefef;
+            }
+
+            p {
+                margin-top: 15px;
+            }
+
+            .icon-favorite {
+                @include align-elements(flex, flex-start, center);
+
+                svg {
+                    font-size: 30px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+
+                #tag-favorite {
+                    font-size: 10px;
+                    margin: 0;
+                }
+            }
+        }
+
+        .card-technics {
+            height: 50%;
+
+            ul {
+                padding: 0;
+
+                li {
+                    padding: 17px 0;
+                }
+            }
+        }
+    }
+}

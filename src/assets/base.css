@@ -23,6 +23,18 @@ ul {
   list-style: none;
 }
 
+/* --scrollbar */
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  background: #444849;
+}
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
