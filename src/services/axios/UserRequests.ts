@@ -10,8 +10,8 @@ export default {
   getUserById: (id: string, token: any) => {
     return http.get(`users/${id}`, token);
   },
-  createUser: (userData: object, token: any) => {
-    return http.post(`users`, userData, token);
+  createUser: (userData: object) => {
+    return http.post(`users`, userData);
   },
   usersPaginate: (limit: number, page: number, token: any) => {
     return http.post(`users/paginate?limit=${limit}&skip=${page}`, token);

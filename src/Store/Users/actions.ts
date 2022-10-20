@@ -3,9 +3,7 @@ import jwtDecode from 'jwt-decode';
 
 export default {
   async createUser({ commit }: any, data: any) {
-    await UserRequests.createUser(data.user, {
-      headers: { Authorization: data.jwt },
-    })
+    await UserRequests.createUser(data)
       .then((res) => {
         commit();
       })

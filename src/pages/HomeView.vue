@@ -3,7 +3,8 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <h1>
-      Olá {{ this.$store.state.Users.UserName }}, sobre qual filme quer conhecer hoje ?
+      Olá {{ this.$store.state.Users.UserName }}, sobre qual filme quer conhecer
+      hoje ?
     </h1>
     <SearchBar />
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
