@@ -28,16 +28,7 @@
                   >
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
                   <div class="rating">
-                    <star-rating
-                      class="mb-4 p-0 m-0"
-                      disableClick="false"
-                      :showControl="false"
-                      :numberOfStars="5"
-                      starSize="20"
-                      starColor="#FFD84E"
-                      inactiveColor="#D9D9D9"
-                      v-model="movie.imdb"
-                    ></star-rating>
+                    <star-rating v-model="movie.imdb" />
                   </div>
                   <b-button size="lg" class="w-75 btn-movie"
                     >Ver cinemas</b-button
@@ -61,10 +52,12 @@
 <script lang="ts">
 import pagination from '@/components/Pagination/PaginationPage.vue';
 import { defineComponent } from 'vue';
+import StarRating from '../../components/Rating/StarRating.vue';
 
 export default defineComponent({
   components: {
     pagination,
+    StarRating,
   },
   data() {
     return {
