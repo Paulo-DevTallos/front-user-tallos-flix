@@ -20,7 +20,7 @@
         <SearchBar />
       </div>
       <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
-        <Carousel />
+        <Carousel :hiddenMovieInfo="true" />
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
-import SearchBar from "../../components/SearchBar.vue";
+import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue'
 
 export default defineComponent({
