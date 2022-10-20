@@ -7,9 +7,7 @@
         <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
           Somente nos Cinemas
         </b-nav-item>
-        <b-nav-item :to="{ name: 'movies' }">
-          Filmes
-        </b-nav-item>
+        <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
     <b-navbar-nav>
@@ -20,7 +18,9 @@
       >
         <template #button-content>
           <div class="d-flex align-items-center">
-            <div class="m-2 name-user">Faça Login</div>
+            <div class="m-2 name-user" v-if="UserLogged ? UserLogged : NoUser">
+              {{ UserLogged || NoUser }}
+            </div>
             <b-avatar
               variant="light-primary"
               size="40"
@@ -28,11 +28,25 @@
             ></b-avatar>
           </div>
         </template>
-        <b-dropdown-item class="color">Meus Favoritos</b-dropdown-item>
-        <b-dropdown-item>Sair</b-dropdown-item>
+        <div v-if="UserLogged" @click="redirect">
+          <b-dropdown-item class="color">Meus Favoritos</b-dropdown-item>
+          <b-dropdown-item>Sair</b-dropdown-item>
+        </div>
       </b-nav-item-dropdown>
     </b-navbar-nav>
   </b-navbar>
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  data() {
+    return {
+      UserLogged: this.$store.state.Users.UserName,
+      NoUser: 'Faça Login',
+    };
+  },
+});
+</script>
 
 <style lang="scss" scoped></style>
