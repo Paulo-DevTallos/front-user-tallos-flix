@@ -71,6 +71,10 @@ export default defineComponent({
 
     //evento de create new user
     handleCreateNewUser(user: object) {
+      this.$store.dispatch('Users/createUser', user);
+      this.callFormRegister = false;
+      this.callFormLogin = true;
+      document.getElementById('enter').checked = true;
     },
   },
 });
