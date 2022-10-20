@@ -30,6 +30,7 @@
     color: $primary-color-black-seven;
 }
 
+//estilos do filter e box
 .box-filter-container {
     position: relative;
     
@@ -52,11 +53,37 @@
             color: #000;
         }
     }
+    
+    .box-filter-bar {
+        position: absolute;
+        top: 35px;
+        z-index: 1000;
+        background-color: #605d5d;
+        width: 180px;
+        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.431);
+        animation: downslide .2s ease-in-out;
+
+        @keyframes downslide {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            } 
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        ul {
+            padding: 0 20px;
+            margin: 0;
+
+            li {
+                margin: 20px 0;
+                font-size: 18px;
+                color: #fff;
+            }
+        }
+    }
 }
 
-
-.box-filter-bar {
-    position: absolute;
-    top: 0;
-    background-color: #605d5d;
-}
