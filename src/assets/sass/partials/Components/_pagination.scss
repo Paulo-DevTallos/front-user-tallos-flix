@@ -4,7 +4,17 @@
           .page-link {
             font-size: 20px;
             min-width: 2.6rem;
-            // background-color: $primary-color-black-one;
+            background-color: $primary-color-black-bg;
+            border-color: $primary-color-beige-one;
+            color: $primary-color-beige-one;
+            &:hover {
+              color: white;
+              background-color: $primary-color-beige-one;
+            }
+            &:focus {
+              background-color: $primary-color-beige-two;
+              color: white;
+            }
           }
         }
       }
