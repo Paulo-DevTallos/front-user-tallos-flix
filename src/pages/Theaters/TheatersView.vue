@@ -50,19 +50,22 @@
       </b-col>
     </b-row>
     <div class="pt-5 d-flex justify-content-end">
-      <b-pagination
-        pills
+      <pagination
         v-model="currentPage"
-        :total-rows="rows"
         :per-page="perPage"
-      ></b-pagination>
+        :rows="rows"
+      ></pagination>
     </div>
   </b-container>
 </template>
 <script lang="ts">
+import pagination from '@/components/Pagination/PaginationPage.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  components: {
+    pagination,
+  },
   data() {
     return {
       perPage: 8,
