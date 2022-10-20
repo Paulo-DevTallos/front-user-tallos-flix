@@ -1,0 +1,11 @@
+.pagination {
+    &.pagination-lg {
+        .page-item {
+          .page-link {
+            font-size: 20px;
+            min-width: 2.6rem;
+            // background-color: $primary-color-black-one;
+          }
+        }
+      }
+}
