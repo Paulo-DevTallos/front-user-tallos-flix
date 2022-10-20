@@ -1,5 +1,3 @@
-@import '../variables';
-
 .search-input{
     width: 800px;
     height: 35px;
@@ -31,3 +29,61 @@
     align-items: flex-end;
     color: $primary-color-black-seven;
 }
+
+//estilos do filter e box
+.box-filter-container {
+    position: relative;
+    
+    .styles-filter {
+        border: solid $primary-color-black-seven 1px;
+        border-radius: 20px;
+        background-color: #605d5d;
+        @include align-elements(flex, center, center);
+        padding: 0 13px;
+        cursor: pointer;
+        transition: .3s ease-in-out all;
+    
+        &:hover {
+            background-color: $primary-color-black-two;
+        }
+    
+        svg {
+            font-size: 27px;
+            margin-left: 20px;
+            color: #000;
+        }
+    }
+    
+    .box-filter-bar {
+        position: absolute;
+        top: 35px;
+        z-index: 1000;
+        background-color: #605d5d;
+        width: 180px;
+        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.431);
+        animation: downslide .2s ease-in-out;
+
+        @keyframes downslide {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            } 
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        ul {
+            padding: 0 20px;
+            margin: 0;
+
+            li {
+                margin: 20px 0;
+                font-size: 18px;
+                color: #fff;
+            }
+        }
+    }
+}
+

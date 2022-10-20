@@ -6,9 +6,11 @@
   >
     <div class="carousel-inner">
       <div class="carousel-item active carousel-field d-flex">
-        <router-link class="carousel-card" to="/home/movie">
-          <img :src="image_path + 'img1.png'" alt="..." />
-        </router-link>
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img1.png'" alt="..." />
+          </router-link>
+        </div>
         <img :src="image_path + 'img2.png'" class="carousel-card" alt="..." />
         <img :src="image_path + 'img3.png'" class="carousel-card" alt="..." />
         <img :src="image_path + 'img6.png'" class="carousel-card" alt="..." />
