@@ -4,11 +4,18 @@
   >
     <div class="search-components d-flex flex-column gap-5 ">
       <div class="d-flex justify-content-center">
-        <div class="me-5">
+        <div class="me-5 box-filter-container">
           <button class="search-input wd-btn text-input styles-filter">
             Filtrar...
             <Icon icon="dashicons:arrow-down-alt2" />
           </button>
+          <div class="box-filter-bar">
+            <ul>
+              <li>AZ</li>
+              <li>Gênero</li>
+              <li>Ano</li>
+            </ul>
+          </div>
         </div>
         <SearchBar />
       </div>
