@@ -1,5 +1,12 @@
 .search-components {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 20%;
+
+    .resize-filter {
+        width: 15%;
+        margin-right: 47px;
+        border-radius: 20px;
+        color: #fff;
+    }
 }
