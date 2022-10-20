@@ -7,17 +7,17 @@
     <div class="carousel-inner">
       <div class="carousel-item active carousel-field d-flex">
         <router-link class="carousel-card" to="/home/movie">
-          <img src="img/img1.png" alt="..." />
+          <img :src="image_path + 'img1.png'" alt="..." />
         </router-link>
-        <img src="img/img2.png" class="carousel-card" alt="..." />
-        <img src="img/img3.png" class="carousel-card" alt="..." />
-        <img src="img/img6.png" class="carousel-card" alt="..." />
+        <img :src="image_path + 'img2.png'" class="carousel-card" alt="..." />
+        <img :src="image_path + 'img3.png'" class="carousel-card" alt="..." />
+        <img :src="image_path + 'img6.png'" class="carousel-card" alt="..." />
       </div>
       <div class="carousel-item carousel-field d-flex">
-        <img src="img/img4.png" class="carousel-card" alt="..." />
-        <img src="img/img5.png" class="carousel-card" alt="..." />
-        <img src="img/img6.png" class="carousel-card" alt="..." />
-        <img src="img/img1.png" class="carousel-card" alt="..." />
+        <img :src="image_path + 'img4.png'" class="carousel-card" alt="..." />
+        <img :src="image_path + 'img5.png'" class="carousel-card" alt="..." />
+        <img :src="image_path + 'img6.png'" class="carousel-card" alt="..." />
+        <img :src="image_path + 'img1.png'" class="carousel-card" alt="..." />
       </div>
     </div>
     <button
@@ -48,17 +48,23 @@
         height="37"
         class="slide-icon rounded-circle"
       />
-    <span class="visually-hidden">Next</span>
+      <span class="visually-hidden">Next</span>
     </button>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
+import { APP_URL } from '@/constants';
 
 export default defineComponent({
   name: 'carousel-slide',
   components: { Icon },
+  data() {
+    return {
+      image_path: APP_URL + 'img/',
+    };
+  },
 });
 </script>
 
