@@ -11,14 +11,21 @@
         <b-card no-body class="overflow-hidden">
           <b-row class="d-flex justify-content-center">
             <b-col lg="4">
-              <b-card-img :src="movie.poster" class="rounded-0"></b-card-img>
+              <b-card-img
+                :src="movie.poster || vazio.poster"
+                v-if="movie.poster ? movie.poster : vazio.poster"
+                class="rounded-0"
+              ></b-card-img>
             </b-col>
             <b-col lg="7">
               <b-card-body
                 class="d-flex flex-column-reverse h-100 pb-0 card-body"
               >
                 <div>
-                  <b-card-title>{{ movie.title }}</b-card-title>
+                  <b-card-title
+                    v-if="movie.title ? movie.title : vazio.title"
+                    >{{ movie.title || vazio.title }}</b-card-title
+                  >
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
                   <div class="rating">
                     <star-rating
@@ -60,6 +67,10 @@ export default defineComponent({
     return {
       perPage: 8,
       currentPage: 1,
+      vazio: {
+        poster: '/img/empty-img.png',
+        title: 'Filme sem titulo',
+      },
       movies: [
         {
           id: 1,
@@ -71,8 +82,7 @@ export default defineComponent({
         },
         {
           id: 2,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSBKMx2u2RPY-FyJ_Al7C1oA7TqteTz9SK3RxR9w8LKAafIXIBx',
+          poster: '',
           title: 'TICKET to PARADISE',
           time: '2h5min',
           imdb: 3.5,
@@ -81,7 +91,7 @@ export default defineComponent({
           id: 3,
           poster:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLnv5c0wq18JR5YRrFI6CC_B9kB5Zqz461ZqK-LyzR6-9RiE_W',
-          title: 'Minions the rise of gru',
+          title: '',
           time: '2h5min',
           imdb: 5,
         },
