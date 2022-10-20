@@ -3,14 +3,15 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
+      <b-navbar-nav class="d-flex justify-content-between">
         <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
           Somente nos Cinemas
         </b-nav-item>
         <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
+        <b-nav-item>Series</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
-    <b-navbar-nav>
+    <b-navbar-nav @click="redirect">
       <b-nav-item-dropdown
         toggle-class="d-flex align-items-center dropdown-user-link"
         right
@@ -24,12 +25,13 @@
             <b-avatar
               variant="light-primary"
               size="40"
-              src="../../../public/img/user-default.png"
+              :src="AvatarUser"
             ></b-avatar>
           </div>
         </template>
-        <div v-if="UserLogged" @click="redirect">
-          <b-dropdown-item class="color">Meus Favoritos</b-dropdown-item>
+        <div v-if="UserLogged">
+          <b-dropdown-item>Trocar Avatar</b-dropdown-item>
+          <b-dropdown-item>Meus Favoritos</b-dropdown-item>
           <b-dropdown-item>Sair</b-dropdown-item>
         </div>
       </b-nav-item-dropdown>
@@ -44,7 +46,21 @@ export default defineComponent({
     return {
       UserLogged: this.$store.state.Users.UserName,
       NoUser: 'Faça Login',
+      avatar: '/img/avatar1.png',
+      noAvatar: '/img/user-default.png',
     };
+  },
+  computed: {
+    AvatarUser() {
+      return this.UserLogged ? this.avatar : this.noAvatar;
+    },
+  },
+  methods: {
+    redirect() {
+      return this.UserLogged
+        ? this.UserLogged
+        : this.$router.push({ name: 'login' });
+    },
   },
 });
 </script>
