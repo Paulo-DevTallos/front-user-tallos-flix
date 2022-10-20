@@ -10,16 +10,84 @@
           <router-link to="/home/movie">
             <img :src="image_path + 'img1.png'" alt="..." />
           </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
         </div>
-        <img :src="image_path + 'img2.png'" class="carousel-card" alt="..." />
-        <img :src="image_path + 'img3.png'" class="carousel-card" alt="..." />
-        <img :src="image_path + 'img6.png'" class="carousel-card" alt="..." />
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img2.png'" alt="..." />
+          </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
+        </div>
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img3.png'" alt="..." />
+          </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
+        </div>
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img6.png'" alt="..." />
+          </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
+        </div>
       </div>
-      <div class="carousel-item carousel-field d-flex">
-        <img :src="image_path + 'img4.png'" class="carousel-card" alt="..." />
-        <img :src="image_path + 'img5.png'" class="carousel-card" alt="..." />
-        <img :src="image_path + 'img6.png'" class="carousel-card" alt="..." />
-        <img :src="image_path + 'img1.png'" class="carousel-card" alt="..." />
+      <div class="carousel-item active carousel-field d-flex">
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img6.png'" alt="..." />
+          </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
+        </div>
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img3.png'" alt="..." />
+          </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
+        </div>
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img5.png'" alt="..." />
+          </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
+        </div>
+        <div class="carousel-card">
+          <router-link to="/home/movie">
+            <img :src="image_path + 'img6.png'" alt="..." />
+          </router-link>
+          <div class="info-movies" v-if="hiddenMovieInfo">
+            <h3>Nome do filme</h3>
+            <span>Duração: 2h5min</span>
+            <StarRating class="rating"/>
+          </div>
+        </div>
       </div>
     </div>
     <button
@@ -56,12 +124,16 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import StarRating from './Rating/StarRating.vue';
 import { Icon } from '@iconify/vue';
 import { APP_URL } from '@/constants';
 
 export default defineComponent({
   name: 'carousel-slide',
-  components: { Icon },
+  components: { Icon, StarRating },
+  props: {
+    hiddenMovieInfo: { type: Boolean },
+  },
   data() {
     return {
       image_path: APP_URL + 'img/',

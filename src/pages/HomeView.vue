@@ -9,7 +9,7 @@
     <SearchBar />
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <h4>Nos Cinemas</h4>
-      <Carousel />
+      <Carousel :hiddenMovieInfo="false" />
     </div>
   </div>
 </template>

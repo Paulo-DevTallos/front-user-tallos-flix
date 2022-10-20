@@ -1,7 +1,39 @@
+.carousel-field {
+    width: 100%;
+    gap: 2rem;
+    justify-content: center;
+
+    .carousel-card{
+        width: 20%;
+
+        .info-movies {
+            font-family: 'Nunito', sans-serif;
+            color: #fff;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            
+            h3 {
+                font-weight: 500;
+            }
+
+            span {
+                margin-bottom: 9px;
+            }
+
+            .rating {
+                display: flex;
+            }
+        }
+    }
+}
+
 .carousel-button-left{
     display: flex;
     justify-content: start;
     padding-left: 2%;
+    width: 6%;
     .slide-icon {
         background-color: black;
         color: $secondary-color-one;
@@ -10,15 +42,9 @@
 .carousel-button-right{
     display: flex;
     justify-content: end;
-    padding-right: 2%;
+    padding-right: 1.4%;
     .slide-icon {
         background-color: black;
         color: $secondary-color-one;
     }
 }
-    .carousel-field {
-        width: 100%;
-        gap: 2rem;
-        justify-content: center;
-        .carousel-card{width: 20%;}
-    }
