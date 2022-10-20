@@ -42,13 +42,12 @@
         </b-card>
       </b-col>
     </b-row>
-    <div class="pt-5">
+    <div class="pt-5 d-flex justify-content-end">
       <b-pagination
-        size="lg"
+        pills
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
-        align="center"
       ></b-pagination>
     </div>
   </b-container>
