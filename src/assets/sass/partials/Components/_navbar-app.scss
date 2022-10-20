@@ -7,20 +7,21 @@
         @include align-elements(flex, space-between, unset);
         width: 50% !important;
 
-        .nav-link {
-            color: white !important;
-            background-color: rgba(255, 255, 255, 0) !important;
+        .navbar-nav {
+            width: 35%;
 
-            &:focus {
-                transition: 0.1s;
+            .nav-link {
+                color: white !important;
                 background-color: rgba(255, 255, 255, 0) !important;
-                border-bottom: 3px solid $primary-color-beige-two;
-                padding-bottom: 0;
-            }
 
-        }
-        .texto-navbar {
-            padding-right: 150px !important;
+                &:focus {
+                    transition: 0.1s;
+                    background-color: rgba(255, 255, 255, 0) !important;
+                    border-bottom: 3px solid $primary-color-beige-two;
+                    padding-bottom: 0;
+                }
+
+            }
         }
     }
 
@@ -33,9 +34,11 @@
 
         .dropdown-item {
             color: white !important;
+
             &:hover {
                 background-color: $primary-color-black-two;
             }
+
             &:focus {
                 background-color: $primary-color-black-two;
             }
