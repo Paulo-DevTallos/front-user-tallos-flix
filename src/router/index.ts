@@ -1,4 +1,3 @@
-import MovieRequests from '@/services/axios/MovieRequests';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -12,6 +11,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../pages/LoginView.vue'),
+    },
+    {
+      path: '/home/favorites',
+      name: 'favorites',
+      component: () => import('../pages/Favorites/MyFavorites.vue'),
     },
     {
       path: '/home',
@@ -37,7 +41,7 @@ const router = createRouter({
           path: 'movies',
           name: 'movies',
           component: () => import('../pages/Movies/MoviesView.vue'),
-        }
+        },
       ],
     },
   ],

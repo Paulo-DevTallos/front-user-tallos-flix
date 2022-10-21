@@ -31,7 +31,7 @@
         </template>
         <div v-if="UserLogged">
           <b-dropdown-item>Trocar Avatar</b-dropdown-item>
-          <b-dropdown-item>Meus Favoritos</b-dropdown-item>
+          <b-dropdown-item :to="{name : 'favorites'}">Meus Favoritos</b-dropdown-item>
           <b-dropdown-item @click="Logout">Sair</b-dropdown-item>
         </div>
       </b-nav-item-dropdown>
