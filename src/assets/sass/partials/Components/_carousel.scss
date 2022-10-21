@@ -1,11 +1,8 @@
-.carousel-field {
-    width: 100%;
-    gap: 2rem;
-    justify-content: center;
-
+.carousel__slide {
     .carousel-card{
-        width: 20%;
-
+        img {
+            width: 100%;
+        }
         .info-movies {
             font-family: 'Nunito', sans-serif;
             color: #fff;
@@ -17,34 +14,14 @@
             h3 {
                 font-weight: 500;
             }
-
+    
             span {
                 margin-bottom: 9px;
             }
-
+    
             .rating {
                 display: flex;
             }
         }
-    }
-}
-
-.carousel-button-left{
-    display: flex;
-    justify-content: start;
-    padding-left: 2%;
-    width: 6%;
-    .slide-icon {
-        background-color: black;
-        color: $secondary-color-one;
-    }
-}
-.carousel-button-right{
-    display: flex;
-    justify-content: end;
-    padding-right: 1.4%;
-    .slide-icon {
-        background-color: black;
-        color: $secondary-color-one;
     }
 }
