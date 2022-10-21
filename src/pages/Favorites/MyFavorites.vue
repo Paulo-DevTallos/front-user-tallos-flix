@@ -1,80 +1,94 @@
 <template>
-  <b-container class="pt-5 pb-5" fluid>
-    <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="2">
-      <b-col
-        v-for="movie in itemsForList"
-        :key="movie.id"
+  <div class="corpo-fv">
+    <header-app />
+    <b-container class="pt-5 favorite-container">
+      <div class="pb-4">
+        <h3>Meus favoritos</h3>
+      </div>
+      <b-row
+        v-for="favorite in favorites"
+        :key="favorite.id"
         col
         no-gutters
-        class="mt-5"
+        class="mt-5 d-flex"
       >
-        <b-card no-body class="overflow-hidden">
-          <b-row class="d-flex justify-content-center">
-            <b-col lg="4">
+        <b-col cols="1">
+          <div class="h-100 d-flex justify-content-center align-items-center">
+            <Icon icon="carbon:delete" class="icon-delete" />
+          </div>
+        </b-col>
+        <b-col cols="5">
+          <b-row>
+            <b-col cols="4">
               <b-card-img
-                :src="movie.poster || vazio.poster"
-                v-if="movie.poster ? movie.poster : vazio.poster"
+                :src="favorite.poster || vazio.poster"
+                v-if="favorite.poster ? favorite.poster : vazio.poster"
                 class="rounded-0"
               ></b-card-img>
             </b-col>
-            <b-col lg="7">
-              <b-card-body
-                class="d-flex flex-column-reverse h-100 pb-0 card-body"
-              >
-                <div>
-                  <b-card-title
-                    v-if="movie.title ? movie.title : vazio.title"
-                    >{{ movie.title || vazio.title }}</b-card-title
-                  >
-                  <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
-                  <div class="rating">
-                    <star-rating v-model="movie.imdb" />
-                  </div>
-                  <router-link to="movieLocation">
-                    <b-button size="lg" class="w-75 btn-movie">
-                      Ver cinemas
-                    </b-button>
-                  </router-link>
-                </div>
+            <b-col cols="7">
+              <b-card-body>
+                <b-card-title
+                  class="text-color pb-2"
+                  v-if="favorite.title ? favorite.title : vazio.title"
+                  >{{ favorite.title || vazio.title }}</b-card-title
+                >
               </b-card-body>
+              <b-card-subtitle class="text-color"
+                >Duração: {{ favorite.time }}</b-card-subtitle
+              >
+              <div class="d-flex">
+                <span class="text-color pt-1">Avaliação:</span>
+                <StarRating
+                  class="ms-1 -flex"
+                  v-model="favorite.imdb"
+                ></StarRating>
+              </div>
             </b-col>
           </b-row>
-        </b-card>
-      </b-col>
-    </b-row>
-    <div class="pt-5 d-flex justify-content-end">
-      <pagination
-        v-model="currentPage"
-        :per-page="perPage"
-        :rows="rows"
-      ></pagination>
-    </div>
-  </b-container>
+        </b-col>
+        <b-col cols="6">
+          <div>
+            <b-card-title class="text-color pb-2">Sinopse: </b-card-title>
+            <b-form-text-area
+              class="text-color"
+              size="sm"
+              plaintext
+              v-if="favorite.plot ? favorite.plot : vazio.plot"
+            >
+              {{ favorite.plot || vazio.plot }}</b-form-text-area
+            >
+            <div>
+              <p class="pt-3 d-flex justify-content-end view-more">Ver mais</p>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 <script lang="ts">
-import pagination from '@/components/Pagination/PaginationPage.vue';
+import HeaderApp from '@/components/Header/HeaderApp.vue';
+import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
 import StarRating from '../../components/Rating/StarRating.vue';
 
 export default defineComponent({
-  components: {
-    pagination,
-    StarRating,
-  },
+  components: { HeaderApp, StarRating, Icon },
   data() {
     return {
-      perPage: 8,
-      currentPage: 1,
       vazio: {
         poster: '/img/empty-img.png',
         title: 'Filme sem titulo',
+        plot: 'filme sem sinopse',
       },
-      movies: [
+      favorites: [
         {
           id: 1,
           poster:
             'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3hrCpnlQnzqbNGvUd03l72l7JM6C5GOoHvMnhsUBldIgBs7GD',
           title: 'Não! Não Olhe!',
+          plot: "No exuberante mundo alienígena de Pandora vivem os Na'vi, seres que parecem ser primitivos, mas são altamente evoluídos. Como o ambiente do planeta é tóxico, foram criados os avatares, corpos biológicos controlados pela ente humana....",
           time: '2h5min',
           imdb: 4.5,
         },
@@ -83,6 +97,7 @@ export default defineComponent({
           poster: '',
           title: 'TICKET to PARADISE',
           time: '2h5min',
+          plot: '',
           imdb: 3.5,
         },
         {
@@ -91,6 +106,7 @@ export default defineComponent({
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLnv5c0wq18JR5YRrFI6CC_B9kB5Zqz461ZqK-LyzR6-9RiE_W',
           title: '',
           time: '2h5min',
+          plot: 'Seres amarelos milenares, os minions têm uma missão: servir aos maiores vilões. Em depressão desde a morte de seu antigo mestre, eles tentam encontrar um novo chefe. ',
           imdb: 5,
         },
         {
@@ -152,17 +168,26 @@ export default defineComponent({
       ],
     };
   },
-  computed: {
-    rows() {
-      return this.movies.length;
-    },
-    itemsForList() {
-      return this.movies.slice(
-        (this.currentPage - 1) * this.perPage,
-        this.currentPage * this.perPage,
-      );
-    },
-  },
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.imagem-fv {
+  width: 190px;
+}
+.body-fv {
+  padding: 0;
+}
+.text-color {
+  color: white !important;
+}
+.icon-delete {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+.view-more {
+  color: white;
+  cursor: pointer;
+  text-decoration: underline white;
+}
+</style>

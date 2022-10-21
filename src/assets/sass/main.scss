@@ -8,9 +8,13 @@
 @import './partials//Components/default-layout';
 @import './partials/Components/card_movie.scss';
 @import './partials/Components/pagination';
+@import './partials/Components/plot';
+@import './partials/Components/TheatersForm';
+@import './partials/Components/location-input';
 
 @import './login.scss';
 @import './home_view.scss';
 @import './movie_view.scss';
 @import './theaters-view.scss';
 @import './movies_view.scss';
+@import './favorites-view.scss';
