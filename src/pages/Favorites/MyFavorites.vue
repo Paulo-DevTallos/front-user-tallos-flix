@@ -58,7 +58,7 @@
             >
               {{ favorite.plot || vazio.plot }}</b-form-text-area
             >
-            <div>
+            <div v-if="favorite.plot">
               <p class="pt-3 d-flex justify-content-end view-more">Ver mais</p>
             </div>
           </div>
