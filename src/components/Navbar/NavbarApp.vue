@@ -32,7 +32,7 @@
         <div v-if="UserLogged">
           <b-dropdown-item>Trocar Avatar</b-dropdown-item>
           <b-dropdown-item>Meus Favoritos</b-dropdown-item>
-          <b-dropdown-item>Sair</b-dropdown-item>
+          <b-dropdown-item @click="Logout">Sair</b-dropdown-item>
         </div>
       </b-nav-item-dropdown>
     </b-navbar-nav>
@@ -57,9 +57,12 @@ export default defineComponent({
   },
   methods: {
     redirect() {
-      return this.UserLogged
-        ? this.UserLogged
-        : this.$router.push({ name: 'login' });
+      return this.UserLogged ? this.UserLogged : location.replace('/login');
+    },
+    Logout() {
+      this.$store.state.Users = {};
+      localStorage.clear();
+      location.replace('/');
     },
   },
 });
