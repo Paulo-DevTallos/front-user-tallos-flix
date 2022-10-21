@@ -13,7 +13,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
         <div class="carousel-card">
@@ -23,7 +23,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
         <div class="carousel-card">
@@ -33,7 +33,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
         <div class="carousel-card">
@@ -43,7 +43,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
         <div class="carousel-card">
@@ -65,7 +65,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
         <div class="carousel-card">
@@ -75,7 +75,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
         <div class="carousel-card">
@@ -85,7 +85,7 @@
           <div class="info-movies" v-if="hiddenMovieInfo">
             <h3>Nome do filme</h3>
             <span>Duração: 2h5min</span>
-            <StarRating class="rating"/>
+            <StarRating class="rating" />
           </div>
         </div>
       </div>

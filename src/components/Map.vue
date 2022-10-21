@@ -6,7 +6,7 @@
       layer-type="base"
       name="OpenStreetMap"
       :min-zoom="1"
-      :max-zoom="20"
+      :max-zoom="26"
     ></l-tile-layer>
   </l-map>
 </template>
