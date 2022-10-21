@@ -2,11 +2,11 @@
   <div class="corpo-fv">
     <header-app />
     <b-container class="pt-5 favorite-container">
-      <div class="pb-4">
+      <div class="pb-2">
         <h3>Meus favoritos</h3>
       </div>
       <b-row
-        v-for="favorite in favorites"
+        v-for="favorite in itemsForList"
         :key="favorite.id"
         col
         no-gutters
@@ -58,12 +58,19 @@
             >
               {{ favorite.plot || vazio.plot }}</b-form-text-area
             >
-            <div>
+            <div v-if="favorite.plot">
               <p class="pt-3 d-flex justify-content-end view-more">Ver mais</p>
             </div>
           </div>
         </b-col>
       </b-row>
+      <div class="pt-5 d-flex justify-content-end">
+        <PaginationPage
+          v-model="currentPage"
+          :per-page="perPage"
+          :rows="rows"
+        ></PaginationPage>
+      </div>
     </b-container>
   </div>
 </template>
@@ -71,12 +78,15 @@
 import HeaderApp from '@/components/Header/HeaderApp.vue';
 import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
+import PaginationPage from '../../components/Pagination/PaginationPage.vue';
 import StarRating from '../../components/Rating/StarRating.vue';
 
 export default defineComponent({
-  components: { HeaderApp, StarRating, Icon },
+  components: { HeaderApp, StarRating, Icon, PaginationPage },
   data() {
     return {
+      perPage: 3,
+      currentPage: 1,
       vazio: {
         poster: '/img/empty-img.png',
         title: 'Filme sem titulo',
@@ -167,6 +177,17 @@ export default defineComponent({
         },
       ],
     };
+  },
+  computed: {
+    rows() {
+      return this.favorites.length;
+    },
+    itemsForList() {
+      return this.favorites.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage,
+      );
+    },
   },
 });
 </script>
