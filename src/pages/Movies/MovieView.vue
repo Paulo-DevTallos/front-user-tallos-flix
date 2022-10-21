@@ -1,6 +1,7 @@
 <template>
   <div class="page-container">
     <CardMovie />
+    comentarios
   </div>
 </template>
 
