@@ -1,0 +1,17 @@
+.form-theater-title{
+    color: $primary-color-black-seven;
+    text-align: left;
+}
+.map-location-field{
+    background-color: $primary-color-black-one;
+    height: 70vh;
+}
+.theaters-form-container{
+    width: 90%;
+}
+.theaters-list{
+    align-items: flex-start;
+    list-style-type: disc;
+    color: $primary-color-black-seven;
+    gap: 1rem;
+}

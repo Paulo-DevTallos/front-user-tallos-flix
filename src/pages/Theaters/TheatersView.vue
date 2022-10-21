@@ -30,9 +30,11 @@
                   <div class="rating">
                     <star-rating v-model="movie.imdb" />
                   </div>
-                  <b-button size="lg" class="w-75 btn-movie"
-                    >Ver cinemas</b-button
-                  >
+                  <router-link to="movieLocation">
+                    <b-button size="lg" class="w-75 btn-movie">
+                      Ver cinemas
+                    </b-button>
+                  </router-link>
                 </div>
               </b-card-body>
             </b-col>

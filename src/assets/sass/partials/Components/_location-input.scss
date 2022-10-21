@@ -1,0 +1,26 @@
+.location-input{
+    background-color: $primary-color-black-one;
+    border-bottom: 1px $primary-color-black-seven solid;
+    border-left: 1px $primary-color-black-seven solid;
+    border-right: 1px $primary-color-black-seven solid;
+    border-top: 1px $primary-color-black-five solid;
+    align-items: center;
+}
+.text-input-location{
+    color:$primary-color-black-seven;
+    background-color: $primary-color-black-one;
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    width: 97%;
+    &::placeholder {
+        color:$primary-color-black-seven;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+.iconLocation{
+    color:$primary-color-black-seven;
+    scale: 1.5;
+}

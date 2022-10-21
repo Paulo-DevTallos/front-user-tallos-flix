@@ -1,19 +1,18 @@
 <template>
-  <div class="search-input rounded-4 px-2">
+  <div class="location-input rounded-3 px-2 py-2 d-flex">
     <input
       type="text"
-      class="text-input"
+      class="text-input-location"
       placeholder="Digite aqui o nome do filme"
     />
-    <Icon icon="carbon:search" class="icon" />
+    <Icon icon="carbon:location" class="iconLocation" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
-
 export default defineComponent({
-  name: 'search-bar',
+  name: 'location-input',
   components: { Icon },
 });
 </script>
