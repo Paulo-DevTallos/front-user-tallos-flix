@@ -1,10 +1,5 @@
 .carousel__slide {
-    width: 80%;
-    gap: 4rem;
-    justify-content: center;
-    
     .carousel-card{
-    
         img {
             width: 100%;
         }
@@ -28,26 +23,5 @@
                 display: flex;
             }
         }
-    }
-}
-
-.carousel-button-left{
-    display: flex;
-    justify-content: start;
-    padding-left: 2%;
-    width: 6%;
-    .slide-icon {
-        background-color: black;
-        color: $secondary-color-one;
-    }
-}
-.carousel-button-right{
-    display: flex;
-    justify-content: end;
-    padding-right: 2%;
-    width: 6%;
-    .slide-icon {
-        background-color: black;
-        color: $secondary-color-one;
     }
 }

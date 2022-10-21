@@ -19,7 +19,7 @@
     </slide>
     <template #addons>
       <navigation />
-      <pagination />
+      <pagination v-if="false" />
     </template>
   </carousel>
 </template>
@@ -29,7 +29,6 @@ import { defineComponent } from 'vue';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 import StarRating from './Rating/StarRating.vue';
-import { Icon } from '@iconify/vue';
 import { APP_URL } from '@/constants';
 
 export default defineComponent({
@@ -40,7 +39,6 @@ export default defineComponent({
     Pagination,
     Navigation,
     StarRating,
-    //Icon,
   },
   props: {
     hiddenMovieInfo: { type: Boolean },
@@ -51,7 +49,7 @@ export default defineComponent({
       movies: [
         {
           id: 1,
-          poster: 'img/img6.png',
+          poster: this.image_path + 'img6.png',
           title: 'Não! Não Olhe!',
           time: '2h5min',
           imdb: 4.5,
