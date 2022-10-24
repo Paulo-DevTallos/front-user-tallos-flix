@@ -1,0 +1,110 @@
+.screen {
+  background-image: url(img/bg-movies-banner.jpg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  
+  .content {
+    margin: 0 80px;
+    min-height: 100vh;
+    @include align-elements(flex, center, center);
+
+    .form-container {
+      padding: 20px 100px 30px;
+      background-color: #fff;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      border-radius: 20px;
+      width: 430px;
+      height: 450px;
+      
+      .container-logo {
+        text-align: center;
+        margin-bottom: 5px;
+  
+        img {
+          width: 170px;
+        }
+      }
+
+      .slide-controls {
+        font-family: 'Nunito', sans-serif;
+        margin: 20px 0 30px 0;
+        position: relative;
+        @include align-elements(flex, space-between, unset);
+        height: 40px;
+        width: 100%;
+        overflow: hidden;
+  
+        .slide {
+          @include align-elements(flex, space-between, unset);
+          height: 100%;  
+          color: $secondary-color-one;
+          font-size: 22px;
+          text-align: center;
+          line-height: 48px;
+          cursor: pointer;
+          z-index: 1;
+          transition: all .6s ease;
+        }
+  
+        label.register {
+          color: $text-color-gray-one;
+        }
+  
+        input[type="radio"] {
+          display: none;
+        }
+  
+        .slider-tab {
+          position: absolute;
+          height: 100%;
+          width: 40%;
+          left: 0;
+          z-index: 0;
+          border-bottom: 2px solid $secondary-color-one;
+          transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+  
+        #register:checked~.slider-tab {
+          left: 63%;
+        }
+  
+        #enter:checked~.slider-tab {
+          left: -15%;
+        }
+  
+        #enter:checked~label.enter,
+        #register:checked~label.register {
+          color: $secondary-color-one;
+          cursor: default;
+          user-select: none;
+        }
+  
+        #register:checked~label.enter {
+          color: $text-color-gray-one;
+        }
+        
+        #enter:checked~label.register {
+          color: $text-color-gray-one;
+        }
+      }
+
+      .form-data-container {
+        width: 100%;
+        overflow: hidden;
+  
+        .form-inner {
+          display: flex;
+          width: 200%;
+  
+          form {
+            width: 50%;
+            transition: all .6s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+          }
+        }
+      }
+    }
+  }
+}

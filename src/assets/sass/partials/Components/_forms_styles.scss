@@ -1,0 +1,84 @@
+.forms-fields {
+  display: flex;
+  flex-direction: column;
+
+  .input-container-style {
+    margin-bottom: 15px;
+    border-bottom: 2px solid $text-color-gray-one;
+    width: 100%;
+    padding: 5px 0;
+  
+    svg {
+      margin-right: 12px;
+      color: $primary-color-icon;
+      font-size: 20px;
+      animation: emerge .3s ease-in-out;
+
+      @keyframes emerge {
+        0% {
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-25%);
+        } 
+        100% {
+          opacity: 1;
+          visibility: visible; 
+          transform: translateY(0);
+        }
+      }
+    }
+
+    input {
+      border: none;
+      outline: none;
+      width: 75%;
+      font-size: 14px;
+      animation: roar .4s ease-in-out;
+
+      @keyframes roar {
+        0% {
+          opacity: 0;
+          visibility: hidden;
+        } 
+        100% {
+          opacity: 1;
+          visibility: visible; 
+        }
+      }
+    }
+
+    .wd-input {
+      width: 85%;
+    }
+
+    #view-icon {
+      margin-right: 0;
+      cursor: pointer;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+    color: $text-color-gray-one;
+    animation: roar .4s ease-in-out;
+    font-size: 13px;
+    margin-bottom: 31px;
+  }
+
+  .btn-container {
+    width: 100%;
+    text-align: center; 
+
+    button {
+      margin-top: 50px;
+      width: 170px;
+      height: 35px;
+      background-color: $primary-color-beige-one;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+}

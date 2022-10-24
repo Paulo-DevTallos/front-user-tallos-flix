@@ -1,0 +1,20 @@
+@import './partials/variables';
+@import './partials/mixins/mixins_include';
+@import './partials/Components/search-bar';
+@import './partials/Components/carousel';
+@import './partials/Components/forms_styles';
+@import './partials/Components/navbar-app';
+@import './partials/Components/header-app';
+@import './partials//Components/default-layout';
+@import './partials/Components/card_movie.scss';
+@import './partials/Components/pagination';
+@import './partials/Components/plot';
+@import './partials/Components/TheatersForm';
+@import './partials/Components/location-input';
+
+@import './login.scss';
+@import './home_view.scss';
+@import './movie_view.scss';
+@import './theaters-view.scss';
+@import './movies_view.scss';
+@import './favorites-view.scss';

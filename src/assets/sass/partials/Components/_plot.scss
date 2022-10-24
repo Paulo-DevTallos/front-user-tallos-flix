@@ -1,0 +1,21 @@
+.plot-title{
+    color: $primary-color-black-seven;
+    font-size: $font-size-common;
+    width: 100%;
+    text-align: left;
+}
+.orange-line-separator{
+    border: solid 3px $primary-color-beige-hr;
+}
+.plot-area-text{
+    height: 35vh;
+    overflow: auto;
+    color: $primary-color-black-seven;
+    text-align: left;
+    padding: 6px 38px 6px 15px;
+    border: 1px solid #524F4F;
+    border-radius: 10px;
+}
+.plot-container{
+    width: 90%;
+}
