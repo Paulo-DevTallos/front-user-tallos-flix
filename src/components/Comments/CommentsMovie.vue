@@ -13,11 +13,18 @@
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">Há {{ comment.date }} dia</h6>
             <div class="d-flex">
+              <div
+                class="items-color comp-icons d-flex justify-content-between pe-2"
+              >
+                <p>5</p>
+                <Icon icon="carbon:thumbs-up" class="like-icon" />
+                <Icon icon="carbon:thumbs-down" class="like-icon" />
+              </div>
               <h6
                 class="text-response pe-2"
                 @click="responseComment = !responseComment"
               >
-                Ver Comentários
+                Ver respostas
               </h6>
               <h6 class="text-response" @click.prevent="getcomment(comment)">
                 {{ response }}
@@ -43,8 +50,15 @@
                 <div class="comment-text">
                   <b-card>{{ reply.text }}</b-card>
                 </div>
-                <div class="pt-3">
+                <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">Há {{ reply.date }} dia</h6>
+                  <div
+                    class="items-color comp-icons d-flex justify-content-between pe-2"
+                  >
+                    <p>5</p>
+                    <Icon icon="carbon:thumbs-up" class="like-icon" />
+                    <Icon icon="carbon:thumbs-down" class="like-icon" />
+                  </div>
                 </div>
               </b-col>
             </b-row>
@@ -109,9 +123,14 @@
   <!-- v-for="comment in comments"
         :key="comment.id" -->
 </template>
-  <script lang="ts">
+<script lang="ts">
+import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
+
 export default defineComponent({
+  components: {
+    Icon,
+  },
   data() {
     return {
       responseComment: false,
