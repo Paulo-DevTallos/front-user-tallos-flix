@@ -40,11 +40,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-.comments-app {
-  width: 91%;
-}
-.comments-comp {
-  width: 90%;
-}
-</style>
+<style lang="scss" scoped></style>
