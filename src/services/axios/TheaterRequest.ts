@@ -11,9 +11,9 @@ export default {
     return http.post(`theaters`, theaterData);
   },
   getTheatersByLocation: (cord: object) => {
-    return http.post(`theaters/geoSearch}`, cord);
+    return http.post(`theaters/geoSearch`, cord);
   },
-  updateTheater: (id: string, theaterData: object, ) => {
+  updateTheater: (id: string, theaterData: object) => {
     return http.put(`theaters/${id}`, theaterData);
   },
   deleteTheater: (id: string) => {
