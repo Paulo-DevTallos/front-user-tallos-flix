@@ -6,6 +6,18 @@
   position: fixed;
   top: 0;
   left: 0;
+  animation: appear .4s ease-in-out;
+
+  @keyframes appear {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+    }
+    100% {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 
   .iframe-content {
     width: 500px;
