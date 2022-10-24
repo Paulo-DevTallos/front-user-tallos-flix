@@ -25,3 +25,21 @@
         }
     }
 }
+
+.icon-style {
+    @include align-elements(flex, center, center);
+    background-color: $primary-color-black-bg-icon;
+    color: $secondary-color-one;
+    padding: 5px;
+    border-radius: 100%;
+}
+
+.position-left {
+    position: absolute;
+    right: 100%;
+}
+
+.position-rigth {
+    position: absolute;
+    left: 100%;
+}
