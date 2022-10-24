@@ -5,10 +5,4 @@ export default {
   GET_SERIES(state: any, payload: any) {
     state.Series = payload;
   },
-  GET_MOVIES_COUNT(state: any, payload: any) {
-    state.MoviesCount = payload;
-  },
-  GET_MOVIE(state: any, payload: any) {
-    state.Movie = payload;
-  },
 };

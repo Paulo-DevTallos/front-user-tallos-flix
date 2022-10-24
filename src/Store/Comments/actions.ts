@@ -1,9 +1,7 @@
 import CommentRequests from '@/services/axios/CommentRequests';
 export default {
   async createComment({ commit }: any, data: any) {
-    await CommentRequests.createComment(data.comment, {
-      headers: { Authorization: data.jwt },
-    })
+    await CommentRequests.createComment(data.comment)
       .then((res) => {
         commit();
       })
@@ -12,9 +10,7 @@ export default {
       });
   },
   async updateComment({ commit }: any, data: any) {
-    await CommentRequests.updateComment(data.id, data.comment, {
-      headers: { Authorization: data.jwt },
-    })
+    await CommentRequests.updateComment(data.id, data.comment)
       .then((res) => {
         commit();
       })
@@ -23,9 +19,7 @@ export default {
       });
   },
   async deleteComment({ commit }: any, data: any) {
-    await CommentRequests.deleteComment(data.id, {
-      headers: { Authorization: data.jwt },
-    })
+    await CommentRequests.deleteComment(data.id)
       .then((res) => {
         commit();
       })
@@ -33,10 +27,8 @@ export default {
         commit();
       });
   },
-  async getAllComments({ commit }: any, data: any) {
-    await CommentRequests.getAllComments({
-      headers: { Authorization: data.jwt },
-    })
+  async getAllComments({ commit }: any) {
+    await CommentRequests.getAllComments()
       .then((res) => {
         commit('GET_COMMENTS', res.data);
       })
@@ -45,9 +37,7 @@ export default {
       });
   },
   async getCommentById({ commit }: any, data: any) {
-    await CommentRequests.getCommentById(data.id, {
-      headers: { Authorization: data.jwt },
-    })
+    await CommentRequests.getCommentById(data.id)
       .then((res) => {
         commit('GET_COMMENT', res.data);
       })
@@ -56,9 +46,7 @@ export default {
       });
   },
   async getByMovieId({ commit }: any, data: any) {
-    await CommentRequests.getByMovieId(data.MovieId, {
-      headers: { Authorization: data.jwt },
-    })
+    await CommentRequests.getByMovieId(data.MovieId)
       .then((res) => {
         commit('GET_COMMENTS', res.data);
       })
@@ -67,9 +55,7 @@ export default {
       });
   },
   async getByEmail({ commit }: any, data: any) {
-    await CommentRequests.getByEmail(data.Email, {
-      headers: { Authorization: data.jwt },
-    })
+    await CommentRequests.getByEmail(data.Email)
       .then((res) => {
         commit('GET_COMMENTS', res.data);
       })

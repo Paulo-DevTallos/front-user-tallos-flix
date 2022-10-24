@@ -5,7 +5,10 @@
     <div class="search-components d-flex flex-column gap-5">
       <div class="d-flex justify-content-center">
         <div class="me-5 box-filter-container">
-          <button class="search-input wd-btn text-input styles-filter" @click="callBoxFilter">
+          <button
+            class="search-input wd-btn text-input styles-filter"
+            @click="callBoxFilter"
+          >
             Filtrar...
             <Icon icon="dashicons:arrow-down-alt2" />
           </button>
@@ -30,7 +33,7 @@
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
 import SearchBar from '@/components/SearchBar.vue';
-import Carousel from '@/components/Carousel.vue'
+import Carousel from '@/components/Carousel.vue';
 
 export default defineComponent({
   name: 'MoviesView',
@@ -44,7 +47,7 @@ export default defineComponent({
   methods: {
     callBoxFilter(): void {
       this.hiddenBoxFilter = !this.hiddenBoxFilter;
-    }
+    },
   },
 });
 </script>
