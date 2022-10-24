@@ -1,9 +1,7 @@
 import TheaterRequests from '@/services/axios/TheaterRequest';
 export default {
   async createTheater({ commit }: any, data: any) {
-    await TheaterRequests.createTheater(data.theater, {
-      headers: { Authorization: data.jwt },
-    })
+    await TheaterRequests.createTheater(data.theater)
       .then((res) => {
         commit();
       })
@@ -12,9 +10,7 @@ export default {
       });
   },
   async updateTheater({ commit }: any, data: any) {
-    await TheaterRequests.updateTheater(data.id, data.theater, {
-      headers: { Authorization: data.jwt },
-    })
+    await TheaterRequests.updateTheater(data.id, data.theater)
       .then((res) => {
         commit();
       })
@@ -23,9 +19,7 @@ export default {
       });
   },
   async deleteTheater({ commit }: any, data: any) {
-    await TheaterRequests.deleteTheater(data.id, {
-      headers: { Authorization: data.jwt },
-    })
+    await TheaterRequests.deleteTheater(data.id)
       .then((res) => {
         commit();
       })
@@ -33,10 +27,8 @@ export default {
         commit();
       });
   },
-  async getAllTheaters({ commit }: any, data: any) {
-    await TheaterRequests.getAllTheaters({
-      headers: { Authorization: data.jwt },
-    })
+  async getAllTheaters({ commit }: any) {
+    await TheaterRequests.getAllTheaters()
       .then((res) => {
         commit('GET_THEATERS', res.data);
       })
@@ -45,9 +37,7 @@ export default {
       });
   },
   async getTheaterById({ commit }: any, data: any) {
-    await TheaterRequests.getTheaterById(data.id, {
-      headers: { Authorization: data.jwt },
-    })
+    await TheaterRequests.getTheaterById(data.id)
       .then((res) => {
         commit('GET_THEATER', res.data);
       })
@@ -56,9 +46,7 @@ export default {
       });
   },
   async getTheatersBylocation({ commit }: any, data: any) {
-    await TheaterRequests.getTheatersByLocation(data.cord, {
-      headers: { Authorization: data.jwt },
-    })
+    await TheaterRequests.getTheatersByLocation(data.cord)
       .then((res) => {
         commit('GET_THEATERS_LOCATION', res.data);
       })
