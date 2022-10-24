@@ -1,0 +1,55 @@
+.text-color {
+    color: white;
+}
+.items-color {
+    color: $orange-color-one;
+}
+.comp-icons {
+    width: 63px;
+}
+.like-icon {
+    font-size: 20px;
+    width: 22px;
+    color: $orange-color-one;
+    cursor: pointer;
+   }
+.text-response {
+    color: $orange-color-one;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+        color: $orange-color-two;
+    }
+    &:focus {
+        color: $orange-color-two;
+    }
+}
+
+.comment-text {
+    background-color: $primary-color-bg-comment;
+    padding-left: 35px;
+    padding-right: 35px;
+    border-radius: 5px;
+
+    &:focus {
+        background-color: $primary-color-bg-comment;
+    }
+}
+
+.btn-comment {
+    background-color: $primary-color-beige-one;
+    border-color: $primary-color-beige-one;
+
+    &:hover {
+        background-color: $primary-color-beige-two;
+    }
+
+    &:active {
+        background-color: $primary-color-beige-three !important;
+    }
+}
+
+.response-coment {
+    width: 90%;
+}
