@@ -1,0 +1,29 @@
+FROM node:16-alpine as build
+
+WORKDIR /usr/front-user-tallos-flix/app
+
+COPY package.*json ./
+
+RUN npm install --force
+
+COPY . .
+
+RUN npm run build
+
+FROM node:16-alpine
+
+LABEL maintaner="front-user-tallosflix"
+
+WORKDIR /usr/front-user-tallos-flix/app
+
+COPY --from=build /usr/front-user-tallos-flix/app .
+
+COPY --from=build /usr/front-user-tallos-flix/app/node_modules ./node_modules
+
+RUN npm install -g serve
+
+USER node
+
+EXPOSE 8085
+
+ENTRYPOINT [ "serve", "-s", "dist", "-l", "8085" ]
