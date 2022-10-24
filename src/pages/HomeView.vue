@@ -17,12 +17,13 @@
 import { defineComponent } from 'vue';
 import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
+
 export default defineComponent({
   name: 'HomeView',
   components: {
     SearchBar,
     Carousel,
-  },
+},
 });
 </script>
 <style lang="scss" scoped></style>
