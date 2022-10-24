@@ -1,22 +1,22 @@
 import { http } from './http';
 
 export default {
-  getAllTheaters: (token: any) => {
-    return http.get('theaters', token);
+  getAllTheaters: () => {
+    return http.get('theaters');
   },
-  getTheaterById: (id: string, token: any) => {
-    return http.get(`theaters/${id}`, token);
+  getTheaterById: (id: string) => {
+    return http.get(`theaters/${id}`);
   },
-  createTheater: (theaterData: object, token: any) => {
-    return http.post(`theaters`, theaterData, token);
+  createTheater: (theaterData: object) => {
+    return http.post(`theaters`, theaterData);
   },
-  getTheatersByLocation: (cord: object, token: any) => {
-    return http.post(`theaters/geoSearch}`, cord, token);
+  getTheatersByLocation: (cord: object) => {
+    return http.post(`theaters/geoSearch}`, cord);
   },
-  updateTheater: (id: string, theaterData: object, token: any) => {
-    return http.put(`theaters/${id}`, theaterData, token);
+  updateTheater: (id: string, theaterData: object, ) => {
+    return http.put(`theaters/${id}`, theaterData);
   },
-  deleteTheater: (id: string, token: any) => {
-    return http.delete(`theaters/${id}`, token);
+  deleteTheater: (id: string) => {
+    return http.delete(`theaters/${id}`);
   },
 };
