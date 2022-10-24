@@ -12,9 +12,7 @@ export default {
       });
   },
   async updateUser({ commit }: any, data: any) {
-    await UserRequests.updateUser(data.id, data.user, {
-      headers: { Authorization: data.jwt },
-    })
+    await UserRequests.updateUser(data.id, data.user)
       .then((res) => {
         commit();
       })
@@ -23,9 +21,7 @@ export default {
       });
   },
   async deleteUser({ commit }: any, data: any) {
-    await UserRequests.deleteUser(data.id, {
-      headers: { Authorization: data.jwt },
-    })
+    await UserRequests.deleteUser(data.id)
       .then((res) => {
         commit();
       })
@@ -37,16 +33,14 @@ export default {
     await UserRequests.getAllUsers()
       .then((res) => {
         commit('GET_USERS', res.data);
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((error) => {
         commit();
       });
   },
   async getUserById({ commit }: any, data: any) {
-    await UserRequests.getUserById(data.id, {
-      headers: { Authorization: data.jwt },
-    })
+    await UserRequests.getUserById(data.id)
       .then((res) => {
         commit('GET_USER', res.data);
       })
@@ -54,10 +48,8 @@ export default {
         commit();
       });
   },
-  async getMe({ commit }: any, data: any) {
-    await UserRequests.getMe({
-      headers: { Authorization: data.jwt },
-    })
+  async getMe({ commit }: any) {
+    await UserRequests.getMe()
       .then((res) => {
         commit('GET_ME', res.data);
       })
@@ -66,9 +58,7 @@ export default {
       });
   },
   async getUsersPaginate({ commit }: any, data: any) {
-    await UserRequests.usersPaginate(data.limit, data.skip, {
-      headers: { Authorization: data.jwt },
-    })
+    await UserRequests.usersPaginate(data.limit, data.skip)
       .then((res) => {
         commit('GET_USERS', res.data);
       })
@@ -79,12 +69,11 @@ export default {
   async login({ commit }: any, data: Object) {
     await UserRequests.login(data)
       .then((res) => {
-
         if (res.data.access_token) {
           localStorage.setItem('token', res.data.access_token);
 
-          const token = res.data.access_token
-          const decode = jwtDecode(token)
+          const token = res.data.access_token;
+          const decode = jwtDecode(token);
 
           commit('LOGIN', decode);
 

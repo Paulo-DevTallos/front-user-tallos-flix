@@ -4,23 +4,23 @@ export default {
   getAllUsers: () => {
     return http.get('users');
   },
-  getMe: (token: any) => {
-    return http.get('users/me', token);
+  getMe: () => {
+    return http.get('users/me');
   },
-  getUserById: (id: string, token: any) => {
-    return http.get(`users/${id}`, token);
+  getUserById: (id: string) => {
+    return http.get(`users/${id}`);
   },
   createUser: (userData: object) => {
     return http.post(`users`, userData);
   },
-  usersPaginate: (limit: number, page: number, token: any) => {
-    return http.post(`users/paginate?limit=${limit}&skip=${page}`, token);
+  usersPaginate: (limit: number, page: number) => {
+    return http.post(`users/paginate?limit=${limit}&skip=${page}`);
   },
-  updateUser: (id: string, userData: object, token: any) => {
-    return http.put(`users/${id}`, userData, token);
+  updateUser: (id: string, userData: object) => {
+    return http.put(`users/${id}`, userData);
   },
-  deleteUser: (id: string, token: any) => {
-    return http.delete(`users/${id}`, token);
+  deleteUser: (id: string) => {
+    return http.delete(`users/${id}`);
   },
   login: (userData: object) => {
     return http.post(`login`, userData);
