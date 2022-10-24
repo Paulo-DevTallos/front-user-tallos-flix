@@ -1,7 +1,10 @@
 <template>
   <div class="page-container">
     <CardMovie @traillerModal="openTraillerModal" />
-    <TraillerModal />
+    <TraillerModal
+      v-if="hiddenTraillerModal"
+      @closeWindow="closeModal"
+    />
   </div>
 </template>
 
@@ -15,13 +18,16 @@ export default defineComponent({
   components: { CardMovie, TraillerModal },
   data() {
     return {
-
+      hiddenTraillerModal: false,
     }
   },
   methods: {
-    openTraillerModal() {
-      alert('teste');
-      console.log('teste');
+    openTraillerModal(): void {
+      this.hiddenTraillerModal = true;
+    },
+
+    closeModal(): void {
+      this.hiddenTraillerModal = false;
     },
   },
 });
