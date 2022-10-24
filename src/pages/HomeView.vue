@@ -23,7 +23,7 @@ export default defineComponent({
   components: {
     SearchBar,
     Carousel,
-},
+  },
 });
 </script>
 <style lang="scss" scoped></style>
