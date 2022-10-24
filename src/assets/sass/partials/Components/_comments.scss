@@ -3,20 +3,40 @@
 }
 
 .text-response {
-    color: orangered;
+    color: $orange-color-one;
     text-decoration: underline;
     cursor: pointer;
+
+    &:hover {
+        color: $orange-color-two;
+    }
+    &:focus {
+        color: $orange-color-two;
+    }
 }
 
 .comment-text {
-    background-color: #e7e1e1;
+    background-color: $primary-color-bg-comment;
     padding-left: 35px;
     padding-right: 35px;
     border-radius: 5px;
+
+    &:focus {
+        background-color: $primary-color-bg-comment;
+    }
 }
 
 .btn-comment {
-    background-color: #d36643;
+    background-color: $primary-color-beige-one;
+    border-color: $primary-color-beige-one;
+
+    &:hover {
+        background-color: $primary-color-beige-two;
+    }
+
+    &:active {
+        background-color: $primary-color-beige-three !important;
+    }
 }
 
 .response-coment {
