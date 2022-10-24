@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="page-container">
     <CardMovie />
     <dir>
       <PlotView />
@@ -12,7 +12,9 @@
       <TheatersList />
     </div>
     <div class="ps-5 comments-app">
-      <comments-movie />
+      <p class="plot-title mt-4">Comentários</p>
+      <hr class="orange-line-separator" />
+      <comments-movie class="comments-comp" />
     </div>
   </div>
 </template>
@@ -27,12 +29,22 @@ import TheatersList from '@/components/TheatersList.vue';
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'LocationView',
-  components: { CardMovie, PlotView, TheatersForm, MapView, TheatersList, CommentsMovie },
+  components: {
+    CardMovie,
+    PlotView,
+    TheatersForm,
+    MapView,
+    TheatersList,
+    CommentsMovie,
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .comments-app {
-width: 85%;
+  width: 91%;
+}
+.comments-comp {
+  width: 90%;
 }
 </style>

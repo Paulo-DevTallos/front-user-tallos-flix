@@ -188,25 +188,4 @@ export default defineComponent({
   },
 });
 </script>
-  <style lang="scss" scoped>
-.text-color {
-  color: white;
-}
-.text-response {
-  color: orangered;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.comment-text {
-  background-color: #e7e1e1;
-  padding-left: 35px;
-  padding-right: 35px;
-  border-radius: 5px;
-}
-.btn-comment {
-  background-color: #d36643;
-}
-.response-coment {
-  width: 90%;
-}
-</style>
+<style lang="scss" scoped></style>
