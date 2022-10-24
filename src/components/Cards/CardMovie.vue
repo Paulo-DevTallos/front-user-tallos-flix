@@ -26,6 +26,9 @@
           <li>Titulo Original: The Batman</li>
         </ul>
       </div>
+      <div>
+        <button @click="$emit('traillerModal')">Assista ao trailler</button>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +40,7 @@ import { Icon } from '@iconify/vue';
 export default defineComponent({
   name: 'CardMovie',
   components: { Icon },
+  emits: ['traillerModal'],
 });
 </script>
 
