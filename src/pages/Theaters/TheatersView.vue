@@ -42,8 +42,9 @@
         </b-card>
       </b-col>
     </b-row>
-    <div class="pt-5 d-flex justify-content-end">
+    <div class=" pt-5 d-flex justify-content-end">
       <pagination
+      class="paginationTT"
         v-model="currentPage"
         :per-page="perPage"
         :rows="rows"
