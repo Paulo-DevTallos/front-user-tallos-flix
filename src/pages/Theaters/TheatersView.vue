@@ -2,7 +2,7 @@
   <b-container class="pt-5 pb-5" fluid>
     <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="2">
       <b-col
-        v-for="movie in this.$store.state.Movies.Movies.content"
+        v-for="movie in movies"
         :key="movie.id"
         col
         no-gutters
@@ -47,10 +47,10 @@
     <div class="pt-5 d-flex justify-content-end">
       <pagination
         class="paginationTT"
-        v-model="currentPage"
-        :per-page="perPage"
+        v-model="page"
+        :per-page="limit"
         :rows="rows"
-        @change="handlePageChange"
+        :teste="handlePageChange"
       ></pagination>
     </div>
   </b-container>
@@ -67,7 +67,7 @@ export default defineComponent({
   },
   data() {
     return {
-      page: 0,
+      page: 1,
       limit: 5,
       perPage: 8,
       currentPage: 1,
@@ -75,7 +75,7 @@ export default defineComponent({
         poster: '/img/empty-img.png',
         title: 'Filme sem titulo',
       },
-      movies: [],
+      movies: this.$store.state.Movies.Movies.content,
       // movies: [
       //   {
       //     id: 1,
@@ -165,8 +165,8 @@ export default defineComponent({
     },
     itemsForList() {
       return this.$store.state.Movies.Movies.content.slice(
-        (this.currentPage - 1) * this.perPage,
-        this.currentPage * this.perPage,
+        (this.page - 1) * this.limit,
+        this.page * this.limit,
       );
     },
   },
@@ -191,6 +191,7 @@ export default defineComponent({
     },
     handlePageChange(value: any) {
       this.page = value;
+      console.log(this.page);
       this.reloadRequest();
     },
   },

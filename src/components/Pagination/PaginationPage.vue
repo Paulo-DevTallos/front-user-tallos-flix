@@ -3,6 +3,7 @@
     pills
     :total-rows="rows"
     :per-page="perPage"
+    @change="teste"
     size="lg"
   ></b-pagination>
 </template>
@@ -19,6 +20,10 @@ export default defineComponent({
       type: Number,
       required: false,
     },
+    teste: {
+      type: Function,
+      required: false,
+    }
   },
 });
 </script>
