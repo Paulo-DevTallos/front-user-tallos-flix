@@ -50,6 +50,7 @@
         v-model="currentPage"
         :per-page="perPage"
         :rows="rows"
+        @change="handlePageChange"
       ></pagination>
     </div>
   </b-container>
@@ -66,6 +67,8 @@ export default defineComponent({
   },
   data() {
     return {
+      page: 0,
+      limit: 5,
       perPage: 8,
       currentPage: 1,
       vazio: {
@@ -168,12 +171,31 @@ export default defineComponent({
     },
   },
   methods: {
-    getRequestParams(page: Number, limit: Number) {
+    getRequestParams(page: number, limit: number) {
       const params = {};
+      if (page) {
+        params['page'] = page - 1;
+      }
+      if (limit) {
+        params['limit'] = limit;
+      }
+      return params;
+    },
+    reloadRequest() {
+      try {
+        const params = this.getRequestParams(this.page, this.limit);
+        this.$store.dispatch('Movies/getMovieFilter', { params });
+      } catch (error) {
+        return [];
+      }
+    },
+    handlePageChange(value: any) {
+      this.page = value;
+      this.reloadRequest();
     },
   },
   mounted() {
-    this.$store.dispatch('Movies/getMovieFilter');
+    this.reloadRequest();
   },
 });
 </script>

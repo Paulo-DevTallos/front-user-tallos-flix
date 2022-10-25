@@ -7,8 +7,8 @@ export default {
   getSeries: () => {
     return http.get('movies/search/series');
   },
-  getMovieFilter: () => {
-    return http.get(`movies/search`);
+  getMovieFilter: (params: Object) => {
+    return http.get(`movies/search`, params);
   },
   createMovies: (MoviesData: object) => {
     return http.post(`movies`, MoviesData);
