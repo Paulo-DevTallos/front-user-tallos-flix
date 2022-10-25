@@ -28,6 +28,12 @@
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
       </header>
+      <div class="btn-trailer-container">
+        <button class="trailer-btn" @click="$emit('traillerModal')">
+          <Icon icon="carbon:play-filled" />
+          Trailer
+        </button>
+      </div>
       <div class="card-technics">
         <ul>
           <li>
@@ -64,7 +70,6 @@
               </span>
             </span>
           </li>
-          <!--verificar se é uma li -->
           <li>
             Elenco:
             <span
@@ -85,9 +90,6 @@
             Titulo Original: {{ this.$store.state.Movies.currentMovie.title }}
           </li>
         </ul>
-      </div>
-      <div>
-        <button @click="$emit('traillerModal')">Assista ao trailler</button>
       </div>
     </div>
   </div>
