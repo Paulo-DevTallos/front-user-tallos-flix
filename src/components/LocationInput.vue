@@ -3,7 +3,7 @@
     <input
       type="text"
       class="text-input-location"
-      placeholder="Digite aqui o nome do filme"
+      placeholder="Digite aqui sua localização"
     />
     <Icon icon="carbon:location" class="iconLocation" />
   </div>

@@ -46,7 +46,7 @@ export default {
       });
   },
   async getTheatersBylocation({ commit }: any, data: any) {
-    await TheaterRequests.getTheatersByLocation(data.cord)
+    await TheaterRequests.getTheatersByLocation(data)
       .then((res) => {
         commit('GET_THEATERS_LOCATION', res.data);
       })
