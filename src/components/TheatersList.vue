@@ -2,15 +2,15 @@
   <div class="theaters-form-container">
     <p class="plot-title mt-4">Lista de cinemas perto de você</p>
     <hr class="orange-line-separator" />
-    <ul class="theaters-list d-flex flex-column">
+    <ul
+      class="theaters-list d-flex flex-column"
+      v-for="Theater in this.$store.state.Theaters.NearTheaters"
+      :key="Theater.theaterId"
+    >
       <li class="theaters-item">
-        Cinema São Luis End: Rua Alberto 124- Centro
-      </li>
-      <li class="theaters-item">
-        Cinema Benfica End AV. 13 de maio 457- Benfica
-      </li>
-      <li class="theaters-item">
-        Cinema North Shopping End: Av. Antônio Bezarra 5412 - Pres. Kennedy
+        {{ Theater.location.address.state }} -
+        {{ Theater.location.address.city }} -
+        {{ Theater.location.address.street1 }}
       </li>
     </ul>
   </div>

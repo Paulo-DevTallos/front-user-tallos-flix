@@ -37,6 +37,15 @@ export default defineComponent({
     TheatersList,
     CommentsMovie,
   },
+  mounted() {
+    window.navigator.geolocation.getCurrentPosition((postion) => {
+      const coords = {
+        lat: postion.coords.latitude,
+        long: postion.coords.longitude,
+      };
+      this.$store.dispatch('Theaters/getTheatersBylocation', coords);
+    }, console.log);
+  },
 });
 </script>
 
