@@ -11,19 +11,32 @@
     <div class="ps-5">
       <TheatersList />
     </div>
+    <div class="ps-5 comments-app">
+      <p class="plot-title mt-4">Comentários</p>
+      <hr class="orange-line-separator" />
+      <comments-movie class="comments-comp" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import CardMovie from '@/components/Cards/CardMovie.vue';
+import CommentsMovie from '@/components/Comments/CommentsMovie.vue';
+import MapView from '@/components/Map.vue';
 import PlotView from '@/components/Plot.vue';
 import TheatersForm from '@/components/TheatersForm.vue';
-import MapView from '@/components/Map.vue';
 import TheatersList from '@/components/TheatersList.vue';
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'LocationView',
-  components: { CardMovie, PlotView, TheatersForm, MapView, TheatersList },
+  components: {
+    CardMovie,
+    PlotView,
+    TheatersForm,
+    MapView,
+    TheatersList,
+    CommentsMovie,
+  },
   mounted() {
     window.navigator.geolocation.getCurrentPosition((postion) => {
       const coords = {
