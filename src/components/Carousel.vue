@@ -13,8 +13,8 @@
       <div>
         <div class="carousel-card">
           <div class="image-container">
-            <router-link to="/home/movie">
-              <img :src="movie.poster" :alt="movie.title" />
+            <router-link :to="{ path: `/home/movie` }">
+              <img :src="movie.poster" :alt="movie.title" @click="currentMovie(movie)"/>
             </router-link>
           </div>
         </div>
@@ -67,6 +67,12 @@ export default defineComponent({
       image_path: APP_URL + 'img/',
       movies: [],
     };
+  },
+
+  methods: {
+    currentMovie(movie: object) {
+      this.$store.state.Movies.currentMovie = movie;
+    },
   },
   mounted() {
     this.$store.dispatch('Movies/getMovieFilter');
