@@ -60,9 +60,8 @@ export default defineComponent({
       return this.UserLogged ? this.UserLogged : location.replace('/login');
     },
     Logout() {
-      this.$store.state.Users = {};
-      localStorage.clear();
       location.replace('/');
+      localStorage.clear();
     },
   },
 });
