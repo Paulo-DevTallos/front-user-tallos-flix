@@ -2,8 +2,8 @@
   <b-container class="pt-5 pb-5" fluid>
     <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="2">
       <b-col
-        v-for="movie in movies"
-        :key="movie.id"
+        v-for="movie in this.$store.state.Movies.Movies.content"
+        :key="movie._id"
         col
         no-gutters
         class="mt-5"
@@ -50,7 +50,7 @@
         v-model="page"
         :per-page="limit"
         :rows="rows"
-        :teste="handlePageChange"
+        @click="handlePageChange"
       ></pagination>
     </div>
   </b-container>
@@ -68,95 +68,11 @@ export default defineComponent({
   data() {
     return {
       page: 1,
-      limit: 5,
-      perPage: 8,
-      currentPage: 1,
+      limit: 8,
       vazio: {
         poster: '/img/empty-img.png',
         title: 'Filme sem titulo',
       },
-      movies: this.$store.state.Movies.Movies.content,
-      // movies: [
-      //   {
-      //     id: 1,
-      //     poster:
-      //       'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3hrCpnlQnzqbNGvUd03l72l7JM6C5GOoHvMnhsUBldIgBs7GD',
-      //     title: 'Não! Não Olhe!',
-      //     time: '2h5min',
-      //     imdb: 4.5,
-      //   },
-      //   {
-      //     id: 2,
-      //     poster: '',
-      //     title: 'TICKET to PARADISE',
-      //     time: '2h5min',
-      //     imdb: 3.5,
-      //   },
-      //   {
-      //     id: 3,
-      //     poster:
-      //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLnv5c0wq18JR5YRrFI6CC_B9kB5Zqz461ZqK-LyzR6-9RiE_W',
-      //     title: '',
-      //     time: '2h5min',
-      //     imdb: 5,
-      //   },
-      //   {
-      //     id: 4,
-      //     poster:
-      //       'https://br.web.img3.acsta.net/c_310_420/pictures/21/11/08/16/02/3963914.png',
-      //     title: 'Homem Aranha: sem volta pra casa',
-      //     time: '2h5min',
-      //     imdb: 4.7,
-      //   },
-      //   {
-      //     id: 5,
-      //     poster:
-      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSp-lzoeSCvEzSiLDBiaeBprFOMjlry4SdUot2GfS8inDd-BoyX',
-      //     title: 'Parasita',
-      //     time: '2h5min',
-      //     imdb: 3.7,
-      //   },
-      //   {
-      //     id: 6,
-      //     poster:
-      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSGXk4wQrBRtCQheTNJ6L9LgQJLsJiJ76eMNlZpeTtGTJuJK3Q3',
-      //     title: 'Jurassic World: Domínio',
-      //     time: '2h5min',
-      //     imdb: 4,
-      //   },
-      //   {
-      //     id: 7,
-      //     poster:
-      //       'https://upload.wikimedia.org/wikipedia/pt/thumb/0/08/Thor_Love_and_Thunder_poster.jpg/250px-Thor_Love_and_Thunder_poster.jpg',
-      //     title: 'Thor Amor e Trovão',
-      //     time: '2h5min',
-      //     imdb: 3,
-      //   },
-      //   {
-      //     id: 8,
-      //     poster:
-      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRY5QGNRfsGSClplqEptKo2HybJwUN8wspofcJvaY-eq8vteUka',
-      //     title: 'The Batman',
-      //     time: '2h5min',
-      //     imdb: 4.7,
-      //   },
-      //   {
-      //     id: 9,
-      //     poster:
-      //       'https://sm.ign.com/ign_br/movie/t/top-gun-ma/top-gun-maverick_5w3e.jpg',
-      //     title: 'top gun: maverick críticas',
-      //     time: '2h10min',
-      //     imdb: 4.9,
-      //   },
-      //   {
-      //     id: 10,
-      //     poster:
-      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQqGaPJIo-hYffWgLDcpZ68U0e6uHdHncqwEvTFgmXYIasfL10r',
-      //     title: 'Bullet Train',
-      //     time: '2h6m',
-      //     imdb: 4.4,
-      //   },
-      // ],
     };
   },
   computed: {
@@ -164,40 +80,28 @@ export default defineComponent({
       return this.$store.state.Movies.Movies.numberOfElements;
     },
     itemsForList() {
-      return this.$store.state.Movies.Movies.content.slice(
-        (this.page - 1) * this.limit,
-        this.page * this.limit,
-      );
+      return this.reloadRequest();
     },
   },
   methods: {
-    getRequestParams(page: number, limit: number) {
-      const params = {};
-      if (page) {
-        params['page'] = page - 1;
-      }
-      if (limit) {
-        params['limit'] = limit;
-      }
-      return params;
-    },
     reloadRequest() {
       try {
-        const params = this.getRequestParams(this.page, this.limit);
-        this.$store.dispatch('Movies/getMovieFilter', { params });
+        this.$store.dispatch('Movies/getMovieFilter', {
+          page: this.page,
+          limit: this.limit,
+        });
       } catch (error) {
         return [];
       }
     },
-    handlePageChange(value: any) {
-      this.page = value;
-      console.log(this.page);
+    handlePageChange() {
+      this.page + 1;
       this.reloadRequest();
     },
   },
   mounted() {
     this.reloadRequest();
-  },
+  }
 });
 </script>
 <style lang="scss" scoped></style>
