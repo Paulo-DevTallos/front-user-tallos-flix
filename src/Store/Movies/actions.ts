@@ -48,7 +48,7 @@ export default {
   async getMovieFilter({ commit }: any) {
     await MovieRequests.getMovieFilter()
       .then((res) => {
-        commit('GET_MOVIE', res.data);
+        commit('GET_MOVIES', res.data);
       })
       .catch((error) => {
         commit();
