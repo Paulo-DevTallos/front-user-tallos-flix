@@ -30,7 +30,9 @@
                   <div class="d-flex">
                     <star-rating v-model="movie.imdb.rating" />
                   </div>
-                  <router-link to="movieLocation">
+                  <router-link
+                    :to="{ path: `/home/movieLocation/${movie._id}` }"
+                  >
                     <b-button size="lg" class="w-75 btn-movie">
                       Ver cinemas
                     </b-button>
@@ -166,7 +168,9 @@ export default defineComponent({
     },
   },
   methods: {
-
+    getRequestParams(page: Number, limit: Number) {
+      const params = {};
+    },
   },
   mounted() {
     this.$store.dispatch('Movies/getMovieFilter');
