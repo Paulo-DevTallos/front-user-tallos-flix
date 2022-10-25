@@ -27,8 +27,8 @@
                     >{{ movie.title || vazio.title }}</b-card-title
                   >
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
-                  <div class="rating">
-                    <star-rating v-model="movie.imdb" />
+                  <div class="d-flex">
+                    <star-rating v-model="movie.imdb.rating" />
                   </div>
                   <router-link to="movieLocation">
                     <b-button size="lg" class="w-75 btn-movie">
@@ -42,9 +42,9 @@
         </b-card>
       </b-col>
     </b-row>
-    <div class=" pt-5 d-flex justify-content-end">
+    <div class="pt-5 d-flex justify-content-end">
       <pagination
-      class="paginationTT"
+        class="paginationTT"
         v-model="currentPage"
         :per-page="perPage"
         :rows="rows"
@@ -70,99 +70,103 @@ export default defineComponent({
         poster: '/img/empty-img.png',
         title: 'Filme sem titulo',
       },
-      movies: [
-        {
-          id: 1,
-          poster:
-            'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3hrCpnlQnzqbNGvUd03l72l7JM6C5GOoHvMnhsUBldIgBs7GD',
-          title: 'Não! Não Olhe!',
-          time: '2h5min',
-          imdb: 4.5,
-        },
-        {
-          id: 2,
-          poster: '',
-          title: 'TICKET to PARADISE',
-          time: '2h5min',
-          imdb: 3.5,
-        },
-        {
-          id: 3,
-          poster:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLnv5c0wq18JR5YRrFI6CC_B9kB5Zqz461ZqK-LyzR6-9RiE_W',
-          title: '',
-          time: '2h5min',
-          imdb: 5,
-        },
-        {
-          id: 4,
-          poster:
-            'https://br.web.img3.acsta.net/c_310_420/pictures/21/11/08/16/02/3963914.png',
-          title: 'Homem Aranha: sem volta pra casa',
-          time: '2h5min',
-          imdb: 4.7,
-        },
-        {
-          id: 5,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSp-lzoeSCvEzSiLDBiaeBprFOMjlry4SdUot2GfS8inDd-BoyX',
-          title: 'Parasita',
-          time: '2h5min',
-          imdb: 3.7,
-        },
-        {
-          id: 6,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSGXk4wQrBRtCQheTNJ6L9LgQJLsJiJ76eMNlZpeTtGTJuJK3Q3',
-          title: 'Jurassic World: Domínio',
-          time: '2h5min',
-          imdb: 4,
-        },
-        {
-          id: 7,
-          poster:
-            'https://upload.wikimedia.org/wikipedia/pt/thumb/0/08/Thor_Love_and_Thunder_poster.jpg/250px-Thor_Love_and_Thunder_poster.jpg',
-          title: 'Thor Amor e Trovão',
-          time: '2h5min',
-          imdb: 3,
-        },
-        {
-          id: 8,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRY5QGNRfsGSClplqEptKo2HybJwUN8wspofcJvaY-eq8vteUka',
-          title: 'The Batman',
-          time: '2h5min',
-          imdb: 4.7,
-        },
-        {
-          id: 9,
-          poster:
-            'https://sm.ign.com/ign_br/movie/t/top-gun-ma/top-gun-maverick_5w3e.jpg',
-          title: 'top gun: maverick críticas',
-          time: '2h10min',
-          imdb: 4.9,
-        },
-        {
-          id: 10,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQqGaPJIo-hYffWgLDcpZ68U0e6uHdHncqwEvTFgmXYIasfL10r',
-          title: 'Bullet Train',
-          time: '2h6m',
-          imdb: 4.4,
-        },
-      ],
+      movies: [],
+      // movies: [
+      //   {
+      //     id: 1,
+      //     poster:
+      //       'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3hrCpnlQnzqbNGvUd03l72l7JM6C5GOoHvMnhsUBldIgBs7GD',
+      //     title: 'Não! Não Olhe!',
+      //     time: '2h5min',
+      //     imdb: 4.5,
+      //   },
+      //   {
+      //     id: 2,
+      //     poster: '',
+      //     title: 'TICKET to PARADISE',
+      //     time: '2h5min',
+      //     imdb: 3.5,
+      //   },
+      //   {
+      //     id: 3,
+      //     poster:
+      //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLnv5c0wq18JR5YRrFI6CC_B9kB5Zqz461ZqK-LyzR6-9RiE_W',
+      //     title: '',
+      //     time: '2h5min',
+      //     imdb: 5,
+      //   },
+      //   {
+      //     id: 4,
+      //     poster:
+      //       'https://br.web.img3.acsta.net/c_310_420/pictures/21/11/08/16/02/3963914.png',
+      //     title: 'Homem Aranha: sem volta pra casa',
+      //     time: '2h5min',
+      //     imdb: 4.7,
+      //   },
+      //   {
+      //     id: 5,
+      //     poster:
+      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSp-lzoeSCvEzSiLDBiaeBprFOMjlry4SdUot2GfS8inDd-BoyX',
+      //     title: 'Parasita',
+      //     time: '2h5min',
+      //     imdb: 3.7,
+      //   },
+      //   {
+      //     id: 6,
+      //     poster:
+      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSGXk4wQrBRtCQheTNJ6L9LgQJLsJiJ76eMNlZpeTtGTJuJK3Q3',
+      //     title: 'Jurassic World: Domínio',
+      //     time: '2h5min',
+      //     imdb: 4,
+      //   },
+      //   {
+      //     id: 7,
+      //     poster:
+      //       'https://upload.wikimedia.org/wikipedia/pt/thumb/0/08/Thor_Love_and_Thunder_poster.jpg/250px-Thor_Love_and_Thunder_poster.jpg',
+      //     title: 'Thor Amor e Trovão',
+      //     time: '2h5min',
+      //     imdb: 3,
+      //   },
+      //   {
+      //     id: 8,
+      //     poster:
+      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRY5QGNRfsGSClplqEptKo2HybJwUN8wspofcJvaY-eq8vteUka',
+      //     title: 'The Batman',
+      //     time: '2h5min',
+      //     imdb: 4.7,
+      //   },
+      //   {
+      //     id: 9,
+      //     poster:
+      //       'https://sm.ign.com/ign_br/movie/t/top-gun-ma/top-gun-maverick_5w3e.jpg',
+      //     title: 'top gun: maverick críticas',
+      //     time: '2h10min',
+      //     imdb: 4.9,
+      //   },
+      //   {
+      //     id: 10,
+      //     poster:
+      //       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQqGaPJIo-hYffWgLDcpZ68U0e6uHdHncqwEvTFgmXYIasfL10r',
+      //     title: 'Bullet Train',
+      //     time: '2h6m',
+      //     imdb: 4.4,
+      //   },
+      // ],
     };
   },
   computed: {
     rows() {
-      return this.movies.length;
+      return this.$store.state.Movies.Movies.numberOfElements;
     },
     itemsForList() {
-      return this.movies.slice(
+      return this.$store.state.Movies.Movies.content.slice(
         (this.currentPage - 1) * this.perPage,
         this.currentPage * this.perPage,
       );
     },
+  },
+  mounted() {
+    this.$store.dispatch('Movies/getMovieFilter');
   },
 });
 </script>
