@@ -10,15 +10,17 @@
       :key="movie.id"
       class="carousel__slide"
     >
-      <div >
+      <div>
         <div class="carousel-card">
-          <router-link to="/home/movie">
-            <img :src="movie.poster" :alt="movie.title" />
-          </router-link>
+          <div class="image-container">
+            <router-link to="/home/movie">
+              <img :src="movie.poster" :alt="movie.title" />
+            </router-link>
+          </div>
         </div>
         <div class="info-movies" v-if="hiddenMovieInfo">
           <h3>{{ movie.title }}</h3>
-          <span>Duração: {{ movie.time }}</span>
+          <p>Duração: {{ movie.time }}</p>
           <StarRating class="rating" />
         </div>
       </div>
