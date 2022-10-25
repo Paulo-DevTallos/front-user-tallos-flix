@@ -1,9 +1,18 @@
 .carousel__slide {
+
     .carousel-card{
+        background-color: $primary-color-black-bg-icon;
+        width: 260px;
+        height: 350px;
+        margin: 0 20px;
+        @include align-elements(flex, center, center);
+        
         img {
             width: 100%;
+            height: 100%;
         }
         .info-movies {
+            background-color: red;
             font-family: 'Nunito', sans-serif;
             color: #fff;
             margin-top: 10px;
