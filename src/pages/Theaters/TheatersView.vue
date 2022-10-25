@@ -33,7 +33,11 @@
                   <router-link
                     :to="{ path: `/home/movieLocation/${movie._id}` }"
                   >
-                    <b-button size="lg" class="w-75 btn-movie">
+                    <b-button
+                      size="lg"
+                      class="w-75 btn-movie"
+                      @click="currentMovie(movie)"
+                    >
                       Ver cinemas
                     </b-button>
                   </router-link>
@@ -171,6 +175,10 @@ export default defineComponent({
     getRequestParams(page: Number, limit: Number) {
       const params = {};
     },
+    currentMovie(movie: Object){
+      this.$store.state.Movies.currentMovie = movie;
+    }
+
   },
   mounted() {
     this.$store.dispatch('Movies/getMovieFilter');
