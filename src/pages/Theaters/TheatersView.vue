@@ -2,7 +2,7 @@
   <b-container class="pt-5 pb-5" fluid>
     <b-row cols="1" cols-sm="2" cols-md="2" cols-lg="2">
       <b-col
-        v-for="movie in itemsForList"
+        v-for="movie in this.$store.state.Movies.Movies.content"
         :key="movie.id"
         col
         no-gutters
@@ -164,6 +164,9 @@ export default defineComponent({
         this.currentPage * this.perPage,
       );
     },
+  },
+  methods: {
+
   },
   mounted() {
     this.$store.dispatch('Movies/getMovieFilter');
