@@ -1,5 +1,6 @@
 <template>
   <div class="page-container">
+    {{ this.$store.state.Movies.Movies.content[0].title }}
     <CardMovie />
     <dir>
       <PlotView />
@@ -45,6 +46,10 @@ export default defineComponent({
       };
       this.$store.dispatch('Theaters/getTheatersBylocation', coords);
     }, console.log);
+    this.$store.dispatch('Movies/getMovieFilter', {
+      field: 'title',
+      search: '!Women Art Revolution',
+    });
   },
 });
 </script>
