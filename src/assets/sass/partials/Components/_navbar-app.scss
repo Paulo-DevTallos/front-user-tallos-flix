@@ -2,6 +2,7 @@
     background: linear-gradient(0deg,
             rgba(51, 51, 51, 0.596) 0%,
             rgba(0, 0, 0, 0.123) 100%) !important;
+    padding: 15px 40px;
 
     .navbar-collapse {
         @include align-elements(flex, space-between, unset);
@@ -20,27 +21,50 @@
                     border-bottom: 3px solid $primary-color-beige-two;
                     padding-bottom: 0;
                 }
-
             }
         }
     }
 
-    .name-user {
-        color: white;
-    }
+    .type-cursor {
+        cursor: pointer;
+        position: relative;
 
-    .dropdown-menu {
-        background-color: $primary-color-black-three;
+        .name-user {
+            color: white;
+            padding-right: 10px;
+        }
 
-        .dropdown-item {
-            color: white !important;
+        .drop-down-menu {
+            border-radius: 10px;
+            position: absolute;
+            top: 55px;
+            right: 0px;
+            background-color: $primary-color-black-three;
+            animation: downslide .2s ease-in-out;
 
-            &:hover {
-                background-color: $primary-color-black-two;
+            @keyframes downslide {
+                from {
+                    opacity: 0;
+                    transform: translateY(-25px);
+                } 
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
 
-            &:focus {
-                background-color: $primary-color-black-two;
+            .dropdown-item {
+                padding: 10px;
+                color: white !important;    
+
+                &:hover {
+                    background-color: $primary-color-black-two;
+                    
+                }
+    
+                &:focus {
+                    background-color: $primary-color-black-two;
+                }
             }
         }
     }

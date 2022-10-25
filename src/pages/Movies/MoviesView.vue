@@ -2,9 +2,9 @@
   <div
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
-    <div class="search-components d-flex flex-column gap-5">
-      <div class="d-flex justify-content-center">
-        <div class="me-5 box-filter-container">
+    <div class="d-flex justify-content-center search-components">
+      <div class="me-5 box-filter-container">
+        <div class="d-flex gap-5">
           <button
             class="search-input wd-btn text-input styles-filter"
             @click="callBoxFilter"
@@ -20,11 +20,11 @@
             </ul>
           </div>
         </div>
-        <SearchBar />
       </div>
-      <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
-        <Carousel :hiddenMovieInfo="true" />
-      </div>
+      <SearchBar />
+    </div>
+    <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
+      <Carousel :hiddenMovieInfo="false" />
     </div>
   </div>
 </template>
