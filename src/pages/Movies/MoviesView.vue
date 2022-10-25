@@ -24,7 +24,7 @@
       <SearchBar />
     </div>
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
-      <Carousel :hiddenMovieInfo="false" />
+      <Carousel :hiddenMovieInfo="true" />
     </div>
   </div>
 </template>

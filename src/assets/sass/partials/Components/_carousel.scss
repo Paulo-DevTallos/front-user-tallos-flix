@@ -2,38 +2,43 @@
 
     .carousel-card{
         background-color: $primary-color-black-bg-icon;
-        width: 260px;
-        height: 350px;
+        width: 240px;
+        height: 330px;
         margin: 0 20px;
-        @include align-elements(flex, center, center);
         
-        img {
+        .image-container {
             width: 100%;
             height: 100%;
-        }
-        .info-movies {
-            background-color: red;
-            font-family: 'Nunito', sans-serif;
-            color: #fff;
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            @include align-elements(flex, center, center);
             
-            h3 {
-                font-weight: 500;
+            img {
+                width: 240px;
+                height: 340px;
             }
+        }   
+    }
     
-            span {
-                margin-bottom: 9px;
-            }
+    .info-movies {
+        font-family: 'Nunito', sans-serif;
+        color: #fff;
+        margin: 30px 20px;
+        text-align: start;
+        height: 110px;
+        h3 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        p {
+            margin-bottom: 9px;
+        }
     
-            .rating {
-                display: flex;
-            }
+        .rating {
+            display: flex;
         }
     }
 }
+
 
 .icon-style {
     @include align-elements(flex, center, center);
