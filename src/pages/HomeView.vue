@@ -15,6 +15,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { SocketModule } from '@/services/socket';
+//import io from 'socket.io-client'
 import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
 
@@ -23,6 +25,17 @@ export default defineComponent({
   components: {
     SearchBar,
     Carousel,
+  },
+  data() {
+    return {
+      socketService: SocketModule.connect(),
+    };
+  },
+
+  mounted() {
+    this.socketService.registerListener('is-logged', 'is-logged', (data) => {
+      alert(data);
+    });
   },
 });
 </script>
