@@ -45,13 +45,15 @@ export default {
         commit();
       });
   },
-  async getMovieFilter({ commit }: any) {
-    await MovieRequests.getMovieFilter()
+  async getMovieFilter({ commit }: any, data?: any) {
+    await MovieRequests.getMovieFilter(data)
       .then((res) => {
         commit('GET_MOVIES', res.data);
+        console.log(res)
       })
       .catch((error) => {
         commit();
+        console.log(error)
       });
   },
 };
