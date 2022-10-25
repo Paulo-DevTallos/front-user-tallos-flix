@@ -49,7 +49,13 @@ const router = createRouter({
         },
       ],
     },
+    { 
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('../components/ErrorComponent.vue'), 
+    },
   ],
 });
+
 
 export default router;
