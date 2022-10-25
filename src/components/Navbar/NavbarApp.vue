@@ -11,58 +11,58 @@
         <b-nav-item>Series</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
-    <b-navbar-nav @click="redirect">
-      <b-nav-item-dropdown
-        toggle-class="d-flex align-items-center dropdown-user-link"
-        right
-        no-caret
-      >
-        <template #button-content>
-          <div class="d-flex align-items-center">
-            <div class="m-2 name-user" v-if="UserLogged ? UserLogged : NoUser">
-              {{ UserLogged || NoUser }}
-            </div>
-            <b-avatar
-              variant="light-primary"
-              size="40"
-              :src="AvatarUser"
-            ></b-avatar>
+    <nav>
+      <b-navbar-nav @click="redirect" class="type-cursor">
+        <div class="d-flex align-items-center" @click="callDropDown">
+          <div class="m-2 name-user" v-if="UserLogged ? UserLogged : NoUser">
+            {{ UserLogged || NoUser }}
           </div>
-        </template>
-        <div v-if="UserLogged">
+          <b-avatar
+            variant="light-primary"
+            size="40"
+            :src="AvatarUser"
+          ></b-avatar>
+        </div>
+        <div class="drop-down-menu" v-show="hiddenDropDown">
           <b-dropdown-item>Trocar Avatar</b-dropdown-item>
           <b-dropdown-item :to="{name : 'favorites'}">Meus Favoritos</b-dropdown-item>
           <b-dropdown-item @click="Logout">Sair</b-dropdown-item>
         </div>
-      </b-nav-item-dropdown>
-    </b-navbar-nav>
+      </b-navbar-nav>
+    </nav>
   </b-navbar>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  name: 'NavbarApp',
   data() {
     return {
       UserLogged: this.$store.state.Users.UserName,
       NoUser: 'Faça Login',
       avatar: '/img/avatar1.png',
       noAvatar: '/img/user-default.png',
+      hiddenDropDown: false,
     };
   },
   computed: {
-    AvatarUser() {
+    AvatarUser(): string {
       return this.UserLogged ? this.avatar : this.noAvatar;
     },
   },
   methods: {
-    redirect() {
+    callDropDown(): void {
+      if (this.UserLogged) {
+        this.hiddenDropDown = !this.hiddenDropDown;
+      }
+    },
+    redirect(): string {
       return this.UserLogged ? this.UserLogged : location.replace('/login');
     },
-    Logout() {
-      this.$store.state.Users = {};
-      localStorage.clear();
+    Logout(): void {
       location.replace('/');
+      localStorage.clear();
     },
   },
 });
