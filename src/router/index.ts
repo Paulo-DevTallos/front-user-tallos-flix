@@ -38,14 +38,19 @@ const router = createRouter({
           component: () => import('../pages/Movies/MovieView.vue'),
         },
         {
-          path: 'series',
-          name: 'series',
-          component: () => import('../pages/Series/SeriesView.vue'),
-        },
-        {
           path: 'movies',
           name: 'movies',
           component: () => import('../pages/Movies/MoviesView.vue'),
+        },
+        {
+          path: 'serie',
+          name: 'serie',
+          component: () => import('../pages/Series/SerieView.vue'),
+        },
+        {
+          path: 'series',
+          name: 'series',
+          component: () => import('../pages/Series/SeriesView.vue'),
         },
         {
           path: 'movieLocation/:id',
@@ -61,6 +66,5 @@ const router = createRouter({
     },
   ],
 });
-
 
 export default router;

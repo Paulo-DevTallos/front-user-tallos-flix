@@ -1,3 +1,4 @@
+
 <template>
   <carousel
     :items-to-show="4"
@@ -13,7 +14,14 @@
       <div>
         <div class="carousel-card">
           <div class="image-container">
-            <router-link :to="{ path: `/home/movie` }">
+            <router-link :to="{ path: `/home/movie` }" v-if="this.RenderSeries == false">
+              <img
+                :src="movie.poster"
+                :alt="movie.title"
+                @click="currentMovie(movie)"
+              />
+            </router-link>
+            <router-link :to="{ path: `/home/serie` }" v-else>
               <img
                 :src="movie.poster"
                 :alt="movie.title"
