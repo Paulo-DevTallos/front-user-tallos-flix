@@ -2,7 +2,7 @@
   <div class="window-modal" @click="$emit('closeWindow')">
     <div class="iframe-content">
       <iframe
-        src=""
+        :src="trailer_file"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
