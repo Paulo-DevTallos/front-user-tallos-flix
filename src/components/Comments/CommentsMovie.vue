@@ -1,9 +1,16 @@
 <template>
   <div>
-    <div v-for="comment in this.$store.state.Comments.Comments" :key="comment.id">
+    <div
+      v-for="comment in this.$store.state.Comments.Comments"
+      :key="comment.id"
+    >
       <b-row class="pb-4">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
-          ><b-avatar :src="comment.avatar" size="5rem"></b-avatar
+          ><b-avatar
+            v-if="comment.avatar ? comment.avatar : Noavatar"
+            :src="comment.avatar || Noavatar"
+            size="5rem"
+          ></b-avatar
         ></b-col>
         <b-col cols="10">
           <h5 class="text-color">{{ comment.name }}</h5>
@@ -14,7 +21,13 @@
             <h6 class="text-color">Há {{ comment.date }} dia</h6>
             <div class="d-flex">
               <div
-                class="items-color comp-icons d-flex justify-content-between pe-2"
+                class="
+                  items-color
+                  comp-icons
+                  d-flex
+                  justify-content-between
+                  pe-2
+                "
               >
                 <p>5</p>
                 <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -53,7 +66,13 @@
                 <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">Há {{ reply.date }} dia</h6>
                   <div
-                    class="items-color comp-icons d-flex justify-content-between pe-2"
+                    class="
+                      items-color
+                      comp-icons
+                      d-flex
+                      justify-content-between
+                      pe-2
+                    "
                   >
                     <p>5</p>
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -138,6 +157,7 @@ export default defineComponent({
       text: '',
       response: 'Responder',
       ocult: 'Ocultar',
+      Noavatar: '/img/user-default.png',
       getComments: null,
       comments: [
         {
