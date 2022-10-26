@@ -14,6 +14,12 @@
     <div class="ps-5 comments-app">
       <p class="plot-title mt-4">Comentários</p>
       <hr class="orange-line-separator" />
+      <div
+        class="d-flex justify-content-center plot-title"
+        v-if="this.$store.state.Comments.Comments < [0]"
+      >
+        Nenhum comentário encontrado
+      </div>
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
         class="comments-comp"

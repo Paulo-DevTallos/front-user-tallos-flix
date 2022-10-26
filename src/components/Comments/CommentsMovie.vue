@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-for="comment in renderComments"
-      :key="comment.id"
-    >
+    <div v-for="comment in renderComments" :key="comment.id">
       <b-row class="pb-4">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
           ><b-avatar
