@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="comment in comments" :key="comment.id">
+    <div v-for="comment in this.$store.state.Comments.Comments" :key="comment.id">
       <b-row class="pb-4">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
           ><b-avatar :src="comment.avatar" size="5rem"></b-avatar

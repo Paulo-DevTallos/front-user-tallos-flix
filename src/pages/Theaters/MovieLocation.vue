@@ -37,6 +37,13 @@ export default defineComponent({
     TheatersList,
     CommentsMovie,
   },
+  data() {
+    return {
+      movie: {
+        movie: this.$store.state.Movies.currentMovie._id,
+      }
+    };
+  },
   mounted() {
     window.navigator.geolocation.getCurrentPosition((postion) => {
       const coords = {
@@ -45,6 +52,8 @@ export default defineComponent({
       };
       this.$store.dispatch('Theaters/getTheatersBylocation', coords);
     }, console.log);
+
+    this.$store.dispatch('Comments/getByMovieId', this.movie);
   },
 });
 </script>

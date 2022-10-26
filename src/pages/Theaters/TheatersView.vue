@@ -28,7 +28,7 @@
                   >
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
                   <div class="d-flex">
-                    <star-rating />
+                    <star-rating v-model="movie.imdb.rating" />
                   </div>
                   <router-link
                     :to="{ path: `/home/movieLocation/${movie._id}` }"
