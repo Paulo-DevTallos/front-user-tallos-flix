@@ -1,3 +1,16 @@
+// estilo utilizado para span na view de series
+#tagGenre {
+    border: 2px solid #d36643;
+    border-radius: 15px;
+    padding: 1px 12px;
+    color: #efefef;
+    @include align-elements(flex, center, center);
+}
+#genre-title{
+    color: $primary-color-black-seven;
+    font-size: $font-size-common;
+}
+
 .card-config {
     background-color: $primary-color-black-card;
     color: #fff;
@@ -33,7 +46,7 @@
                 font-weight: bold;
             }
     
-            span {
+            .tagGenre {
                 border: 2px solid #d36643;
                 border-radius: 15px;
                 padding: 1px 12px;
