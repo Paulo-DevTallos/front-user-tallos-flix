@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <CardMovie />
+    <CardMovie :hiddenBtnTrailer="true" />
   </div>
 </template>
 
