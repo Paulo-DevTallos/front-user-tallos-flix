@@ -136,8 +136,6 @@
       </b-row>
     </div>
   </div>
-  <!-- v-for="comment in comments"
-        :key="comment.id" -->
 </template>
 <script lang="ts">
 import { Icon } from '@iconify/vue';
@@ -225,7 +223,8 @@ export default defineComponent({
     getcomment(comment) {
       this.getComments = { ...comment };
       this.responseView = !this.responseView;
-      console.log(this.getComments);
+      console.log('id do comentário', comment._id);
+      console.log('id passado para o componente', this.getComments._id);
     },
   },
 });
