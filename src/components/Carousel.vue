@@ -80,12 +80,14 @@ export default defineComponent({
     },
   },
   mounted() {
-    if (this.RenderSeries === true) {
-      this.$store.dispatch('Movies/getSeries');
-      this.$store.state.Movies.Movies.content =
-        this.$store.state.Movies.Series.content;
-    } else {
-      this.$store.dispatch('Movies/getMovieFilter');
+    if (this.$store.state.Movies.IsMovieGenre == false) {
+      if (this.RenderSeries === true) {
+        this.$store.dispatch('Movies/getSeries');
+        this.$store.state.Movies.Movies.content =
+          this.$store.state.Movies.Series.content;
+      } else {
+        this.$store.dispatch('Movies/getMovieFilter');
+      }
     }
   },
 });
