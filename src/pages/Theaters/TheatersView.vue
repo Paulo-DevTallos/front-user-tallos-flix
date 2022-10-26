@@ -28,7 +28,7 @@
                   >
                   <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
                   <div class="d-flex">
-                    <star-rating v-model="movie.imdb.rating" />
+                    <star-rating />
                   </div>
                   <router-link
                     :to="{ path: `/home/movieLocation/${movie._id}` }"
@@ -102,14 +102,13 @@ export default defineComponent({
       this.page + 1;
       this.reloadRequest();
     },
-    currentMovie(movie: Object){
+    currentMovie(movie: Object) {
       this.$store.state.Movies.currentMovie = movie;
-    }
-
+    },
   },
   mounted() {
     this.reloadRequest();
-  }
+  },
 });
 </script>
 <style lang="scss" scoped></style>

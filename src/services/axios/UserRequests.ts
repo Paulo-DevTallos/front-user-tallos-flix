@@ -11,7 +11,7 @@ export default {
     return http.get(`users/${id}`);
   },
   createUser: (userData: object) => {
-    return http.post(`users`, userData);
+    return http.post(`users/public`, userData);
   },
   usersPaginate: (limit: number, page: number) => {
     return http.post(`users/paginate?limit=${limit}&skip=${page}`);
