@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="comment in this.$store.state.Comments.Comments"
+      v-for="comment in renderComments"
       :key="comment.id"
     >
       <b-row class="pb-4">
@@ -217,6 +217,12 @@ export default defineComponent({
         },
       ],
     };
+  },
+  props: {
+    renderComments: {
+      type: Object,
+      required: false,
+    },
   },
   methods: {
     getcomment(comment) {

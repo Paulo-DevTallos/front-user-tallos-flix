@@ -14,7 +14,10 @@
     <div class="ps-5 comments-app">
       <p class="plot-title mt-4">Comentários</p>
       <hr class="orange-line-separator" />
-      <comments-movie class="comments-comp" />
+      <comments-movie
+        :renderComments="this.$store.state.Comments.Comments"
+        class="comments-comp"
+      />
     </div>
   </div>
 </template>
@@ -41,7 +44,7 @@ export default defineComponent({
     return {
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
-      }
+      },
     };
   },
   mounted() {
