@@ -88,6 +88,8 @@ export default defineComponent({
       } else {
         this.$store.dispatch('Movies/getMovieFilter');
       }
+    } else {
+      this.$store.state.Movies.IsMovieGenre == true;
     }
   },
 });

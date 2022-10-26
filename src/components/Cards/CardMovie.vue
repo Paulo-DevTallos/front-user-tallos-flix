@@ -114,6 +114,9 @@ export default defineComponent({
       this.$router.push('/home/movies');
     },
   },
+  mounted() {
+    this.$store.state.Movies.IsMovieGenre = false;
+  }
 });
 </script>
 
