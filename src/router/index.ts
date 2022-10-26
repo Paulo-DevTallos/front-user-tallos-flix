@@ -38,6 +38,11 @@ const router = createRouter({
           component: () => import('../pages/Movies/MovieView.vue'),
         },
         {
+          path: 'series',
+          name: 'series',
+          component: () => import('../pages/Series/SeriesView.vue'),
+        },
+        {
           path: 'movies',
           name: 'movies',
           component: () => import('../pages/Movies/MoviesView.vue'),

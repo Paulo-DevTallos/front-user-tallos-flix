@@ -14,7 +14,11 @@
         <div class="carousel-card">
           <div class="image-container">
             <router-link :to="{ path: `/home/movie` }">
-              <img :src="movie.poster" :alt="movie.title" @click="currentMovie(movie)"/>
+              <img
+                :src="movie.poster"
+                :alt="movie.title"
+                @click="currentMovie(movie)"
+              />
             </router-link>
           </div>
         </div>
@@ -61,6 +65,7 @@ export default defineComponent({
   },
   props: {
     hiddenMovieInfo: { type: Boolean },
+    RenderSeries: { type: Boolean },
   },
   data() {
     return {
@@ -75,8 +80,14 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.$store.dispatch('Movies/getMovieFilter');
-  }
+    if (this.RenderSeries === true) {
+      this.$store.dispatch('Movies/getSeries');
+      this.$store.state.Movies.Movies.content =
+        this.$store.state.Movies.Series.content;
+    } else {
+      this.$store.dispatch('Movies/getMovieFilter');
+    }
+  },
 });
 </script>
 
