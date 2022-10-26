@@ -1,9 +1,13 @@
 <template>
   <div>
-    <div v-for="comment in comments" :key="comment.id">
+    <div v-for="comment in renderComments" :key="comment.id">
       <b-row class="pb-4">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
-          ><b-avatar :src="comment.avatar" size="5rem"></b-avatar
+          ><b-avatar
+            v-if="comment.avatar ? comment.avatar : Noavatar"
+            :src="comment.avatar || Noavatar"
+            size="5rem"
+          ></b-avatar
         ></b-col>
         <b-col cols="10">
           <h5 class="text-color">{{ comment.name }}</h5>
@@ -14,7 +18,13 @@
             <h6 class="text-color">Há {{ comment.date }} dia</h6>
             <div class="d-flex">
               <div
-                class="items-color comp-icons d-flex justify-content-between pe-2"
+                class="
+                  items-color
+                  comp-icons
+                  d-flex
+                  justify-content-between
+                  pe-2
+                "
               >
                 <p>5</p>
                 <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -53,7 +63,13 @@
                 <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">Há {{ reply.date }} dia</h6>
                   <div
-                    class="items-color comp-icons d-flex justify-content-between pe-2"
+                    class="
+                      items-color
+                      comp-icons
+                      d-flex
+                      justify-content-between
+                      pe-2
+                    "
                   >
                     <p>5</p>
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -120,8 +136,6 @@
       </b-row>
     </div>
   </div>
-  <!-- v-for="comment in comments"
-        :key="comment.id" -->
 </template>
 <script lang="ts">
 import { Icon } from '@iconify/vue';
@@ -138,6 +152,7 @@ export default defineComponent({
       text: '',
       response: 'Responder',
       ocult: 'Ocultar',
+      Noavatar: '/img/user-default.png',
       getComments: null,
       comments: [
         {
@@ -198,11 +213,18 @@ export default defineComponent({
       ],
     };
   },
+  props: {
+    renderComments: {
+      type: Object,
+      required: false,
+    },
+  },
   methods: {
     getcomment(comment) {
       this.getComments = { ...comment };
       this.responseView = !this.responseView;
-      console.log(this.getComments);
+      console.log('id do comentário', comment._id);
+      console.log('id passado para o componente', this.getComments._id);
     },
   },
 });

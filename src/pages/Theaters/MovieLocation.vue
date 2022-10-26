@@ -14,7 +14,16 @@
     <div class="ps-5 comments-app">
       <p class="plot-title mt-4">Comentários</p>
       <hr class="orange-line-separator" />
-      <comments-movie class="comments-comp" />
+      <div
+        class="d-flex justify-content-center plot-title"
+        v-if="this.$store.state.Comments.Comments < [0]"
+      >
+        Nenhum comentário encontrado
+      </div>
+      <comments-movie
+        :renderComments="this.$store.state.Comments.Comments"
+        class="comments-comp"
+      />
     </div>
   </div>
 </template>
@@ -37,6 +46,13 @@ export default defineComponent({
     TheatersList,
     CommentsMovie,
   },
+  data() {
+    return {
+      movie: {
+        movie: this.$store.state.Movies.currentMovie._id,
+      },
+    };
+  },
   mounted() {
     window.navigator.geolocation.getCurrentPosition((postion) => {
       const coords = {
@@ -45,6 +61,8 @@ export default defineComponent({
       };
       this.$store.dispatch('Theaters/getTheatersBylocation', coords);
     }, console.log);
+
+    this.$store.dispatch('Comments/getByMovieId', this.movie);
   },
 });
 </script>
