@@ -28,8 +28,8 @@
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
       </header>
-      <div class="btn-trailer-container">
-        <button class="trailer-btn" @click="$emit('traillerModal')">
+      <div v-if="hiddenBtnTrailer" class="btn-trailer-container">
+        <button class="trailer-btn" @click="openTraillerModal">
           <Icon icon="carbon:play-filled" />
           Trailer
         </button>
@@ -92,18 +92,39 @@
         </ul>
       </div>
     </div>
+    <TraillerModal 
+      :trailer_file="this.$store.state.Movies.currentMovie.trailer"
+      v-if="hiddenTraillerModal" 
+      @closeWindow="closeModal" 
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
+import TraillerModal from '@/components/Modals/TraillerModal.vue';
 
 export default defineComponent({
   name: 'CardMovie',
-  components: { Icon },
-  emits: ['traillerModal'],
+  components: { Icon, TraillerModal },
+  props: {
+    hiddenBtnTrailer: { type: Boolean },
+  },
+  data() {
+    return {
+      hiddenTraillerModal: false,
+    };
+  },
   methods: {
+    openTraillerModal(): void {
+      this.hiddenTraillerModal = true;
+    },
+
+    closeModal(): void {
+      this.hiddenTraillerModal = false;
+    },
+
     searchGenre(movie: string) {
       this.$store.state.Movies.actualTag = movie;
       this.$store.dispatch('Movies/getMovieFilter', {

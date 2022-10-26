@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <CardMovie :hiddenBtnTrailer="true" />
+    <CardMovie :hiddenBtnTrailer="false" />
   </div>
 </template>
 
@@ -9,9 +9,7 @@ import { defineComponent } from 'vue';
 import CardMovie from '@/components/Cards/CardMovie.vue';
 
 export default defineComponent({
-  name: 'MovieView',
+  name: 'SerieView',
   components: { CardMovie },
 });
 </script>
-
-<style lang="scss" scoped></style>
