@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <SearchBar />
+      <SearchBar :Series="true" />
     </div>
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <Carousel :hiddenMovieInfo="true" :RenderSeries="true" />

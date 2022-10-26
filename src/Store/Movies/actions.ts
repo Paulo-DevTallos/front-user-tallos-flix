@@ -36,8 +36,8 @@ export default {
         commit();
       });
   },
-  async getSeries({ commit }: any) {
-    await MovieRequests.getSeries()
+  async getSeries({ commit }: any, data?: any) {
+    await MovieRequests.getSeries(data)
       .then((res) => {
         commit('GET_SERIES', res.data);
       })

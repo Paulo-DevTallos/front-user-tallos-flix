@@ -4,8 +4,8 @@ export default {
   getAllMovies: () => {
     return http.get('movies');
   },
-  getSeries: () => {
-    return http.get('movies/search/series');
+  getSeries: (params?: any) => {
+    return http.get('movies/search/series', { params: params });
   },
   getMovieFilter: (params?: any) => {
     return http.get(`movies/search`, { params: params });
