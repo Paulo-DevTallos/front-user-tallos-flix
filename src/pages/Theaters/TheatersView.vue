@@ -108,6 +108,7 @@ export default defineComponent({
   },
   mounted() {
     this.reloadRequest();
+    this.$store.state.Movies.IsMovieGenre = false;
   },
 });
 </script>

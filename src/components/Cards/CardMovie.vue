@@ -19,7 +19,7 @@
             v-for="Movie in this.$store.state.Movies.currentMovie.genres"
             :key="Movie.length"
           >
-            <span>{{ Movie }}</span>
+            <span class="tagGenre" @click="searchGenre(Movie)">{{ Movie }}</span>
           </div>
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
@@ -103,6 +103,20 @@ export default defineComponent({
   name: 'CardMovie',
   components: { Icon },
   emits: ['traillerModal'],
+  methods: {
+    searchGenre(movie: string) {
+      this.$store.state.Movies.actualTag = movie;
+      this.$store.dispatch('Movies/getMovieFilter', {
+        field: 'genres',
+        search: movie,
+      });
+      this.$store.state.Movies.IsMovieGenre = true;
+      this.$router.push('/home/movies');
+    },
+  },
+  mounted() {
+    this.$store.state.Movies.IsMovieGenre = false;
+  }
 });
 </script>
 
