@@ -28,7 +28,7 @@
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
       </header>
-      <div class="btn-trailer-container">
+      <div v-if="hiddenBtnTrailer" class="btn-trailer-container">
         <button class="trailer-btn" @click="openTraillerModal">
           <Icon icon="carbon:play-filled" />
           Trailer
@@ -92,7 +92,11 @@
         </ul>
       </div>
     </div>
-    <TraillerModal v-if="hiddenTraillerModal" @closeWindow="closeModal" />
+    <TraillerModal 
+      :trailer_file="this.$store.state.Movies.currentMovie.trailer"
+      v-if="hiddenTraillerModal" 
+      @closeWindow="closeModal" 
+    />
   </div>
 </template>
 
@@ -104,6 +108,9 @@ import TraillerModal from '@/components/Modals/TraillerModal.vue';
 export default defineComponent({
   name: 'CardMovie',
   components: { Icon, TraillerModal },
+  props: {
+    hiddenBtnTrailer: { type: Boolean },
+  },
   data() {
     return {
       hiddenTraillerModal: false,
