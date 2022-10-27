@@ -26,7 +26,12 @@
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
         <div class="icon-favorite">
-          <Icon icon="carbon:favorite" />
+          <Icon
+            :icon="IconStyle"
+            @click="favoriteMovie"
+            :color="ColorStyle"
+            id="favoriteIcon"
+          />
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
       </header>
@@ -124,6 +129,8 @@ export default defineComponent({
     return {
       hiddenTraillerModal: false,
       hiddenBtnTrailer: false,
+      IconStyle: 'carbon:favorite',
+      ColorStyle: 'none',
     };
   },
   methods: {
@@ -143,6 +150,16 @@ export default defineComponent({
       });
       this.$store.state.Movies.IsMovieGenre = true;
       this.$router.push('/home/movies');
+    },
+
+    favoriteMovie() {
+      if (this.IconStyle === 'carbon:favorite-filled') {
+        this.IconStyle = 'carbon:favorite';
+        this.ColorStyle = 'white';
+      } else {
+        this.IconStyle = 'carbon:favorite-filled';
+        this.ColorStyle = '#f38765';
+      }
     },
   },
   mounted() {
