@@ -48,6 +48,16 @@ export default {
         commit();
       });
   },
+  async getAvatar({ commit }: any, data: any) {
+    await UserRequests.getAvatar(data)
+      .then((res) => {
+        commit('GET_AVATAR', res.data);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        commit();
+      });
+  },
   async getMe({ commit }: any) {
     await UserRequests.getMe()
       .then((res) => {

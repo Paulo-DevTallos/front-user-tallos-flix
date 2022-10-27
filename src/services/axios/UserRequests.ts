@@ -10,6 +10,9 @@ export default {
   getUserById: (id: string) => {
     return http.get(`users/${id}`);
   },
+  getAvatar: (email: string) => {
+    return http.get(`users/avatar/${email}`);
+  },
   createUser: (userData: object) => {
     return http.post(`users/public`, userData);
   },
