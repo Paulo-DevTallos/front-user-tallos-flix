@@ -20,13 +20,31 @@
   }
 
   .iframe-content {
-    width: 500px;
-    height: 300px;
-    
+    width: 580px;
+    height: 380px;
+    background-color: #212121;
+    @include align-elements(flex, center, center);
+    position: relative;
+
+    svg {
+      position: absolute;
+      right: 17px;
+      top: 17px;
+      cursor: pointer;
+      font-size: 20px;
+      border: 1px solid transparent;
+      transition: .4s ease-in-out;
+
+      &:hover {
+        border-radius: 100%;
+        color: #fff;
+        border: 1px solid #fff;
+      }
+    }
+
     iframe {
-      border-radius: 20px;
-      width: 100%;
-      height: 100%;
+      width: 85%;
+      height: 80%;
     }
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="page-container">
-    <CardMovie />
-    <dir>
+    <CardMovie :hiddenBtnTrailer="true"/>
+    <div>
       <PlotView />
       <TheatersForm />
-    </dir>
+    </div>
     <div class="map-location-field px-5 py-4">
       <MapView />
     </div>
