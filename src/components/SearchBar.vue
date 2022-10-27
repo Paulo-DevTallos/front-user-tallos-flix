@@ -5,7 +5,7 @@
       class="text-input"
       placeholder="Digite aqui o nome do filme"
       v-model="this.MovieFilter"
-      @keypress="search(this.MovieFilter)"
+      @keyup="search(this.MovieFilter)"
     />
     <Icon icon="carbon:search" class="icon" />
   </div>
@@ -21,22 +21,29 @@ export default defineComponent({
   data() {
     return {
       MovieFilter: '',
+      isReady: true,
     };
   },
   methods: {
     search(data: string) {
-      if (this.Series == false) {
-        this.$store.dispatch('Movies/getMovieFilter', {
-          field: 'title',
-          search: data,
-        });
-      } else {
-        this.$store.dispatch('Movies/getSeries', {
-          field: 'title',
-          search: data,
-        });
-        this.$store.state.Movies.Movies.content =
-          this.$store.state.Movies.Series.content;
+      if (this.isReady === true) {
+        this.isReady = false;
+        setTimeout(() => {
+          if (this.Series == false) {
+            this.$store.dispatch('Movies/getMovieFilter', {
+              field: 'title',
+              search: data,
+            });
+          } else {
+            this.$store.dispatch('Movies/getSeries', {
+              field: 'title',
+              search: data,
+            });
+            this.$store.state.Movies.Movies.content =
+              this.$store.state.Movies.Series.content;
+          }
+          this.isReady = true;
+        }, 1000);
       }
     },
   },
