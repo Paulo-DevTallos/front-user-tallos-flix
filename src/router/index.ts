@@ -1,4 +1,18 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  createRouter,
+  createWebHistory,
+  type NavigationGuardNext,
+  type RouteLocation,
+} from 'vue-router';
+
+const authGuard =
+  () => (to: RouteLocation, from: RouteLocation, next: NavigationGuardNext) => {
+    if (localStorage.getItem('token') || "") {
+      next();
+    } else {
+      next("/");
+    }
+  };
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +29,7 @@ const router = createRouter({
     {
       path: '/home/favorites',
       name: 'favorites',
+      beforeEnter: authGuard(),
       component: () => import('../pages/Favorites/MyFavorites.vue'),
     },
     {
