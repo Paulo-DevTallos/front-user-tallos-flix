@@ -19,7 +19,9 @@
             v-for="Movie in this.$store.state.Movies.currentMovie.genres"
             :key="Movie.length"
           >
-            <span class="tagGenre" @click="searchGenre(Movie)">{{ Movie }}</span>
+            <span class="tagGenre" @click="searchGenre(Movie)">{{
+              Movie
+            }}</span>
           </div>
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
@@ -92,10 +94,10 @@
         </ul>
       </div>
     </div>
-    <TraillerModal 
+    <TraillerModal
       :trailer_file="this.$store.state.Movies.currentMovie.trailer"
-      v-if="hiddenTraillerModal" 
-      @closeWindow="closeModal" 
+      v-if="hiddenTraillerModal"
+      @closeWindow="closeModal"
     />
   </div>
 </template>
@@ -136,8 +138,13 @@ export default defineComponent({
     },
   },
   mounted() {
+    this.$store.state.Movies.currentMovie.runtime =
+      Math.trunc(this.$store.state.Movies.currentMovie.runtime / 60) +
+      'h' +
+      (this.$store.state.Movies.currentMovie.runtime % 60) +
+      'min';
     this.$store.state.Movies.IsMovieGenre = false;
-  }
+  },
 });
 </script>
 
