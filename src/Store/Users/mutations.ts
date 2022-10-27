@@ -12,4 +12,7 @@ export default {
     state.UserName = payload.name;
     state.UserEmail = payload.email;
   },
+  GET_AVATAR(state: any, payload: any) {
+    state.UserAvatar = payload;
+  },
 };

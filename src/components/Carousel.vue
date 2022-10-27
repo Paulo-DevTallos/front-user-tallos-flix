@@ -32,7 +32,7 @@
         </div>
         <div class="info-movies" v-if="hiddenMovieInfo">
           <h3>{{ movie.title }}</h3>
-          <p>Duração: {{ movie.time }}</p>
+          <p>Duração: {{Math.trunc(movie.runtime / 60) + 'h' + (movie.runtime % 60) + 'min' }}</p>
           <StarRating class="rating" />
         </div>
       </div>

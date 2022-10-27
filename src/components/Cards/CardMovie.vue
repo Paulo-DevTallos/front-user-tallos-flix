@@ -19,7 +19,9 @@
             v-for="Movie in this.$store.state.Movies.currentMovie.genres"
             :key="Movie.length"
           >
-            <span class="tagGenre" @click="searchGenre(Movie)">{{ Movie }}</span>
+            <span class="tagGenre" @click="searchGenre(Movie)">{{
+              Movie
+            }}</span>
           </div>
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
@@ -28,7 +30,14 @@
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
       </header>
-      <div v-if="hiddenBtnTrailer" class="btn-trailer-container">
+      <div
+        v-if="
+          this.$store.state.Movies.currentMovie.trailer
+            ? this.$store.state.Movies.currentMovie.trailer
+            : hiddenBtnTrailer
+        "
+        class="btn-trailer-container"
+      >
         <button class="trailer-btn" @click="openTraillerModal">
           <Icon icon="carbon:play-filled" />
           Trailer
@@ -92,10 +101,10 @@
         </ul>
       </div>
     </div>
-    <TraillerModal 
+    <TraillerModal
       :trailer_file="this.$store.state.Movies.currentMovie.trailer"
-      v-if="hiddenTraillerModal" 
-      @closeWindow="closeModal" 
+      v-if="hiddenTraillerModal"
+      @closeWindow="closeModal"
     />
   </div>
 </template>
@@ -108,12 +117,13 @@ import TraillerModal from '@/components/Modals/TraillerModal.vue';
 export default defineComponent({
   name: 'CardMovie',
   components: { Icon, TraillerModal },
-  props: {
+  /*props: {
     hiddenBtnTrailer: { type: Boolean },
-  },
+  },*/
   data() {
     return {
       hiddenTraillerModal: false,
+      hiddenBtnTrailer: false,
     };
   },
   methods: {
@@ -136,8 +146,13 @@ export default defineComponent({
     },
   },
   mounted() {
+    this.$store.state.Movies.currentMovie.runtime =
+      Math.trunc(this.$store.state.Movies.currentMovie.runtime / 60) +
+      'h' +
+      (this.$store.state.Movies.currentMovie.runtime % 60) +
+      'min';
     this.$store.state.Movies.IsMovieGenre = false;
-  }
+  },
 });
 </script>
 
