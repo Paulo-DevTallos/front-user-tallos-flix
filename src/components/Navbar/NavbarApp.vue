@@ -31,7 +31,7 @@
       </b-navbar-nav>
     </nav>
   </b-navbar>
-  <AvatarModal v-if="hiddenAvatarModal" />
+  <AvatarModal v-if="hiddenAvatarModal" @closeWindow="closeAvatarModal" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -56,10 +56,15 @@ export default defineComponent({
     },
   },
   methods: {
-    changeAvatar() {
+    changeAvatar(): void {
       this.hiddenAvatarModal = true;
       this.hiddenDropDown = false;
     },
+
+    closeAvatarModal(): void {
+      this.hiddenAvatarModal = false;
+    },
+
     callDropDown(): void {
       if (this.UserLogged) {
         this.hiddenDropDown = !this.hiddenDropDown;
