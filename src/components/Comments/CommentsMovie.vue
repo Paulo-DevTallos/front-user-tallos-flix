@@ -36,7 +36,7 @@
               >
                 Ver respostas
               </h6>
-              <h6 class="text-response" @click.prevent="getcomment(comment)">
+              <h6 class="text-response" @click.prevent="getcomment(comment._id)">
                 {{ response }}
               </h6>
             </div>
@@ -80,7 +80,7 @@
             </b-row>
           </div>
         </b-col>
-        <b-col cols="12" v-if="responseView">
+        <b-col cols="12" v-if="responseView && id === comment._id">
           <div class="w-100 d-flex justify-content-end">
             <b-row class="response-coment">
               <b-col
@@ -211,6 +211,7 @@ export default defineComponent({
           response: [],
         },
       ],
+      id: '',
     };
   },
   props: {
@@ -220,11 +221,12 @@ export default defineComponent({
     },
   },
   methods: {
-    getcomment(comment) {
-      this.getComments = { ...comment };
+    getcomment(commentId: string) {
       this.responseView = !this.responseView;
-      console.log('id do comentário', comment._id);
-      console.log('id passado para o componente', this.getComments._id);
+      this.id = commentId;
+      /*this.getComments = { ...commentId };
+      console.log('id do comentário', commentId._id);*/
+      //console.log('id passado para o componente', this.getComments._id);
     },
   },
 });
