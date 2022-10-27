@@ -4,4 +4,5 @@ export default {
   Me: Object,
   UserName: '',
   UserEmail: '',
+  UserAvatar: '',
 };
