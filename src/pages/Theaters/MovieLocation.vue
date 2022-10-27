@@ -22,6 +22,7 @@
       </div>
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
+        @postComment="commentPost"
         class="comments-comp"
       />
     </div>
@@ -52,6 +53,12 @@ export default defineComponent({
         movie: this.$store.state.Movies.currentMovie._id,
       },
     };
+  },
+  methods: {
+    commentPost(userComent: Object) {
+      console.log(userComent);
+      this.$store.dispatch('Comments/createComment', userComent);
+    },
   },
   mounted() {
     window.navigator.geolocation.getCurrentPosition((postion) => {
