@@ -21,28 +21,29 @@ export default defineComponent({
   data() {
     return {
       MovieFilter: '',
-      isReady: true,
+      isChanged: '',
     };
   },
   methods: {
     search(data: string) {
-      if (this.isReady === true) {
-        this.isReady = false;
+      if (data !== this.isChanged) {
+        this.isChanged = data;
         setTimeout(() => {
-          if (this.Series == false) {
-            this.$store.dispatch('Movies/getMovieFilter', {
-              field: 'title',
-              search: data,
-            });
-          } else {
-            this.$store.dispatch('Movies/getSeries', {
-              field: 'title',
-              search: data,
-            });
-            this.$store.state.Movies.Movies.content =
-              this.$store.state.Movies.Series.content;
+          if (this.isChanged === data) {
+            if (this.Series == false) {
+              this.$store.dispatch('Movies/getMovieFilter', {
+                field: 'title',
+                search: data,
+              });
+            } else {
+              this.$store.dispatch('Movies/getSeries', {
+                field: 'title',
+                search: data,
+              });
+              this.$store.state.Movies.Movies.content =
+                this.$store.state.Movies.Series.content;
+            }
           }
-          this.isReady = true;
         }, 1000);
       }
     },
