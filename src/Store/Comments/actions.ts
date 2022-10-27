@@ -3,6 +3,7 @@ export default {
   async createComment({ commit }: any, data: any) {
     await CommentRequests.createComment(data.comment)
       .then((res) => {
+        console.log(res.data);
         commit();
       })
       .catch((error) => {

@@ -1,6 +1,7 @@
 <template>
   <div class="window-modal" @click="$emit('closeWindow')">
     <div class="iframe-content">
+      <Icon icon="eva:close-fill" @click="$emit('closeWindow')"/>
       <iframe
         :src="trailer_file"
         title="YouTube video player"
@@ -14,10 +15,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { Icon } from '@iconify/vue';
 
 export default defineComponent({
-  // url do trailer https://www.youtube.com/embed/faz9v2O-zGA
   name: 'TrallerModal',
+  components: { Icon },
   emits: ['closeWindow'],
   props: {
     trailer_file: { type: String },
