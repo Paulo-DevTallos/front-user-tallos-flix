@@ -1,10 +1,10 @@
 import CommentRequests from '@/services/axios/CommentRequests';
 export default {
   async createComment({ commit }: any, data: any) {
-    await CommentRequests.createComment(data.comment)
+    await CommentRequests.createComment(data)
       .then((res) => {
-        console.log(res.data);
         commit();
+        console.log(res);
       })
       .catch((error) => {
         commit();

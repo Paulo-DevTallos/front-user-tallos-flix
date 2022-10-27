@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="comment in renderComments" :key="comment.id">
-      <b-row class="pb-4">
+      <b-row class="pb-4" v-if="!comment.isReply">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
           ><b-avatar
             v-if="comment.avatar ? comment.avatar : Noavatar"
@@ -42,7 +42,7 @@
         </b-col>
         <b-col cols="12" v-if="responseComment">
           <div
-            v-for="reply in comment.response"
+            v-for="reply in comment.comments"
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
