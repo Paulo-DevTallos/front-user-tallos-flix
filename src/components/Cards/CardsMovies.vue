@@ -24,7 +24,15 @@
                 <b-card-title v-if="movie.title ? movie.title : vazio.title">{{
                   movie.title || vazio.title
                 }}</b-card-title>
-                <b-card-subtitle>Duração: {{ movie.time }}</b-card-subtitle>
+                <b-card-subtitle
+                  >Duração:
+                  {{
+                    Math.trunc(movie.runtime / 60) +
+                    'h' +
+                    (movie.runtime % 60) +
+                    'min'
+                  }}</b-card-subtitle
+                >
                 <div class="d-flex">
                   <star-rating v-model="movie.imdb.rating" />
                 </div>
@@ -70,7 +78,7 @@ export default defineComponent({
     currentMovie(movie: Object) {
       this.$store.state.Movies.currentMovie = movie;
     },
-  }
+  },
 });
 </script>
 <style lang="scss" scoped>
