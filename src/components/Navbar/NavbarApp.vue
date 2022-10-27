@@ -24,19 +24,22 @@
           ></b-avatar>
         </div>
         <div class="drop-down-menu" v-show="hiddenDropDown">
-          <b-dropdown-item>Trocar Avatar</b-dropdown-item>
+          <b-dropdown-item @click="changeAvatar">Trocar Avatar</b-dropdown-item>
           <b-dropdown-item :to="{name : 'favorites'}">Meus Favoritos</b-dropdown-item>
           <b-dropdown-item @click="Logout">Sair</b-dropdown-item>
         </div>
       </b-navbar-nav>
     </nav>
   </b-navbar>
+  <AvatarModal v-if="hiddenAvatarModal" @closeWindow="closeAvatarModal" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import AvatarModal from '@/components/Modals/AvatarModal.vue';
 
 export default defineComponent({
   name: 'NavbarApp',
+  components: { AvatarModal },
   data() {
     return {
       UserLogged: this.$store.state.Users.UserName,
@@ -44,6 +47,7 @@ export default defineComponent({
       avatar: '/img/avatar1.png',
       noAvatar: '/img/user-default.png',
       hiddenDropDown: false,
+      hiddenAvatarModal: false,
     };
   },
   computed: {
@@ -52,6 +56,15 @@ export default defineComponent({
     },
   },
   methods: {
+    changeAvatar(): void {
+      this.hiddenAvatarModal = true;
+      this.hiddenDropDown = false;
+    },
+
+    closeAvatarModal(): void {
+      this.hiddenAvatarModal = false;
+    },
+
     callDropDown(): void {
       if (this.UserLogged) {
         this.hiddenDropDown = !this.hiddenDropDown;
