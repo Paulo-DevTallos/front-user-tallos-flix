@@ -12,7 +12,8 @@
         <b-col cols="10">
           <h5 class="text-color">{{ comment.name }}</h5>
           <div class="comment-text">
-            <b-card-text>{{ comment.text }}</b-card-text>
+            <b-form-text-area no-resize>{{ comment.text }}</b-form-text-area>
+            <!-- <b-card-text>{{ comment.text }}</b-card-text> -->
           </div>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
@@ -55,7 +56,9 @@
               <b-col cols="10">
                 <h5 class="text-color">{{ reply.name }}</h5>
                 <div class="comment-text">
-                  <b-card>{{ reply.text }}</b-card>
+                  <b-form-text-area no-resize>{{
+                    reply.text
+                  }}</b-form-text-area>
                 </div>
                 <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">Há {{ reply.date }} dia</h6>
@@ -154,7 +157,7 @@ export default defineComponent({
         likes: null,
         isReply: false,
         comments: [],
-        date: '',
+        date: new Date(),
       },
       response: 'Responder',
       ocult: 'Ocultar',
@@ -167,9 +170,6 @@ export default defineComponent({
       type: Object,
       required: false,
     },
-  },
-  mounted() {
-    this.renderComments.date = new Date();
   },
   methods: {
     getcomment(commentId: string) {
