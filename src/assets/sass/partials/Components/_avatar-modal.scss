@@ -1,6 +1,61 @@
 .box-modal {
-  background-color: #121212;
+  padding: 0 30px;
+  background-color: #212121;
+  width: 600px;
+  height: 255px;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+
+  svg {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid transparent;
+    transition: .4s ease-in-out;
+
+    &:hover {
+      border-radius: 100%;
+      color: #fff;
+      border: 1px solid #fff;
+    }
+  }
+
+  .header-modal {
+    padding: 30px 0;
+  }
+
+  .avatar-container {
+    @include align-elements(flex, center, center);
+
+    .roll {
+      width: 70px;
+      height: 70px;
+      border-radius: 100%;
+      background-color: #808080;
+      margin: 0 20px;
+    }
+  }
+
+
+  .container-btn-modal {
+    text-align: center;
+    padding: 40px 0 30px 0;
+
+    button {
+      margin: 0 7px;
+      color: #fff;
+      padding: 5px 20px;
+      border: none;
+      background-color: #d36643;
+
+      &:first-child {
+        background-color: #474747;
+      }
+    }
+  }
 }
