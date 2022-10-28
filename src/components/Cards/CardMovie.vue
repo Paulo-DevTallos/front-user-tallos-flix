@@ -25,7 +25,7 @@
           </div>
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
-        <div class="icon-favorite">
+        <div class="icon-favorite" @click="redirect">
           <Icon
             :icon="IconStyle"
             @click="favoriteMovie"
@@ -122,11 +122,9 @@ import TraillerModal from '@/components/Modals/TraillerModal.vue';
 export default defineComponent({
   name: 'CardMovie',
   components: { Icon, TraillerModal },
-  /*props: {
-    hiddenBtnTrailer: { type: Boolean },
-  },*/
   data() {
     return {
+      isLogged: localStorage.getItem('token'),
       hiddenTraillerModal: false,
       hiddenBtnTrailer: false,
       IconStyle: 'carbon:favorite',
@@ -134,6 +132,12 @@ export default defineComponent({
     };
   },
   methods: {
+    redirect(): void {
+      if (!this.isLogged) {
+        return location.replace('/login');
+      }
+    },
+
     openTraillerModal(): void {
       this.hiddenTraillerModal = true;
     },
