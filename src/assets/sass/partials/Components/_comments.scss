@@ -1,18 +1,22 @@
 .text-color {
     color: white;
 }
+
 .items-color {
     color: $orange-color-one;
 }
+
 .comp-icons {
     width: 63px;
 }
+
 .like-icon {
     font-size: 20px;
     width: 22px;
     color: $orange-color-one;
     cursor: pointer;
-   }
+}
+
 .text-response {
     color: $orange-color-one;
     text-decoration: underline;
@@ -21,7 +25,18 @@
     &:hover {
         color: $orange-color-two;
     }
+
     &:focus {
+        color: $orange-color-two;
+    }
+}
+
+.viewmore {
+    color: $orange-color-one;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
         color: $orange-color-two;
     }
 }
