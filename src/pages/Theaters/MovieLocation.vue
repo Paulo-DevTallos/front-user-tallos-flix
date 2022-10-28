@@ -50,7 +50,7 @@ export default defineComponent({
   },
   data() {
     return {
-      limit: 2,
+      limit: 5,
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
       },
@@ -70,7 +70,7 @@ export default defineComponent({
       this.$store.dispatch('Comments/createComment', userComent);
     },
     async pageChange() {
-      this.limit = this.limit + 1;
+      this.limit = this.limit + 5;
       this.commentsRender();
     },
   },
