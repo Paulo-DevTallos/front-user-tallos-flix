@@ -24,7 +24,13 @@
             <h6 class="text-color">{{ comment.date }}</h6>
             <div class="d-flex">
               <div
-                class="items-color comp-icons d-flex justify-content-between pe-2"
+                class="
+                  items-color
+                  comp-icons
+                  d-flex
+                  justify-content-between
+                  pe-2
+                "
               >
                 <p>5</p>
                 <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -72,7 +78,13 @@
                 <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">Há {{ reply.date }} dia</h6>
                   <div
-                    class="items-color comp-icons d-flex justify-content-between pe-2"
+                    class="
+                      items-color
+                      comp-icons
+                      d-flex
+                      justify-content-between
+                      pe-2
+                    "
                   >
                     <p>5</p>
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -116,8 +128,8 @@
       </b-row>
     </div>
     <!-- pagination -->
-    <div class="d-flex justify-content-center p-3 text-color" @click="viewMore">
-      Mostrar Mais
+    <div class="d-flex justify-content-end">
+      <p class="text-color viewmore" @click="viewMore">Mostrar Mais</p>
     </div>
     <!-- Comentar -->
     <div>
