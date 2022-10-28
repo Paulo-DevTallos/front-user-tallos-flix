@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- comentarios principais -->
     <div v-for="comment in renderComments" :key="comment.id">
       <b-row class="pb-4" v-if="!comment.isReply">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
@@ -11,10 +12,14 @@
         ></b-col>
         <b-col cols="10">
           <h5 class="text-color">{{ comment.name }}</h5>
-          <div class="comment-text">
-            <b-form-text-area no-resize>{{ comment.text }}</b-form-text-area>
-            <!-- <b-card-text>{{ comment.text }}</b-card-text> -->
-          </div>
+          <b-form-textarea
+            class="comment-text"
+            no-resize
+            plaintext
+            rows="3"
+            max-rows="4"
+            v-model:model-value="comment.text"
+          ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
             <div class="d-flex">
@@ -40,6 +45,7 @@
             </div>
           </div>
         </b-col>
+        <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment">
           <div
             v-for="reply in comment.comments"
@@ -54,12 +60,15 @@
                 <b-avatar :src="reply.avatar" size="5rem"></b-avatar>
               </b-col>
               <b-col cols="10">
-                <h5 class="text-color">{{ reply.name }}</h5>
-                <div class="comment-text">
-                  <b-form-text-area no-resize>{{
-                    reply.text
-                  }}</b-form-text-area>
-                </div>
+                <h5 class="text-color">{{ reply._id }}</h5>
+                <b-form-textarea
+                  class="comment-text"
+                  no-resize
+                  plaintext
+                  rows="3"
+                  max-rows="8"
+                  >{{ reply.text }}</b-form-textarea
+                >
                 <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">Há {{ reply.date }} dia</h6>
                   <div
@@ -74,6 +83,7 @@
             </b-row>
           </div>
         </b-col>
+        <!-- Responder Comentário -->
         <b-col cols="12" v-if="responseView && id === comment._id">
           <div class="w-100 d-flex justify-content-end">
             <b-row class="response-coment">
@@ -105,6 +115,11 @@
         </b-col>
       </b-row>
     </div>
+    <!-- pagination -->
+    <div v-if="renderComments > [0]" class="d-flex justify-content-end">
+      <p class="text-color viewmore" @click="viewMore">Mostrar Mais</p>
+    </div>
+    <!-- Comentar -->
     <div>
       <b-row>
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
@@ -159,6 +174,16 @@ export default defineComponent({
         comments: [],
         date: new Date(),
       },
+      userReply: {
+        name: this.$store.state.Users.UserName,
+        email: this.$store.state.Users.UserEmail,
+        movie_id: this.$store.state.Movies.currentMovie._id,
+        text: '',
+        likes: null,
+        isReply: true,
+        comments: [],
+        date: new Date(),
+      },
       response: 'Responder',
       ocult: 'Ocultar',
       Noavatar: '/img/user-default.png',
@@ -168,6 +193,10 @@ export default defineComponent({
   props: {
     renderComments: {
       type: Object,
+      required: false,
+    },
+    viewMore: {
+      type: Function,
       required: false,
     },
   },

@@ -7,9 +7,10 @@ export default {
   getCommentById: (id: string) => {
     return http.get(`comments/${id}`);
   },
-  getByMovieId: (MovieId: Object) => {
+  getByMovieId: (MovieId: Object, params?: Object) => {
     console.log(MovieId);
-    return http.post(`comments/movie_id`, MovieId);
+    console.log(params);
+    return http.post(`comments/movie_id`, MovieId, { params: params });
   },
   getByEmail: (Email: string) => {
     return http.post(`comments/mail`, Email);

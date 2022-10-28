@@ -47,9 +47,10 @@ export default {
       });
   },
   async getByMovieId({ commit }: any, data: any) {
-    await CommentRequests.getByMovieId(data)
+    await CommentRequests.getByMovieId(data.movie, data.params)
       .then((res) => {
         commit('GET_COMMENTS', res.data);
+        console.log(res.data);
       })
       .catch((error) => {
         commit();
