@@ -10,7 +10,7 @@
             size="5rem"
           ></b-avatar
         ></b-col>
-        <b-col cols="10">
+        <b-col cols="9">
           <h5 class="text-color">{{ comment.name }}</h5>
           <b-form-textarea
             class="comment-text"
@@ -24,7 +24,13 @@
             <h6 class="text-color">{{ comment.date }}</h6>
             <div class="d-flex">
               <div
-                class="items-color comp-icons d-flex justify-content-between pe-2"
+                class="
+                  items-color
+                  comp-icons
+                  d-flex
+                  justify-content-between
+                  pe-2
+                "
               >
                 <p>5</p>
                 <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -45,6 +51,11 @@
             </div>
           </div>
         </b-col>
+        <b-col
+          class="p-0 m-0 text-color"
+          v-if="comment.email === this.$store.state.Users.UserEmail"
+          >aa</b-col
+        >
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
@@ -75,7 +86,13 @@
                 <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">{{ reply.date }}</h6>
                   <div
-                    class="items-color comp-icons d-flex justify-content-between pe-2"
+                    class="
+                      items-color
+                      comp-icons
+                      d-flex
+                      justify-content-between
+                      pe-2
+                    "
                   >
                     <p>5</p>
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -211,7 +228,7 @@ export default defineComponent({
     ViewResponses(commentId: string) {
       this.responseComment = !this.responseComment;
       this.id = commentId;
-    }
+    },
   },
 });
 </script>
