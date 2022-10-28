@@ -1,10 +1,134 @@
 // estilo utilizado para span na view de series
-#tagGenre {
+.card-config {
+    background-color: $primary-color-black-card;
+    color: #fff;
+    padding: 20px 16px 0 16px;
+    display: flex;
+    border-radius: 0;
+    font-size: 14px;
+
+    .poster-container {
+        width: 40%;
+
+        .backspace {
+            padding-bottom: 20px;
+            color: #d36643;
+            cursor: pointer;
+            transition: .2s ease-in;
+            
+            svg {
+                font-size: 20px;
+            }
+
+            &:hover {
+                color: #fff;
+            } 
+        }
+        
+        .poster-wd {
+            padding-right: 20px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .available-field {            
+            span {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .info-movie {
+        width: 60%;
+        text-align: start;
+        padding-top: 40px;
+
+        .card-header {
+
+            h2 {
+                margin-bottom: 15px;
+                font-family: 'Nunito', sans-serif;
+                font-weight: bold;
+            }
+    
+            .tagGenre {
+                border: 2px solid #d36643;
+                border-radius: 15px;
+                padding: 1px 12px;
+                color: #efefef;
+                @include align-elements(flex, center, center);
+                transition: .2s ease-in-out;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #d36643;
+                }
+            }
+
+            p {
+                margin: 15px 0;
+            }
+
+            .icon-styles {
+                @include align-elements(flex, flex-start, center);
+
+                svg {
+                    font-size: 30px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+
+                #tag-favorite {
+                    font-size: 10px;
+                    margin: 15px 0;
+                }
+            }
+        }
+
+        .btn-trailer-container {
+            .trailer-btn {
+                background-color: $primary-color-beige-one;
+                border: 1px solid $primary-color-beige-one;
+                border-radius: 10px;
+                padding: 10px 0 10px 20px;
+                width: 210px;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 500;
+                text-align: start;
+                
+                svg {
+                    font-size: 30px;
+                    margin-right: 31px;
+                }
+            }
+        }
+
+        .card-technics {
+            ul {
+                padding: 0;
+
+                li {
+                    padding: 9px 0;
+                }
+            }
+        }
+    }
+}
+/*.tagGenre {
     border: 2px solid #d36643;
     border-radius: 15px;
     padding: 1px 12px;
     color: #efefef;
     @include align-elements(flex, center, center);
+    transition: .2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #d36643;
+    }
 }
 #genre-title{
     color: $primary-color-black-seven;
@@ -83,4 +207,4 @@
             }
         }
     }
-}
+}*/
