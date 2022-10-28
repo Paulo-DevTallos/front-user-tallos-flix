@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <CardMovie :hiddenBtnTrailer="true"/>
+    <CardMovie :hiddenBtnTrailer="true" />
     <div>
       <PlotView />
       <TheatersForm />
@@ -49,6 +49,7 @@ export default defineComponent({
   },
   data() {
     return {
+      limit: 5,
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
       },
@@ -69,7 +70,12 @@ export default defineComponent({
       this.$store.dispatch('Theaters/getTheatersBylocation', coords);
     }, console.log);
 
-    this.$store.dispatch('Comments/getByMovieId', this.movie);
+    this.$store.dispatch('Comments/getByMovieId', {
+      movie: this.movie,
+      params: {
+        limit: this.limit,
+      },
+    });
   },
 });
 </script>
