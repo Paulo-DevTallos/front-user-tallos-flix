@@ -1,6 +1,10 @@
 <template>
   <div class="card-fluid card-config">
     <div class="poster-container">
+      <div class="backspace">
+        <Icon icon="bx:arrow-back" />
+        Voltar
+      </div>
       <div class="poster-wd">
         <img
           :src="this.$store.state.Movies.currentMovie.poster"
@@ -9,6 +13,7 @@
       </div>
       <div class="available-field">
         <span>Avaliação</span>
+        <StarRating />
       </div>
     </div>
     <div class="info-movie">
@@ -25,7 +30,7 @@
           </div>
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
-        <div class="icon-favorite">
+        <div class="icon-styles">
           <Icon
             :icon="IconStyle"
             @click="favoriteMovie"
@@ -33,6 +38,19 @@
             id="favoriteIcon"
           />
           <p id="tag-favorite">Salvar na minha lista</p>
+        </div>
+        <div class="info-generals-movies">
+          <div class="d-flex icon-styles">
+            <Icon icon="la:imdb" />
+            <p>7.8/10</p>
+          </div>
+          <div class="d-flex icon-styles">
+            <Icon icon="simple-icons:rottentomatoes" />
+            <p>68%</p>
+          </div>
+          <div class="d-flex">
+            <p>Ganhador de 1 oscar, 5 indicações</p>
+          </div>
         </div>
       </header>
       <div
@@ -118,10 +136,11 @@
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
 import TraillerModal from '@/components/Modals/TraillerModal.vue';
+import StarRating from '../Rating/StarRating.vue';
 
 export default defineComponent({
   name: 'CardMovie',
-  components: { Icon, TraillerModal },
+  components: { Icon, TraillerModal, StarRating },
   /*props: {
     hiddenBtnTrailer: { type: Boolean },
   },*/
