@@ -100,14 +100,14 @@
                 <h5 class="text-color">Seu Comentário</h5>
                 <b-form-textarea
                   class="comment-text"
-                  v-model="userComent.text"
+                  v-model="userReply.text"
                   maxlength="200"
                   rows="5"
                   placeholder="Digite aqui um comentário"
                   no-resize
                 ></b-form-textarea>
                 <div class="pt-3 d-flex justify-content-end">
-                  <h6 class="text-color">{{ userComent.text.length }}/200</h6>
+                  <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
                 <div class="d-flex justify-content-end">
                   <b-button size="lg" class="btn-comment">Comentar</b-button>
