@@ -11,9 +11,9 @@
           alt="card-filme"
         />
       </div>
-      <div class="available-field">
-        <span>Avaliação</span>
-        <StarRating />
+      <div class="available-field d-flex pt-3 justify-content-center">
+        <span class="pt-1">Avaliação (15)</span>
+        <StarRating class="ms-1"/>
       </div>
     </div>
     <div class="info-movie">

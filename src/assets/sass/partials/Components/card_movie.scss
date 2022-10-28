@@ -2,7 +2,7 @@
 .card-config {
     background-color: $primary-color-black-card;
     color: #fff;
-    padding: 20px 16px;
+    padding: 20px 16px 0 16px;
     display: flex;
     border-radius: 0;
     font-size: 14px;
@@ -33,11 +33,9 @@
             }
         }
 
-        .available-field {
-            @include align-elements(flex, center, center);
-
+        .available-field {            
             span {
-                margin-right: 10px;
+                font-size: 16px;
             }
         }
     }
