@@ -1,10 +1,16 @@
 // estilo utilizado para span na view de series
-#tagGenre {
+.tagGenre {
     border: 2px solid #d36643;
     border-radius: 15px;
     padding: 1px 12px;
     color: #efefef;
     @include align-elements(flex, center, center);
+    transition: .2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #d36643;
+    }
 }
 #genre-title{
     color: $primary-color-black-seven;
