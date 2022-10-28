@@ -32,7 +32,7 @@
               </div>
               <h6
                 class="text-response pe-2"
-                @click="responseComment = !responseComment"
+                @click="ViewResponses(comment._id)"
               >
                 Ver respostas
               </h6>
@@ -46,7 +46,7 @@
           </div>
         </b-col>
         <!-- Respostas do Comentário -->
-        <b-col cols="12" v-if="responseComment">
+        <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
             v-for="reply in comment.comments"
             :key="reply.id"
@@ -57,20 +57,23 @@
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
               >
-                <b-avatar :src="reply.avatar" size="5rem"></b-avatar>
+                <b-avatar
+                  :src="reply.avatar ? reply.avatar : Noavatar"
+                  size="5rem"
+                ></b-avatar>
               </b-col>
               <b-col cols="10">
-                <h5 class="text-color">{{ reply._id }}</h5>
+                <h5 class="text-color">{{ reply.name }}</h5>
                 <b-form-textarea
                   class="comment-text"
                   no-resize
                   plaintext
                   rows="3"
                   max-rows="8"
-                  >{{ reply.text }}</b-form-textarea
-                >
+                  v-model:model-value="reply.text"
+                ></b-form-textarea>
                 <div class="pt-3 d-flex justify-content-between">
-                  <h6 class="text-color">Há {{ reply.date }} dia</h6>
+                  <h6 class="text-color">{{ reply.date }}</h6>
                   <div
                     class="items-color comp-icons d-flex justify-content-between pe-2"
                   >
@@ -205,6 +208,10 @@ export default defineComponent({
       this.responseView = !this.responseView;
       this.id = commentId;
     },
+    ViewResponses(commentId: string) {
+      this.responseComment = !this.responseComment;
+      this.id = commentId;
+    }
   },
 });
 </script>
