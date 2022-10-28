@@ -30,7 +30,7 @@
           </div>
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
-        <div class="icon-styles">
+        <div class="icon-styles" @click="redirect">
           <Icon
             :icon="IconStyle"
             @click="favoriteMovie"
@@ -141,11 +141,9 @@ import StarRating from '../Rating/StarRating.vue';
 export default defineComponent({
   name: 'CardMovie',
   components: { Icon, TraillerModal, StarRating },
-  /*props: {
-    hiddenBtnTrailer: { type: Boolean },
-  },*/
   data() {
     return {
+      isLogged: localStorage.getItem('token'),
       hiddenTraillerModal: false,
       hiddenBtnTrailer: false,
       IconStyle: 'carbon:favorite',
@@ -153,6 +151,12 @@ export default defineComponent({
     };
   },
   methods: {
+    redirect(): void {
+      if (!this.isLogged) {
+        return location.replace('/login');
+      }
+    },
+
     openTraillerModal(): void {
       this.hiddenTraillerModal = true;
     },
