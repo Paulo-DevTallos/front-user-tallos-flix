@@ -30,13 +30,8 @@
           </div>
         </div>
         <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
-        <div class="icon-styles" @click="redirect">
-          <Icon
-            :icon="IconStyle"
-            @click="favoriteMovie"
-            :color="ColorStyle"
-            id="favoriteIcon"
-          />
+        <div class="icon-styles" @click="redirectModal">
+          <Icon :icon="IconStyle" :color="ColorStyle" id="favoriteIcon" />
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
         <div class="info-generals-movies">
@@ -129,6 +124,7 @@
       v-if="hiddenTraillerModal"
       @closeWindow="closeModal"
     />
+    <OptionsModal v-if="hiddenOptionModal" @closeWindow="closeOptionModal"/>
   </div>
 </template>
 
@@ -137,13 +133,15 @@ import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
 import TraillerModal from '@/components/Modals/TraillerModal.vue';
 import StarRating from '../Rating/StarRating.vue';
+import OptionsModal from '../Modals/OptionsModal.vue';
 
 export default defineComponent({
   name: 'CardMovie',
-  components: { Icon, TraillerModal, StarRating },
+  components: { Icon, TraillerModal, StarRating, OptionsModal },
   data() {
     return {
       isLogged: localStorage.getItem('token'),
+      hiddenOptionModal: false,
       hiddenTraillerModal: false,
       hiddenBtnTrailer: false,
       IconStyle: 'carbon:favorite',
@@ -151,10 +149,16 @@ export default defineComponent({
     };
   },
   methods: {
-    redirect(): void {
+    redirectModal(): void {
       if (!this.isLogged) {
-        return location.replace('/login');
+        this.hiddenOptionModal = true;
+      } else {
+        this.favoriteMovie();
       }
+    },
+
+    closeOptionModal():void {
+      this.hiddenOptionModal = false;
     },
 
     openTraillerModal(): void {
