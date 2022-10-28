@@ -14,6 +14,6 @@ export default {
     return http.put(`favorites/add/${id}`, favoriteData);
   },
   deleteFavorite: (id: string) => {
-    return http.delete(`favorites/remove/${id}`);
+    return http.put(`favorites/remove/${id}`);
   },
 };
