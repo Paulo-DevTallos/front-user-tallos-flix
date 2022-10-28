@@ -23,6 +23,7 @@
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
         @postComment="commentPost"
+        :viewMore="pageChange"
         class="comments-comp"
       />
     </div>
@@ -49,16 +50,28 @@ export default defineComponent({
   },
   data() {
     return {
-      limit: 5,
+      limit: 2,
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
       },
     };
   },
   methods: {
+    commentsRender() {
+      this.$store.dispatch('Comments/getByMovieId', {
+        movie: this.movie,
+        params: {
+          limit: this.limit,
+        },
+      });
+    },
     commentPost(userComent: Object) {
       console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
+    },
+    async pageChange() {
+      this.limit = this.limit + 1;
+      this.commentsRender();
     },
   },
   mounted() {
@@ -69,13 +82,7 @@ export default defineComponent({
       };
       this.$store.dispatch('Theaters/getTheatersBylocation', coords);
     }, console.log);
-
-    this.$store.dispatch('Comments/getByMovieId', {
-      movie: this.movie,
-      params: {
-        limit: this.limit,
-      },
-    });
+    this.commentsRender();
   },
 });
 </script>
