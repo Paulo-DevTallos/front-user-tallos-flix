@@ -5,4 +5,5 @@ export default {
   UserName: '',
   UserEmail: '',
   UserAvatar: '',
+  UserId: '',
 };
