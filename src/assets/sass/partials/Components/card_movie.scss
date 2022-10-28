@@ -73,11 +73,11 @@
 
             .icon-styles {
                 @include align-elements(flex, flex-start, center);
+                cursor: pointer;
 
                 svg {
                     font-size: 30px;
                     margin-right: 10px;
-                    cursor: pointer;
                 }
 
                 #tag-favorite {
