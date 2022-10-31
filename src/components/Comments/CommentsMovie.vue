@@ -10,7 +10,7 @@
             size="5rem"
           ></b-avatar
         ></b-col>
-        <b-col cols="9">
+        <b-col cols="9" class="p-0">
           <h5 class="text-color">{{ comment.name }}</h5>
           <b-form-textarea
             class="comment-text"
@@ -48,8 +48,11 @@
         <b-col
           class="p-0 m-0 text-color"
           v-if="comment.email === this.$store.state.Users.UserEmail"
-          >aa</b-col
         >
+          <div class="d-flex justify-content-start align-items-center actions">
+            <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
+          </div>
+        </b-col>
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
@@ -67,7 +70,7 @@
                   size="5rem"
                 ></b-avatar>
               </b-col>
-              <b-col cols="10">
+              <b-col cols="9" class="p-0">
                 <h5 class="text-color">{{ reply.name }}</h5>
                 <b-form-textarea
                   class="comment-text"
@@ -86,6 +89,19 @@
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
                     <Icon icon="carbon:thumbs-down" class="like-icon" />
                   </div>
+                </div>
+              </b-col>
+              <b-col
+                class="p-0 m-0 text-color"
+                v-if="reply.email !== this.$store.state.Users.UserEmail"
+              >
+                <div
+                  class="d-flex justify-content-start align-items-center actions"
+                >
+                  <Icon
+                    icon="carbon:overflow-menu-vertical"
+                    class="icon-menu"
+                  />
                 </div>
               </b-col>
             </b-row>
