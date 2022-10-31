@@ -45,9 +45,9 @@
                 </h6>
               </div>
             </div>
-            <div v-else class="">
-              <b-button>cancelar</b-button>
-              <b-button>salvar</b-button>
+            <div v-else class="btnsEdit">
+              <b-button block squared>Cancelar</b-button>
+              <b-button block squared class="saveBE">Salvar</b-button>
             </div>
           </div>
         </b-col>

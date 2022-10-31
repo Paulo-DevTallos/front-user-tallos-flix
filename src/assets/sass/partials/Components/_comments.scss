@@ -97,11 +97,32 @@
             color: $primary-color-bg-comment !important;
             font-size: 25px;
         }
+
         &:hover {
             background-color: $primary-color-icon;
         }
+
         &:active {
             background-color: $primary-color-icon;
+        }
+    }
+}
+
+.btnsEdit {
+    display: flex;
+    justify-content: space-between;
+    width: 28%;
+
+    .saveBE {
+        background-color: $primary-color-beige-one;
+        border-color: $primary-color-beige-one;
+
+        &:hover {
+            background-color: $primary-color-beige-two;
+        }
+
+        &:active {
+            background-color: $primary-color-beige-three;
         }
     }
 }
