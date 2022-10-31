@@ -50,7 +50,14 @@
           v-if="comment.email === this.$store.state.Users.UserEmail"
         >
           <div class="d-flex justify-content-start align-items-center actions">
-            <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
+            <b-dropdown size="lg" variant="link" no-caret>
+              <template #button-content>
+                <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
+              </template>
+              <b-dropdown-item href="#">Action</b-dropdown-item>
+              <b-dropdown-item href="#">Another action</b-dropdown-item>
+            </b-dropdown>
+            <!-- <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" /> -->
           </div>
         </b-col>
         <!-- Respostas do Comentário -->
