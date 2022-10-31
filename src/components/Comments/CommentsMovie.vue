@@ -15,14 +15,14 @@
           <b-form-textarea
             class="comment-text"
             no-resize
-            :plaintext="editComment && id !== comment._id"
+            :plaintext="editComment && teste !== comment._id"
             rows="3"
             max-rows="4"
             v-model:model-value="comment.text"
           ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
-            <div class="d-flex">
+            <div class="d-flex" v-if="editComment && teste !== comment._id">
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
@@ -30,18 +30,24 @@
                 <Icon icon="carbon:thumbs-up" class="like-icon" />
                 <Icon icon="carbon:thumbs-down" class="like-icon" />
               </div>
-              <h6
-                class="text-response pe-2"
-                @click="ViewResponses(comment._id)"
-              >
-                Ver respostas
-              </h6>
-              <h6
-                class="text-response"
-                @click.prevent="getcomment(comment._id)"
-              >
-                {{ response }}
-              </h6>
+              <div class="d-flex">
+                <h6
+                  class="text-response pe-2"
+                  @click="ViewResponses(comment._id)"
+                >
+                  Ver respostas
+                </h6>
+                <h6
+                  class="text-response"
+                  @click.prevent="getcomment(comment._id)"
+                >
+                  {{ response }}
+                </h6>
+              </div>
+            </div>
+            <div v-else class="">
+              <b-button>cancelar</b-button>
+              <b-button>salvar</b-button>
             </div>
           </div>
         </b-col>
@@ -60,7 +66,8 @@
                   class="iconDrop"
                 />Editar</b-dropdown-item
               >
-              <b-dropdown-item @click.prevent="$emit('deleteComment', comment._id)"
+              <b-dropdown-item
+                @click.prevent="$emit('deleteComment', comment._id)"
                 ><Icon
                   icon="carbon:delete"
                   class="iconDrop"
@@ -246,6 +253,7 @@ export default defineComponent({
       ocult: 'Ocultar',
       Noavatar: '/img/user-default.png',
       id: '',
+      teste: '',
     };
   },
   props: {
@@ -269,8 +277,8 @@ export default defineComponent({
     },
     editComments(commentId: string) {
       this.editComment;
-      this.id = commentId;
-    }
+      this.teste = commentId;
+    },
   },
 });
 </script>
