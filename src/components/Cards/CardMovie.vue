@@ -1,9 +1,11 @@
 <template>
   <div class="card-fluid card-config">
     <div class="poster-container">
-      <div class="backspace">
-        <Icon icon="bx:arrow-back" />
-        Voltar
+      <div class="backspace" v-if="routerMovies ? routerMovies : routerSeries">
+        <router-link :to="routerMovies || routerSeries">
+          <Icon icon="bx:arrow-back" />
+          Voltar
+        </router-link>
       </div>
       <div class="poster-wd">
         <img
@@ -140,6 +142,8 @@ export default defineComponent({
   components: { Icon, TraillerModal, StarRating, OptionsModal },
   data() {
     return {
+      routerMovies: '/home/movies',
+      routerSeries: '/home/series',
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
       hiddenTraillerModal: false,
