@@ -50,12 +50,22 @@
           v-if="comment.email === this.$store.state.Users.UserEmail"
         >
           <div class="d-flex justify-content-start align-items-center actions">
-            <b-dropdown size="lg" variant="link" no-caret>
+            <b-dropdown variant="link" dropright no-caret>
               <template #button-content>
                 <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
               </template>
-              <b-dropdown-item href="#">Action</b-dropdown-item>
-              <b-dropdown-item href="#">Another action</b-dropdown-item>
+              <b-dropdown-item
+                ><Icon
+                  icon="carbon:edit"
+                  class="iconDrop"
+                />Editar</b-dropdown-item
+              >
+              <b-dropdown-item
+                ><Icon
+                  icon="carbon:delete"
+                  class="iconDrop"
+                />Deletar</b-dropdown-item
+              >
             </b-dropdown>
             <!-- <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" /> -->
           </div>
@@ -100,15 +110,31 @@
               </b-col>
               <b-col
                 class="p-0 m-0 text-color"
-                v-if="reply.email !== this.$store.state.Users.UserEmail"
+                v-if="reply.email === this.$store.state.Users.UserEmail"
               >
                 <div
                   class="d-flex justify-content-start align-items-center actions"
                 >
-                  <Icon
-                    icon="carbon:overflow-menu-vertical"
-                    class="icon-menu"
-                  />
+                  <b-dropdown variant="link" dropright no-caret>
+                    <template #button-content>
+                      <Icon
+                        icon="carbon:overflow-menu-vertical"
+                        class="icon-menu"
+                      />
+                    </template>
+                    <b-dropdown-item
+                      ><Icon
+                        icon="carbon:edit"
+                        class="iconDrop"
+                      />Editar</b-dropdown-item
+                    >
+                    <b-dropdown-item
+                      ><Icon
+                        icon="carbon:delete"
+                        class="iconDrop"
+                      />Deletar</b-dropdown-item
+                    >
+                  </b-dropdown>
                 </div>
               </b-col>
             </b-row>

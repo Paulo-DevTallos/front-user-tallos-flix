@@ -71,12 +71,37 @@
 
 .actions {
     height: 87%;
+
     .icon-menu {
         font-size: 30px;
+        color: white;
         cursor: pointer;
     }
 }
 
 .dropdown-toggle::after {
     display: none !important;
-  }
+}
+
+.dropdownItens {
+    background-color: red;
+}
+
+.dropdown-menu {
+    background-color: $primary-color-black-bg-icon;
+
+    .dropdown-item {
+        color: white;
+
+        .iconDrop {
+            color: $primary-color-bg-comment !important;
+            font-size: 25px;
+        }
+        &:hover {
+            background-color: $primary-color-icon;
+        }
+        &:active {
+            background-color: $primary-color-icon;
+        }
+    }
+}
