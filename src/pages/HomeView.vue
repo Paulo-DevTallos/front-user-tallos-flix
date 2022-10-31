@@ -36,6 +36,10 @@ export default defineComponent({
     this.socketService.registerListener('is-logged', 'is-logged', (data) => {
       alert(data);
     });
+    this.$store.dispatch(
+      'Favorites/getFavoriteById',
+      this.$store.state.Users.UserId,
+    );
   },
 });
 </script>

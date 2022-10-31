@@ -13,7 +13,7 @@ export default {
   updateFavorite: (id: string, favoriteData: object) => {
     return http.put(`favorites/add/${id}`, favoriteData);
   },
-  deleteFavorite: (id: string) => {
-    return http.put(`favorites/remove/${id}`);
+  deleteFavorite: (id: string, favoriteData: object) => {
+    return http.put(`favorites/remove/${id}`, favoriteData);
   },
 };
