@@ -15,7 +15,7 @@
           <b-form-textarea
             class="comment-text"
             no-resize
-            plaintext
+            :plaintext="editComment && id !== comment._id"
             rows="3"
             max-rows="4"
             v-model:model-value="comment.text"
@@ -54,13 +54,13 @@
               <template #button-content>
                 <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
               </template>
-              <b-dropdown-item
+              <b-dropdown-item @click="editComments(comment._id)"
                 ><Icon
                   icon="carbon:edit"
                   class="iconDrop"
                 />Editar</b-dropdown-item
               >
-              <b-dropdown-item
+              <b-dropdown-item @click.prevent="$emit('deleteComment', comment._id)"
                 ><Icon
                   icon="carbon:delete"
                   class="iconDrop"
@@ -216,11 +216,12 @@ export default defineComponent({
   components: {
     Icon,
   },
-  emits: ['postComment'],
+  emits: ['postComment', 'deleteComment'],
   data() {
     return {
       responseComment: false,
       responseView: false,
+      editComment: true,
       userComent: {
         name: this.$store.state.Users.UserName,
         email: this.$store.state.Users.UserEmail,
@@ -266,6 +267,10 @@ export default defineComponent({
       this.responseComment = !this.responseComment;
       this.id = commentId;
     },
+    editComments(commentId: string) {
+      this.editComment;
+      this.id = commentId;
+    }
   },
 });
 </script>

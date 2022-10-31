@@ -23,6 +23,7 @@
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
         @postComment="commentPost"
+        @deleteComment="deleteComment"
         :viewMore="pageChange"
         class="comments-comp"
       />
@@ -68,10 +69,15 @@ export default defineComponent({
     commentPost(userComent: Object) {
       console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
+      userComent.text = '';
       this.commentsRender();
     },
     async pageChange() {
       this.limit = this.limit + 5;
+      this.commentsRender();
+    },
+    deleteComment(IdComment: string) {
+      this.$store.dispatch('Comments/deleteComment', IdComment);
       this.commentsRender();
     },
   },
