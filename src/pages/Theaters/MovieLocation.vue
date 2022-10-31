@@ -68,6 +68,7 @@ export default defineComponent({
     commentPost(userComent: Object) {
       console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
+      this.commentsRender();
     },
     async pageChange() {
       this.limit = this.limit + 5;

@@ -24,13 +24,7 @@
             <h6 class="text-color">{{ comment.date }}</h6>
             <div class="d-flex">
               <div
-                class="
-                  items-color
-                  comp-icons
-                  d-flex
-                  justify-content-between
-                  pe-2
-                "
+                class="items-color comp-icons d-flex justify-content-between pe-2"
               >
                 <p>5</p>
                 <Icon icon="carbon:thumbs-up" class="like-icon" />
@@ -86,13 +80,7 @@
                 <div class="pt-3 d-flex justify-content-between">
                   <h6 class="text-color">{{ reply.date }}</h6>
                   <div
-                    class="
-                      items-color
-                      comp-icons
-                      d-flex
-                      justify-content-between
-                      pe-2
-                    "
+                    class="items-color comp-icons d-flex justify-content-between pe-2"
                   >
                     <p>5</p>
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
