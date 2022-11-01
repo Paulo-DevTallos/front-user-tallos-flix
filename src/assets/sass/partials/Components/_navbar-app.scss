@@ -58,7 +58,6 @@
 			padding: 0 50px 0 0;
 			width: 70%;
 
-
 			.nav-link {
 				color: $main-white-color !important;
 				padding: 0 25px;
@@ -83,37 +82,37 @@
 			padding-right: 10px;
 		}
 
-			.drop-down-menu {
-				border-radius: 10px;
-				position: absolute;
-				top: 55px;
-				right: 0px;
-				background-color: $primary-color-black-three;
-				animation: downslide .2s ease-in-out;
+		.drop-down-menu {
+			border-radius: 10px;
+			position: absolute;
+			top: 55px;
+			right: 0px;
+			background-color: $primary-color-black-three;
+			animation: downslide .2s ease-in-out;
 
-				@keyframes downslide {
-					from {
-						opacity: 0;
-						transform: translateY(-25px);
-					} 
-					to {
-						opacity: 1;
-						transform: translateY(0);
-					}
+			@keyframes downslide {
+				from {
+					opacity: 0;
+					transform: translateY(-25px);
+				} 
+				to {
+					opacity: 1;
+					transform: translateY(0);
 				}
+			}
+		}
 
-			.dropdown-item {
-				padding: 10px;
-				color: white !important;    
+		.dropdown-item {
+			padding: 10px;
+			color: white !important;    
 
-				&:hover {
-					background-color: $primary-color-black-two;
-						
-				}
+			&:hover {
+				background-color: $primary-color-black-two;
+					
+			}
 
-				&:focus {
-					background-color: $primary-color-black-two;
-				}
+			&:focus {
+				background-color: $primary-color-black-two;
 			}
 		}
 	}

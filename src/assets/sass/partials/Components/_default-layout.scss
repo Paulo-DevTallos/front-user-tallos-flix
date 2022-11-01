@@ -5,6 +5,11 @@
   background-size: 100%;
   height: 100%;
 
+  @include mobile {
+    background-size: 180%;
+    background-position: center top;
+  }
+
   .template-container {
     padding: 0 80px;
 
