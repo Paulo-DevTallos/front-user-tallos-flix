@@ -186,7 +186,12 @@
                   <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <b-button size="lg" class="btn-comment">Comentar</b-button>
+                  <b-button
+                    size="lg"
+                    class="btn-comment"
+                    @click="responseComments"
+                    >Comentar</b-button
+                  >
                 </div>
               </b-col>
             </b-row>
@@ -261,7 +266,7 @@ export default defineComponent({
         movie_id: this.$store.state.Movies.currentMovie._id,
         text: '',
         isReply: true,
-        commentReply: this.renderComments._id,
+        commentReply: this.$store.state.Comments.CommentUnique,
         date: new Date(),
       },
       editCommentUser: {
@@ -288,6 +293,15 @@ export default defineComponent({
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
       this.id = commentId;
+      this.$store.state.Comments.CommentUnique = commentId;
+      console.log(commentId, this.$store.state.Comments.CommentUnique);
+    },
+    responseComments() {
+      this.$store.dispatch('Comments/createComment', this.userReply);
+      console.log(this.userReply);
+      this.userReply.text = '';
+      this.id = '',
+      this.responseView = false;
     },
     ViewResponses(commentId: string) {
       this.responseComment = !this.responseComment;
@@ -304,9 +318,6 @@ export default defineComponent({
       this.teste = '';
     },
   },
-  mounted() {
-    console.log(this.renderComments.commentsMovie);
-  }
 });
 </script>
 <style lang="scss" scoped></style>
