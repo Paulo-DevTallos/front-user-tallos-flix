@@ -5,10 +5,21 @@
       Escolha seu avatar:
     </header>
     <div class="avatar-container">
-      <div class="roll"></div>
-      <div class="roll"></div>
-      <div class="roll"></div>
-      <div class="roll"></div>
+      <div class="roll">
+
+      </div>
+      <div class="roll">
+        
+      </div>
+      <div class="roll">
+
+      </div>
+      <div class="roll">
+
+      </div>
+      <div class="roll">
+
+      </div>
     </div>
     <footer class="container-btn-modal">
       <button @click="$emit('closeWindow')">Cancelar</button>
