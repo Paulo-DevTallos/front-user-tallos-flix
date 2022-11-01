@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- comentarios principais -->
-    <div v-for="comment in renderComments" :key="comment.id">
+    <div v-for="comment in renderComments.commentsMovie" :key="comment.id">
       <b-row class="pb-4" v-if="!comment.isReply">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
           ><b-avatar
