@@ -22,7 +22,7 @@
           ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
-            <div class="d-flex" v-if="editComment && teste !== comment._id">
+            <div class="d-flex" id="aaa" v-if="editComment && teste !== comment._id">
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
@@ -46,7 +46,7 @@
               </div>
             </div>
             <div v-else class="btnsEdit">
-              <b-button block squared>Cancelar</b-button>
+              <b-button block squared @click.prevent="cancelEdit">Cancelar</b-button>
               <b-button block squared class="saveBE">Salvar</b-button>
             </div>
           </div>
@@ -223,7 +223,7 @@ export default defineComponent({
   components: {
     Icon,
   },
-  emits: ['postComment', 'deleteComment'],
+  emits: ['postComment', 'deleteComment', 'cancelEdit'],
   data() {
     return {
       responseComment: false,
@@ -277,7 +277,11 @@ export default defineComponent({
     },
     editComments(commentId: string) {
       this.editComment;
+      console.log(this.editComment);
       this.teste = commentId;
+    },
+    cancelEdit() {
+      this.editComment = false;
     },
   },
 });
