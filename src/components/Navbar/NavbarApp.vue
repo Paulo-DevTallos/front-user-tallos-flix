@@ -1,10 +1,15 @@
 <template>
   <b-navbar toggleable="lg" type="light">
-    <b-navbar-toggle
-      class="navbar-toggle"
-      target="nav-collapse"
-    ></b-navbar-toggle>
-
+    <div class="border-menu" @click="showMenuMobile">
+      <Icon icon="charm:menu-hamburger" width="35" color="#fff"/>
+    </div>
+    <div class="menu-mobile" v-if="hiddenMenuMobile">
+      <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
+        Somente nos Cinemas
+      </b-nav-item>
+      <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
+      <b-nav-item :to="{ name: 'series' }">Series</b-nav-item>
+    </div>
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="d-flex justify-content-between">
         <b-collapse class="d-flex">
@@ -41,10 +46,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AvatarModal from '@/components/Modals/AvatarModal.vue';
+import { Icon } from '@iconify/vue';
 
 export default defineComponent({
   name: 'NavbarApp',
-  components: { AvatarModal },
+  components: { AvatarModal, Icon },
   data() {
     return {
       UserLogged: this.$store.state.Users.UserName,
@@ -53,6 +59,7 @@ export default defineComponent({
       noAvatar: '/img/user-default.png',
       hiddenDropDown: false,
       hiddenAvatarModal: false,
+      hiddenMenuMobile: false,
     };
   },
   computed: {
@@ -61,6 +68,10 @@ export default defineComponent({
     },
   },
   methods: {
+    showMenuMobile() {
+      this.hiddenMenuMobile = !this.hiddenMenuMobile;
+    },
+
     changeAvatar(): void {
       this.hiddenAvatarModal = true;
       this.hiddenDropDown = false;

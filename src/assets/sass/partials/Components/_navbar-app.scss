@@ -9,8 +9,41 @@
 		padding: 15px 10px;
 	}
 
-	.nav-bar-toggle {
+	.border-menu {
+		border: 1px solid #fff;
+		padding: 0 10px;
+		border-radius: 5px;
+		display: none;
+		position: relative;
+
+		@include breakpoints(992px) {
+			display: block;
+		}
+	}
+
+	.menu-mobile {
+		position: absolute;
 		color: $main-white-color;
+		list-style: none;
+		background-color: #00000070;
+		@include align-elements(flex, center, center);
+		flex-direction: column;
+		z-index: 4000;
+		width: 100%;
+		left: 0;
+		top: 100%;
+		animation: emerge .2s ease-in;
+
+		@include animationEmerge;
+
+		li {
+			border-bottom: 1px solid $primary-color-black-bg;
+			width: 100%;
+			
+			a {
+				padding: 20px 0 20px 10px;
+			}
+		}
 	}
 
 	.navbar-collapse {
