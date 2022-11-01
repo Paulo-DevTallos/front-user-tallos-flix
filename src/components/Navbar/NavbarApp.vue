@@ -1,14 +1,19 @@
 <template>
   <b-navbar toggleable="lg" type="light">
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <b-navbar-toggle
+      class="navbar-toggle"
+      target="nav-collapse"
+    ></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="d-flex justify-content-between">
-        <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
-          Somente nos Cinemas
-        </b-nav-item>
-        <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
-        <b-nav-item :to="{ name: 'series' }">Series</b-nav-item>
+        <b-collapse class="d-flex">
+          <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
+            Somente nos Cinemas
+          </b-nav-item>
+          <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
+          <b-nav-item :to="{ name: 'series' }">Series</b-nav-item>
+        </b-collapse>
       </b-navbar-nav>
     </b-collapse>
     <nav>

@@ -4,5 +4,9 @@
   .img-header {
     width: 200px;
     cursor: pointer;
+
+    @include landscape {
+      width: 170px;
+    }
   }
 }

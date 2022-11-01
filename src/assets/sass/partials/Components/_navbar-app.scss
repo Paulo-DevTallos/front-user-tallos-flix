@@ -1,71 +1,87 @@
 .navbar {
-    background: linear-gradient(0deg,
-            rgba(51, 51, 51, 0.596) 0%,
-            rgba(0, 0, 0, 0.123) 100%) !important;
-    padding: 15px 40px;
+	background: 
+		linear-gradient(0deg,
+	rgba(51, 51, 51, 0.596) 0%,
+	rgba(0, 0, 0, 0.123) 100%);
+	padding: 15px 40px;
 
-    .navbar-collapse {
-        @include align-elements(flex, space-between, unset);
-        width: 50% !important;
+	@include breakpoints(992px) {
+		padding: 15px 10px;
+	}
 
-        .navbar-nav {
-            width: 35%;
+	.nav-bar-toggle {
+		color: $main-white-color;
+	}
 
-            .nav-link {
-                color: white !important;
-                background-color: rgba(255, 255, 255, 0) !important;
+	.navbar-collapse {
+		@include align-elements(flex, space-between, unset);
+		flex: 1;
+		
+		@include breakpoints(992px) {
+			display: none;
+		}
+		
+		.navbar-nav {
+			padding: 0 50px 0 0;
+			width: 70%;
 
-                &:focus {
-                    transition: 0.1s;
-                    background-color: rgba(255, 255, 255, 0) !important;
-                    border-bottom: 3px solid $primary-color-beige-two;
-                    padding-bottom: 0;
-                }
-            }
-        }
-    }
 
-    .type-cursor {
-        cursor: pointer;
-        position: relative;
+			.nav-link {
+				color: $main-white-color !important;
+				padding: 0 25px;
+				background-color: rgba(255, 255, 255, 0) !important;
 
-        .name-user {
-            color: white;
-            padding-right: 10px;
-        }
+				&:focus {
+					transition: 0.1s ease-in;
+					background-color: rgba(255, 255, 255, 0) !important;
+					border-bottom: 3px solid $primary-color-beige-two;
+					padding-bottom: 0;
+				}
+			}
+		}
+	}
 
-        .drop-down-menu {
-            border-radius: 10px;
-            position: absolute;
-            top: 55px;
-            right: 0px;
-            background-color: $primary-color-black-three;
-            animation: downslide .2s ease-in-out;
+	.type-cursor {
+		cursor: pointer;
+		position: relative;
 
-            @keyframes downslide {
-                from {
-                    opacity: 0;
-                    transform: translateY(-25px);
-                } 
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+		.name-user {
+			color: white;
+			padding-right: 10px;
+		}
 
-            .dropdown-item {
-                padding: 10px;
-                color: white !important;    
+			.drop-down-menu {
+				border-radius: 10px;
+				position: absolute;
+				top: 55px;
+				right: 0px;
+				background-color: $primary-color-black-three;
+				animation: downslide .2s ease-in-out;
 
-                &:hover {
-                    background-color: $primary-color-black-two;
-                    
-                }
-    
-                &:focus {
-                    background-color: $primary-color-black-two;
-                }
-            }
-        }
-    }
+				@keyframes downslide {
+					from {
+						opacity: 0;
+						transform: translateY(-25px);
+					} 
+					to {
+						opacity: 1;
+						transform: translateY(0);
+					}
+				}
+
+			.dropdown-item {
+				padding: 10px;
+				color: white !important;    
+
+				&:hover {
+					background-color: $primary-color-black-two;
+						
+				}
+
+				&:focus {
+					background-color: $primary-color-black-two;
+				}
+			}
+		}
+	}
 }
