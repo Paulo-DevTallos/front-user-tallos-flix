@@ -11,7 +11,7 @@ export default {
       });
   },
   async updateFavorite({ commit }: any, data: any) {
-    await FavoriteRequests.updateFavorite(data.id, data.user)
+    await FavoriteRequests.updateFavorite(data.id, data.movie)
       .then((res) => {
         commit();
       })
@@ -20,7 +20,7 @@ export default {
       });
   },
   async deleteFavorite({ commit }: any, data: any) {
-    await FavoriteRequests.deleteFavorite(data.id)
+    await FavoriteRequests.deleteFavorite(data.id, data.movie)
       .then((res) => {
         commit();
       })
@@ -32,14 +32,13 @@ export default {
     await FavoriteRequests.getAllFavorites()
       .then((res) => {
         commit('GET_FAVORITES', res.data);
-        console.log(res.data)
       })
       .catch((error) => {
         commit();
       });
   },
   async getFavoriteById({ commit }: any, data: any) {
-    await FavoriteRequests.getFavoriteById(data.id)
+    await FavoriteRequests.getFavoriteById(data)
       .then((res) => {
         commit('GET_FAVORITE', res.data);
       })

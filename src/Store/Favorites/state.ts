@@ -1,4 +1,4 @@
 export default {
   Favorites: [],
-  Favorite: Object,
+  Favorite: [],
 };

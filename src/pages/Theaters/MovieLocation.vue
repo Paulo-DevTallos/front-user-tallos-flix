@@ -29,7 +29,7 @@
         :viewMore="pageChange"
         class="comments-comp"
       />
-      <OptionsModal v-if="hiddenOptionModal" @closeWindow="closeOptionModal" />
+      <OptionsModal v-if="hiddenOptionModal" @closeWindow="closeOptionModal" :action="message" />
     </div>
   </div>
 </template>
@@ -56,6 +56,7 @@ export default defineComponent({
   },
   data() {
     return {
+      message: 'adicionar comentário',
       limit: 5,
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
