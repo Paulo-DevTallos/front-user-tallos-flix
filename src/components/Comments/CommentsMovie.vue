@@ -15,14 +15,21 @@
           <b-form-textarea
             class="comment-text"
             no-resize
-            :plaintext="editComment && teste !== comment._id"
+            :plaintext="
+              (editComment && teste !== comment._id) ||
+              (!editComment && teste !== comment._id)
+            "
             rows="3"
             max-rows="4"
             v-model:model-value="comment.text"
           ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
-            <div class="d-flex" id="aaa" v-if="editComment && teste !== comment._id">
+            <div
+              class="d-flex"
+              id="aaa"
+              v-if="btnViewsComments && teste != comment._id"
+            >
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
@@ -45,8 +52,10 @@
                 </h6>
               </div>
             </div>
-            <div v-else class="btnsEdit">
-              <b-button block squared @click.prevent="cancelEdit">Cancelar</b-button>
+            <div class="btnsEdit" v-if="!editComment && teste === comment._id">
+              <b-button block squared @click.prevent="cancelEdit"
+                >Cancelar</b-button
+              >
               <b-button block squared class="saveBE">Salvar</b-button>
             </div>
           </div>
@@ -229,6 +238,7 @@ export default defineComponent({
       responseComment: false,
       responseView: false,
       editComment: true,
+      btnViewsComments: true,
       userComent: {
         name: this.$store.state.Users.UserName,
         email: this.$store.state.Users.UserEmail,
@@ -276,12 +286,13 @@ export default defineComponent({
       this.id = commentId;
     },
     editComments(commentId: string) {
-      this.editComment;
-      console.log(this.editComment);
       this.teste = commentId;
+      this.editComment = false;
+      console.log(this.editComment);
     },
     cancelEdit() {
-      this.editComment = false;
+      this.editComment = true;
+      this.teste = '';
     },
   },
 });

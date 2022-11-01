@@ -85,7 +85,6 @@ export default defineComponent({
     commentPost(userComent: Object) {
       console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
-      userComent.text = '';
       this.commentsRender();
 
       const cleanInputComment = (userComent.text = '');
