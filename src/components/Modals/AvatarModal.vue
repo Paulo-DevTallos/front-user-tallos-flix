@@ -6,19 +6,19 @@
     </header>
     <div class="avatar-container">
       <div class="roll">
-
+        <img src="img/girl-avatar.png" alt="avatar girl" /> 
       </div>
       <div class="roll">
-        
+        <img src="img/excenctric-avatar.png" alt="avatar excenctric" />   
       </div>
       <div class="roll">
-
+        <img src="img/woman-avatar.png" alt="avatar woman" /> 
+      </div>  
+      <div class="roll">
+        <img src="img/ninja-avatar.png" alt="avatar ninja" /> 
       </div>
       <div class="roll">
-
-      </div>
-      <div class="roll">
-
+        <img src="img/empty-avatar.png" alt="avatar vazio" />
       </div>
     </div>
     <footer class="container-btn-modal">

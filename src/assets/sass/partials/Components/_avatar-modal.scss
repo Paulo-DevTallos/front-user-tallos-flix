@@ -4,10 +4,12 @@
   width: 600px;
   height: 255px;
   position: absolute;
+  z-index: 3000;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
+  box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.593);
   animation: downSlide .1s;
 
   @keyframes downSlide {
@@ -47,9 +49,21 @@
     .roll {
       width: 70px;
       height: 70px;
-      border-radius: 100%;
-      background-color: #808080;
       margin: 0 20px;
+      
+      img {
+        border-radius: 100%;
+        width: 100%;
+        border: 5px solid transparent;
+        cursor: pointer;
+        transition: .3s ease;
+
+        &:hover {
+          border: 5px solid #d36643;
+          box-shadow: 0 0 5px #d36643;
+        }
+      }
+
     }
   }
 
