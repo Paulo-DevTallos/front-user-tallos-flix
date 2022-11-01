@@ -8,6 +8,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.593);
+  animation: downSlide .1s;
+
+  @keyframes downSlide {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+    }
+    100% {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 
   svg {
     position: absolute;
