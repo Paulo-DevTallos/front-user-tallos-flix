@@ -1,9 +1,8 @@
 .conteudo-header {
-    background-color: white;
-    height: 10vh;
+  background-color: $main-white-color;
 
-    .img-header {
-        height: 67px;
-        cursor: pointer;
-    }
+  .img-header {
+    height: 67px;
+    cursor: pointer;
+  }
 }
