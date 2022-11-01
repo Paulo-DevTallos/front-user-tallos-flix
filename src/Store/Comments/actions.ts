@@ -14,15 +14,17 @@ export default {
     await CommentRequests.updateComment(data.id, data.comment)
       .then((res) => {
         commit();
+        console.log(res);
       })
       .catch((error) => {
         commit();
       });
   },
   async deleteComment({ commit }: any, data: any) {
-    await CommentRequests.deleteComment(data.id)
+    await CommentRequests.deleteComment(data)
       .then((res) => {
         commit();
+        console.log(res);
       })
       .catch((error) => {
         commit();

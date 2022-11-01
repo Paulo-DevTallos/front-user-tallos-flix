@@ -1,5 +1,9 @@
+//config
 @import './partials/variables';
 @import './partials/mixins/mixins_include';
+@import './partials/responsive-layout/mixin-responsive.scss';
+
+//components
 @import './partials/Components/search-bar';
 @import './partials/Components/carousel';
 @import './partials/Components/forms_styles';
@@ -17,6 +21,7 @@
 @import './partials/Components/avatar-modal';
 @import './partials/Components/options-modal';
 
+//pages
 @import './login.scss';
 @import './home_view.scss';
 @import './movie_view.scss';
