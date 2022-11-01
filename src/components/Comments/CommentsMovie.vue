@@ -95,7 +95,7 @@
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
-            v-for="reply in comment.comments"
+            v-for="reply in this.$store.state.Comments.GetCommentResponse"
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
@@ -260,9 +260,8 @@ export default defineComponent({
         email: this.$store.state.Users.UserEmail,
         movie_id: this.$store.state.Movies.currentMovie._id,
         text: '',
-        likes: null,
         isReply: true,
-        comments: [],
+        commentReply: this.renderComments._id,
         date: new Date(),
       },
       editCommentUser: {
@@ -293,6 +292,7 @@ export default defineComponent({
     ViewResponses(commentId: string) {
       this.responseComment = !this.responseComment;
       this.id = commentId;
+      this.$store.dispatch('Comments/getResponseComments', commentId);
     },
     editComments(commentId: string) {
       this.teste = commentId;
@@ -304,6 +304,9 @@ export default defineComponent({
       this.teste = '';
     },
   },
+  mounted() {
+    console.log(this.renderComments.commentsMovie);
+  }
 });
 </script>
 <style lang="scss" scoped></style>

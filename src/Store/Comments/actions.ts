@@ -67,4 +67,14 @@ export default {
         commit();
       });
   },
+  async getResponseComments({ commit }: any, data: string) {
+    await CommentRequests.getResponseComments(data)
+      .then((res) => {
+        commit('GET_RESPONSECOMMENT', res.data);
+        console.log(res);
+      })
+      .catch((error) => {
+        commit();
+      });
+  },
 };
