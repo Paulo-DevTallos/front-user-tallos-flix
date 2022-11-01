@@ -36,6 +36,7 @@
       }
 
       @include breakpoints(430px) {
+        width: 100%;
         padding: 20px 60px 30px;
       }
 
@@ -43,7 +44,7 @@
         padding: 20px 40px 30px;
         height: 500px;
       }
-      
+
       .container-logo {
         text-align: center;
         margin-bottom: 5px;
