@@ -16,7 +16,7 @@
       <hr class="orange-line-separator" />
       <div
         class="p-4 d-flex justify-content-center plot-title"
-        v-if="this.$store.state.Comments.Comments < [0]"
+        v-if="this.$store.state.Comments.Comments.commentsMovie < [0]"
       >
         Nenhum comentário encontrado
       </div>
@@ -24,6 +24,8 @@
         :renderComments="this.$store.state.Comments.Comments"
         @redirect="redirectToLogin"
         @postComment="commentPost"
+        @deleteComment="deleteComment"
+        @saveEdit="updateComment"
         :viewMore="pageChange"
         class="comments-comp"
       />
@@ -85,6 +87,7 @@ export default defineComponent({
     commentPost(userComent: Object) {
       console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
+      this.commentsRender();
 
       const cleanInputComment = (userComent.text = '');
 
@@ -92,6 +95,18 @@ export default defineComponent({
     },
     async pageChange() {
       this.limit = this.limit + 5;
+      this.commentsRender();
+    },
+    deleteComment(IdComment: string) {
+      this.$store.dispatch('Comments/deleteComment', IdComment);
+      this.commentsRender();
+    },
+    updateComment(commentUpdate: string) {
+      this.$store.dispatch('Comments/updateComment', {
+        id: commentUpdate._id,
+        comment: commentUpdate,
+      });
+      this.$router.go();
       this.commentsRender();
     },
   },

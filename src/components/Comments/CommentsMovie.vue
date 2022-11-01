@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- comentarios principais -->
-    <div v-for="comment in renderComments" :key="comment.id">
+    <div v-for="comment in renderComments.commentsMovie" :key="comment.id">
       <b-row class="pb-4" v-if="!comment.isReply">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
           ><b-avatar
@@ -10,19 +10,26 @@
             size="5rem"
           ></b-avatar
         ></b-col>
-        <b-col cols="10">
+        <b-col cols="9" class="p-0">
           <h5 class="text-color">{{ comment.name }}</h5>
           <b-form-textarea
             class="comment-text"
             no-resize
-            plaintext
+            :plaintext="
+              (editComment && teste !== comment._id) ||
+              (!editComment && teste !== comment._id)
+            "
             rows="3"
             max-rows="4"
             v-model:model-value="comment.text"
           ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
-            <div class="d-flex">
+            <div
+              class="d-flex"
+              id="aaa"
+              v-if="btnViewsComments && teste != comment._id"
+            >
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
@@ -30,23 +37,63 @@
                 <Icon icon="carbon:thumbs-up" class="like-icon" />
                 <Icon icon="carbon:thumbs-down" class="like-icon" />
               </div>
-              <h6
-                class="text-response pe-2"
-                @click="responseComment = !responseComment"
+              <div class="d-flex">
+                <h6
+                  class="text-response pe-2"
+                  @click="ViewResponses(comment._id)"
+                >
+                  Ver respostas
+                </h6>
+                <h6
+                  class="text-response"
+                  @click.prevent="getcomment(comment._id)"
+                >
+                  {{ response }}
+                </h6>
+              </div>
+            </div>
+            <div class="btnsEdit" v-if="!editComment && teste === comment._id">
+              <b-button block squared @click.prevent="cancelEdit"
+                >Cancelar</b-button
               >
-                Ver respostas
-              </h6>
-              <h6
-                class="text-response"
-                @click.prevent="getcomment(comment._id)"
+              <b-button
+                block
+                squared
+                class="saveBE"
+                @click="$emit('saveEdit', comment)"
+                >Salvar</b-button
               >
-                {{ response }}
-              </h6>
             </div>
           </div>
         </b-col>
+        <b-col
+          class="p-0 m-0 text-color"
+          v-if="comment.email === this.$store.state.Users.UserEmail"
+        >
+          <div class="d-flex justify-content-start align-items-center actions">
+            <b-dropdown variant="link" dropright no-caret>
+              <template #button-content>
+                <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
+              </template>
+              <b-dropdown-item @click="editComments(comment._id)"
+                ><Icon
+                  icon="carbon:edit"
+                  class="iconDrop"
+                />Editar</b-dropdown-item
+              >
+              <b-dropdown-item
+                @click.prevent="$emit('deleteComment', comment._id)"
+                ><Icon
+                  icon="carbon:delete"
+                  class="iconDrop"
+                />Deletar</b-dropdown-item
+              >
+            </b-dropdown>
+            <!-- <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" /> -->
+          </div>
+        </b-col>
         <!-- Respostas do Comentário -->
-        <b-col cols="12" v-if="responseComment">
+        <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
             v-for="reply in comment.comments"
             :key="reply.id"
@@ -57,20 +104,23 @@
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
               >
-                <b-avatar :src="reply.avatar" size="5rem"></b-avatar>
+                <b-avatar
+                  :src="reply.avatar ? reply.avatar : Noavatar"
+                  size="5rem"
+                ></b-avatar>
               </b-col>
-              <b-col cols="10">
-                <h5 class="text-color">{{ reply._id }}</h5>
+              <b-col cols="9" class="p-0">
+                <h5 class="text-color">{{ reply.name }}</h5>
                 <b-form-textarea
                   class="comment-text"
                   no-resize
                   plaintext
                   rows="3"
                   max-rows="8"
-                  >{{ reply.text }}</b-form-textarea
-                >
+                  v-model:model-value="reply.text"
+                ></b-form-textarea>
                 <div class="pt-3 d-flex justify-content-between">
-                  <h6 class="text-color">Há {{ reply.date }} dia</h6>
+                  <h6 class="text-color">{{ reply.date }}</h6>
                   <div
                     class="items-color comp-icons d-flex justify-content-between pe-2"
                   >
@@ -78,6 +128,35 @@
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
                     <Icon icon="carbon:thumbs-down" class="like-icon" />
                   </div>
+                </div>
+              </b-col>
+              <b-col
+                class="p-0 m-0 text-color"
+                v-if="reply.email === this.$store.state.Users.UserEmail"
+              >
+                <div
+                  class="d-flex justify-content-start align-items-center actions"
+                >
+                  <b-dropdown variant="link" dropright no-caret>
+                    <template #button-content>
+                      <Icon
+                        icon="carbon:overflow-menu-vertical"
+                        class="icon-menu"
+                      />
+                    </template>
+                    <b-dropdown-item
+                      ><Icon
+                        icon="carbon:edit"
+                        class="iconDrop"
+                      />Editar</b-dropdown-item
+                    >
+                    <b-dropdown-item
+                      ><Icon
+                        icon="carbon:delete"
+                        class="iconDrop"
+                      />Deletar</b-dropdown-item
+                    >
+                  </b-dropdown>
                 </div>
               </b-col>
             </b-row>
@@ -97,14 +176,14 @@
                 <h5 class="text-color">Seu Comentário</h5>
                 <b-form-textarea
                   class="comment-text"
-                  v-model="userComent.text"
+                  v-model="userReply.text"
                   maxlength="200"
                   rows="5"
                   placeholder="Digite aqui um comentário"
                   no-resize
                 ></b-form-textarea>
                 <div class="pt-3 d-flex justify-content-end">
-                  <h6 class="text-color">{{ userComent.text.length }}/200</h6>
+                  <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
                 <div class="d-flex justify-content-end">
                   <b-button size="lg" class="btn-comment">Comentar</b-button>
@@ -159,11 +238,13 @@ export default defineComponent({
   components: {
     Icon,
   },
-  emits: ['redirect', 'postComment'],
+  emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect', 'saveEdit'],
   data() {
     return {
       responseComment: false,
       responseView: false,
+      editComment: true,
+      btnViewsComments: true,
       userComent: {
         name: this.$store.state.Users.UserName,
         email: this.$store.state.Users.UserEmail,
@@ -184,10 +265,14 @@ export default defineComponent({
         comments: [],
         date: new Date(),
       },
+      editCommentUser: {
+        text: '',
+      },
       response: 'Responder',
       ocult: 'Ocultar',
       Noavatar: '/img/user-default.png',
       id: '',
+      teste: '',
     };
   },
   props: {
@@ -204,6 +289,19 @@ export default defineComponent({
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
       this.id = commentId;
+    },
+    ViewResponses(commentId: string) {
+      this.responseComment = !this.responseComment;
+      this.id = commentId;
+    },
+    editComments(commentId: string) {
+      this.teste = commentId;
+      this.editComment = false;
+      console.log(this.editComment);
+    },
+    cancelEdit() {
+      this.editComment = true;
+      this.teste = '';
     },
   },
 });
