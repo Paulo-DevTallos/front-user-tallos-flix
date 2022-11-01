@@ -9,7 +9,7 @@
   }
   
   .content {
-    margin: 0 80px;
+    margin: $margin-layout;
     min-height: 100vh;
     @include align-elements(flex, center, center);
 
@@ -23,8 +23,8 @@
     
     .form-container {
       padding: 20px 100px 30px;
-      background-color: #fff;
-      color: #000;
+      background-color: $main-white-color;
+      color: $main-black-color;
       display: flex;
       flex-direction: column;
       border-radius: 20px;
