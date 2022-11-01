@@ -126,7 +126,11 @@
       v-if="hiddenTraillerModal"
       @closeWindow="closeModal"
     />
-    <OptionsModal v-if="hiddenOptionModal" @closeWindow="closeOptionModal"/>
+    <OptionsModal
+      v-if="hiddenOptionModal"
+      @closeWindow="closeOptionModal"
+      :action="message"
+    />
   </div>
 </template>
 
@@ -142,6 +146,7 @@ export default defineComponent({
   components: { Icon, TraillerModal, StarRating, OptionsModal },
   data() {
     return {
+      message: 'adicionar aos favoritos',
       routerMovies: '/home/movies',
       routerSeries: '/home/series',
       isLogged: localStorage.getItem('token'),
