@@ -56,7 +56,13 @@
               <b-button block squared @click.prevent="cancelEdit"
                 >Cancelar</b-button
               >
-              <b-button block squared class="saveBE">Salvar</b-button>
+              <b-button
+                block
+                squared
+                class="saveBE"
+                @click="$emit('saveEdit', comment)"
+                >Salvar</b-button
+              >
             </div>
           </div>
         </b-col>
@@ -232,7 +238,7 @@ export default defineComponent({
   components: {
     Icon,
   },
-  emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect'],
+  emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect', 'saveEdit'],
   data() {
     return {
       responseComment: false,
@@ -258,6 +264,9 @@ export default defineComponent({
         isReply: true,
         comments: [],
         date: new Date(),
+      },
+      editCommentUser: {
+        text: '',
       },
       response: 'Responder',
       ocult: 'Ocultar',

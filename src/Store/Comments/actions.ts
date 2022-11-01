@@ -14,6 +14,7 @@ export default {
     await CommentRequests.updateComment(data.id, data.comment)
       .then((res) => {
         commit();
+        console.log(res);
       })
       .catch((error) => {
         commit();

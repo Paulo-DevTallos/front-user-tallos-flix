@@ -25,6 +25,7 @@
         @redirect="redirectToLogin"
         @postComment="commentPost"
         @deleteComment="deleteComment"
+        @saveEdit="updateComment"
         :viewMore="pageChange"
         class="comments-comp"
       />
@@ -97,6 +98,14 @@ export default defineComponent({
     },
     deleteComment(IdComment: string) {
       this.$store.dispatch('Comments/deleteComment', IdComment);
+      this.commentsRender();
+    },
+    updateComment(commentUpdate: string) {
+      this.$store.dispatch('Comments/updateComment', {
+        id: commentUpdate._id,
+        comment: commentUpdate,
+      });
+      this.$router.go();
       this.commentsRender();
     },
   },
