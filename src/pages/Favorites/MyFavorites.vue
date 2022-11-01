@@ -12,7 +12,13 @@
         no-gutters
         class="mt-5 d-flex"
       >
-        <b-col cols="1">
+        <b-col
+          cols="1"
+          v-if="
+            this.favorites.indexOf(favorite) <= oldRole &&
+            this.favorites.indexOf(favorite) >= actualElement
+          "
+        >
           <div class="h-100 d-flex justify-content-center align-items-center">
             <Icon
               icon="carbon:delete"
@@ -21,7 +27,13 @@
             />
           </div>
         </b-col>
-        <b-col cols="5">
+        <b-col
+          cols="5"
+          v-if="
+            this.favorites.indexOf(favorite) <= this.oldRole &&
+            this.favorites.indexOf(favorite) >= this.actualElement
+          "
+        >
           <b-row>
             <b-col cols="4">
               <b-card-img
@@ -61,7 +73,13 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-col cols="6">
+        <b-col
+          cols="6"
+          v-if="
+            this.favorites.indexOf(favorite) <= this.oldRole &&
+            this.favorites.indexOf(favorite) >= this.actualElement
+          "
+        >
           <div>
             <b-card-title class="text-color pb-2">Sinopse: </b-card-title>
             <b-form-text-area
@@ -83,6 +101,7 @@
           v-model="currentPage"
           :per-page="perPage"
           :rows="rows"
+          @click="changePage"
         ></PaginationPage>
       </div>
     </b-container>
@@ -99,8 +118,10 @@ export default defineComponent({
   components: { HeaderApp, StarRating, Icon, PaginationPage },
   data() {
     return {
-      perPage: 3,
+      perPage: 5,
       currentPage: 1,
+      actualElement: 0,
+      oldRole: 4,
       vazio: {
         poster: '/img/empty-img.png',
         title: 'Filme sem titulo',
@@ -146,6 +167,10 @@ export default defineComponent({
           movie_Id: data,
         },
       });
+    },
+    changePage() {
+      this.oldRole = this.perPage * this.currentPage - 1;
+      this.actualElement = this.perPage * (this.currentPage - 1);
     },
   },
 });
