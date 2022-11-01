@@ -14,18 +14,7 @@
       font-size: 20px;
       animation: emerge .3s ease-in-out;
 
-      @keyframes emerge {
-        0% {
-          opacity: 0;
-          visibility: hidden;
-          transform: translateY(-25%);
-        } 
-        100% {
-          opacity: 1;
-          visibility: visible; 
-          transform: translateY(0);
-        }
-      }
+      @include animationEmerge;
     }
 
     input {
@@ -35,16 +24,7 @@
       font-size: 14px;
       animation: roar .4s ease-in-out;
 
-      @keyframes roar {
-        0% {
-          opacity: 0;
-          visibility: hidden;
-        } 
-        100% {
-          opacity: 1;
-          visibility: visible; 
-        }
-      }
+      @include animationRoar;
     }
 
     .wd-input {
@@ -60,9 +40,11 @@
   a {
     text-decoration: underline;
     color: $text-color-gray-one;
-    animation: roar .4s ease-in-out;
     font-size: 13px;
     margin-bottom: 31px;
+    animation: roar .4s ease-in-out;
+
+    @include animationRoar;
   }
 
   .btn-container {
@@ -73,12 +55,7 @@
       margin-top: 50px;
       width: 170px;
       height: 35px;
-      background-color: $primary-color-beige-one;
-      color: #fff;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-      text-align: center;
+      @include btn-config;
     }
   }
 }
