@@ -9,12 +9,11 @@
     animation: downslide2 .2s ease-in-out;
 }
 .search-input{
-    width: 800px;
+    width: 100%;
     height: 35px;
     background-color: $primary-color-black-one;
     border: solid $primary-color-black-seven 1px;
     display: flex;
- 
 }
 .text-input{
     color:$primary-color-black-seven;
@@ -33,7 +32,7 @@
 }
 .icon {
     height: 100%;
-    width: 3%;
+    width: 25px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
