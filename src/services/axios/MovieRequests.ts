@@ -10,6 +10,9 @@ export default {
   getMovieFilter: (params?: any) => {
     return http.get(`movies/search`, { params: params });
   },
+  getMovieFilterId: (id: string) => {
+    return http.get(`movies/search/${id}`);
+  },
   createMovies: (MoviesData: object) => {
     return http.post(`movies`, MoviesData);
   },
