@@ -138,7 +138,7 @@
           <div class="pt-3 d-flex justify-content-end">
             <h6 class="text-color">{{ userComent.text.length }}/200</h6>
           </div>
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center" @click="$emit('redirect')">
             <b-button
               size="lg"
               class="btn-comment"
@@ -159,7 +159,7 @@ export default defineComponent({
   components: {
     Icon,
   },
-  emits: ['postComment'],
+  emits: ['redirect', 'postComment'],
   data() {
     return {
       responseComment: false,

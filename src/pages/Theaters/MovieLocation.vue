@@ -22,10 +22,12 @@
       </div>
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
+        @redirect="redirectToLogin"
         @postComment="commentPost"
         :viewMore="pageChange"
         class="comments-comp"
       />
+      <OptionsModal v-if="hiddenOptionModal" @closeWindow="closeOptionModal" :action="message" />
     </div>
   </div>
 </template>
@@ -34,6 +36,7 @@
 import CardMovie from '@/components/Cards/CardMovie.vue';
 import CommentsMovie from '@/components/Comments/CommentsMovie.vue';
 import MapView from '@/components/Map.vue';
+import OptionsModal from '@/components/Modals/OptionsModal.vue';
 import PlotView from '@/components/Plot.vue';
 import TheatersForm from '@/components/TheatersForm.vue';
 import TheatersList from '@/components/TheatersList.vue';
@@ -47,16 +50,30 @@ export default defineComponent({
     MapView,
     TheatersList,
     CommentsMovie,
+    OptionsModal,
   },
   data() {
     return {
+      message: 'adicionar comentário',
       limit: 5,
+      isLogged: localStorage.getItem('token'),
+      hiddenOptionModal: false,
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
       },
     };
   },
   methods: {
+    redirectToLogin(): void {
+      if (!this.isLogged) {
+        this.hiddenOptionModal = true;
+      } else {
+        this.commentsRender();
+      }
+    },
+    closeOptionModal() {
+      this.hiddenOptionModal = false;
+    },
     commentsRender() {
       this.$store.dispatch('Comments/getByMovieId', {
         movie: this.movie,
@@ -68,6 +85,10 @@ export default defineComponent({
     commentPost(userComent: Object) {
       console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
+
+      const cleanInputComment = (userComent.text = '');
+
+      return cleanInputComment;
     },
     async pageChange() {
       this.limit = this.limit + 5;
