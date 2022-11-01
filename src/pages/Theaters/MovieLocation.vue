@@ -16,7 +16,7 @@
       <hr class="orange-line-separator" />
       <div
         class="p-4 d-flex justify-content-center plot-title"
-        v-if="this.$store.state.Comments.Comments < [0]"
+        v-if="this.$store.state.Comments.Comments.commentsMovie < [0]"
       >
         Nenhum comentário encontrado
       </div>
