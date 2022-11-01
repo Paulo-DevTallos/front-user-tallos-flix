@@ -146,6 +146,7 @@ export default defineComponent({
       hiddenBtnTrailer: false,
       IconStyle: 'carbon:favorite',
       ColorStyle: 'none',
+      IsFavoriteBefore: undefined,
     };
   },
   methods: {
@@ -223,6 +224,21 @@ export default defineComponent({
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,
     );
+  },
+  async created() {
+    console.log(await this.$store.state.Favorites.Favorite);
+    if ((await this.$store.state.Favorites.Favorite.length) !== 0) {
+      this.IsFavoriteBefore =
+        this.$store.state.Favorites.Favorite[0].movie_Id.find(
+          (element: any) =>
+            element === this.$store.state.Movies.currentMovie._id,
+        );
+
+      if (this.IsFavoriteBefore !== undefined) {
+        this.IconStyle = 'carbon:favorite-filled';
+        this.ColorStyle = '#f38765';
+      }
+    }
   },
 });
 </script>
