@@ -95,7 +95,7 @@
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
-            v-for="reply in comment.comments"
+            v-for="reply in this.$store.state.Comments.GetCommentResponse"
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
@@ -186,7 +186,12 @@
                   <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <b-button size="lg" class="btn-comment">Comentar</b-button>
+                  <b-button
+                    size="lg"
+                    class="btn-comment"
+                    @click="responseComments"
+                    >Comentar</b-button
+                  >
                 </div>
               </b-col>
             </b-row>
@@ -260,9 +265,8 @@ export default defineComponent({
         email: this.$store.state.Users.UserEmail,
         movie_id: this.$store.state.Movies.currentMovie._id,
         text: '',
-        likes: null,
         isReply: true,
-        comments: [],
+        commentReply: this.$store.state.Comments.CommentUnique,
         date: new Date(),
       },
       editCommentUser: {
@@ -289,10 +293,20 @@ export default defineComponent({
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
       this.id = commentId;
+      this.$store.state.Comments.CommentUnique = commentId;
+      console.log(commentId, this.$store.state.Comments.CommentUnique);
+    },
+    responseComments() {
+      this.$store.dispatch('Comments/createComment', this.userReply);
+      console.log(this.userReply);
+      this.userReply.text = '';
+      this.id = '',
+      this.responseView = false;
     },
     ViewResponses(commentId: string) {
       this.responseComment = !this.responseComment;
       this.id = commentId;
+      this.$store.dispatch('Comments/getResponseComments', commentId);
     },
     editComments(commentId: string) {
       this.teste = commentId;

@@ -13,6 +13,9 @@ export default {
   getByEmail: (Email: string) => {
     return http.post(`comments/mail`, Email);
   },
+  getResponseComments: (idComment: string) => {
+    return http.get(`comments/response/${idComment}`);
+  },
   createComment: (CommentData: object) => {
     return http.post(`comments`, CommentData);
   },
