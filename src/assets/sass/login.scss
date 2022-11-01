@@ -3,12 +3,24 @@
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
+
+  @include breakpoints(480px) {
+    background-image: none;
+  }
   
   .content {
     margin: 0 80px;
     min-height: 100vh;
     @include align-elements(flex, center, center);
 
+    @include breakpoints(600px) {
+      margin: 0 20px;
+    }
+
+    @include breakpoints(390px) {
+      margin: 0 10px;
+    }
+    
     .form-container {
       padding: 20px 100px 30px;
       background-color: #fff;
@@ -18,6 +30,19 @@
       border-radius: 20px;
       width: 430px;
       height: 450px;
+
+      @include breakpoints(550px) {
+        padding: 20px 80px 30px;
+      }
+
+      @include breakpoints(430px) {
+        padding: 20px 60px 30px;
+      }
+
+      @include breakpoints(390px) {
+        padding: 20px 40px 30px;
+        height: 500px;
+      }
       
       .container-logo {
         text-align: center;
