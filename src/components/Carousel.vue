@@ -2,7 +2,7 @@
   <carousel
     :items-to-show="4"
     :items-to-scroll="1"
-    :wrapAround="true"
+    :wrapAround="false"
     snapAlign="start"
   >
     <slide
