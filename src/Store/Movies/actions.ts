@@ -49,7 +49,6 @@ export default {
     await MovieRequests.getMovieFilter(data)
       .then((res) => {
         commit('GET_MOVIES', res.data);
-        console.log(res);
       })
       .catch((error) => {
         commit();
