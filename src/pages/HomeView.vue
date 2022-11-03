@@ -7,29 +7,38 @@
       hoje ?
     </h1>
     <SearchBar @search="searchMovie" />
-    <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
+    <div
+      class="home-carousel d-flex flex-column p-2 pb-3 mb-3"
+      v-if="hiddenCarousel"
+    >
       <h4>Nos Cinemas</h4>
       <Carousel :hiddenMovieInfo="false" />
     </div>
+    <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { SocketModule } from '@/services/socket';
-//import io from 'socket.io-client'
+import ErrorComponent from '@/components/ErrorComponent.vue';
 import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     SearchBar,
+    ErrorComponent,
     Carousel,
   },
   data() {
     return {
       socketService: SocketModule.connect(),
       isChanged: '',
+      movies_name: '',
+      hiddenCarousel: true,
+      hiddenErrorSearch: false,
     };
   },
 
@@ -39,6 +48,7 @@ export default defineComponent({
         this.isChanged = data;
         console.log(this.isChanged);
         setTimeout(() => {
+          this.movies_name = data;
           if (this.isChanged === data) {
             this.$store.dispatch('Movies/getMovieFilter', {
               field: 'title',
@@ -48,6 +58,23 @@ export default defineComponent({
         }, 1000);
       }
     },
+  },
+
+  watch: {
+    ['Movies/getErrorPage'](data) {
+      console.log(data);
+      if (data === true) {
+        this.hiddenErrorSearch = true;
+        this.hiddenCarousel = false;
+      } else {
+        this.hiddenErrorSearch = false;
+        this.hiddenCarousel = true;
+      }
+    },
+  },
+
+  computed: {
+    ...mapGetters(['Movies/getErrorPage']),
   },
 
   mounted() {
