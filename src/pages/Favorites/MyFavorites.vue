@@ -10,9 +10,10 @@
         :key="favorite.result_id"
         col
         no-gutters
-        class="mt-5 d-flex"
+        class="d-flex"
       >
         <b-col
+          class="mt-5"
           cols="1"
           v-if="
             this.favorites.indexOf(favorite) <= oldRole &&
@@ -29,6 +30,7 @@
         </b-col>
         <b-col
           cols="5"
+          class="mt-5"
           v-if="
             this.favorites.indexOf(favorite) <= this.oldRole &&
             this.favorites.indexOf(favorite) >= this.actualElement
@@ -75,6 +77,7 @@
         </b-col>
         <b-col
           cols="6"
+          class="mt-5"
           v-if="
             this.favorites.indexOf(favorite) <= this.oldRole &&
             this.favorites.indexOf(favorite) >= this.actualElement
