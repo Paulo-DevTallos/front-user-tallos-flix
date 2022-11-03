@@ -229,7 +229,7 @@
                 <div class="pt-3 d-flex justify-content-end">
                   <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end" @click="$emit('redirect')">
                   <b-button
                     size="lg"
                     class="btn-comment"
