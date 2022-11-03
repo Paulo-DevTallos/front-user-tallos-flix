@@ -42,6 +42,7 @@ import OptionsModal from '@/components/Modals/OptionsModal.vue';
 import PlotView from '@/components/Plot.vue';
 import TheatersForm from '@/components/TheatersForm.vue';
 import TheatersList from '@/components/TheatersList.vue';
+import { SocketModule } from '@/services/socket';
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'LocationView',
@@ -53,6 +54,11 @@ export default defineComponent({
     TheatersList,
     CommentsMovie,
     OptionsModal,
+  },
+  setup() {
+    return {
+      socketService: SocketModule.connect(),
+    }
   },
   data() {
     return {
@@ -87,7 +93,6 @@ export default defineComponent({
     commentPost(userComent: Object) {
       console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
-      this.commentsRender();
 
       const cleanInputComment = (userComent.text = '');
 
@@ -111,7 +116,13 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.commentsRender();
+    this.socketService.registerListener(
+      'new-comment',
+      'new-comment',
+      () => {
+        this.commentsRender();
+      },
+    );
   },
 });
 </script>
