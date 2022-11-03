@@ -25,11 +25,7 @@
           ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
-            <div
-              class="d-flex"
-              id="aaa"
-              v-if="btnViewsComments && teste != comment._id"
-            >
+            <div class="d-flex" v-if="btnViewsComments && teste != comment._id">
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
@@ -89,13 +85,12 @@
                 />Deletar</b-dropdown-item
               >
             </b-dropdown>
-            <!-- <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" /> -->
           </div>
         </b-col>
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
-            v-for="reply in this.$store.state.Comments.GetCommentResponse"
+            v-for="reply in this.$store.state.Comments.GetCommentResponse.response"
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
@@ -114,7 +109,10 @@
                 <b-form-textarea
                   class="comment-text"
                   no-resize
-                  plaintext
+                  :plaintext="
+                    (editComment && teste !== reply._id) ||
+                    (!editComment && teste !== reply._id)
+                  "
                   rows="3"
                   max-rows="8"
                   v-model:model-value="reply.text"
@@ -123,10 +121,26 @@
                   <h6 class="text-color">{{ reply.date }}</h6>
                   <div
                     class="items-color comp-icons d-flex justify-content-between pe-2"
+                    v-if="btnViewsComments && teste != reply._id"
                   >
                     <p>5</p>
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
                     <Icon icon="carbon:thumbs-down" class="like-icon" />
+                  </div>
+                  <div
+                    class="btnsEditR"
+                    v-if="!editComment && teste === reply._id"
+                  >
+                    <b-button block squared @click.prevent="cancelEdit"
+                      >Cancelar</b-button
+                    >
+                    <b-button
+                      block
+                      squared
+                      class="saveBE"
+                      @click="$emit('saveEdit', reply)"
+                      >Salvar</b-button
+                    >
                   </div>
                 </div>
               </b-col>
@@ -144,13 +158,14 @@
                         class="icon-menu"
                       />
                     </template>
-                    <b-dropdown-item
+                    <b-dropdown-item @click="editComments(reply._id)"
                       ><Icon
                         icon="carbon:edit"
                         class="iconDrop"
                       />Editar</b-dropdown-item
                     >
                     <b-dropdown-item
+                      @click.prevent="$emit('deleteComment', reply._id)"
                       ><Icon
                         icon="carbon:delete"
                         class="iconDrop"

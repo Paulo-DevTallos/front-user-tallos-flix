@@ -126,3 +126,20 @@
         }
     }
 }
+.btnsEditR {
+    display: flex;
+    justify-content: space-between;
+    width: 32%;
+    .saveBE {
+        background-color: $primary-color-beige-one;
+        border-color: $primary-color-beige-one;
+
+        &:hover {
+            background-color: $primary-color-beige-two;
+        }
+
+        &:active {
+            background-color: $primary-color-beige-three;
+        }
+    }
+}
