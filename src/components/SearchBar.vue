@@ -5,7 +5,7 @@
       class="text-input"
       placeholder="Digite aqui o nome do filme"
       v-model="this.MovieFilter"
-      @keyup="search(this.MovieFilter)"
+      @keyup="$emit('search', MovieFilter)"
     />
     <Icon icon="carbon:search" class="icon" />
   </div>
@@ -18,6 +18,7 @@ export default defineComponent({
   name: 'search-bar',
   components: { Icon },
   props: { Series: Boolean },
+  emits: ['search'],
   data() {
     return {
       MovieFilter: '',
@@ -25,7 +26,8 @@ export default defineComponent({
     };
   },
   methods: {
-    search(data: string) {
+    //@keyup="search(this.MovieFilter)"
+    /*search(data: string) {
       if (data !== this.isChanged) {
         this.isChanged = data;
         if (this.Series === false) {
@@ -48,7 +50,7 @@ export default defineComponent({
           }, 1000);
         }
       }
-    },
+    },*/
   },
 });
 </script>
