@@ -116,13 +116,11 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.socketService.registerListener(
-      'new-comment',
-      'new-comment',
-      () => {
-        this.commentsRender();
-      },
-    );
+    this.socketService.registerListener('new-comment', 'new-comment', () => {
+      this.commentsRender();
+    });
+
+    this.commentsRender();
   },
 });
 </script>
