@@ -20,14 +20,16 @@
               v-if="this.RenderSeries == false"
             >
               <img
-                :src="movie.poster"
+                v-if="movie.poster ? movie.poster : empty.poster"
+                :src="movie.poster || empty.poster"
                 :alt="movie.title"
                 @click="currentMovie(movie)"
               />
             </router-link>
             <router-link :to="{ path: `/home/serie` }" v-else>
               <img
-                :src="movie.poster"
+                v-if="movie.poster ? movie.poster : empty.poster"
+                :src="movie.poster || empty.poster"
                 :alt="movie.title"
                 @click="currentMovie(movie)"
               />
@@ -45,7 +47,7 @@
               'min'
             }}
           </p>
-          <StarRating class="rating" />
+          <StarRating class="rating" v-model="movie.imdb.rating" />
         </div>
       </div>
     </slide>
@@ -91,6 +93,9 @@ export default defineComponent({
     return {
       image_path: APP_URL + 'img/',
       movies: [],
+      empty: {
+        poster: '/img/empty-img.png',
+      }
     };
   },
 
