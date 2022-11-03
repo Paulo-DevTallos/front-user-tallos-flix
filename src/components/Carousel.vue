@@ -1,4 +1,3 @@
-
 <template>
   <carousel
     :items-to-show="4"
@@ -7,14 +6,19 @@
     snapAlign="start"
   >
     <slide
-      v-for="movie in this.$store.state.Movies.Movies.content"
+      v-for="movie in this.RenderSeries === false
+        ? this.$store.state.Movies.Movies.content
+        : this.$store.state.Movies.Series.content"
       :key="movie.id"
       class="carousel__slide"
     >
       <div>
         <div class="carousel-card">
           <div class="image-container">
-            <router-link :to="{ path: `/home/movie` }" v-if="this.RenderSeries == false">
+            <router-link
+              :to="{ path: `/home/movie` }"
+              v-if="this.RenderSeries == false"
+            >
               <img
                 :src="movie.poster"
                 :alt="movie.title"
@@ -32,7 +36,15 @@
         </div>
         <div class="info-movies" v-if="hiddenMovieInfo">
           <h3>{{ movie.title }}</h3>
-          <p>Duração: {{Math.trunc(movie.runtime / 60) + 'h' + (movie.runtime % 60) + 'min' }}</p>
+          <p>
+            Duração:
+            {{
+              Math.trunc(movie.runtime / 60) +
+              'h' +
+              (movie.runtime % 60) +
+              'min'
+            }}
+          </p>
           <StarRating class="rating" />
         </div>
       </div>
@@ -91,8 +103,6 @@ export default defineComponent({
     if (this.$store.state.Movies.IsMovieGenre == false) {
       if (this.RenderSeries === true) {
         await this.$store.dispatch('Movies/getSeries');
-        this.$store.state.Movies.Movies.content =
-          this.$store.state.Movies.Series.content;
       } else {
         await this.$store.dispatch('Movies/getMovieFilter');
       }

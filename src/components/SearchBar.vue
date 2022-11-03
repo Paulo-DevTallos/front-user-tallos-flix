@@ -28,23 +28,25 @@ export default defineComponent({
     search(data: string) {
       if (data !== this.isChanged) {
         this.isChanged = data;
-        setTimeout(() => {
-          if (this.isChanged === data) {
-            if (this.Series == false) {
+        if (this.Series === false) {
+          setTimeout(() => {
+            if (this.isChanged === data) {
               this.$store.dispatch('Movies/getMovieFilter', {
                 field: 'title',
                 search: data,
               });
-            } else {
+            }
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            if (this.isChanged === data) {
               this.$store.dispatch('Movies/getSeries', {
                 field: 'title',
                 search: data,
               });
-              this.$store.state.Movies.Movies.content =
-                this.$store.state.Movies.Series.content;
             }
-          }
-        }, 1000);
+          }, 1000);
+        }
       }
     },
   },

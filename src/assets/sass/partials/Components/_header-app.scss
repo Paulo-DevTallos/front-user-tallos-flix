@@ -1,9 +1,12 @@
 .conteudo-header {
-    background-color: white;
-    height: 10vh;
+  background-color: $main-white-color;
 
-    .img-header {
-        height: 67px;
-        cursor: pointer;
+  .img-header {
+    width: 200px;
+    cursor: pointer;
+
+    @include landscape {
+      width: 170px;
     }
+  }
 }
