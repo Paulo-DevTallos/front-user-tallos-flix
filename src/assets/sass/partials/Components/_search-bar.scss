@@ -9,11 +9,15 @@
     animation: downslide2 .2s ease-in-out;
 }
 .search-input{
-    width: 100%;
+    width: 850px;
     height: 35px;
     background-color: $primary-color-black-one;
     border: solid $primary-color-black-seven 1px;
     display: flex;
+
+    @include tablet {
+        width: 100%;
+    }
 }
 .text-input{
     color:$primary-color-black-seven;
@@ -37,6 +41,7 @@
     justify-content: flex-end;
     align-items: flex-end;
     color: $primary-color-black-seven;
+    cursor: pointer;
 }
 
 //estilos do filter e box
