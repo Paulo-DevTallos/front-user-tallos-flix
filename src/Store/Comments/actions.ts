@@ -67,8 +67,8 @@ export default {
         commit();
       });
   },
-  async getResponseComments({ commit }: any, data: string) {
-    await CommentRequests.getResponseComments(data)
+  async getResponseComments({ commit }: any, data: any) {
+    await CommentRequests.getResponseComments(data.idcomment, data.params)
       .then((res) => {
         commit('GET_RESPONSECOMMENT', res.data);
         console.log(res);

@@ -90,11 +90,12 @@
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
-            v-for="reply in this.$store.state.Comments.GetCommentResponse.response"
+            v-for="reply in this.$store.state.Comments.GetCommentResponse
+              .response"
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
-            <b-row class="pb-4 response-coment">
+            <b-row class="response-coment">
               <b-col
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
@@ -176,6 +177,14 @@
               </b-col>
             </b-row>
           </div>
+          <div
+            v-if="this.$store.state.Comments.GetCommentResponse.response > []"
+            class="d-flex justify-content-end ViewMoreResponse"
+          >
+            <p class="text-color viewmore" @click="viewMoreResponse">
+              Mostrar Mais
+            </p>
+          </div>
         </b-col>
         <!-- Responder Comentário -->
         <b-col cols="12" v-if="responseView && id === comment._id">
@@ -223,7 +232,7 @@
     </div>
     <!-- Comentar -->
     <div>
-      <b-row>
+      <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
           <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
         </b-col>
@@ -296,6 +305,7 @@ export default defineComponent({
       Noavatar: '/img/user-default.png',
       id: '',
       teste: '',
+      limit: 5,
     };
   },
   props: {
@@ -323,7 +333,18 @@ export default defineComponent({
     ViewResponses(commentId: string) {
       this.responseComment = !this.responseComment;
       this.id = commentId;
-      this.$store.dispatch('Comments/getResponseComments', commentId);
+      this.$store.dispatch('Comments/getResponseComments', {
+        idcomment: commentId,
+        params: { limit: this.limit },
+      });
+    },
+    viewMoreResponse() {
+      this.responseComment = true;
+      this.limit = this.limit + 5;
+      this.$store.dispatch('Comments/getResponseComments', {
+        idcomment: this.id,
+        params: { limit: this.limit },
+      });
     },
     editComments(commentId: string) {
       this.teste = commentId;

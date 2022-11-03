@@ -35,6 +35,7 @@
     color: $orange-color-one;
     text-decoration: underline;
     cursor: pointer;
+    padding-right: 7%;
 
     &:hover {
         color: $orange-color-two;
@@ -67,6 +68,10 @@
 
 .response-coment {
     width: 90%;
+    padding-right: 6%;
+}
+.boxYourComment {
+    padding-right: 6%;
 }
 
 .actions {
