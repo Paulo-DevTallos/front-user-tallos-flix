@@ -39,6 +39,11 @@ export default {
   async getSeries({ commit }: any, data?: any) {
     await MovieRequests.getSeries(data)
       .then((res) => {
+        if (res.data.content.length === 0) {
+          commit('setErrorPage', true);
+        } else {
+          commit('setErrorPage', false);
+        }
         commit('GET_SERIES', res.data);
       })
       .catch((error) => {
