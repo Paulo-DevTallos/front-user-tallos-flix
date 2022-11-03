@@ -14,7 +14,7 @@ export default {
   async updateUser({ commit }: any, data: any) {
     await UserRequests.updateUser(data.id, data.user)
       .then((res) => {
-        commit();
+        commit('GET_AVATAR', res.data.avatar);
       })
       .catch((error) => {
         commit();
