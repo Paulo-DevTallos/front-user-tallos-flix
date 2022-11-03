@@ -25,11 +25,7 @@
           ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
             <h6 class="text-color">{{ comment.date }}</h6>
-            <div
-              class="d-flex"
-              id="aaa"
-              v-if="btnViewsComments && teste != comment._id"
-            >
+            <div class="d-flex" v-if="btnViewsComments && teste != comment._id">
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
@@ -42,13 +38,21 @@
                   class="text-response pe-2"
                   @click="ViewResponses(comment._id)"
                 >
-                  Ver respostas
+                  {{
+                    responseComment && id === comment._id && responseComment
+                      ? 'Ocultar respostas'
+                      : 'Ver respostas'
+                  }}
                 </h6>
                 <h6
                   class="text-response"
                   @click.prevent="getcomment(comment._id)"
                 >
-                  {{ response }}
+                  {{
+                    responseView && id === comment._id && responseView
+                      ? 'Ocultar'
+                      : 'Responder'
+                  }}
                 </h6>
               </div>
             </div>
@@ -89,17 +93,17 @@
                 />Deletar</b-dropdown-item
               >
             </b-dropdown>
-            <!-- <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" /> -->
           </div>
         </b-col>
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
-            v-for="reply in this.$store.state.Comments.GetCommentResponse"
+            v-for="reply in this.$store.state.Comments.GetCommentResponse
+              .response"
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
-            <b-row class="pb-4 response-coment">
+            <b-row class="response-reply">
               <b-col
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
@@ -114,7 +118,10 @@
                 <b-form-textarea
                   class="comment-text"
                   no-resize
-                  plaintext
+                  :plaintext="
+                    (editComment && teste !== reply._id) ||
+                    (!editComment && teste !== reply._id)
+                  "
                   rows="3"
                   max-rows="8"
                   v-model:model-value="reply.text"
@@ -123,10 +130,26 @@
                   <h6 class="text-color">{{ reply.date }}</h6>
                   <div
                     class="items-color comp-icons d-flex justify-content-between pe-2"
+                    v-if="btnViewsComments && teste != reply._id"
                   >
                     <p>5</p>
                     <Icon icon="carbon:thumbs-up" class="like-icon" />
                     <Icon icon="carbon:thumbs-down" class="like-icon" />
+                  </div>
+                  <div
+                    class="btnsEditR"
+                    v-if="!editComment && teste === reply._id"
+                  >
+                    <b-button block squared @click.prevent="cancelEdit"
+                      >Cancelar</b-button
+                    >
+                    <b-button
+                      block
+                      squared
+                      class="saveBE"
+                      @click="$emit('saveEdit', reply)"
+                      >Salvar</b-button
+                    >
                   </div>
                 </div>
               </b-col>
@@ -144,13 +167,14 @@
                         class="icon-menu"
                       />
                     </template>
-                    <b-dropdown-item
+                    <b-dropdown-item @click="editComments(reply._id)"
                       ><Icon
                         icon="carbon:edit"
                         class="iconDrop"
                       />Editar</b-dropdown-item
                     >
                     <b-dropdown-item
+                      @click.prevent="$emit('deleteComment', reply._id)"
                       ><Icon
                         icon="carbon:delete"
                         class="iconDrop"
@@ -160,6 +184,26 @@
                 </div>
               </b-col>
             </b-row>
+          </div>
+          <div
+            v-if="this.$store.state.Comments.GetCommentResponse.response > []"
+            class="d-flex justify-content-end ViewMoreResponse"
+          >
+            <p class="text-color viewmore" @click="viewMoreResponse">
+              Mostrar Mais
+            </p>
+          </div>
+        </b-col>
+        <b-col cols="12">
+          <div
+            class="p-4 d-flex justify-content-center plot-title"
+            v-if="
+              this.$store.state.Comments.GetCommentResponse.response < [0] &&
+              responseComment &&
+              id === comment._id
+            "
+          >
+            Nenhuma resposta encontrada
           </div>
         </b-col>
         <!-- Responder Comentário -->
@@ -208,7 +252,7 @@
     </div>
     <!-- Comentar -->
     <div>
-      <b-row>
+      <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
           <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
         </b-col>
@@ -273,14 +317,10 @@ export default defineComponent({
         // commentReply: this.$store.state.Comments.CommentUnique,
         date: new Date(),
       },
-      editCommentUser: {
-        text: '',
-      },
-      response: 'Responder',
-      ocult: 'Ocultar',
       Noavatar: '/img/user-default.png',
       id: '',
       teste: '',
+      limit: 5,
     };
   },
   props: {
@@ -308,7 +348,18 @@ export default defineComponent({
     ViewResponses(commentId: string) {
       this.responseComment = !this.responseComment;
       this.id = commentId;
-      this.$store.dispatch('Comments/getResponseComments', commentId);
+      this.$store.dispatch('Comments/getResponseComments', {
+        idcomment: commentId,
+        params: { limit: this.limit },
+      });
+    },
+    viewMoreResponse() {
+      this.responseComment = true;
+      this.limit = this.limit + 5;
+      this.$store.dispatch('Comments/getResponseComments', {
+        idcomment: this.id,
+        params: { limit: this.limit },
+      });
     },
     editComments(commentId: string) {
       this.teste = commentId;
