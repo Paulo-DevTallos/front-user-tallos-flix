@@ -19,6 +19,7 @@
               @submitLogin="handleSubmitLogin"
               v-if="callFormLogin"
               :data_btn="btn_login" 
+              :hiddenError="hiddenErrorMessage"
             />
             <FormRegister 
               @createNewUser="handleCreateNewUser"
@@ -50,6 +51,7 @@ export default defineComponent({
       btn_register: 'Cadastrar',
       callFormLogin: true,
       callFormRegister: true,
+      hiddenErrorMessage: false,
     };
   },
 
@@ -66,7 +68,10 @@ export default defineComponent({
 
     //evento de login
     async handleSubmitLogin(user: object) {
-      this.$store.dispatch('Users/login', user);
+      this.$store.dispatch('Users/login', user).catch(err => {
+        console.log(err);
+        this.hiddenErrorMessage = true
+      });
     },
 
     //evento de create new user
