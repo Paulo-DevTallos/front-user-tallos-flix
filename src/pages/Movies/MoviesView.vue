@@ -26,6 +26,7 @@ import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'MoviesView',
@@ -36,14 +37,12 @@ export default defineComponent({
       isChanged: '',
       hiddenCarousel: true,
       hiddenErrorSearch: false,
-      findMovie: this.$store.state.Movies.Movies.content,
     };
   },
   methods: {
     searchMovie(data: string) {
       if (data !== this.isChanged) {
         this.isChanged = data;
-        console.log(this.isChanged);
         setTimeout(() => {
           if (this.isChanged === data) {
             this.$store.dispatch('Movies/getMovieFilter', {
@@ -57,19 +56,20 @@ export default defineComponent({
   },
 
   watch: {
-    observeChanges() {
-      const find = this.findMovie = this.$store.state.Movies.Movies.content;
-    
-      if (find.length === 0) {
+    ['Movies/getErrorPage'](data) {
+      console.log(data);
+      if (data === true) {
         this.hiddenErrorSearch = true;
-        this.movies_name = data;
         this.hiddenCarousel = false;
-      }
-      else{
+      } else {
         this.hiddenErrorSearch = false;
+        this.hiddenCarousel = true;
       }
-    }
-  }
+    },
+  },
+  computed: {
+    ...mapGetters(['Movies/getErrorPage']),
+  },
 });
 </script>
 

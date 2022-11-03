@@ -5,4 +5,7 @@ export default {
   GET_SERIES(state: any, payload: any) {
     state.Series = payload;
   },
+  setErrorPage(state: any, payload: any) {
+    state.ErrorPage = payload;
+  },
 };

@@ -4,4 +4,5 @@ export default {
   currentMovie: Object,
   IsMovieGenre: false,
   actualTag: String,
+  ErrorPage: false,
 };
