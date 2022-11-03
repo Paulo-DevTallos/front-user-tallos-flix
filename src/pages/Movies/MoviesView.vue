@@ -4,7 +4,7 @@
   >
     <div class="d-flex justify-content-center search-components">
       <FilterButton />
-      <SearchBar />
+      <SearchBar @search="searchMovie" />
     </div>
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <div
@@ -14,7 +14,8 @@
         <span id="genre-title">Gênero: </span>
         <span id="tagGenre">{{ this.$store.state.Movies.actualTag }}</span>
       </div>
-      <Carousel :hiddenMovieInfo="true" />
+      <Carousel v-if="hiddenCarousel" :hiddenMovieInfo="true" />
+      <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
     </div>
   </div>
 </template>
@@ -24,13 +25,51 @@ import { defineComponent } from 'vue';
 import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
 import FilterButton from '@/components/FilterButton.vue';
+import ErrorComponent from '@/components/ErrorComponent.vue';
 
 export default defineComponent({
   name: 'MoviesView',
-  components: { SearchBar, Carousel, FilterButton },
-  mounted() {
-    console.log(this.$store.state.Movies.IsMovieGenre);
+  components: { SearchBar, Carousel, FilterButton, ErrorComponent },
+  data() {
+    return {
+      movies_name: '',
+      isChanged: '',
+      hiddenCarousel: true,
+      hiddenErrorSearch: false,
+      findMovie: this.$store.state.Movies.Movies.content,
+    };
   },
+  methods: {
+    searchMovie(data: string) {
+      if (data !== this.isChanged) {
+        this.isChanged = data;
+        console.log(this.isChanged);
+        setTimeout(() => {
+          if (this.isChanged === data) {
+            this.$store.dispatch('Movies/getMovieFilter', {
+              field: 'title',
+              search: data,
+            });
+          }
+        }, 1000);
+      }
+    },
+  },
+
+  watch: {
+    observeChanges() {
+      const find = this.findMovie = this.$store.state.Movies.Movies.content;
+    
+      if (find.length === 0) {
+        this.hiddenErrorSearch = true;
+        this.movies_name = data;
+        this.hiddenCarousel = false;
+      }
+      else{
+        this.hiddenErrorSearch = false;
+      }
+    }
+  }
 });
 </script>
 
