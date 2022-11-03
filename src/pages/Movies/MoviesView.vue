@@ -44,6 +44,7 @@ export default defineComponent({
       if (data !== this.isChanged) {
         this.isChanged = data;
         setTimeout(() => {
+          this.movies_name = data;
           if (this.isChanged === data) {
             this.$store.dispatch('Movies/getMovieFilter', {
               field: 'title',
