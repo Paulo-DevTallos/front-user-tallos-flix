@@ -25,33 +25,6 @@ export default defineComponent({
       isChanged: '',
     };
   },
-  methods: {
-    //@keyup="search(this.MovieFilter)"
-    /*search(data: string) {
-      if (data !== this.isChanged) {
-        this.isChanged = data;
-        if (this.Series === false) {
-          setTimeout(() => {
-            if (this.isChanged === data) {
-              this.$store.dispatch('Movies/getMovieFilter', {
-                field: 'title',
-                search: data,
-              });
-            }
-          }, 1000);
-        } else {
-          setTimeout(() => {
-            if (this.isChanged === data) {
-              this.$store.dispatch('Movies/getSeries', {
-                field: 'title',
-                search: data,
-              });
-            }
-          }, 1000);
-        }
-      }
-    },*/
-  },
 });
 </script>
 <style lang="scss" scoped></style>
