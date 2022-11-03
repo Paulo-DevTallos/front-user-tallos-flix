@@ -6,7 +6,7 @@
       Olá {{ this.$store.state.Users.UserName }}, sobre qual filme quer conhecer
       hoje ?
     </h1>
-    <SearchBar />
+    <SearchBar @search="searchMovie" />
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <h4>Nos Cinemas</h4>
       <Carousel :hiddenMovieInfo="false" />
@@ -29,7 +29,25 @@ export default defineComponent({
   data() {
     return {
       socketService: SocketModule.connect(),
+      isChanged: '',
     };
+  },
+
+  methods: {
+    searchMovie(data: string) {
+      if (data !== this.isChanged) {
+        this.isChanged = data;
+        console.log(this.isChanged);
+        setTimeout(() => {
+          if (this.isChanged === data) {
+            this.$store.dispatch('Movies/getMovieFilter', {
+              field: 'title',
+              search: data,
+            });
+          }
+        }, 1000);
+      }
+    },
   },
 
   mounted() {
