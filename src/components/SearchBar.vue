@@ -7,7 +7,11 @@
       v-model="this.MovieFilter"
       @keyup="$emit('search', MovieFilter)"
     />
-    <Icon icon="carbon:search" class="icon" />
+    <Icon
+      icon="carbon:search"
+      class="icon"
+      @click="$emit('search', MovieFilter)"
+    />
   </div>
 </template>
 <script lang="ts">
