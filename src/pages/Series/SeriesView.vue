@@ -4,7 +4,7 @@
   >
     <div class="d-flex justify-content-center search-components">
       <FilterButton />
-      <SearchBar :Series="true" />
+      <SearchBar @search="searchMovie" :Series="true" />
     </div>
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <Carousel :hiddenMovieInfo="true" :RenderSeries="true" />
@@ -21,6 +21,27 @@ import FilterButton from '@/components/FilterButton.vue';
 export default defineComponent({
   name: 'SeriesView',
   components: { SearchBar, Carousel, FilterButton },
+  data() {
+    return {
+      isChanged: '',
+    }
+  },
+
+  methods: {
+    searchMovie(data: string) {
+      if (data !== this.isChanged) {
+        this.isChanged = data;
+        setTimeout(() => {
+          if (this.isChanged === data) {
+          this.$store.dispatch('Movies/getSeries', {
+            field: 'title',
+            search: data,
+          });
+          }
+        }, 1000);
+      }
+    },
+  }
 });
 </script>
 
