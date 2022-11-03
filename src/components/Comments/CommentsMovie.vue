@@ -200,7 +200,10 @@
       </b-row>
     </div>
     <!-- pagination -->
-    <div v-if="renderComments > [0]" class="d-flex justify-content-end">
+    <div
+      v-if="renderComments.commentsMovie > []"
+      class="d-flex justify-content-end"
+    >
       <p class="text-color viewmore" @click="viewMore">Mostrar Mais</p>
     </div>
     <!-- Comentar -->
@@ -266,7 +269,8 @@ export default defineComponent({
         movie_id: this.$store.state.Movies.currentMovie._id,
         text: '',
         isReply: true,
-        commentReply: this.$store.state.Comments.CommentUnique,
+        commentReply: '',
+        // commentReply: this.$store.state.Comments.CommentUnique,
         date: new Date(),
       },
       editCommentUser: {
@@ -292,16 +296,14 @@ export default defineComponent({
   methods: {
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
+      this.userReply.commentReply = commentId;
       this.id = commentId;
-      this.$store.state.Comments.CommentUnique = commentId;
-      console.log(commentId, this.$store.state.Comments.CommentUnique);
     },
     responseComments() {
       this.$store.dispatch('Comments/createComment', this.userReply);
       console.log(this.userReply);
       this.userReply.text = '';
-      this.id = '',
-      this.responseView = false;
+      (this.id = ''), (this.responseView = false);
     },
     ViewResponses(commentId: string) {
       this.responseComment = !this.responseComment;
