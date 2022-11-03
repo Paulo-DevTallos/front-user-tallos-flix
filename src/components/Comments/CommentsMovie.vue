@@ -314,13 +314,14 @@ export default defineComponent({
         text: '',
         isReply: true,
         commentReply: '',
-        // commentReply: this.$store.state.Comments.CommentUnique,
         date: new Date(),
       },
       Noavatar: '/img/user-default.png',
       id: '',
       teste: '',
       limit: 5,
+      IconStyle: 'carbon:favorite',
+      ColorStyle: 'none',
     };
   },
   props: {
