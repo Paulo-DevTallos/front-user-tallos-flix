@@ -38,13 +38,21 @@
                   class="text-response pe-2"
                   @click="ViewResponses(comment._id)"
                 >
-                  Ver respostas
+                  {{
+                    responseComment && id === comment._id && responseComment
+                      ? 'Ocultar respostas'
+                      : 'Ver respostas'
+                  }}
                 </h6>
                 <h6
                   class="text-response"
                   @click.prevent="getcomment(comment._id)"
                 >
-                  {{ response }}
+                  {{
+                    responseView && id === comment._id && responseView
+                      ? 'Ocultar'
+                      : 'Responder'
+                  }}
                 </h6>
               </div>
             </div>
@@ -95,7 +103,7 @@
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
-            <b-row class="response-coment">
+            <b-row class="response-reply">
               <b-col
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
@@ -184,6 +192,18 @@
             <p class="text-color viewmore" @click="viewMoreResponse">
               Mostrar Mais
             </p>
+          </div>
+        </b-col>
+        <b-col cols="12">
+          <div
+            class="p-4 d-flex justify-content-center plot-title"
+            v-if="
+              this.$store.state.Comments.GetCommentResponse.response < [0] &&
+              responseComment &&
+              id === comment._id
+            "
+          >
+            Nenhuma resposta encontrada
           </div>
         </b-col>
         <!-- Responder Comentário -->
@@ -297,11 +317,6 @@ export default defineComponent({
         // commentReply: this.$store.state.Comments.CommentUnique,
         date: new Date(),
       },
-      editCommentUser: {
-        text: '',
-      },
-      response: 'Responder',
-      ocult: 'Ocultar',
       Noavatar: '/img/user-default.png',
       id: '',
       teste: '',
