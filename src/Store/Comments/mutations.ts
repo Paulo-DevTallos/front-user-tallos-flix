@@ -7,5 +7,5 @@ export default {
   },
   GET_RESPONSECOMMENT(state: any, payload: any) {
     state.GetCommentResponse = payload;
-  }
+  },
 };

@@ -29,9 +29,31 @@
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
-                <p>5</p>
-                <Icon icon="carbon:thumbs-up" class="like-icon" />
-                <Icon icon="carbon:thumbs-down" class="like-icon" />
+                <!-- <div v-for="likes in likesComments" :key="likes._id">
+                  <p v-if="likes.data.results[0].commentId === comment._id">
+                    {{ likes.data.likeNumbers.likes }}
+                  </p>
+                </div> -->
+                <Icon
+                  :icon="
+                    likeComment && idCommentLike === comment._id && likeComment
+                      ? 'carbon:thumbs-up-filled'
+                      : 'carbon:thumbs-up'
+                  "
+                  class="like-icon"
+                  @click="LikeComment(comment._id)"
+                />
+                <Icon
+                  :icon="
+                    DeslikeComment &&
+                    idCommentLike === comment._id &&
+                    DeslikeComment
+                      ? 'carbon:thumbs-down-filled'
+                      : 'carbon:thumbs-down'
+                  "
+                  class="like-icon"
+                  @click="UnlikeComment(comment._id)"
+                />
               </div>
               <div class="d-flex">
                 <h6
@@ -229,7 +251,10 @@
                 <div class="pt-3 d-flex justify-content-end">
                   <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
-                <div class="d-flex justify-content-end" @click="$emit('redirect')">
+                <div
+                  class="d-flex justify-content-end"
+                  @click="$emit('redirect')"
+                >
                   <b-button
                     size="lg"
                     class="btn-comment"
@@ -296,6 +321,8 @@ export default defineComponent({
       responseComment: false,
       responseView: false,
       editComment: true,
+      likeComment: false,
+      DeslikeComment: false,
       btnViewsComments: true,
       userComent: {
         name: this.$store.state.Users.UserName,
@@ -314,18 +341,24 @@ export default defineComponent({
         text: '',
         isReply: true,
         commentReply: '',
-        // commentReply: this.$store.state.Comments.CommentUnique,
         date: new Date(),
       },
       Noavatar: '/img/user-default.png',
       id: '',
       teste: '',
+      idCommentLike: '',
       limit: 5,
+      IconStyle: 'carbon:thumbs-up',
+      ColorStyle: 'none',
     };
   },
   props: {
     renderComments: {
       type: Object,
+      required: false,
+    },
+    likesComments: {
+      type: Array,
       required: false,
     },
     viewMore: {
@@ -334,6 +367,36 @@ export default defineComponent({
     },
   },
   methods: {
+    //     getLikeValidate(id: string){
+    //       this.apiService.get(passar o id e verificar se existe)
+    //       se n existir: chama a rota ('  http://localhost:4000/likes/ e  passa o corpo no body
+    //       {
+    // 	"commentId": "63641a951c859a0e64f72816",
+    // 	"userLike":[{
+    //   "userId": "635680e2bea91464d376670a",
+    //   "like": true,
+    //   "unlike": false
+    // }]}
+    //           ')
+    //       se existir: ('http://localhost:4000/likes/id do comentario = 63640f2b1c859a0e64f72733  ')
+    //       o corpo:
+    // {
+    //   "userId": "635680e2bea91464d376670a",
+    //   "like": true,
+    //   "unlike": false
+    // }
+
+    //     }
+    LikeComment(commentId: string) {
+      this.likeComment = !this.likeComment;
+      this.DeslikeComment = false;
+      this.idCommentLike = commentId;
+    },
+    UnlikeComment(commentId: string) {
+      this.DeslikeComment = !this.DeslikeComment;
+      this.likeComment = false;
+      this.idCommentLike = commentId;
+    },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
       this.userReply.commentReply = commentId;
