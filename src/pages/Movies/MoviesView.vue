@@ -71,6 +71,12 @@ export default defineComponent({
   computed: {
     ...mapGetters(['Movies/getErrorPage']),
   },
+  mounted() {
+    this.$store.dispatch(
+      'Favorites/getFavoriteById',
+      this.$store.state.Users.UserId,
+    );
+  },
 });
 </script>
 
