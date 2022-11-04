@@ -283,6 +283,7 @@
   </div>
 </template>
 <script lang="ts">
+
 import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
 
@@ -335,6 +336,27 @@ export default defineComponent({
     },
   },
   methods: {
+
+//     getLikeValidate(id: string){
+//       this.apiService.get(passar o id e verificar se existe)
+//       se n existir: chama a rota ('  http://localhost:4000/likes/ e  passa o corpo no body 
+//       {
+// 	"commentId": "63641a951c859a0e64f72816",
+// 	"userLike":[{
+//   "userId": "635680e2bea91464d376670a",
+//   "like": true,
+//   "unlike": false
+// }]}
+//           ')
+//       se existir: ('http://localhost:4000/likes/id do comentario = 63640f2b1c859a0e64f72733  ')
+//       o corpo:    
+// {
+//   "userId": "635680e2bea91464d376670a",
+//   "like": true,
+//   "unlike": false
+// }
+
+//     }
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
       this.userReply.commentReply = commentId;

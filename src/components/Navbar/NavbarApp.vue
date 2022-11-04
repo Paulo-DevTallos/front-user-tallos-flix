@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="light">
     <div class="border-menu" @click="showMenuMobile">
-      <Icon icon="charm:menu-hamburger" width="35" color="#fff"/>
+      <Icon icon="charm:menu-hamburger" width="35" color="#fff" />
     </div>
     <div class="menu-mobile" v-if="hiddenMenuMobile">
       <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
@@ -35,7 +35,9 @@
         </div>
         <div class="drop-down-menu" v-show="hiddenDropDown">
           <b-dropdown-item @click="changeAvatar">Trocar Avatar</b-dropdown-item>
-          <b-dropdown-item :to="{name : 'favorites'}">Meus Favoritos</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'favorites' }"
+            >Meus Favoritos</b-dropdown-item
+          >
           <b-dropdown-item @click="Logout">Sair</b-dropdown-item>
         </div>
       </b-navbar-nav>
@@ -55,7 +57,7 @@ export default defineComponent({
     return {
       UserLogged: this.$store.state.Users.UserName,
       NoUser: 'Faça Login',
-      avatar: '/img/avatar1.png',
+      avatar: '/img/' + this.$store.state.Users.UserAvatar,
       noAvatar: '/img/user-default.png',
       hiddenDropDown: false,
       hiddenAvatarModal: false,
@@ -64,7 +66,9 @@ export default defineComponent({
   },
   computed: {
     AvatarUser(): string {
-      return this.UserLogged ? this.avatar : this.noAvatar;
+      return this.UserLogged && this.$store.state.Users.UserAvatar !== ''
+        ? this.avatar
+        : this.noAvatar;
     },
   },
   methods: {
