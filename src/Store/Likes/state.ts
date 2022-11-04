@@ -1,3 +1,3 @@
 export default {
-  getComment: Object,
-}
+  getComment: [],
+};

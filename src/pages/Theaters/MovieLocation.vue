@@ -27,9 +27,14 @@
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
         :viewMore="pageChange"
+        :likesComments="likes"
         class="comments-comp"
       />
-      <OptionsModal v-if="hiddenOptionModal" @closeWindow="closeOptionModal" :action="message" />
+      <OptionsModal
+        v-if="hiddenOptionModal"
+        @closeWindow="closeOptionModal"
+        :action="message"
+      />
     </div>
   </div>
 </template>
@@ -58,7 +63,7 @@ export default defineComponent({
   setup() {
     return {
       socketService: SocketModule.connect(),
-    }
+    };
   },
   data() {
     return {
@@ -66,6 +71,7 @@ export default defineComponent({
       limit: 5,
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
+      likes: [],
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
       },
@@ -82,13 +88,24 @@ export default defineComponent({
     closeOptionModal() {
       this.hiddenOptionModal = false;
     },
-    commentsRender() {
-      this.$store.dispatch('Comments/getByMovieId', {
+    async commentsRender() {
+      await this.$store.dispatch('Comments/getByMovieId', {
         movie: this.movie,
         params: {
           limit: this.limit,
         },
       });
+      for (
+        let index = 0;
+        index < this.$store.state.Comments.Comments.commentsMovie.length;
+        index++
+      ) {
+        await this.$store.dispatch(
+          'getAllLikesComment',
+          this.$store.state.Comments.Comments.commentsMovie[index]._id,
+        );
+        await this.likes.push(this.$store.state.Likes.getComment);
+      }
     },
     commentPost(userComent: Object) {
       console.log(userComent);
@@ -121,6 +138,8 @@ export default defineComponent({
     });
 
     this.commentsRender();
+    // console.log(this.$store.state.Likes.getComment);
+    console.log(this.likes);
   },
 });
 </script>

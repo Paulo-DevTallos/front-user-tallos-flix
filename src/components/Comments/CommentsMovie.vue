@@ -29,7 +29,11 @@
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
-                <p>5</p>
+                <!-- <div v-for="likes in likesComments" :key="likes._id">
+                  <p v-if="likes.data.results[0].commentId === comment._id">
+                    {{ likes.data.likeNumbers.likes }}
+                  </p>
+                </div> -->
                 <Icon
                   :icon="
                     likeComment && idCommentLike === comment._id && likeComment
@@ -351,6 +355,10 @@ export default defineComponent({
   props: {
     renderComments: {
       type: Object,
+      required: false,
+    },
+    likesComments: {
+      type: Array,
       required: false,
     },
     viewMore: {
