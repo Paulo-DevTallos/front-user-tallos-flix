@@ -2,15 +2,6 @@ import UserRequests from '@/services/axios/UserRequests';
 import jwtDecode from 'jwt-decode';
 
 export default {
-  async createUser({ commit }: any, data: any) {
-    await UserRequests.createUser(data)
-      .then((res) => {
-        commit();
-      })
-      .catch((error) => {
-        commit();
-      });
-  },
   async updateUser({ commit }: any, data: any) {
     await UserRequests.updateUser(data.id, data.user)
       .then((res) => {
