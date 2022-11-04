@@ -88,6 +88,7 @@ export default defineComponent({
   props: {
     hiddenMovieInfo: { type: Boolean },
     RenderSeries: { type: Boolean },
+    People: { type: Boolean },
   },
   data() {
     return {
@@ -95,7 +96,7 @@ export default defineComponent({
       movies: [],
       empty: {
         poster: '/img/empty-img.png',
-      }
+      },
     };
   },
 
@@ -105,14 +106,16 @@ export default defineComponent({
     },
   },
   async mounted() {
-    if (this.$store.state.Movies.IsMovieGenre == false) {
-      if (this.RenderSeries === true) {
-        await this.$store.dispatch('Movies/getSeries');
+    if (this.People === false) {
+      if (this.$store.state.Movies.IsMovieGenre == false) {
+        if (this.RenderSeries === true) {
+          await this.$store.dispatch('Movies/getSeries');
+        } else {
+          await this.$store.dispatch('Movies/getMovieFilter');
+        }
       } else {
-        await this.$store.dispatch('Movies/getMovieFilter');
+        this.$store.state.Movies.IsMovieGenre == true;
       }
-    } else {
-      this.$store.state.Movies.IsMovieGenre == true;
     }
   },
 });

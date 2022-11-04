@@ -70,7 +70,12 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.directors"
               :key="Movie.length"
-              >{{ Movie }}
+            >
+              <router-link
+                :to="{ path: `/home/Peoples/${Movie}` }"
+                @click="GetPeople(Movie, 'directors')"
+                >{{ Movie }}</router-link
+              >
               <span
                 v-if="
                   this.$store.state.Movies.currentMovie.directors.indexOf(
@@ -88,7 +93,11 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.writers"
               :key="Movie.length"
-              >{{ Movie }}
+              >{<router-link
+                :to="{ path: `/home/Peoples/${Movie}` }"
+                @click="GetPeople(Movie)"
+                >{{ Movie }}</router-link
+              >
               <span
                 v-if="
                   this.$store.state.Movies.currentMovie.writers.indexOf(Movie) <
@@ -104,7 +113,11 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.cast"
               :key="Movie.length"
-              >{{ Movie }}
+              ><router-link
+                :to="{ path: `/home/Peoples/${Movie}` }"
+                @click="GetPeople(Movie)"
+                >{{ Movie }}</router-link
+              >
               <span
                 v-if="
                   this.$store.state.Movies.currentMovie.cast.indexOf(Movie) <
@@ -220,6 +233,14 @@ export default defineComponent({
         this.IconStyle = 'carbon:favorite-filled';
         this.ColorStyle = '#f38765';
       }
+    },
+    GetPeople(data: string, Field: string) {
+      this.$store.dispatch('Peoples/getPeopleByName', data);
+      console.log(Field)
+      this.$store.dispatch('Movies/getMovieFilter', {
+        field: Field,
+        search: data,
+      });
     },
   },
   mounted() {
