@@ -3,12 +3,23 @@
     <p class="plot-title mt-4">Cinemas</p>
     <hr class="orange-line-separator" />
     <p class="form-theater-title mt-4">Localização:</p>
-    <div class="w-100 mb-4 d-flex gap-3">
-      <LocationInput class="w-50" />
+    <div class="w-100 mb-4 d-flex gap-3 h-100 teste343">
+      <div class="location-input rounded-3 px-2 py-2 d-flex w-50">
+        <input
+          type="text"
+          class="text-input-location"
+          placeholder="Digite aqui sua localização"
+          v-model="this.theaterCity"
+        />
+        <Icon icon="carbon:location" class="iconLocation" />
+      </div>
+      <button @click="SearchCity" class="localization-button rounded px-3">
+        Buscar
+      </button>
+      <p class="ou">ou</p>
       <button
         @click="realTimeLocalization"
-        id="localization-button"
-        class="rounded px-3"
+        class="localization-button rounded px-3"
       >
         Ativar sua localização
       </button>
@@ -17,12 +28,12 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import LocationInput from '@/components/LocationInput.vue';
+import { Icon } from '@iconify/vue';
 
 export default defineComponent({
   name: 'TheaterForm',
   components: {
-    LocationInput,
+    Icon,
   },
   methods: {
     realTimeLocalization() {
@@ -35,16 +46,33 @@ export default defineComponent({
         this.$store.dispatch('Theaters/getTheatersBylocation', coords);
       }, console.log);
     },
+    SearchCity() {
+      console.log(this.theaterCity);
+      this.$store.dispatch('Theaters/getTheatersByCity', this.theaterCity);
+    },
+  },
+  data() {
+    return {
+      theaterCity: '',
+    };
   },
 });
 </script>
 <style lang="scss" scoped>
-#localization-button {
+.localization-button {
   color: white;
   background-color: #d36643;
   border: none;
-  &:hover{
+  padding: 10px;
+  &:hover {
     filter: brightness(1.2);
   }
+}
+.ou {
+  color: white;
+  justify-self: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 </style>
