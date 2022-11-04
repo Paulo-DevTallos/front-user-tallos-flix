@@ -2,31 +2,62 @@
     overflow: hidden;
 
     .carousel-card{
-        background-color: $primary-color-black-bg-icon;
         width: 240px;
         height: 330px;
         margin: 0 20px;
-
-        @include breakpoints(1150px) {
-            width: 100%;
-            padding: 105px;
-        }
-
-        @include mobile {
-            width: 100%;
-        }
         
         .image-container {
             width: 100%;
             height: 100%;
-            @include align-elements(flex, center, center);
 
+            @include breakpoints(1100px) {
+                margin: 0 5px;
+                width: 280px;
+                height: 280px;
+            }
+
+            @include breakpoints(960px) {
+                width: 300px;
+                @include align-elements(flex, center, center);
+            }
+
+            @include breakpoints(600px) {
+                margin: 0 5px;
+
+            }
+            
             img {
                 width: 240px;
                 height: 340px;
+                
+                @include breakpoints(1100px) {
+                    width: 280px;
+                    margin: 0 5px;
+                    height: 280px;
+                }
+                
+                @include breakpoints(960px) {
+                    margin: 0 5px;
+                    width: 250px;
+                }
+            
+                @include breakpoints(842px) {
+                    margin: 0 5px;
+                    width: 200px;
+                    height: 200px;
+                }
+
+                @include breakpoints(600px) {
+                    width: 170px;
+                    height: 170px;
+                }
 
                 @include mobile {
-                    width: 50px;
+                    width: 160px;
+                }
+
+                @include breakpoints(382px) {
+                    width: 145px;
                 }
             }
         }   
@@ -65,9 +96,17 @@
 .position-left {
     position: absolute;
     right: 100%;
+
+    @include breakpoints(750px) {
+        display: none;
+    }
 }
 
 .position-rigth {
     position: absolute;
     left: 100%;
+
+    @include breakpoints(750px) {
+        display: none;
+    }
 }
