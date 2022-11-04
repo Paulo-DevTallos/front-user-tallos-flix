@@ -1,5 +1,5 @@
 .screen {
-  background-image: url(img/bg-movies-banner.jpg);
+  background-image: url('/img/bg-movies-banner.jpg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
@@ -29,6 +29,7 @@
       flex-direction: column;
       border-radius: 20px;
       width: 430px;
+      position: relative;
       
 
       @include breakpoints(550px) {

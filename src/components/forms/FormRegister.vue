@@ -10,7 +10,7 @@
         <Icon icon="carbon:email" />
         <input type="text" class="wd-input" placeholder="E-mail" v-model="user.email"/>
       </div>
-      <div class="input-container-style">
+      <div id="mb-2" class="input-container-style">
         <Icon icon="carbon:locked" />
         <input :type="inputType" placeholder="Senha" v-model="user.password"/>
         <RevelingPassword 
@@ -18,6 +18,7 @@
           :isPassword="isPasswordVisible"
         />
       </div>
+      <p class="error-message" v-if="hiddenError">{{ message_error }}</p>
       <div class="btn-container">
         <button>{{ data_btn }}</button>
       </div>
@@ -39,6 +40,8 @@ export default defineComponent({
   },
   props: {
     data_btn: String,
+    message_error: String,
+    hiddenError: Boolean,
   },
 
   data() {
