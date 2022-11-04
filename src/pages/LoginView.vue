@@ -20,6 +20,7 @@
               v-if="callFormLogin"
               :data_btn="btn_login" 
               :hiddenError="hiddenErrorMessage"
+              :message_error="message"
             />
             <FormRegister 
               @createNewUser="handleCreateNewUser"
@@ -49,6 +50,7 @@ export default defineComponent({
     return {
       btn_login: 'Entrar',
       btn_register: 'Cadastrar',
+      message: '',
       callFormLogin: true,
       callFormRegister: true,
       hiddenErrorMessage: false,
@@ -65,13 +67,36 @@ export default defineComponent({
       this.callFormLogin = false;
       this.callFormRegister = true;
     },
-
+    
     //evento de login
     async handleSubmitLogin(user: object) {
-      this.$store.dispatch('Users/login', user).catch(err => {
-        console.log(err);
-        this.hiddenErrorMessage = true
-      });
+      await this.$store.dispatch('Users/login', user)
+        .catch(err => {
+
+          if (user.email === '' && user.password === '') {
+            console.error(err.response.data.message);
+            this.message = 'Campos vazio, digite seu email e senha!';
+            this.hiddenErrorMessage = true;
+          }
+
+          else if (!user.email) {
+            console.error(err.response.data.message);
+            this.message = 'O campo de e-mail está vazio!';
+            this.hiddenErrorMessage = true;
+          }
+
+          else if (!user.password) {
+            console.error(err.response.data.message);
+            this.message = 'O campo de senha está vazio!';
+            this.hiddenErrorMessage = true;
+          }
+
+          else if (err) {
+            console.error(err.response.data.message);
+            this.message = 'E-mail ou Senha incorretos, Verifique novamente!';
+            this.hiddenErrorMessage = true;
+          }
+        });
     },
 
     //evento de create new user
