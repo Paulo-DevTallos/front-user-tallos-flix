@@ -7,9 +7,11 @@
       </div>
       <div id="notFavoriteTest" v-if="this.favorites.length === 0">
         <h4>
-          Parece que você ainda não tem filmes ou séries favoritados.<br />
-          Se quiser favoritar, é só clicar no ícone de coração no card do filme
-          ou série escolhidos !
+          Parece que você ainda não tem filmes ou séries favoritados.<span>
+            Se quiser favoritar, é só clicar no ícone de coração
+            <Icon icon="carbon:favorite" /> no card do filme ou série escolhidos
+            !</span
+          >
         </h4>
       </div>
       <b-row
@@ -211,5 +213,11 @@ export default defineComponent({
   height: 80vh;
   display: flex;
   align-items: center;
+  padding-bottom: 30%;
+
+  span {
+    display: block;
+    margin-top: 30px;
+  }
 }
 </style>
