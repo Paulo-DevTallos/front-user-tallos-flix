@@ -13,6 +13,9 @@ export default {
   getTheatersByLocation: (cord: object) => {
     return http.post(`theaters/geoSearch`, cord);
   },
+  getTheatersByCity: (data: string) => {
+    return http.get(`theaters/city/${data}`);
+  },
   updateTheater: (id: string, theaterData: object) => {
     return http.put(`theaters/${id}`, theaterData);
   },
