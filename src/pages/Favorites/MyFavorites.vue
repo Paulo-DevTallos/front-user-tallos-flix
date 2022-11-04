@@ -33,7 +33,12 @@
             <Icon
               icon="carbon:delete"
               class="icon-delete"
-              @click="removeFavorite(favorite.result._id)"
+              @click="
+                removeFavorite(
+                  favorite.result._id,
+                  this.favorites.indexOf(favorite),
+                )
+              "
             />
           </div>
         </b-col>
@@ -173,7 +178,8 @@ export default defineComponent({
     }
   },
   methods: {
-    async removeFavorite(data: string) {
+    async removeFavorite(data: string, FavoriteIndex: any) {
+      this.favorites.splice(FavoriteIndex, 1);
       await this.$store.dispatch('Favorites/deleteFavorite', {
         id: this.$store.state.Users.UserId,
         movie: {
