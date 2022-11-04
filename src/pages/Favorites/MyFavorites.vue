@@ -5,6 +5,13 @@
       <div class="pb-2">
         <h3>Meus favoritos</h3>
       </div>
+      <div id="notFavoriteTest" v-if="this.favorites.length === 0">
+        <h4>
+          Parece que você ainda não tem filmes ou séries favoritados.<br />
+          Se quiser favoritar, é só clicar no ícone de coração no card do filme
+          ou série escolhidos !
+        </h4>
+      </div>
       <b-row
         v-for="favorite in this.favorites"
         :key="favorite.result_id"
@@ -105,6 +112,7 @@
           :per-page="perPage"
           :rows="rows"
           @click="changePage"
+          v-if="this.favorites.length !== 0"
         ></PaginationPage>
       </div>
     </b-container>
@@ -197,5 +205,11 @@ export default defineComponent({
   color: white;
   cursor: pointer;
   text-decoration: underline white;
+}
+#notFavoriteTest {
+  color: white;
+  height: 80vh;
+  display: flex;
+  align-items: center;
 }
 </style>
