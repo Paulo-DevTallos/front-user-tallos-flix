@@ -7,9 +7,11 @@
       </div>
       <div id="notFavoriteTest" v-if="this.favorites.length === 0">
         <h4>
-          Parece que você ainda não tem filmes ou séries favoritados.<br />
-          Se quiser favoritar, é só clicar no ícone de coração no card do filme
-          ou série escolhidos !
+          Parece que você ainda não tem filmes ou séries favoritados.<span>
+            Se quiser favoritar, é só clicar no ícone de coração
+            <Icon icon="carbon:favorite" /> no card do filme ou série escolhidos
+            !</span
+          >
         </h4>
       </div>
       <b-row
@@ -31,7 +33,12 @@
             <Icon
               icon="carbon:delete"
               class="icon-delete"
-              @click="removeFavorite(favorite.result._id)"
+              @click="
+                removeFavorite(
+                  favorite.result._id,
+                  this.favorites.indexOf(favorite),
+                )
+              "
             />
           </div>
         </b-col>
@@ -171,7 +178,8 @@ export default defineComponent({
     }
   },
   methods: {
-    async removeFavorite(data: string) {
+    async removeFavorite(data: string, FavoriteIndex: any) {
+      this.favorites.splice(FavoriteIndex, 1);
       await this.$store.dispatch('Favorites/deleteFavorite', {
         id: this.$store.state.Users.UserId,
         movie: {
@@ -211,5 +219,11 @@ export default defineComponent({
   height: 80vh;
   display: flex;
   align-items: center;
+  padding-bottom: 30%;
+
+  span {
+    display: block;
+    margin-top: 30px;
+  }
 }
 </style>

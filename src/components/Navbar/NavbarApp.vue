@@ -49,6 +49,7 @@
 import { defineComponent } from 'vue';
 import AvatarModal from '@/components/Modals/AvatarModal.vue';
 import { Icon } from '@iconify/vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'NavbarApp',
@@ -70,6 +71,7 @@ export default defineComponent({
         ? this.avatar
         : this.noAvatar;
     },
+    ...mapGetters(['Users/getNewAvatar']),
   },
   methods: {
     showMenuMobile() {
@@ -96,6 +98,11 @@ export default defineComponent({
     Logout(): void {
       location.replace('/');
       localStorage.clear();
+    },
+  },
+  watch: {
+    ['Users/getNewAvatar'](data) {
+      this.avatar = '/img/' + data;
     },
   },
 });
