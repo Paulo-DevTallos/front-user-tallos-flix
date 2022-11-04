@@ -77,21 +77,17 @@ export default {
       });
   },
   async login({ commit }: any, data: Object) {
-    await UserRequests.login(data)
-      .then((res) => {
-        if (res.data.access_token) {
-          localStorage.setItem('token', res.data.access_token);
+    await UserRequests.login(data).then((res) => {
+      if (res.data.access_token) {
+        localStorage.setItem('token', res.data.access_token);
 
-          const token = res.data.access_token;
-          const decode = jwtDecode(token);
+        const token = res.data.access_token;
+        const decode = jwtDecode(token);
 
-          commit('LOGIN', decode);
+        commit('LOGIN', decode);
 
-          location.replace('/home');
-        }
-      })
-      .catch((error) => {
-        commit();
-      });
+        location.replace('/home');
+      }
+    });
   },
 };
