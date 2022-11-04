@@ -29,7 +29,7 @@
       flex-direction: column;
       border-radius: 20px;
       width: 430px;
-      height: 450px;
+      
 
       @include breakpoints(550px) {
         padding: 20px 80px 30px;
@@ -94,7 +94,7 @@
         }
   
         #register:checked~.slider-tab {
-          left: 63%;
+          left: 60%;
         }
   
         #enter:checked~.slider-tab {

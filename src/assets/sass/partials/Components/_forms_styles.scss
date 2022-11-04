@@ -37,10 +37,21 @@
     }
   }
 
+  #mb-2 {
+    margin-bottom: 3px;
+  }
+
+  .error-message {
+    font-size: 10px;
+    margin: 0;
+    color: red;
+  }
+
   a {
     text-decoration: underline;
     color: $text-color-gray-one;
     font-size: 13px;
+    margin-top: 7px;
     margin-bottom: 31px;
     animation: roar .4s ease-in-out;
 
