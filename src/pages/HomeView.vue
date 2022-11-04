@@ -85,6 +85,10 @@ export default defineComponent({
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,
     );
+    this.$store.dispatch(
+      'Favorites/getFavoriteById',
+      this.$store.state.Users.UserId,
+    );
   },
 });
 </script>
