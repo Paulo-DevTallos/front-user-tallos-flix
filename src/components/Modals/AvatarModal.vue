@@ -56,6 +56,7 @@ export default defineComponent({
         },
       }
       this.$store.dispatch('Users/updateUser', userData);
+      this.$emit('closeWindow');
     },
   },
 });
