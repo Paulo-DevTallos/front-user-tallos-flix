@@ -95,7 +95,7 @@
               :key="Movie.length"
               >{<router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
-                @click="GetPeople(Movie)"
+                @click="GetPeople(Movie, 'writers')"
                 >{{ Movie }}</router-link
               >
               <span
@@ -115,7 +115,7 @@
               :key="Movie.length"
               ><router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
-                @click="GetPeople(Movie)"
+                @click="GetPeople(Movie, 'cast')"
                 >{{ Movie }}</router-link
               >
               <span

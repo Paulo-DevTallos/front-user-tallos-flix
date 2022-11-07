@@ -75,7 +75,7 @@ const router = createRouter({
         {
         path: 'Peoples/:name',
         name: 'DirectorPage',
-        component: () => import('../pages/Peoples/DirectorsView.vue'),
+        component: () => import('../pages/Peoples/PeopleView.vue'),
         },
       ],
     },
