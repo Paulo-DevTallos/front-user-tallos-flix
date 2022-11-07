@@ -279,7 +279,7 @@
     <div>
       <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
-          <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
+          <b-avatar :src="avatar ? avatar : Noavatar" size="5rem"></b-avatar>
         </b-col>
         <b-col>
           <h5 class="text-color">Seu Comentário</h5>
@@ -329,6 +329,7 @@ export default defineComponent({
         email: this.$store.state.Users.UserEmail,
         movie_id: this.$store.state.Movies.currentMovie._id,
         text: '',
+        avatar: this.$store.state.Users.UserAvatar,
         likes: null,
         isReply: false,
         comments: [],
@@ -344,6 +345,7 @@ export default defineComponent({
         date: new Date(),
       },
       Noavatar: '/img/user-default.png',
+      avatar: '/img/' + this.$store.state.Users.UserAvatar,
       id: '',
       teste: '',
       idCommentLike: '',
