@@ -72,6 +72,7 @@ export default defineComponent({
     ...mapGetters(['Movies/getErrorPage']),
   },
   mounted() {
+    this.$store.state.Movies.IsSeriesGenre = false;
     this.$store.dispatch(
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,

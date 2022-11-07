@@ -52,6 +52,7 @@ export default defineComponent({
   mounted() {
     this.reloadRequest();
     this.$store.state.Movies.IsMovieGenre = false;
+    this.$store.state.Movies.IsSeriesGenre = false;
     this.$store.dispatch(
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,

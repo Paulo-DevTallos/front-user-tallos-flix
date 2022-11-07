@@ -194,12 +194,21 @@ export default defineComponent({
 
     searchGenre(movie: string) {
       this.$store.state.Movies.actualTag = movie;
-      this.$store.dispatch('Movies/getMovieFilter', {
-        field: 'genres',
-        search: movie,
-      });
-      this.$store.state.Movies.IsMovieGenre = true;
-      this.$router.push('/home/movies');
+      if (this.$store.state.Movies.currentMovie.type === 'movie') {
+        this.$store.dispatch('Movies/getMovieFilter', {
+          field: 'genres',
+          search: movie,
+        });
+        this.$store.state.Movies.IsMovieGenre = true;
+        this.$router.push('/home/movies');
+      } else {
+        this.$store.dispatch('Movies/getSeries', {
+          field: 'genres',
+          search: movie,
+        });
+        this.$store.state.Movies.IsSeriesGenre = true;
+        this.$router.push('/home/series');
+      }
     },
 
     favoriteMovie() {
@@ -237,7 +246,7 @@ export default defineComponent({
     GetPeople(data: string, Field: string) {
       this.$store.state.Favorites.PeopleName = data;
       this.$store.dispatch('Peoples/getPeopleByName', data);
-      console.log(Field)
+      console.log(Field);
       this.$store.dispatch('Movies/getMovieFilter', {
         field: Field,
         search: data,
@@ -245,6 +254,7 @@ export default defineComponent({
     },
   },
   mounted() {
+    console.log(this.$store.state.Movies.currentMovie.type);
     this.$store.state.Movies.currentMovie.runtime =
       Math.trunc(this.$store.state.Movies.currentMovie.runtime / 60) +
       'h' +
@@ -257,7 +267,6 @@ export default defineComponent({
     );
   },
   async created() {
-    console.log(await this.$store.state.Favorites.Favorite);
     if ((await this.$store.state.Favorites.Favorite.length) !== 0) {
       this.IsFavoriteBefore =
         this.$store.state.Favorites.Favorite[0].movie_Id.find(
