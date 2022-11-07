@@ -6,7 +6,8 @@
     </div>
     <footer class="container-btn-modal pt-4">
       <button @click="$emit('closeWindow')">OK</button>
-      <button @click="redirectToLogin">Logar</button>
+      <button @click="redirectAction">Logar</button>
+      <button @click="$emit('redirect', id, favoriteIndexOf)">Redirect teste</button>
     </footer>
   </div>
 </template>
@@ -18,12 +19,18 @@ import { Icon } from '@iconify/vue';
 export default defineComponent({
   name: 'OptionsModal',
   components: { Icon },
-  emits: ['closeWindow'],
+  emits: ['closeWindow', 'redirect'],
   props: {
     action: String,
   },
+  data() {
+    return {
+      id: String,
+      favoriteIndexOf: Number,
+    }
+  },
   methods: {
-    redirectToLogin(): void | URL {
+    redirectAction(): void | URL {
       return location.replace('/login');
     }
   }

@@ -3,13 +3,20 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <div class="d-flex justify-content-center search-components">
-      <FilterButton />
+      <FilterButton :FilterSeries="true" />
       <SearchBar @search="searchMovie" :Series="true" />
     </div>
     <div
       class="home-carousel d-flex flex-column p-2 pb-3 mb-3"
       v-if="hiddenCarousel"
     >
+      <div
+        class="d-flex ms-5 mb-3 gap-2 align-items-center"
+        v-if="this.$store.state.Movies.IsSeriesGenre == true"
+      >
+        <span id="genre-title">Gênero: </span>
+        <span id="tagGenre">{{ this.$store.state.Movies.actualTag }}</span>
+      </div>
       <Carousel :hiddenMovieInfo="true" :RenderSeries="true" />
     </div>
     <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
@@ -33,7 +40,7 @@ export default defineComponent({
       movies_name: '',
       hiddenCarousel: true,
       hiddenErrorSearch: false,
-    }
+    };
   },
 
   methods: {
@@ -43,10 +50,10 @@ export default defineComponent({
         setTimeout(() => {
           this.movies_name = data;
           if (this.isChanged === data) {
-          this.$store.dispatch('Movies/getSeries', {
-            field: 'title',
-            search: data,
-          });
+            this.$store.dispatch('Movies/getSeries', {
+              field: 'title',
+              search: data,
+            });
           }
         }, 1000);
       }
@@ -66,6 +73,13 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters(['Movies/getErrorPage']),
+  },
+  mounted() {
+    this.$store.state.Movies.IsMovieGenre = false;
+    this.$store.dispatch(
+      'Favorites/getFavoriteById',
+      this.$store.state.Users.UserId,
+    );
   },
 });
 </script>

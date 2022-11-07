@@ -1,0 +1,17 @@
+.toast-success {
+  font-family: 'Nunito', sans-serif;
+  background-color: #2C5E20;
+  color: $main-white-color;
+  border-radius: 15px;
+  padding: 15px 30px;
+  text-align: center;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  transition: .3s ease-in;
+
+  p {
+    margin: 0;
+    font-weight: bold;
+  }
+}

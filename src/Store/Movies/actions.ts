@@ -59,6 +59,7 @@ export default {
           commit('setErrorPage', false);
         }
         commit('GET_MOVIES', res.data);
+        console.log(res)
       })
       .catch((error) => {
         commit();

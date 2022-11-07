@@ -52,6 +52,7 @@ import { Icon } from '@iconify/vue';
 export default defineComponent({
   name: 'filter-button',
   components: { Icon },
+  props: { FilterSeries: { type: Boolean } },
   data() {
     return {
       hiddenBoxFilter: false,
@@ -73,18 +74,34 @@ export default defineComponent({
     },
     searchGenre(movie: string) {
       this.$store.state.Movies.actualTag = movie;
-      this.$store.dispatch('Movies/getMovieFilter', {
-        field: 'genres',
-        search: movie,
-      });
-      this.$store.state.Movies.IsMovieGenre = true;
-      this.hiddenBoxFilter = !this.hiddenBoxFilter;
+      if (this.FilterSeries === false) {
+        this.$store.dispatch('Movies/getMovieFilter', {
+          field: 'genres',
+          search: movie,
+        });
+        this.$store.state.Movies.IsMovieGenre = true;
+        this.hiddenBoxFilter = !this.hiddenBoxFilter;
+      } else {
+        this.$store.dispatch('Movies/getSeries', {
+          field: 'genres',
+          search: movie,
+        });
+        this.$store.state.Movies.IsSeriesGenre = true;
+        this.hiddenBoxFilter = !this.hiddenBoxFilter;
+      }
     },
     order(Mynumber: number) {
-      this.$store.dispatch('Movies/getMovieFilter', {
-        sortValue: Mynumber,
-      });
-      this.hiddenBoxFilter = !this.hiddenBoxFilter;
+      if (this.FilterSeries === false) {
+        this.$store.dispatch('Movies/getMovieFilter', {
+          sortValue: Mynumber,
+        });
+        this.hiddenBoxFilter = !this.hiddenBoxFilter;
+      } else {
+        this.$store.dispatch('Movies/getSeries', {
+          sortValue: Mynumber,
+        });
+        this.hiddenBoxFilter = !this.hiddenBoxFilter;
+      }
     },
   },
 });
