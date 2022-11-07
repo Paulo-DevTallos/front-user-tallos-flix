@@ -48,7 +48,7 @@
           </div>
           <OptionsModal 
             v-if="hiddenOptionModal && id === favorite.result._id" 
-            @redirect="deleteFavorite"
+            @redirect="deleteFavorite(favorite.result._id, this.favorites.indexOf(favorite))"
             @closeWindow="closeOptionModal"
           />
         </b-col>
@@ -192,6 +192,7 @@ export default defineComponent({
   },
   methods: {
     callOptionsModal(id: string) {
+      console.log(id)
       this.hiddenOptionModal = true;
 
       this.id = id

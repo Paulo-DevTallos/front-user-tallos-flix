@@ -7,7 +7,7 @@
     <footer class="container-btn-modal pt-4">
       <button @click="$emit('closeWindow')">OK</button>
       <button @click="redirectAction">Logar</button>
-      <button @click="$emit('redirect')">Redirect teste</button>
+      <button @click="$emit('redirect', id, favoriteIndexOf)">Redirect teste</button>
     </footer>
   </div>
 </template>
@@ -22,6 +22,12 @@ export default defineComponent({
   emits: ['closeWindow', 'redirect'],
   props: {
     action: String,
+  },
+  data() {
+    return {
+      id: String,
+      favoriteIndexOf: Number,
+    }
   },
   methods: {
     redirectAction(): void | URL {
