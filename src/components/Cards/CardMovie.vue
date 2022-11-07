@@ -144,6 +144,7 @@
     />
     <OptionsModal
       v-if="hiddenOptionModal"
+      :hiddenBtnLogin="true"
       @closeWindow="closeOptionModal"
       :action="message"
     />
