@@ -3,7 +3,7 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <div class="d-flex justify-content-center search-components">
-      <FilterButton />
+      <FilterButton :FilterSeries="false" />
       <SearchBar @search="searchMovie" />
     </div>
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
