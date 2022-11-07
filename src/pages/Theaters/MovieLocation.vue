@@ -22,7 +22,7 @@
       </div>
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
-        @redirect="redirectToLogin"
+        @redirect="redirectAction"
         @postComment="commentPost"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
@@ -78,7 +78,7 @@ export default defineComponent({
     };
   },
   methods: {
-    redirectToLogin(): void {
+    redirectAction(): void {
       if (!this.isLogged) {
         this.hiddenOptionModal = true;
       } else {
