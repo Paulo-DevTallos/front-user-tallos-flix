@@ -3,6 +3,7 @@ export default {
   Series: [],
   currentMovie: Object,
   IsMovieGenre: false,
+  IsSeriesGenre: false,
   actualTag: String,
   ErrorPage: false,
 };

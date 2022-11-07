@@ -3,7 +3,7 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <div class="d-flex justify-content-center search-components">
-      <FilterButton />
+      <FilterButton :FilterSeries="false" />
       <SearchBar @search="searchMovie" />
     </div>
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
@@ -72,6 +72,7 @@ export default defineComponent({
     ...mapGetters(['Movies/getErrorPage']),
   },
   mounted() {
+    this.$store.state.Movies.IsSeriesGenre = false;
     this.$store.dispatch(
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,
