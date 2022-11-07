@@ -117,6 +117,11 @@
         }
     }
 }
+.people-link{
+    &:hover{
+        color: $orange-color-one;
+    }
+}
 /*.tagGenre {
     border: 2px solid #d36643;
     border-radius: 15px;

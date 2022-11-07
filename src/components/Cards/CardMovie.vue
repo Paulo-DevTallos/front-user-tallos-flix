@@ -74,6 +74,7 @@
               <router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
                 @click="GetPeople(Movie, 'directors')"
+                class="people-link"
                 >{{ Movie }}</router-link
               >
               <span
@@ -93,9 +94,10 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.writers"
               :key="Movie.length"
-              >{<router-link
+              ><router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
                 @click="GetPeople(Movie, 'writers')"
+                class="people-link"
                 >{{ Movie }}</router-link
               >
               <span
@@ -116,6 +118,7 @@
               ><router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
                 @click="GetPeople(Movie, 'cast')"
+                class="people-link"
                 >{{ Movie }}</router-link
               >
               <span

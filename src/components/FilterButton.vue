@@ -96,9 +96,8 @@ export default defineComponent({
           sortValue: Mynumber,
         });
         this.hiddenBoxFilter = !this.hiddenBoxFilter;
-      }
-      else{
-         this.$store.dispatch('Movies/getSeries', {
+      } else {
+        this.$store.dispatch('Movies/getSeries', {
           sortValue: Mynumber,
         });
         this.hiddenBoxFilter = !this.hiddenBoxFilter;
