@@ -14,15 +14,17 @@ export default {
     await CommentRequests.updateComment(data.id, data.comment)
       .then((res) => {
         commit();
+        console.log(res);
       })
       .catch((error) => {
         commit();
       });
   },
   async deleteComment({ commit }: any, data: any) {
-    await CommentRequests.deleteComment(data.id)
+    await CommentRequests.deleteComment(data)
       .then((res) => {
         commit();
+        console.log(res);
       })
       .catch((error) => {
         commit();
@@ -60,6 +62,16 @@ export default {
     await CommentRequests.getByEmail(data.Email)
       .then((res) => {
         commit('GET_COMMENTS', res.data);
+      })
+      .catch((error) => {
+        commit();
+      });
+  },
+  async getResponseComments({ commit }: any, data: any) {
+    await CommentRequests.getResponseComments(data.idcomment, data.params)
+      .then((res) => {
+        commit('GET_RESPONSECOMMENT', res.data);
+        console.log(res);
       })
       .catch((error) => {
         commit();

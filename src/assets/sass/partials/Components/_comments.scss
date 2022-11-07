@@ -35,6 +35,7 @@
     color: $orange-color-one;
     text-decoration: underline;
     cursor: pointer;
+    padding-right: 7%;
 
     &:hover {
         color: $orange-color-two;
@@ -67,4 +68,86 @@
 
 .response-coment {
     width: 90%;
+    padding-right: 6%;
+}
+.boxYourComment {
+    padding-right: 6%;
+}
+.response-reply {
+    width: 90%;
+}
+
+.actions {
+    height: 87%;
+
+    .icon-menu {
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.dropdownItens {
+    background-color: red;
+}
+
+.dropdown-menu {
+    background-color: $primary-color-black-bg-icon;
+
+    .dropdown-item {
+        color: white;
+
+        .iconDrop {
+            color: $primary-color-bg-comment !important;
+            font-size: 25px;
+        }
+
+        &:hover {
+            background-color: $primary-color-icon;
+        }
+
+        &:active {
+            background-color: $primary-color-icon;
+        }
+    }
+}
+
+.btnsEdit {
+    display: flex;
+    justify-content: space-between;
+    width: 28%;
+
+    .saveBE {
+        background-color: $primary-color-beige-one;
+        border-color: $primary-color-beige-one;
+
+        &:hover {
+            background-color: $primary-color-beige-two;
+        }
+
+        &:active {
+            background-color: $primary-color-beige-three;
+        }
+    }
+}
+.btnsEditR {
+    display: flex;
+    justify-content: space-between;
+    width: 32%;
+    .saveBE {
+        background-color: $primary-color-beige-one;
+        border-color: $primary-color-beige-one;
+
+        &:hover {
+            background-color: $primary-color-beige-two;
+        }
+
+        &:active {
+            background-color: $primary-color-beige-three;
+        }
+    }
 }

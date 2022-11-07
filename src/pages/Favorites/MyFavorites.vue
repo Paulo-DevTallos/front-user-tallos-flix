@@ -5,24 +5,68 @@
       <div class="pb-2">
         <h3>Meus favoritos</h3>
       </div>
+      <div id="notFavoriteTest" v-if="this.favorites.length === 0">
+        <h4>
+          Parece que você ainda não tem filmes ou séries favoritados.<span>
+            Se quiser favoritar, é só clicar no ícone de coração
+            <Icon icon="carbon:favorite" /> no card do filme ou série escolhidos
+            !</span
+          >
+        </h4>
+      </div>
       <b-row
-        v-for="favorite in itemsForList"
-        :key="favorite.id"
+        v-for="favorite in this.favorites"
+        :key="favorite.result._id"
         col
         no-gutters
-        class="mt-5 d-flex"
+        class="d-flex"
       >
-        <b-col cols="1">
+        <b-col
+          class="mt-5"
+          cols="1"
+          v-if="
+            this.favorites.indexOf(favorite) <= oldRole &&
+            this.favorites.indexOf(favorite) >= actualElement
+          "
+        >
           <div class="h-100 d-flex justify-content-center align-items-center">
-            <Icon icon="carbon:delete" class="icon-delete" />
+            <Icon
+              icon="carbon:delete"
+              class="icon-delete"
+              @click="callOptionsModal(favorite.result._id)"
+            />
+            <!--<Icon
+              icon="carbon:delete"
+              class="icon-delete"
+              @click="
+                removeFavorite(
+                  favorite.result._id,
+                  this.favorites.indexOf(favorite),
+                )
+              "
+            />-->
           </div>
+          <OptionsModal 
+            v-if="hiddenOptionModal && id === favorite.result._id" 
+            @redirect="deleteFavorite"
+            @closeWindow="closeOptionModal"
+          />
         </b-col>
-        <b-col cols="5">
+        <b-col
+          cols="5"
+          class="mt-5"
+          v-if="
+            this.favorites.indexOf(favorite) <= this.oldRole &&
+            this.favorites.indexOf(favorite) >= this.actualElement
+          "
+        >
           <b-row>
             <b-col cols="4">
               <b-card-img
-                :src="favorite.poster || vazio.poster"
-                v-if="favorite.poster ? favorite.poster : vazio.poster"
+                :src="favorite.result.poster || vazio.poster"
+                v-if="
+                  favorite.result.poster ? favorite.result.poster : vazio.poster
+                "
                 class="rounded-0"
               ></b-card-img>
             </b-col>
@@ -30,35 +74,50 @@
               <b-card-body>
                 <b-card-title
                   class="text-color pb-2"
-                  v-if="favorite.title ? favorite.title : vazio.title"
-                  >{{ favorite.title || vazio.title }}</b-card-title
+                  v-if="
+                    favorite.result.title ? favorite.result.title : vazio.title
+                  "
+                  >{{ favorite.result.title || vazio.title }}</b-card-title
                 >
               </b-card-body>
               <b-card-subtitle class="text-color"
-                >Duração: {{ favorite.time }}</b-card-subtitle
+                >Duração:
+                {{
+                  Math.trunc(favorite.result.runtime / 60) +
+                  'h' +
+                  (favorite.result.runtime % 60) +
+                  'min'
+                }}</b-card-subtitle
               >
               <div class="d-flex">
                 <span class="text-color pt-1">Avaliação:</span>
                 <StarRating
                   class="ms-1 -flex"
-                  v-model="favorite.imdb"
+                  v-model="favorite.result.imdb"
                 ></StarRating>
               </div>
             </b-col>
           </b-row>
         </b-col>
-        <b-col cols="6">
+        <b-col
+          cols="6"
+          class="mt-5"
+          v-if="
+            this.favorites.indexOf(favorite) <= this.oldRole &&
+            this.favorites.indexOf(favorite) >= this.actualElement
+          "
+        >
           <div>
             <b-card-title class="text-color pb-2">Sinopse: </b-card-title>
             <b-form-text-area
               class="text-color"
               size="sm"
               plaintext
-              v-if="favorite.plot ? favorite.plot : vazio.plot"
+              v-if="favorite.result.plot ? favorite.result.plot : vazio.plot"
             >
-              {{ favorite.plot || vazio.plot }}</b-form-text-area
+              {{ favorite.result.plot || vazio.plot }}</b-form-text-area
             >
-            <div v-if="favorite.plot">
+            <div v-if="favorite.result.plot">
               <p class="pt-3 d-flex justify-content-end view-more">Ver mais</p>
             </div>
           </div>
@@ -69,6 +128,8 @@
           v-model="currentPage"
           :per-page="perPage"
           :rows="rows"
+          @click="changePage"
+          v-if="this.favorites.length !== 0"
         ></PaginationPage>
       </div>
     </b-container>
@@ -80,102 +141,24 @@ import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
 import PaginationPage from '../../components/Pagination/PaginationPage.vue';
 import StarRating from '../../components/Rating/StarRating.vue';
+import OptionsModal from '@/components/Modals/OptionsModal.vue';
 
 export default defineComponent({
-  components: { HeaderApp, StarRating, Icon, PaginationPage },
+  components: { HeaderApp, StarRating, Icon, PaginationPage, OptionsModal },
   data() {
     return {
-      perPage: 3,
+      perPage: 5,
       currentPage: 1,
+      actualElement: 0,
+      oldRole: 4,
       vazio: {
         poster: '/img/empty-img.png',
         title: 'Filme sem titulo',
         plot: 'filme sem sinopse',
       },
-      favorites: [
-        {
-          id: 1,
-          poster:
-            'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3hrCpnlQnzqbNGvUd03l72l7JM6C5GOoHvMnhsUBldIgBs7GD',
-          title: 'Não! Não Olhe!',
-          plot: "No exuberante mundo alienígena de Pandora vivem os Na'vi, seres que parecem ser primitivos, mas são altamente evoluídos. Como o ambiente do planeta é tóxico, foram criados os avatares, corpos biológicos controlados pela ente humana....",
-          time: '2h5min',
-          imdb: 4.5,
-        },
-        {
-          id: 2,
-          poster: '',
-          title: 'TICKET to PARADISE',
-          time: '2h5min',
-          plot: '',
-          imdb: 3.5,
-        },
-        {
-          id: 3,
-          poster:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLnv5c0wq18JR5YRrFI6CC_B9kB5Zqz461ZqK-LyzR6-9RiE_W',
-          title: '',
-          time: '2h5min',
-          plot: 'Seres amarelos milenares, os minions têm uma missão: servir aos maiores vilões. Em depressão desde a morte de seu antigo mestre, eles tentam encontrar um novo chefe. ',
-          imdb: 5,
-        },
-        {
-          id: 4,
-          poster:
-            'https://br.web.img3.acsta.net/c_310_420/pictures/21/11/08/16/02/3963914.png',
-          title: 'Homem Aranha: sem volta pra casa',
-          time: '2h5min',
-          imdb: 4.7,
-        },
-        {
-          id: 5,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSp-lzoeSCvEzSiLDBiaeBprFOMjlry4SdUot2GfS8inDd-BoyX',
-          title: 'Parasita',
-          time: '2h5min',
-          imdb: 3.7,
-        },
-        {
-          id: 6,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSGXk4wQrBRtCQheTNJ6L9LgQJLsJiJ76eMNlZpeTtGTJuJK3Q3',
-          title: 'Jurassic World: Domínio',
-          time: '2h5min',
-          imdb: 4,
-        },
-        {
-          id: 7,
-          poster:
-            'https://upload.wikimedia.org/wikipedia/pt/thumb/0/08/Thor_Love_and_Thunder_poster.jpg/250px-Thor_Love_and_Thunder_poster.jpg',
-          title: 'Thor Amor e Trovão',
-          time: '2h5min',
-          imdb: 3,
-        },
-        {
-          id: 8,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRY5QGNRfsGSClplqEptKo2HybJwUN8wspofcJvaY-eq8vteUka',
-          title: 'The Batman',
-          time: '2h5min',
-          imdb: 4.7,
-        },
-        {
-          id: 9,
-          poster:
-            'https://sm.ign.com/ign_br/movie/t/top-gun-ma/top-gun-maverick_5w3e.jpg',
-          title: 'top gun: maverick críticas',
-          time: '2h10min',
-          imdb: 4.9,
-        },
-        {
-          id: 10,
-          poster:
-            'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQqGaPJIo-hYffWgLDcpZ68U0e6uHdHncqwEvTFgmXYIasfL10r',
-          title: 'Bullet Train',
-          time: '2h6m',
-          imdb: 4.4,
-        },
-      ],
+      favorites: [],
+      hiddenOptionModal: false,
+      id: '',
     };
   },
   computed: {
@@ -187,6 +170,48 @@ export default defineComponent({
         (this.currentPage - 1) * this.perPage,
         this.currentPage * this.perPage,
       );
+    },
+  },
+  async mounted() {
+    await this.$store.dispatch(
+      'Favorites/getFavoriteById',
+      this.$store.state.Users.UserId,
+    );
+
+    for (
+      let index = 0;
+      index < this.$store.state.Favorites.Favorite[0].movie_Id.length;
+      index++
+    ) {
+      await this.$store.dispatch(
+        'Movies/getMovieFilterId',
+        this.$store.state.Favorites.Favorite[0].movie_Id[index],
+      );
+      this.favorites.push(await this.$store.state.Movies.Movies);
+    }
+  },
+  methods: {
+    callOptionsModal(id: string) {
+      this.hiddenOptionModal = true;
+
+      this.id = id
+    },
+    closeOptionModal() {
+      this.hiddenOptionModal = false;
+    },
+    async deleteFavorite(data: string, FavoriteIndex: any) {
+      console.log(data, FavoriteIndex)
+      this.favorites.splice(FavoriteIndex, 1);
+      await this.$store.dispatch('Favorites/deleteFavorite', {
+        id: this.$store.state.Users.UserId,
+        movie: {
+          movie_Id: data,
+        },
+      });
+    },
+    changePage() {
+      this.oldRole = this.perPage * this.currentPage - 1;
+      this.actualElement = this.perPage * (this.currentPage - 1);
     },
   },
 });
@@ -210,5 +235,17 @@ export default defineComponent({
   color: white;
   cursor: pointer;
   text-decoration: underline white;
+}
+#notFavoriteTest {
+  color: white;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  padding-bottom: 30%;
+
+  span {
+    display: block;
+    margin-top: 30px;
+  }
 }
 </style>

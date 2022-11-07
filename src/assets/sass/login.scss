@@ -1,24 +1,51 @@
 .screen {
-  background-image: url(img/bg-movies-banner.jpg);
+  background-image: url('/img/bg-movies-banner.jpg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
+
+  @include breakpoints(480px) {
+    background-image: none;
+  }
   
   .content {
-    margin: 0 80px;
+    margin: $margin-layout;
     min-height: 100vh;
     @include align-elements(flex, center, center);
 
+    @include breakpoints(600px) {
+      margin: 0 20px;
+    }
+
+    @include breakpoints(390px) {
+      margin: 0 10px;
+    }
+    
     .form-container {
       padding: 20px 100px 30px;
-      background-color: #fff;
-      color: #000;
+      background-color: $main-white-color;
+      color: $main-black-color;
       display: flex;
       flex-direction: column;
       border-radius: 20px;
       width: 430px;
-      height: 450px;
+      position: relative;
       
+
+      @include breakpoints(550px) {
+        padding: 20px 80px 30px;
+      }
+
+      @include breakpoints(430px) {
+        width: 100%;
+        padding: 20px 60px 30px;
+      }
+
+      @include breakpoints(390px) {
+        padding: 20px 40px 30px;
+        height: 500px;
+      }
+
       .container-logo {
         text-align: center;
         margin-bottom: 5px;
@@ -68,7 +95,7 @@
         }
   
         #register:checked~.slider-tab {
-          left: 63%;
+          left: 60%;
         }
   
         #enter:checked~.slider-tab {

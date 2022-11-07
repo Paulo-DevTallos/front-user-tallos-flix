@@ -11,7 +11,8 @@ export default {
   LOGIN(state: any, payload: any) {
     state.UserName = payload.name;
     state.UserEmail = payload.email;
-    state.UserId = payload._id;
+    state.UserId = payload.sub;
+    state.UserAvatar = payload.avatar;
   },
   GET_AVATAR(state: any, payload: any) {
     state.UserAvatar = payload;

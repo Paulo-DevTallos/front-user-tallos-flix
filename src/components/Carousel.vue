@@ -1,29 +1,35 @@
-
 <template>
   <carousel
     :items-to-show="4"
     :items-to-scroll="1"
-    :wrapAround="true"
+    :wrapAround="false"
     snapAlign="start"
   >
     <slide
-      v-for="movie in this.$store.state.Movies.Movies.content"
+      v-for="movie in this.RenderSeries === false
+        ? this.$store.state.Movies.Movies.content
+        : this.$store.state.Movies.Series.content"
       :key="movie.id"
       class="carousel__slide"
     >
       <div>
         <div class="carousel-card">
           <div class="image-container">
-            <router-link :to="{ path: `/home/movie` }" v-if="this.RenderSeries == false">
+            <router-link
+              :to="{ path: `/home/movie` }"
+              v-if="this.RenderSeries == false"
+            >
               <img
-                :src="movie.poster"
+                v-if="movie.poster ? movie.poster : empty.poster"
+                :src="movie.poster || empty.poster"
                 :alt="movie.title"
                 @click="currentMovie(movie)"
               />
             </router-link>
             <router-link :to="{ path: `/home/serie` }" v-else>
               <img
-                :src="movie.poster"
+                v-if="movie.poster ? movie.poster : empty.poster"
+                :src="movie.poster || empty.poster"
                 :alt="movie.title"
                 @click="currentMovie(movie)"
               />
@@ -32,8 +38,16 @@
         </div>
         <div class="info-movies" v-if="hiddenMovieInfo">
           <h3>{{ movie.title }}</h3>
-          <p>Duração: {{Math.trunc(movie.runtime / 60) + 'h' + (movie.runtime % 60) + 'min' }}</p>
-          <StarRating class="rating" />
+          <p>
+            Duração:
+            {{
+              Math.trunc(movie.runtime / 60) +
+              'h' +
+              (movie.runtime % 60) +
+              'min'
+            }}
+          </p>
+          <StarRating class="rating" v-model="movie.imdb.rating" />
         </div>
       </div>
     </slide>
@@ -74,11 +88,15 @@ export default defineComponent({
   props: {
     hiddenMovieInfo: { type: Boolean },
     RenderSeries: { type: Boolean },
+    People: { type: Boolean },
   },
   data() {
     return {
       image_path: APP_URL + 'img/',
       movies: [],
+      empty: {
+        poster: '/img/empty-img.png',
+      },
     };
   },
 
@@ -87,17 +105,17 @@ export default defineComponent({
       this.$store.state.Movies.currentMovie = movie;
     },
   },
-  mounted() {
-    if (this.$store.state.Movies.IsMovieGenre == false) {
-      if (this.RenderSeries === true) {
-        this.$store.dispatch('Movies/getSeries');
-        this.$store.state.Movies.Movies.content =
-          this.$store.state.Movies.Series.content;
+  async mounted() {
+    if (this.People === false) {
+      if (this.$store.state.Movies.IsMovieGenre == false) {
+        if (this.RenderSeries === true) {
+          await this.$store.dispatch('Movies/getSeries');
+        } else {
+          await this.$store.dispatch('Movies/getMovieFilter');
+        }
       } else {
-        this.$store.dispatch('Movies/getMovieFilter');
+        this.$store.state.Movies.IsMovieGenre == true;
       }
-    } else {
-      this.$store.state.Movies.IsMovieGenre == true;
     }
   },
 });

@@ -3,4 +3,43 @@
   justify-content: $vertical;
   align-items: $horizontal;
 }
+
+//config btn
+@mixin btn-config {
+  background-color: $primary-color-beige-one;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+}
+
+//mixin animations
+@mixin animationEmerge {
+  @keyframes emerge {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-25%);
+    } 
+    100% {
+      opacity: 1;
+      visibility: visible; 
+      transform: translateY(0);
+    }
+  }
+}
+
+@mixin animationRoar {
+  @keyframes roar {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+    } 
+    100% {
+      opacity: 1;
+      visibility: visible; 
+    }
+  }
+}
  

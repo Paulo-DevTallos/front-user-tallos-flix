@@ -1,7 +1,7 @@
 <template>
   <div class="container-error">
-    <h2 v-pre>Não encontramos filmes com a palavra {{ palavra }}</h2><!--lembrar de remover o v-prev-->
-    <img src="img/cuate.png" alt="imagem de erro" />
+    <h2>Não encontramos filmes com a palavra {{ data_word }}</h2><!--lembrar de remover o v-prev-->
+    <img src="/img/cuate.png" alt="imagem de erro" />
   </div>
 </template>
 
@@ -10,6 +10,9 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ErrorComponent',
+  props: {
+    data_word: String,
+  },
 });
 </script>
 

@@ -1,9 +1,11 @@
 <template>
   <div class="card-fluid card-config">
     <div class="poster-container">
-      <div class="backspace">
-        <Icon icon="bx:arrow-back" />
-        Voltar
+      <div class="backspace" v-if="routerMovies ? routerMovies : routerSeries">
+        <router-link :to="routerMovies || routerSeries">
+          <Icon icon="bx:arrow-back" />
+          Voltar
+        </router-link>
       </div>
       <div class="poster-wd">
         <img
@@ -13,7 +15,7 @@
       </div>
       <div class="available-field d-flex pt-3 justify-content-center">
         <span class="pt-1">Avaliação (15)</span>
-        <StarRating class="ms-1"/>
+        <StarRating class="ms-1" />
       </div>
     </div>
     <div class="info-movie">
@@ -68,7 +70,12 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.directors"
               :key="Movie.length"
-              >{{ Movie }}
+            >
+              <router-link
+                :to="{ path: `/home/Peoples/${Movie}` }"
+                @click="GetPeople(Movie, 'directors')"
+                >{{ Movie }}</router-link
+              >
               <span
                 v-if="
                   this.$store.state.Movies.currentMovie.directors.indexOf(
@@ -86,7 +93,11 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.writers"
               :key="Movie.length"
-              >{{ Movie }}
+              >{<router-link
+                :to="{ path: `/home/Peoples/${Movie}` }"
+                @click="GetPeople(Movie, 'writers')"
+                >{{ Movie }}</router-link
+              >
               <span
                 v-if="
                   this.$store.state.Movies.currentMovie.writers.indexOf(Movie) <
@@ -102,7 +113,11 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.cast"
               :key="Movie.length"
-              >{{ Movie }}
+              ><router-link
+                :to="{ path: `/home/Peoples/${Movie}` }"
+                @click="GetPeople(Movie, 'cast')"
+                >{{ Movie }}</router-link
+              >
               <span
                 v-if="
                   this.$store.state.Movies.currentMovie.cast.indexOf(Movie) <
@@ -124,7 +139,11 @@
       v-if="hiddenTraillerModal"
       @closeWindow="closeModal"
     />
-    <OptionsModal v-if="hiddenOptionModal" @closeWindow="closeOptionModal"/>
+    <OptionsModal
+      v-if="hiddenOptionModal"
+      @closeWindow="closeOptionModal"
+      :action="message"
+    />
   </div>
 </template>
 
@@ -140,12 +159,16 @@ export default defineComponent({
   components: { Icon, TraillerModal, StarRating, OptionsModal },
   data() {
     return {
+      message: 'adicionar aos favoritos',
+      routerMovies: '/home/movies',
+      routerSeries: '/home/series',
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
       hiddenTraillerModal: false,
       hiddenBtnTrailer: false,
       IconStyle: 'carbon:favorite',
       ColorStyle: 'none',
+      IsFavoriteBefore: undefined,
     };
   },
   methods: {
@@ -157,7 +180,7 @@ export default defineComponent({
       }
     },
 
-    closeOptionModal():void {
+    closeOptionModal(): void {
       this.hiddenOptionModal = false;
     },
 
@@ -180,13 +203,44 @@ export default defineComponent({
     },
 
     favoriteMovie() {
+      this.$store.dispatch(
+        'Favorites/getFavoriteById',
+        this.$store.state.Users.UserId,
+      );
       if (this.IconStyle === 'carbon:favorite-filled') {
         this.IconStyle = 'carbon:favorite';
         this.ColorStyle = 'white';
+        this.$store.dispatch('Favorites/deleteFavorite', {
+          id: this.$store.state.Users.UserId,
+          movie: {
+            movie_Id: this.$store.state.Movies.currentMovie._id,
+          },
+        });
       } else {
+        if (this.$store.state.Favorites.Favorite.length === 0) {
+          this.$store.dispatch('Favorites/createFavorite', {
+            user_Id: this.$store.state.Users.UserId,
+            movie_Id: this.$store.state.Movies.currentMovie._id,
+          });
+        } else {
+          this.$store.dispatch('Favorites/updateFavorite', {
+            id: this.$store.state.Users.UserId,
+            movie: {
+              movie_Id: this.$store.state.Movies.currentMovie._id,
+            },
+          });
+        }
         this.IconStyle = 'carbon:favorite-filled';
         this.ColorStyle = '#f38765';
       }
+    },
+    GetPeople(data: string, Field: string) {
+      this.$store.dispatch('Peoples/getPeopleByName', data);
+      console.log(Field)
+      this.$store.dispatch('Movies/getMovieFilter', {
+        field: Field,
+        search: data,
+      });
     },
   },
   mounted() {
@@ -196,6 +250,25 @@ export default defineComponent({
       (this.$store.state.Movies.currentMovie.runtime % 60) +
       'min';
     this.$store.state.Movies.IsMovieGenre = false;
+    this.$store.dispatch(
+      'Favorites/getFavoriteById',
+      this.$store.state.Users.UserId,
+    );
+  },
+  async created() {
+    console.log(await this.$store.state.Favorites.Favorite);
+    if ((await this.$store.state.Favorites.Favorite.length) !== 0) {
+      this.IsFavoriteBefore =
+        this.$store.state.Favorites.Favorite[0].movie_Id.find(
+          (element: any) =>
+            element === this.$store.state.Movies.currentMovie._id,
+        );
+
+      if (this.IsFavoriteBefore !== undefined) {
+        this.IconStyle = 'carbon:favorite-filled';
+        this.ColorStyle = '#f38765';
+      }
+    }
   },
 });
 </script>

@@ -2,19 +2,10 @@ import UserRequests from '@/services/axios/UserRequests';
 import jwtDecode from 'jwt-decode';
 
 export default {
-  async createUser({ commit }: any, data: any) {
-    await UserRequests.createUser(data)
-      .then((res) => {
-        commit();
-      })
-      .catch((error) => {
-        commit();
-      });
-  },
   async updateUser({ commit }: any, data: any) {
     await UserRequests.updateUser(data.id, data.user)
       .then((res) => {
-        commit();
+        commit('GET_AVATAR', res.data.avatar);
       })
       .catch((error) => {
         commit();
@@ -77,21 +68,17 @@ export default {
       });
   },
   async login({ commit }: any, data: Object) {
-    await UserRequests.login(data)
-      .then((res) => {
-        if (res.data.access_token) {
-          localStorage.setItem('token', res.data.access_token);
+    await UserRequests.login(data).then((res) => {
+      if (res.data.access_token) {
+        localStorage.setItem('token', res.data.access_token);
 
-          const token = res.data.access_token;
-          const decode = jwtDecode(token);
+        const token = res.data.access_token;
+        const decode = jwtDecode(token);
 
-          commit('LOGIN', decode);
+        commit('LOGIN', decode);
 
-          location.replace('/home');
-        }
-      })
-      .catch((error) => {
-        commit();
-      });
+        location.replace('/home');
+      }
+    });
   },
 };

@@ -39,6 +39,11 @@ export default {
   async getSeries({ commit }: any, data?: any) {
     await MovieRequests.getSeries(data)
       .then((res) => {
+        if (res.data.content.length === 0) {
+          commit('setErrorPage', true);
+        } else {
+          commit('setErrorPage', false);
+        }
         commit('GET_SERIES', res.data);
       })
       .catch((error) => {
@@ -48,12 +53,27 @@ export default {
   async getMovieFilter({ commit }: any, data?: any) {
     await MovieRequests.getMovieFilter(data)
       .then((res) => {
+        if (res.data.content.length === 0) {
+          commit('setErrorPage', true);
+        } else {
+          commit('setErrorPage', false);
+        }
         commit('GET_MOVIES', res.data);
-        console.log(res);
+        console.log(res)
       })
       .catch((error) => {
         commit();
-        console.log(error)
+        console.log(error);
+      });
+  },
+  async getMovieFilterId({ commit }: any, data?: any) {
+    await MovieRequests.getMovieFilterId(data)
+      .then((res) => {
+        commit('GET_MOVIES', res.data);
+      })
+      .catch((error) => {
+        commit();
+        console.log(error);
       });
   },
 };
