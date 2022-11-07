@@ -235,6 +235,7 @@ export default defineComponent({
       }
     },
     GetPeople(data: string, Field: string) {
+      this.$store.state.Favorites.PeopleName = data;
       this.$store.dispatch('Peoples/getPeopleByName', data);
       console.log(Field)
       this.$store.dispatch('Movies/getMovieFilter', {
