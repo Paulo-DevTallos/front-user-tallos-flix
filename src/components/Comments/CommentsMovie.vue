@@ -29,14 +29,14 @@
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
-                <!-- <div v-for="likes in likesComments" :key="likes._id">
-                  <p v-if="likes.data.results[0].commentId === comment._id">
+                <div v-for="likes in likesComments" :key="likes._id">
+                  <p v-if="likes.data.results?.[0].commentId === comment._id"><!--  comparar aq icon -->
                     {{ likes.data.likeNumbers.likes }}
                   </p>
-                </div> -->
+                </div>
                 <Icon
                   :icon="
-                    likeComment && idCommentLike === comment._id && likeComment
+                     idCommentLike === comment._id && likeComment
                       ? 'carbon:thumbs-up-filled'
                       : 'carbon:thumbs-up'
                   "
@@ -396,6 +396,23 @@ export default defineComponent({
       this.DeslikeComment = !this.DeslikeComment;
       this.likeComment = false;
       this.idCommentLike = commentId;
+    },
+    async RenderLikes() {
+      // if (
+      //   this.likesComments[0].data.results[0].userLike[0].userId ===
+      //   this.$store.state.Users.UserId
+      // ) {
+      //   this.likeComment = false; this.teste?.[0].data.results?.[0].userLike?.[0].userId
+      // }
+      // const teste = { ...this.likesComments };
+      // await console.log(teste[0].data.results[0].userLike[0].userId);
+      // console.log(this.$store.state.Users.UserId);
+      // if (
+      //   teste?.[0].data.results[0].userLike[0].userId ===
+      //   this.$store.state.Users.UserId
+      // ) {
+      //   this.likeComment = true;
+      // }
     },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
