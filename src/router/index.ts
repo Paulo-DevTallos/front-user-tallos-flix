@@ -72,6 +72,11 @@ const router = createRouter({
           name: 'movieLocation',
           component: () => import('../pages/Theaters/MovieLocation.vue'),
         },
+        {
+        path: 'Peoples/:name',
+        name: 'DirectorPage',
+        component: () => import('../pages/Peoples/PeopleView.vue'),
+        },
       ],
     },
     { 
