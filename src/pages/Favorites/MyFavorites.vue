@@ -1,124 +1,109 @@
 <template>
-  <div class="corpo-fv">
+  <div class="container-fv">
     <header-app />
     <b-container class="pt-5 favorite-container">
       <div class="pb-2">
-        <h3>Meus favoritos</h3>
+        <h3 class="title">Meus favoritos</h3>
       </div>
-      <div id="notFavoriteTest" v-if="this.favorites.length === 0">
-        <h4>
+      <!--if favorite section is empty-->
+      <div class="description" v-if="this.favorites.length === 0">
+        <p>
           Parece que você ainda não tem filmes ou séries favoritados.<span>
-            Se quiser favoritar, é só clicar no ícone de coração
-            <Icon icon="carbon:favorite" /> no card do filme ou série escolhidos
-            !</span
-          >
-        </h4>
+          Se quiser favoritar, é só clicar no ícone de coração
+          <Icon icon="carbon:favorite" /> no card do filme ou série escolhidos!
+          </span>
+        </p>
       </div>
       <b-row
         v-for="favorite in this.favorites"
         :key="favorite.result._id"
         col
         no-gutters
-        class="d-flex"
+        class="base-structure"
       >
-        <b-col
-          class="mt-5"
-          cols="1"
-          v-if="
-            this.favorites.indexOf(favorite) <= oldRole &&
-            this.favorites.indexOf(favorite) >= actualElement
-          "
-        >
-          <div class="h-100 d-flex justify-content-center align-items-center">
-            <Icon
-              icon="carbon:delete"
-              class="icon-delete"
-              @click="callOptionsModal(favorite.result._id)"
-            />
-            <!--<Icon
-              icon="carbon:delete"
-              class="icon-delete"
-              @click="
-                removeFavorite(
+        <div class="movie-information">
+          <div
+            class="d-flex justify-content-center align-items-center"
+            v-if="
+              this.favorites.indexOf(favorite) <= oldRole &&
+              this.favorites.indexOf(favorite) >= actualElement
+            "
+          >
+            <div
+              class="btn-trash-structure d-flex justify-content-center align-items-center"
+            >
+              <Icon
+                icon="carbon:delete"
+                class="icon-delete"
+                @click="callOptionsModal(favorite.result._id)"
+              />
+            </div>
+            <OptionsModal
+              v-if="hiddenOptionModal && id === favorite.result._id"
+              @redirect="
+                deleteFavorite(
                   favorite.result._id,
                   this.favorites.indexOf(favorite),
                 )
-              "
-            />-->
-          </div>
-          <OptionsModal 
-            v-if="hiddenOptionModal && id === favorite.result._id" 
-            @redirect="deleteFavorite(favorite.result._id, this.favorites.indexOf(favorite))"
-            @closeWindow="closeOptionModal"
-          />
-        </b-col>
-        <b-col
-          cols="5"
-          class="mt-5"
-          v-if="
-            this.favorites.indexOf(favorite) <= this.oldRole &&
-            this.favorites.indexOf(favorite) >= this.actualElement
-          "
-        >
-          <b-row>
-            <b-col cols="4">
-              <b-card-img
-                :src="favorite.result.poster || vazio.poster"
-                v-if="
-                  favorite.result.poster ? favorite.result.poster : vazio.poster
                 "
-                class="rounded-0"
-              ></b-card-img>
-            </b-col>
-            <b-col cols="7">
-              <b-card-body>
-                <b-card-title
-                  class="text-color pb-2"
+              @closeWindow="closeOptionModal"
+            />
+          </div>
+          <div
+            cols="5"
+            class="mt-5" 
+            v-if="this.favorites.indexOf(favorite) <= this.oldRole && this.favorites.indexOf(favorite) >= this.actualElement"
+          >
+            <b-row>
+              <b-col cols="4">
+                <b-card-img
+                  :src="favorite.result.poster || vazio.poster"
                   v-if="
-                    favorite.result.title ? favorite.result.title : vazio.title
+                    favorite.result.poster ? favorite.result.poster : vazio.poster
                   "
-                  >{{ favorite.result.title || vazio.title }}</b-card-title
-                >
-              </b-card-body>
-              <b-card-subtitle class="text-color"
-                >Duração:
-                {{
-                  Math.trunc(favorite.result.runtime / 60) +
-                  'h' +
-                  (favorite.result.runtime % 60) +
-                  'min'
-                }}</b-card-subtitle
-              >
-              <div class="d-flex">
-                <span class="text-color pt-1">Avaliação:</span>
-                <StarRating
-                  class="ms-1 -flex"
-                  v-model="favorite.result.imdb"
-                ></StarRating>
-              </div>
-            </b-col>
-          </b-row>
-        </b-col>
+                  class="rounded-0"
+                ></b-card-img>
+              </b-col>
+              <b-col cols="7" class="card-info">
+                <b-card-body>
+                  <b-card-title class="pb-2"
+                    v-if="favorite.result.title ? favorite.result.title : vazio.title"
+                  >
+                    {{ favorite.result.title || vazio.title }}
+                  </b-card-title>
+                </b-card-body>
+                <span class="duration">
+                  Duração:
+                  {{
+                    Math.trunc(favorite.result.runtime / 60) +
+                    'h' +
+                    (favorite.result.runtime % 60) +
+                    'min'
+                  }}
+                </span>
+                <div class="d-flex">
+                  <span class="pt-1">Avaliação</span>
+                  <StarRating class="ms-1 -flex" v-model="favorite.result.imdb" />
+                </div>
+              </b-col>
+            </b-row>
+          </div>
+        </div>
         <b-col
           cols="6"
-          class="mt-5"
+          class="sinopse"
           v-if="
             this.favorites.indexOf(favorite) <= this.oldRole &&
             this.favorites.indexOf(favorite) >= this.actualElement
           "
         >
           <div>
-            <b-card-title class="text-color pb-2">Sinopse: </b-card-title>
-            <b-form-text-area
-              class="text-color"
-              size="sm"
-              plaintext
-              v-if="favorite.result.plot ? favorite.result.plot : vazio.plot"
-            >
-              {{ favorite.result.plot || vazio.plot }}</b-form-text-area
-            >
+            <b-card-title class="pb-2">Sinopse: </b-card-title>
+            <p v-if="favorite.result.plot ? favorite.result.plot : vazio.plot">
+              {{ favorite.result.plot || vazio.plot }}
+            </p>
             <div v-if="favorite.result.plot">
-              <p class="pt-3 d-flex justify-content-end view-more">Ver mais</p>
+              <p class="d-flex justify-content-end view-more">Ver mais</p>
             </div>
           </div>
         </b-col>
@@ -217,36 +202,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped>
-.imagem-fv {
-  width: 190px;
-}
-.body-fv {
-  padding: 0;
-}
-.text-color {
-  color: white !important;
-}
-.icon-delete {
-  font-size: 24px;
-  color: white;
-  cursor: pointer;
-}
-.view-more {
-  color: white;
-  cursor: pointer;
-  text-decoration: underline white;
-}
-#notFavoriteTest {
-  color: white;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  padding-bottom: 30%;
-
-  span {
-    display: block;
-    margin-top: 30px;
-  }
-}
-</style>
