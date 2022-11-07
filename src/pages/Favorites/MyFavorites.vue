@@ -40,19 +40,24 @@
             </div>
             <OptionsModal
               v-if="hiddenOptionModal && id === favorite.result._id"
+              :action="`Você quer mesmo remover o filme ${favorite.result.title} dos favoritos?`"
+              :hiddenBtnRemoveFav="true"
               @redirect="
                 deleteFavorite(
                   favorite.result._id,
                   this.favorites.indexOf(favorite),
                 )
-                "
+              "
               @closeWindow="closeOptionModal"
             />
           </div>
           <div
             cols="5"
             class="mt-5" 
-            v-if="this.favorites.indexOf(favorite) <= this.oldRole && this.favorites.indexOf(favorite) >= this.actualElement"
+            v-if="
+              this.favorites.indexOf(favorite) <= this.oldRole &&
+              this.favorites.indexOf(favorite) >= this.actualElement
+            "
           >
             <b-row>
               <b-col cols="4">

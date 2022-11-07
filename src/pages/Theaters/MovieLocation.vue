@@ -32,6 +32,7 @@
       />
       <OptionsModal
         v-if="hiddenOptionModal"
+        :hiddenBtnLogin="true"
         @closeWindow="closeOptionModal"
         :action="message"
       />
@@ -67,7 +68,7 @@ export default defineComponent({
   },
   data() {
     return {
-      message: 'adicionar comentário',
+      message: 'Você precisa está logado para realizar está ação!',
       limit: 5,
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,

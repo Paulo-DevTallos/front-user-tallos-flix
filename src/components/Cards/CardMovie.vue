@@ -171,6 +171,7 @@
     />
     <OptionsModal
       v-if="hiddenOptionModal"
+      :hiddenBtnLogin="true"
       @closeWindow="closeOptionModal"
       :action="message"
     />
@@ -190,7 +191,7 @@ export default defineComponent({
   components: { Icon, TraillerModal, StarRating, OptionsModal },
   data() {
     return {
-      message: 'adicionar aos favoritos',
+      message: 'Você precisa está logado para adicionar aos favoritos!',
       routerMovies: '/home/movies',
       routerSeries: '/home/series',
       isLogged: localStorage.getItem('token'),
