@@ -2,4 +2,10 @@
   text-align: center;
   color: #fff;
   padding: 10px 0 60px 0;
+
+  img {
+    @include mobile {
+      width: 80%;
+    }
+  }
 }
