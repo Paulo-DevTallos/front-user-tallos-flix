@@ -16,7 +16,7 @@
       </div>
       <b-row
         v-for="favorite in this.favorites"
-        :key="favorite.result_id"
+        :key="favorite.result._id"
         col
         no-gutters
         class="d-flex"
@@ -33,14 +33,24 @@
             <Icon
               icon="carbon:delete"
               class="icon-delete"
+              @click="callOptionsModal(favorite.result._id)"
+            />
+            <!--<Icon
+              icon="carbon:delete"
+              class="icon-delete"
               @click="
                 removeFavorite(
                   favorite.result._id,
                   this.favorites.indexOf(favorite),
                 )
               "
-            />
+            />-->
           </div>
+          <OptionsModal 
+            v-if="hiddenOptionModal && id === favorite.result._id" 
+            @redirect="deleteFavorite"
+            @closeWindow="closeOptionModal"
+          />
         </b-col>
         <b-col
           cols="5"
@@ -131,9 +141,10 @@ import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
 import PaginationPage from '../../components/Pagination/PaginationPage.vue';
 import StarRating from '../../components/Rating/StarRating.vue';
+import OptionsModal from '@/components/Modals/OptionsModal.vue';
 
 export default defineComponent({
-  components: { HeaderApp, StarRating, Icon, PaginationPage },
+  components: { HeaderApp, StarRating, Icon, PaginationPage, OptionsModal },
   data() {
     return {
       perPage: 5,
@@ -146,6 +157,8 @@ export default defineComponent({
         plot: 'filme sem sinopse',
       },
       favorites: [],
+      hiddenOptionModal: false,
+      id: '',
     };
   },
   computed: {
@@ -178,7 +191,16 @@ export default defineComponent({
     }
   },
   methods: {
-    async removeFavorite(data: string, FavoriteIndex: any) {
+    callOptionsModal(id: string) {
+      this.hiddenOptionModal = true;
+
+      this.id = id
+    },
+    closeOptionModal() {
+      this.hiddenOptionModal = false;
+    },
+    async deleteFavorite(data: string, FavoriteIndex: any) {
+      console.log(data, FavoriteIndex)
       this.favorites.splice(FavoriteIndex, 1);
       await this.$store.dispatch('Favorites/deleteFavorite', {
         id: this.$store.state.Users.UserId,

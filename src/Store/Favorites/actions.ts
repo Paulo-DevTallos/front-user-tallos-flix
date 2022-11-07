@@ -23,9 +23,6 @@ export default {
     await FavoriteRequests.deleteFavorite(data.id, data.movie)
       .then((res) => {
         commit();
-      })
-      .catch((error) => {
-        commit();
       });
   },
   async getAllFavorites({ commit }: any) {
