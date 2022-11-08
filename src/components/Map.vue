@@ -1,5 +1,5 @@
 <template>
-  <l-map ref="map" :zoom="2" :center="[51.505, -0.159]" class="map">
+  <l-map ref="map" :zoom="2" :center="[51.505, -0.159]">
     <l-tile-layer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution="'&copy; <a target='_blank' href='http://osm.org/copyright'>OpenStreetMap</a> contributors'"
@@ -38,4 +38,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped></style>

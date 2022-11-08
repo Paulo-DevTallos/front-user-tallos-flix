@@ -1,0 +1,16 @@
+.map-location-field{
+  background-color: $primary-color-black-one;
+  height: 70vh;
+  padding: 20px 40px;
+
+  @include mobile {
+    padding: 10px;
+  }
+}
+
+.theaters-list{
+  align-items: flex-start;
+  list-style-type: disc;
+  color: $primary-color-black-seven;
+  gap: 1rem;
+}
