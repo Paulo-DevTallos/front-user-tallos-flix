@@ -7,8 +7,16 @@
     border-radius: 0;
     font-size: 14px;
 
+    @include breakpoints(550px) {
+        flex-direction: column;
+    }
+
     .poster-container {
         width: 40%;
+        
+        @include breakpoints(550px) {
+            width: 100%;
+        }
 
         .backspace {
             padding-bottom: 20px;
@@ -22,20 +30,41 @@
 
             &:hover {
                 color: #fff;
+            }
+            .return-arrow{
+                &:hover {
+                    color: #fff;
+                } 
             } 
         }
         
         .poster-wd {
             padding-right: 20px;
+            
+            @include breakpoints(550px) {
+                padding: 0;
+            }
 
             img {
                 width: 100%;
             }
-        }
 
+        }
+        
         .available-field {            
-            span {
+            .exibition {
+                display: flex;
                 font-size: 16px;
+                padding-top: 10px;
+                padding-right: 20px;
+
+                span {
+                    padding-top: 3px;
+                }
+
+                @include breakpoints(950px) {
+                    flex-direction: column;
+                }
             }
         }
     }
@@ -45,8 +74,12 @@
         text-align: start;
         padding-top: 40px;
 
+        @include breakpoints(550px) {
+            width: 100%;
+            padding-top: 20px;
+        }
+        
         .card-header {
-
             h2 {
                 margin-bottom: 15px;
                 font-family: 'Nunito', sans-serif;

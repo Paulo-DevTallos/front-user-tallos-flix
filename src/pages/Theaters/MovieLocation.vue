@@ -5,7 +5,7 @@
       <PlotView />
       <TheatersForm />
     </div>
-    <div class="map-location-field px-5 py-4">
+    <div class="map-location-field">
       <MapView />
     </div>
     <div class="ps-5">

@@ -9,8 +9,9 @@
       <div class="description" v-if="this.favorites.length === 0">
         <p>
           Parece que você ainda não tem filmes ou séries favoritados.<span>
-          Se quiser favoritar, é só clicar no ícone de coração
-          <Icon icon="carbon:favorite" /> no card do filme ou série escolhidos!
+            Se quiser favoritar, é só clicar no ícone de coração
+            <Icon icon="carbon:favorite" /> no card do filme ou série
+            escolhidos!
           </span>
         </p>
       </div>
@@ -53,7 +54,7 @@
           </div>
           <div
             cols="5"
-            class="mt-5" 
+            class="mt-5"
             v-if="
               this.favorites.indexOf(favorite) <= this.oldRole &&
               this.favorites.indexOf(favorite) >= this.actualElement
@@ -64,7 +65,9 @@
                 <b-card-img
                   :src="favorite.result.poster || vazio.poster"
                   v-if="
-                    favorite.result.poster ? favorite.result.poster : vazio.poster
+                    favorite.result.poster
+                      ? favorite.result.poster
+                      : vazio.poster
                   "
                   onerror="this.onerror=null;this.src='/img/empty-img.png';"
                   class="rounded-0"
@@ -72,8 +75,13 @@
               </b-col>
               <b-col cols="7" class="card-info">
                 <b-card-body>
-                  <b-card-title class="pb-2"
-                    v-if="favorite.result.title ? favorite.result.title : vazio.title"
+                  <b-card-title
+                    class="pb-2"
+                    v-if="
+                      favorite.result.title
+                        ? favorite.result.title
+                        : vazio.title
+                    "
                   >
                     {{ favorite.result.title || vazio.title }}
                   </b-card-title>
@@ -89,7 +97,10 @@
                 </span>
                 <div class="d-flex">
                   <span class="pt-1">Avaliação</span>
-                  <StarRating class="ms-1 -flex" v-model="favorite.result.imdb" />
+                  <StarRating
+                    class="ms-1 -flex"
+                    :ratingRawValue="favorite.result.imdb.rating"
+                  />
                 </div>
               </b-col>
             </b-row>
@@ -183,16 +194,16 @@ export default defineComponent({
   },
   methods: {
     callOptionsModal(id: string) {
-      console.log(id)
+      console.log(id);
       this.hiddenOptionModal = true;
 
-      this.id = id
+      this.id = id;
     },
     closeOptionModal() {
       this.hiddenOptionModal = false;
     },
     async deleteFavorite(data: string, FavoriteIndex: any) {
-      console.log(data, FavoriteIndex)
+      console.log(data, FavoriteIndex);
       this.favorites.splice(FavoriteIndex, 1);
       await this.$store.dispatch('Favorites/deleteFavorite', {
         id: this.$store.state.Users.UserId,

@@ -28,7 +28,13 @@
             v-model:model-value="comment.text"
           ></b-form-textarea>
           <div class="pt-3 d-flex justify-content-between">
-            <h6 class="text-color">{{ comment.date }}</h6>
+            <h6 class="text-color">
+              {{
+                new Date(comment.date).toLocaleString().slice(0, 10) +
+                '\xa0' +
+                new Date(comment.date).toLocaleString().slice(10, 16)
+              }}
+            </h6>
             <div class="d-flex" v-if="btnViewsComments && teste != comment._id">
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"

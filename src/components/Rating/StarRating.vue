@@ -1,6 +1,6 @@
 <template>
   <star-rating
-    class="mb-4 p-0 m-0"
+    class="responsive mb-4 p-0 m-0"
     :disableClick="true"
     :showControl="showControl"
     :numberOfStars="5"
