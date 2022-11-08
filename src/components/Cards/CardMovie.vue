@@ -15,6 +15,7 @@
               : `${this.APP_URL}img/empty-img.png`
           "
           alt="card-filme"
+          onerror="this.onerror=null;this.src='/img/empty-img.png';"
         />
       </div>
       <div
