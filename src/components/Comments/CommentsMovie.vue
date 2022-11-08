@@ -370,6 +370,16 @@ export default defineComponent({
         commentReply: '',
         date: new Date(),
       },
+      userlike: {
+        commentId: '',
+        userLike: [
+          {
+            userId: this.$store.state.Users.UserId,
+            like: true,
+            unlike: false,
+          },
+        ],
+      },
       Noavatar: '/img/user-default.png',
       avatar: '/img/' + this.$store.state.Users.UserAvatar,
       id: '',
@@ -395,10 +405,22 @@ export default defineComponent({
     },
   },
   methods: {
-    LikeComment(commentId: string) {
+    async LikeComment(commentId: string) {
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
+      console.log(this.likeComment);
+      if (this.likeComment === true) {
+        this.PostLike(commentId);
+      }
+    },
+    PostLike(commentId: string) {
+      this.likeComment = true;
+      this.DeslikeComment = false;
+      (this.userlike.commentId = commentId),
+        this.$store.dispatch('createLikeComment', {
+          userLike: this.userlike,
+        });
     },
     UnlikeComment(commentId: string) {
       this.DeslikeComment = !this.DeslikeComment;

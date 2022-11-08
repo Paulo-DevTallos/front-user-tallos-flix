@@ -9,4 +9,10 @@ export default {
       },
     );
   },
+  async createLikeComment({ commit }: any, data: any) {
+    await LikesRequests.createLikeComment(data).then((data) => {
+      commit('GET_LIKECOMMENT', data);
+      console.log(data);
+    });
+  },
 };
