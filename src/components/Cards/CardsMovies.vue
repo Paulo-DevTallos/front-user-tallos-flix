@@ -13,6 +13,7 @@
             <b-card-img
               :src="movie.poster || vazio.poster"
               v-if="movie.poster ? movie.poster : vazio.poster"
+              onerror="this.onerror=null;this.src='/img/empty-img.png';"
               class="rounded-0"
             ></b-card-img>
           </b-col>
@@ -34,7 +35,7 @@
                   }}</b-card-subtitle
                 >
                 <div class="d-flex">
-                  <star-rating v-model="movie.imdb.rating" />
+                  <star-rating :ratingRawValue="movie.imdb.rating" />
                 </div>
                 <router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
                   <b-button

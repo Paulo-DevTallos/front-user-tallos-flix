@@ -73,6 +73,9 @@ export default defineComponent({
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
       likes: [],
+      userId: {
+        userId: this.$store.state.Users.UserId,
+      },
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
       },
@@ -101,10 +104,10 @@ export default defineComponent({
         index < this.$store.state.Comments.Comments.commentsMovie.length;
         index++
       ) {
-        await this.$store.dispatch(
-          'getAllLikesComment',
-          this.$store.state.Comments.Comments.commentsMovie[index]._id,
-        );
+        await this.$store.dispatch('getAllLikesComment', {
+          id: this.$store.state.Comments.Comments.commentsMovie[index]._id,
+          userId: this.userId,
+        });
         await this.likes.push(this.$store.state.Likes.getComment);
       }
     },
@@ -129,8 +132,11 @@ export default defineComponent({
         id: commentUpdate._id,
         comment: commentUpdate,
       });
-      this.$router.go();
       this.commentsRender();
+    },
+
+    closeReplyComment() {
+      this;
     },
   },
   mounted() {
@@ -138,11 +144,25 @@ export default defineComponent({
       this.commentsRender();
     });
 
+    this.socketService.registerListener(
+      'deleted-comment',
+      'deleted-comment',
+      (IdComment) => {
+        this.deleteComment(IdComment);
+      },
+    );
+
+    this.socketService.registerListener(
+      'update-comment',
+      'update-comment',
+      (commentUpdate) => {
+        this.updateComment(commentUpdate);
+      },
+    );
+
     this.commentsRender();
-    // console.log(this.$store.state.Likes.getComment);
-    console.log(this.likes);
+    console.log(this.$store.state.Likes.getComment);
+    console.log(this.userId);
   },
 });
 </script>
-
-<style lang="scss" scoped></style>

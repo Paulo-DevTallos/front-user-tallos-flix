@@ -66,6 +66,7 @@
                   v-if="
                     favorite.result.poster ? favorite.result.poster : vazio.poster
                   "
+                  onerror="this.onerror=null;this.src='/img/empty-img.png';"
                   class="rounded-0"
                 ></b-card-img>
               </b-col>

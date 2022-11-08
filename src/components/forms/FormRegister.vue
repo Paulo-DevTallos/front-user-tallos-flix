@@ -51,6 +51,7 @@ export default defineComponent({
         name: '',
         email: '',
         password: '',
+        avatar: 'empty-avatar.png',
       },
     };
   },

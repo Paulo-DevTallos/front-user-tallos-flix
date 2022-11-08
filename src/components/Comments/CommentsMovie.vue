@@ -5,8 +5,12 @@
       <b-row class="pb-4" v-if="!comment.isReply">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
           ><b-avatar
-            v-if="comment.avatar ? comment.avatar : Noavatar"
-            :src="comment.avatar || Noavatar"
+            :src="
+              '/img/' +
+              (comment.userAvatar !== undefined
+                ? comment.userAvatar
+                : 'user-default.png')
+            "
             size="5rem"
           ></b-avatar
         ></b-col>
@@ -29,14 +33,15 @@
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
-                <!-- <div v-for="likes in likesComments" :key="likes._id">
-                  <p v-if="likes.data.results[0].commentId === comment._id">
-                    {{ likes.data.likeNumbers.likes }}
+                <div v-for="likes in likesComments" :key="likes._id">
+                  <p v-if="likes.data.id === comment._id">
+                    <!--  comparar aq icon -->
+                    {{ likes.data.likes }}
                   </p>
-                </div> -->
+                </div>
                 <Icon
                   :icon="
-                    likeComment && idCommentLike === comment._id && likeComment
+                    idCommentLike === comment._id && likeComment
                       ? 'carbon:thumbs-up-filled'
                       : 'carbon:thumbs-up'
                   "
@@ -131,7 +136,12 @@
                 cols="2"
               >
                 <b-avatar
-                  :src="reply.avatar ? reply.avatar : Noavatar"
+                  :src="
+                    '/img/' +
+                    (reply.userAvatar !== undefined
+                      ? reply.userAvatar
+                      : 'user-default.png')
+                  "
                   size="5rem"
                 ></b-avatar>
               </b-col>
@@ -236,7 +246,10 @@
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
               >
-                <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
+                <b-avatar
+                  :src="avatar ? avatar : Noavatar"
+                  size="5rem"
+                ></b-avatar>
               </b-col>
               <b-col>
                 <h5 class="text-color">Seu Comentário</h5>
@@ -279,7 +292,15 @@
     <div>
       <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
-          <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
+          <b-avatar
+            :src="
+              this.$store.state.Users.UserName &&
+              this.$store.state.Users.UserAvatar !== ''
+                ? this.avatar
+                : this.Noavatar
+            "
+            size="5rem"
+          ></b-avatar>
         </b-col>
         <b-col>
           <h5 class="text-color">Seu Comentário</h5>
@@ -310,12 +331,18 @@
 <script lang="ts">
 import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
+import { SocketModule } from '@/services/socket';
 
 export default defineComponent({
   components: {
     Icon,
   },
   emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect', 'saveEdit'],
+  setup() {
+    return {
+      socketService: SocketModule.connect(),
+    };
+  },
   data() {
     return {
       responseComment: false,
@@ -344,6 +371,7 @@ export default defineComponent({
         date: new Date(),
       },
       Noavatar: '/img/user-default.png',
+      avatar: '/img/' + this.$store.state.Users.UserAvatar,
       id: '',
       teste: '',
       idCommentLike: '',
@@ -367,26 +395,6 @@ export default defineComponent({
     },
   },
   methods: {
-    //     getLikeValidate(id: string){
-    //       this.apiService.get(passar o id e verificar se existe)
-    //       se n existir: chama a rota ('  http://localhost:4000/likes/ e  passa o corpo no body
-    //       {
-    // 	"commentId": "63641a951c859a0e64f72816",
-    // 	"userLike":[{
-    //   "userId": "635680e2bea91464d376670a",
-    //   "like": true,
-    //   "unlike": false
-    // }]}
-    //           ')
-    //       se existir: ('http://localhost:4000/likes/id do comentario = 63640f2b1c859a0e64f72733  ')
-    //       o corpo:
-    // {
-    //   "userId": "635680e2bea91464d376670a",
-    //   "like": true,
-    //   "unlike": false
-    // }
-
-    //     }
     LikeComment(commentId: string) {
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
@@ -397,6 +405,23 @@ export default defineComponent({
       this.likeComment = false;
       this.idCommentLike = commentId;
     },
+    async RenderLikes() {
+      // if (
+      //   this.likesComments[0].data.results[0].userLike[0].userId ===
+      //   this.$store.state.Users.UserId
+      // ) {
+      //   this.likeComment = false; this.teste?.[0].data.results?.[0].userLike?.[0].userId
+      // }
+      // const teste = { ...this.likesComments };
+      // await console.log(teste[0].data.results[0].userLike[0].userId);
+      // console.log(this.$store.state.Users.UserId);
+      // if (
+      //   teste?.[0].data.results[0].userLike[0].userId ===
+      //   this.$store.state.Users.UserId
+      // ) {
+      //   this.likeComment = true;
+      // }
+    },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
       this.userReply.commentReply = commentId;
@@ -404,7 +429,6 @@ export default defineComponent({
     },
     responseComments() {
       this.$store.dispatch('Comments/createComment', this.userReply);
-      console.log(this.userReply);
       this.userReply.text = '';
       (this.id = ''), (this.responseView = false);
     },
@@ -434,6 +458,12 @@ export default defineComponent({
       this.teste = '';
     },
   },
+
+  mouted() {
+    this.socketService.registerListener('new-comment', 'new-comment', () => {
+      this.responseComments();
+    });
+  }
 });
 </script>
 <style lang="scss" scoped></style>

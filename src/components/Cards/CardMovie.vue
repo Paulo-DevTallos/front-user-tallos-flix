@@ -15,6 +15,7 @@
               : `${this.APP_URL}img/empty-img.png`
           "
           alt="card-filme"
+          onerror="this.onerror=null;this.src='/img/empty-img.png';"
         />
       </div>
       <div
@@ -24,16 +25,12 @@
           this.$store.state.Movies.currentMovie.imdb.votes
         "
       >
-        <span class="pt-1"
-          >Avaliação ({{
-            this.$store.state.Movies.currentMovie.imdb.votes
-          }})</span
-        >
-        <StarRating
-          class="ms-1"
-          v-model="this.$store.state.Movies.currentMovie.imdb.rating"
-        />
+        <div class="exibition pt-1">
+          <span>Avaliação ({{this.$store.state.Movies.currentMovie.imdb.votes}})</span>
+          <StarRating class="responsive ms-1" v-model="this.rating" />
+        </div>
       </div>
+      <div v-else class="pb-3"></div>
     </div>
     <div class="info-movie">
       <header class="card-header">
@@ -72,8 +69,11 @@
             <Icon icon="simple-icons:rottentomatoes" />
             <p>{{ this.TomatoesRating }}%</p>
           </div>
-          <div class="d-flex">
-            <p>Ganhador de 1 oscar, 5 indicações</p>
+          <div
+            class="d-flex"
+            v-if="this.$store.state.Movies.currentMovie.awards.text"
+          >
+            <p>{{ this.$store.state.Movies.currentMovie.awards.text }}</p>
           </div>
         </div>
       </header>
@@ -203,6 +203,7 @@ export default defineComponent({
       IsFavoriteBefore: undefined,
       TomatoesRating: 0,
       APP_URL: APP_URL,
+      rating: this.$store.state.Movies.currentMovie.imdb.rating / 2,
     };
   },
   methods: {
