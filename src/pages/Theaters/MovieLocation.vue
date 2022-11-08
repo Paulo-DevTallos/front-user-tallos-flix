@@ -100,10 +100,12 @@ export default defineComponent({
         index < this.$store.state.Comments.Comments.commentsMovie.length;
         index++
       ) {
-        await this.$store.dispatch(
-          'getAllLikesComment',
-          this.$store.state.Comments.Comments.commentsMovie[index]._id,
-        );
+        await this.$store.dispatch('getAllLikesComment', {
+          id: this.$store.state.Comments.Comments.commentsMovie[index]._id,
+          userId: {
+            userId: this.$store.state.Users.UserId,
+          }
+        });
         await this.likes.push(this.$store.state.Likes.getComment);
       }
     },
