@@ -25,12 +25,10 @@
           this.$store.state.Movies.currentMovie.imdb.votes
         "
       >
-        <span class="pt-1"
-          >Avaliação ({{
-            this.$store.state.Movies.currentMovie.imdb.votes
-          }})</span
-        >
-        <StarRating class="ms-1" v-model="this.rating" />
+        <div class="exibition pt-1">
+          <span>Avaliação ({{this.$store.state.Movies.currentMovie.imdb.votes}})</span>
+          <StarRating class="responsive ms-1" v-model="this.rating" />
+        </div>
       </div>
       <div v-else class="pb-3"></div>
     </div>
