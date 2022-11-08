@@ -22,7 +22,7 @@
       </div>
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
-        @redirect="redirectToLogin"
+        @redirect="redirectAction"
         @postComment="commentPost"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
@@ -32,6 +32,7 @@
       />
       <OptionsModal
         v-if="hiddenOptionModal"
+        :hiddenBtnLogin="true"
         @closeWindow="closeOptionModal"
         :action="message"
       />
@@ -67,7 +68,7 @@ export default defineComponent({
   },
   data() {
     return {
-      message: 'adicionar comentário',
+      message: 'Você precisa está logado para realizar está ação!',
       limit: 5,
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
@@ -78,7 +79,7 @@ export default defineComponent({
     };
   },
   methods: {
-    redirectToLogin(): void {
+    redirectAction(): void {
       if (!this.isLogged) {
         this.hiddenOptionModal = true;
       } else {
@@ -100,10 +101,12 @@ export default defineComponent({
         index < this.$store.state.Comments.Comments.commentsMovie.length;
         index++
       ) {
-        await this.$store.dispatch(
-          'getAllLikesComment',
-          this.$store.state.Comments.Comments.commentsMovie[index]._id,
-        );
+        await this.$store.dispatch('getAllLikesComment', {
+          id: this.$store.state.Comments.Comments.commentsMovie[index]._id,
+          userId: {
+            userId: this.$store.state.Users.UserId,
+          }
+        });
         await this.likes.push(this.$store.state.Likes.getComment);
       }
     },

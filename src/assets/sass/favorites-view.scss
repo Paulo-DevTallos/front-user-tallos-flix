@@ -1,11 +1,132 @@
-.corpo-fv {
-    background-color: $primary-color-black-bg;
-    min-height: 100vh;
+.container-fv {
+  background-color: $primary-color-black-bg;
+  min-height: 100vh;
+  color: $main-white-color;
 
-    .favorite-container {
-        padding: 0 80px;
-        h3 {
-            color: white;
-        }
+  .favorite-container {
+    padding: 0 80px;
+    
+    @include breakpoints(780px) {
+      padding: 0 20px;
     }
+    
+    .title {
+      margin-top: 50px;
+      padding: 0 80px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: bold;
+
+      @include breakpoints(780px) {
+        padding: 0 42px;
+      }
+    }
+
+    .description {
+      font-family: 'Nunito', sans-serif;
+      color: $main-white-color;
+    
+      p {
+        padding: 0 80px;
+        font-size: 18px;
+        margin-top: 30px;
+
+        span {
+          display: block;
+          margin-top: 25px;
+        }
+      }
+    }
+
+    .base-structure {
+      display: flex;
+      
+      @include breakpoints(1200px) {
+        flex-direction: column;
+      }
+
+      @include breakpoints(780px) {
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+      
+      .movie-information {
+        display: flex;
+        width: 45%;
+
+        @include breakpoints(1200px) {
+          width: 100%;
+        }
+
+        .btn-trash-structure {
+          margin-right: 20px;
+          
+          .icon-delete {
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            transition: .2s ease-in;
+      
+            &:hover {
+              color: $primary-color-beige-hr;
+            }
+          }
+        }
+
+        img {
+          @include breakpoints(780px) {
+            width: 300px;
+          }
+
+          @include mobile {
+            width: 250px;
+          }
+        }
+        
+      }
+      
+  
+      .card-info {
+        @include breakpoints(780px) {
+          margin-top: 20px;
+          width: 100%;
+        }
+
+        h4 {
+          font-family: 'Nunito', sans-serif;
+        }
+        .duration {
+          color: $main-white-color;
+        }  
+        .text-color {
+          color: $primary-color-black-six;
+        }
+      }
+  
+      .sinopse { 
+        margin-top: 44px;
+        @include breakpoints(1200px) {
+          width: 100%;
+        }
+
+        @include breakpoints(780px) {
+          margin-top: 0;
+        }
+
+        h4 {
+          font-family: 'Nunito', sans-serif;
+        }
+  
+        p {
+          color: $primary-color-black-six;
+        }
+  
+        .view-more {
+          cursor: pointer;
+          color: $main-white-color;
+          padding-right: 0;
+          text-decoration: underline $main-white-color;
+        } 
+      }
+    }
+  }
 }

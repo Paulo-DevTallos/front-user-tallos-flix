@@ -1,12 +1,11 @@
 <template>
   <div class="box-modal wd-modal">
     <Icon icon="eva:close-fill" @click="$emit('closeWindow')"/>
-    <div class="avatar-container pt-4">
-      Você precisa estár logado para {{ action }} !
-    </div>
+    <div class="avatar-container pt-4">{{ action }}</div>
     <footer class="container-btn-modal pt-4">
       <button @click="$emit('closeWindow')">OK</button>
-      <button @click="redirectToLogin">Logar</button>
+      <button v-if="hiddenBtnLogin" @click="redirectAction">Logar</button>
+      <button v-if="hiddenBtnRemoveFav" @click="$emit('redirect', id, favoriteIndexOf)">Remover</button>
     </footer>
   </div>
 </template>
@@ -18,12 +17,20 @@ import { Icon } from '@iconify/vue';
 export default defineComponent({
   name: 'OptionsModal',
   components: { Icon },
-  emits: ['closeWindow'],
+  emits: ['closeWindow', 'redirect'],
   props: {
     action: String,
+    hiddenBtnLogin: Boolean,
+    hiddenBtnRemoveFav: Boolean,
+  },
+  data() {
+    return {
+      id: String,
+      favoriteIndexOf: Number,
+    }
   },
   methods: {
-    redirectToLogin(): void | URL {
+    redirectAction(): void | URL {
       return location.replace('/login');
     }
   }
