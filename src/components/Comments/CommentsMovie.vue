@@ -459,11 +459,11 @@ export default defineComponent({
     },
   },
 
-  mouted() {
+  mounted() {
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.responseComments();
     });
-  }
+  },
 });
 </script>
 <style lang="scss" scoped></style>
