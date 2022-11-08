@@ -1,11 +1,16 @@
 .pagination {
+  @include breakpoints(540px) {
+    width: 105%;
+    text-align: center;
+  }
+  
   .page-link {
     font-size: 20px;
     min-width: 2.6rem;
     background-color: $primary-color-black-bg;
     border-color: $primary-color-beige-hr;
     color: $primary-color-beige-hr;
-
+    
     &:hover {
       color: white;
       background-color: $primary-color-beige-hr;
@@ -15,6 +20,17 @@
       background-color: $primary-color-beige-hr !important;
       color: white;
       box-shadow: none;
+    }
+
+    @include breakpoints(720px) {
+      width: 100%;
+      font-size: 15px;
+    }
+
+    @include breakpoints(540px) {
+      width: 100%;
+      font-size: 9px;
+      padding: 10px 0;
     }
   }
 
