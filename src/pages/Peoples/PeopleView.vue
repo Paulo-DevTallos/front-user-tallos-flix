@@ -19,13 +19,18 @@
     <h3 id="people-carousel-title-Biography">
       Filmes de "{{ this.$store.state.Peoples.People[0].name }}"
     </h3>
-    <Carousel :People="true" class="pb-5" />
+    <Carousel :People="true" class="pb-5" :hiddenMovieInfo="true" />
   </div>
   <div v-else id="carousel-people-notFind">
     <h3 id="people-carousel-title">
       Filmes de {{ this.$store.state.Favorites.PeopleName }}
     </h3>
-    <Carousel :People="true" class="pb-5" id="carousel-people-notFind" />
+    <Carousel
+      :People="true"
+      class="pb-5"
+      id="carousel-people-notFind"
+      :hiddenMovieInfo="true"
+    />
   </div>
 </template>
 <script lang="ts">

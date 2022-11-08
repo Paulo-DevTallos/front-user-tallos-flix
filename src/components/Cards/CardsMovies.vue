@@ -13,6 +13,7 @@
             <b-card-img
               :src="movie.poster || vazio.poster"
               v-if="movie.poster ? movie.poster : vazio.poster"
+              onerror="this.onerror=null;this.src='/img/empty-img.png';"
               class="rounded-0"
             ></b-card-img>
           </b-col>
