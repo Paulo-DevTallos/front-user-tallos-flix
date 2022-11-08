@@ -4,7 +4,15 @@
     <div v-for="comment in renderComments.commentsMovie" :key="comment.id">
       <b-row class="pb-4" v-if="!comment.isReply">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
-          ><b-avatar :src="'/img/' + comment.userAvatar" size="5rem"></b-avatar
+          ><b-avatar
+            :src="
+              '/img/' +
+              (comment.userAvatar !== undefined
+                ? comment.userAvatar
+                : 'user-default.png')
+            "
+            size="5rem"
+          ></b-avatar
         ></b-col>
         <b-col cols="9" class="p-0">
           <h5 class="text-color">{{ comment.name }}</h5>
@@ -128,7 +136,12 @@
                 cols="2"
               >
                 <b-avatar
-                  :src="'/img/' + reply.userAvatar"
+                  :src="
+                    '/img/' +
+                    (reply.userAvatar !== undefined
+                      ? reply.userAvatar
+                      : 'user-default.png')
+                  "
                   size="5rem"
                 ></b-avatar>
               </b-col>
