@@ -131,20 +131,27 @@ export default defineComponent({
         id: commentUpdate._id,
         comment: commentUpdate,
       });
-      this.$router.go();
       this.commentsRender();
     },
+
+    closeReplyComment() {
+      this
+    }
   },
   mounted() {
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.commentsRender();
     });
 
+    this.socketService.registerListener('deleted-comment', 'deleted-comment', (IdComment) => {
+        this.deleteComment(IdComment);
+    });
+
+    this.socketService.registerListener('update-comment', 'update-comment', (commentUpdate) => {
+      this.updateComment(commentUpdate);
+    });
+
     this.commentsRender();
-    // console.log(this.$store.state.Likes.getComment);
-    console.log(this.likes);
   },
 });
 </script>
-
-<style lang="scss" scoped></style>
