@@ -65,11 +65,17 @@
 
     }
   }
-
-
+  
   .container-btn-modal {
     text-align: center;
     padding: 40px 0 30px 0;
+
+    @include mobile {
+      display: flex;
+      margin: 0;
+      justify-content: center;
+      width: 100%;
+    }
 
     button {
       margin: 0 7px;
