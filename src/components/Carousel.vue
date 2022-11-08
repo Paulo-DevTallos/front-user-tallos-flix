@@ -47,7 +47,7 @@
               'min'
             }}
           </p>
-          <StarRating class="rating" v-model="movie.imdb.rating" />
+          <StarRating class="rating" :ratingRawValue="movie.imdb.rating" />
         </div>
       </div>
     </slide>

@@ -9,6 +9,7 @@
     inactiveColor="#D9D9D9"
     controlBg="#ffffff00"
     controlColor="#fff"
+    v-model="data"
   ></star-rating>
 </template>
 <script lang="ts">
@@ -16,11 +17,17 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
+    ratingRawValue: { type: Number, default: 2 },
     showControl: {
       type: Boolean,
       required: false,
       default: false,
     },
+  },
+  data() {
+    return {
+      data: this.ratingRawValue / 2,
+    };
   },
 });
 </script>

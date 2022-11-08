@@ -4,11 +4,7 @@
     <div v-for="comment in renderComments.commentsMovie" :key="comment.id">
       <b-row class="pb-4" v-if="!comment.isReply">
         <b-col class="d-flex justify-content-end align-items-center" cols="2"
-          ><b-avatar
-            v-if="comment.avatar ? comment.avatar : Noavatar"
-            :src="comment.avatar || Noavatar"
-            size="5rem"
-          ></b-avatar
+          ><b-avatar :src="'/img/' + comment.userAvatar" size="5rem"></b-avatar
         ></b-col>
         <b-col cols="9" class="p-0">
           <h5 class="text-color">{{ comment.name }}</h5>
@@ -29,14 +25,15 @@
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
-                <!-- <div v-for="likes in likesComments" :key="likes._id">
-                  <p v-if="likes.data.results[0].commentId === comment._id">
-                    {{ likes.data.likeNumbers.likes }}
+                <div v-for="likes in likesComments" :key="likes._id">
+                  <p v-if="likes.data.id === comment._id">
+                    <!--  comparar aq icon -->
+                    {{ likes.data.likes }}
                   </p>
-                </div> -->
+                </div>
                 <Icon
                   :icon="
-                    likeComment && idCommentLike === comment._id && likeComment
+                    idCommentLike === comment._id && likeComment
                       ? 'carbon:thumbs-up-filled'
                       : 'carbon:thumbs-up'
                   "
@@ -131,7 +128,7 @@
                 cols="2"
               >
                 <b-avatar
-                  :src="reply.avatar ? reply.avatar : Noavatar"
+                  :src="'/img/' + reply.userAvatar"
                   size="5rem"
                 ></b-avatar>
               </b-col>
@@ -236,7 +233,10 @@
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
               >
-                <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
+                <b-avatar
+                  :src="avatar ? avatar : Noavatar"
+                  size="5rem"
+                ></b-avatar>
               </b-col>
               <b-col>
                 <h5 class="text-color">Seu Comentário</h5>
@@ -279,7 +279,15 @@
     <div>
       <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
-          <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
+          <b-avatar
+            :src="
+              this.$store.state.Users.UserName &&
+              this.$store.state.Users.UserAvatar !== ''
+                ? this.avatar
+                : this.Noavatar
+            "
+            size="5rem"
+          ></b-avatar>
         </b-col>
         <b-col>
           <h5 class="text-color">Seu Comentário</h5>
@@ -350,6 +358,7 @@ export default defineComponent({
         date: new Date(),
       },
       Noavatar: '/img/user-default.png',
+      avatar: '/img/' + this.$store.state.Users.UserAvatar,
       id: '',
       teste: '',
       idCommentLike: '',
@@ -382,6 +391,23 @@ export default defineComponent({
       this.DeslikeComment = !this.DeslikeComment;
       this.likeComment = false;
       this.idCommentLike = commentId;
+    },
+    async RenderLikes() {
+      // if (
+      //   this.likesComments[0].data.results[0].userLike[0].userId ===
+      //   this.$store.state.Users.UserId
+      // ) {
+      //   this.likeComment = false; this.teste?.[0].data.results?.[0].userLike?.[0].userId
+      // }
+      // const teste = { ...this.likesComments };
+      // await console.log(teste[0].data.results[0].userLike[0].userId);
+      // console.log(this.$store.state.Users.UserId);
+      // if (
+      //   teste?.[0].data.results[0].userLike[0].userId ===
+      //   this.$store.state.Users.UserId
+      // ) {
+      //   this.likeComment = true;
+      // }
     },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
