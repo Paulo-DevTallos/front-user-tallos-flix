@@ -7,8 +7,16 @@
     border-radius: 0;
     font-size: 14px;
 
+    @include breakpoints(550px) {
+        flex-direction: column;
+    }
+
     .poster-container {
         width: 40%;
+        
+        @include breakpoints(550px) {
+            width: 100%;
+        }
 
         .backspace {
             padding-bottom: 20px;
@@ -27,6 +35,10 @@
         
         .poster-wd {
             padding-right: 20px;
+            
+            @include breakpoints(550px) {
+                padding: 0;
+            }
 
             img {
                 width: 100%;
@@ -57,8 +69,9 @@
         text-align: start;
         padding-top: 40px;
 
-        @include breakpoints(650px) {
-            //display: flex;
+        @include breakpoints(550px) {
+            width: 100%;
+            padding-top: 20px;
         }
         
         .card-header {
