@@ -1,13 +1,11 @@
 <template>
   <div class="box-modal wd-modal">
     <Icon icon="eva:close-fill" @click="$emit('closeWindow')"/>
-    <div class="avatar-container pt-4">
-      Você precisa estár logado para {{ action }} !
-    </div>
+    <div class="avatar-container pt-4">{{ action }}</div>
     <footer class="container-btn-modal pt-4">
       <button @click="$emit('closeWindow')">OK</button>
-      <button @click="redirectAction">Logar</button>
-      <button @click="$emit('redirect', id, favoriteIndexOf)">Redirect teste</button>
+      <button v-if="hiddenBtnLogin" @click="redirectAction">Logar</button>
+      <button v-if="hiddenBtnRemoveFav" @click="$emit('redirect', id, favoriteIndexOf)">Remover</button>
     </footer>
   </div>
 </template>
@@ -22,6 +20,8 @@ export default defineComponent({
   emits: ['closeWindow', 'redirect'],
   props: {
     action: String,
+    hiddenBtnLogin: Boolean,
+    hiddenBtnRemoveFav: Boolean,
   },
   data() {
     return {

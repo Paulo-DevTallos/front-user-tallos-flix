@@ -9,14 +9,30 @@
       </div>
       <div class="poster-wd">
         <img
-          :src="this.$store.state.Movies.currentMovie.poster"
+          :src="
+            this.$store.state.Movies.currentMovie.poster
+              ? this.$store.state.Movies.currentMovie.poster
+              : `${this.APP_URL}img/empty-img.png`
+          "
           alt="card-filme"
+          onerror="this.onerror=null;this.src='/img/empty-img.png';"
         />
       </div>
-      <div class="available-field d-flex pt-3 justify-content-center">
-        <span class="pt-1">Avaliação (15)</span>
-        <StarRating class="ms-1" />
+      <div
+        class="available-field d-flex pt-3 justify-content-center"
+        v-if="
+          this.$store.state.Movies.currentMovie.imdb.rating &&
+          this.$store.state.Movies.currentMovie.imdb.votes
+        "
+      >
+        <span class="pt-1"
+          >Avaliação ({{
+            this.$store.state.Movies.currentMovie.imdb.votes
+          }})</span
+        >
+        <StarRating class="ms-1" v-model="this.rating" />
       </div>
+      <div v-else class="pb-3"></div>
     </div>
     <div class="info-movie">
       <header class="card-header">
@@ -37,16 +53,29 @@
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
         <div class="info-generals-movies">
-          <div class="d-flex icon-styles">
+          <div
+            class="d-flex icon-styles"
+            v-if="this.$store.state.Movies.currentMovie.imdb.rating"
+          >
             <Icon icon="la:imdb" />
-            <p>7.8/10</p>
+            <p>{{ this.$store.state.Movies.currentMovie.imdb.rating }}/10</p>
           </div>
-          <div class="d-flex icon-styles">
+          <div
+            class="d-flex icon-styles"
+            v-if="
+              this.$store.state.Movies.currentMovie.tomatoes &&
+              this.$store.state.Movies.currentMovie.tomatoes.viewer &&
+              this.$store.state.Movies.currentMovie.tomatoes.critic
+            "
+          >
             <Icon icon="simple-icons:rottentomatoes" />
-            <p>68%</p>
+            <p>{{ this.TomatoesRating }}%</p>
           </div>
-          <div class="d-flex">
-            <p>Ganhador de 1 oscar, 5 indicações</p>
+          <div
+            class="d-flex"
+            v-if="this.$store.state.Movies.currentMovie.awards.text"
+          >
+            <p>{{ this.$store.state.Movies.currentMovie.awards.text }}</p>
           </div>
         </div>
       </header>
@@ -144,6 +173,7 @@
     />
     <OptionsModal
       v-if="hiddenOptionModal"
+      :hiddenBtnLogin="true"
       @closeWindow="closeOptionModal"
       :action="message"
     />
@@ -156,13 +186,14 @@ import { Icon } from '@iconify/vue';
 import TraillerModal from '@/components/Modals/TraillerModal.vue';
 import StarRating from '../Rating/StarRating.vue';
 import OptionsModal from '../Modals/OptionsModal.vue';
+import { APP_URL } from '@/constants';
 
 export default defineComponent({
   name: 'CardMovie',
   components: { Icon, TraillerModal, StarRating, OptionsModal },
   data() {
     return {
-      message: 'adicionar aos favoritos',
+      message: 'Você precisa está logado para adicionar aos favoritos!',
       routerMovies: '/home/movies',
       routerSeries: '/home/series',
       isLogged: localStorage.getItem('token'),
@@ -172,6 +203,9 @@ export default defineComponent({
       IconStyle: 'carbon:favorite',
       ColorStyle: 'none',
       IsFavoriteBefore: undefined,
+      TomatoesRating: 0,
+      APP_URL: APP_URL,
+      rating: this.$store.state.Movies.currentMovie.imdb.rating / 2,
     };
   },
   methods: {
@@ -268,6 +302,17 @@ export default defineComponent({
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,
     );
+    if (
+      this.$store.state.Movies.currentMovie.tomatoes &&
+      this.$store.state.Movies.currentMovie.tomatoes.viewer &&
+      this.$store.state.Movies.currentMovie.tomatoes.critic
+    ) {
+      this.TomatoesRating =
+        ((this.$store.state.Movies.currentMovie.tomatoes.viewer.rating +
+          this.$store.state.Movies.currentMovie.tomatoes.critic.rating) /
+          2) *
+        10;
+    }
   },
   async created() {
     if ((await this.$store.state.Favorites.Favorite.length) !== 0) {

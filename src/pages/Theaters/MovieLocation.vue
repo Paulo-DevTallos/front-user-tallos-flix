@@ -32,6 +32,7 @@
       />
       <OptionsModal
         v-if="hiddenOptionModal"
+        :hiddenBtnLogin="true"
         @closeWindow="closeOptionModal"
         :action="message"
       />
@@ -67,7 +68,7 @@ export default defineComponent({
   },
   data() {
     return {
-      message: 'adicionar comentário',
+      message: 'Você precisa está logado para realizar está ação!',
       limit: 5,
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
@@ -131,8 +132,11 @@ export default defineComponent({
         id: commentUpdate._id,
         comment: commentUpdate,
       });
-      this.$router.go();
       this.commentsRender();
+    },
+
+    closeReplyComment() {
+      this;
     },
   },
   mounted() {
@@ -140,11 +144,25 @@ export default defineComponent({
       this.commentsRender();
     });
 
+    this.socketService.registerListener(
+      'deleted-comment',
+      'deleted-comment',
+      (IdComment) => {
+        this.deleteComment(IdComment);
+      },
+    );
+
+    this.socketService.registerListener(
+      'update-comment',
+      'update-comment',
+      (commentUpdate) => {
+        this.updateComment(commentUpdate);
+      },
+    );
+
     this.commentsRender();
     console.log(this.$store.state.Likes.getComment);
     console.log(this.userId);
   },
 });
 </script>
-
-<style lang="scss" scoped></style>

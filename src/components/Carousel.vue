@@ -23,6 +23,7 @@
                 v-if="movie.poster ? movie.poster : empty.poster"
                 :src="movie.poster || empty.poster"
                 :alt="movie.title"
+                onerror="this.onerror=null;this.src='/img/empty-img.png';"
                 @click="currentMovie(movie)"
               />
             </router-link>
@@ -47,7 +48,7 @@
               'min'
             }}
           </p>
-          <StarRating class="rating" v-model="movie.imdb.rating" />
+          <StarRating class="rating" :ratingRawValue="movie.imdb.rating" />
         </div>
       </div>
     </slide>

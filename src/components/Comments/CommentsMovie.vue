@@ -331,12 +331,18 @@
 <script lang="ts">
 import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
+import { SocketModule } from '@/services/socket';
 
 export default defineComponent({
   components: {
     Icon,
   },
   emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect', 'saveEdit'],
+  setup() {
+    return {
+      socketService: SocketModule.connect(),
+    };
+  },
   data() {
     return {
       responseComment: false,
@@ -389,26 +395,6 @@ export default defineComponent({
     },
   },
   methods: {
-    //     getLikeValidate(id: string){
-    //       this.apiService.get(passar o id e verificar se existe)
-    //       se n existir: chama a rota ('  http://localhost:4000/likes/ e  passa o corpo no body
-    //       {
-    // 	"commentId": "63641a951c859a0e64f72816",
-    // 	"userLike":[{
-    //   "userId": "635680e2bea91464d376670a",
-    //   "like": true,
-    //   "unlike": false
-    // }]}
-    //           ')
-    //       se existir: ('http://localhost:4000/likes/id do comentario = 63640f2b1c859a0e64f72733  ')
-    //       o corpo:
-    // {
-    //   "userId": "635680e2bea91464d376670a",
-    //   "like": true,
-    //   "unlike": false
-    // }
-
-    //     }
     LikeComment(commentId: string) {
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
@@ -443,7 +429,6 @@ export default defineComponent({
     },
     responseComments() {
       this.$store.dispatch('Comments/createComment', this.userReply);
-      console.log(this.userReply);
       this.userReply.text = '';
       (this.id = ''), (this.responseView = false);
     },
@@ -473,6 +458,12 @@ export default defineComponent({
       this.teste = '';
     },
   },
+
+  mouted() {
+    this.socketService.registerListener('new-comment', 'new-comment', () => {
+      this.responseComments();
+    });
+  }
 });
 </script>
 <style lang="scss" scoped></style>
