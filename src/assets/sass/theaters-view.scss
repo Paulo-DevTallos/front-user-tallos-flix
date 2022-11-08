@@ -2,13 +2,31 @@
     background-color: rgba(255, 255, 255, 0);
     border: none;
 
+    @include breakpoints(575px) {
+        padding: 0 100px;
+    }
+
+    @include breakpoints(575px) {
+        padding: 0 50px;
+    }
+
+    @include mobile {
+        padding: 0 30px;
+    }
     .card-img {
         width: 100%;
         height: 250px;
+
+        @include breakpoints(575px) {
+            width: 100%;
+        }
     }
 
     .card-body {
-        // padding-top: 20%;
+        @include mobile {
+            padding: 0;
+            padding-top: 20px;
+        }
         .card-title {
             color: white;
         }
@@ -28,13 +46,18 @@
         .btn-movie {
             background-color: $primary-color-beige-one;
             border-color: $primary-color-beige-one;
-
+            
+            
             &:hover {
                 background-color: $primary-color-beige-two;
             }
-
+            
             &:active {
                 background-color: $primary-color-beige-three;
+            }
+
+            @include breakpoints(575px) {
+            
             }
         }
 
