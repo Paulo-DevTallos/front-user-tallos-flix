@@ -32,6 +32,7 @@
                 v-if="movie.poster ? movie.poster : empty.poster"
                 :src="movie.poster || empty.poster"
                 :alt="movie.title"
+                onerror="this.onerror=null;this.src='/img/empty-img.png';"
                 @click="currentMovie(movie)"
               />
             </router-link>

@@ -2,7 +2,7 @@
   <div class="card-fluid card-config">
     <div class="poster-container">
       <div class="backspace" v-if="routerMovies ? routerMovies : routerSeries">
-        <router-link :to="routerMovies || routerSeries">
+        <router-link :to="routerMovies || routerSeries" class="return-arrow">
           <Icon icon="bx:arrow-back" />
           Voltar
         </router-link>
