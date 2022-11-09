@@ -25,28 +25,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<!--<b-form-textarea
-  class="comment-text"
-  no-resize
-  :plaintext="
-    (editComment && teste !== reply._id) ||
-    (!editComment && teste !== reply._id)
-  "
-  rows="3"
-  max-rows="8"
-  v-model:model-value="reply.text"
-></b-form-textarea>
-
-<b-form-textarea
-  class="comment-text"
-  no-resize
-  :plaintext="
-    (editComment && teste !== comment._id) ||
-    (!editComment && teste !== comment._id)
-  "
-  rows="3"
-  max-rows="4"
-  v-model:model-value="comment.text"
->
-</b-form-textarea>-->
