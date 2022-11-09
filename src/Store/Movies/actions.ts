@@ -35,19 +35,11 @@ export default {
         commit('GET_MOVIES', res.data);
         console.log(res);
       })
-      .catch((error) => {
-        commit();
-        console.log(error);
-      });
   },
   async getMovieFilterId({ commit }: any, data?: any) {
     await MovieRequests.getMovieFilterId(data)
       .then((res) => {
         commit('GET_MOVIES', res.data);
-      })
-      .catch((error) => {
-        commit();
-        console.log(error);
-      });
+    });
   },
 };

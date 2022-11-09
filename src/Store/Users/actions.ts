@@ -13,7 +13,6 @@ export default {
   async getAllUsers({ commit }: any) {
     await UserRequests.getAllUsers().then((res) => {
       commit('GET_USERS', res.data);
-      console.log(res.data);
     });
   },
   async getUserById({ commit }: any, data: any) {
@@ -24,7 +23,6 @@ export default {
   async getAvatar({ commit }: any, data: any) {
     await UserRequests.getAvatar(data).then((res) => {
       commit('GET_AVATAR', res.data);
-      console.log(res.data);
     });
   },
   async getMe({ commit }: any) {

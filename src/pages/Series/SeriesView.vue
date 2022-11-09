@@ -66,7 +66,6 @@ export default defineComponent({
   },
   watch: {
     ['Movies/getErrorPage'](data) {
-      console.log(data);
       if (data === true) {
         this.hiddenErrorSearch = true;
         this.hiddenCarousel = false;

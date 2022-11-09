@@ -47,7 +47,6 @@ export default defineComponent({
     searchMovie(data: string) {
       if (data !== this.isChanged) {
         this.isChanged = data;
-        console.log(this.isChanged);
         setTimeout(() => {
           this.movies_name = data;
           if (this.isChanged === data) {
@@ -63,7 +62,6 @@ export default defineComponent({
 
   watch: {
     ['Movies/getErrorPage'](data) {
-      console.log(data);
       if (data === true) {
         this.hiddenErrorSearch = true;
         this.hiddenCarousel = false;

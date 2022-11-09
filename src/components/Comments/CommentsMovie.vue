@@ -458,6 +458,7 @@ export default defineComponent({
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
+  
       if (this.likeComment === true) {
         this.PostLike(commentId);
       } else if (this.likeComment === false) {

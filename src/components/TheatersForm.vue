@@ -48,7 +48,6 @@ export default defineComponent({
       }, console.log);
     },
     SearchCity() {
-      console.log(this.theaterCity);
       this.$store.dispatch('Theaters/getTheatersByCity', this.theaterCity);
     },
   },

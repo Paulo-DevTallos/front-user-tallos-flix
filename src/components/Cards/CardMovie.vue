@@ -292,7 +292,6 @@ export default defineComponent({
     GetPeople(data: string, Field: string) {
       this.$store.state.Favorites.PeopleName = data;
       this.$store.dispatch('Peoples/getPeopleByName', data);
-      console.log(Field);
       this.$store.dispatch('Movies/getMovieFilter', {
         field: Field,
         search: data,
@@ -300,7 +299,6 @@ export default defineComponent({
     },
   },
   mounted() {
-    console.log(this.$store.state.Movies.currentMovie.type);
     this.$store.state.Movies.IsMovieGenre = false;
     this.$store.dispatch(
       'Favorites/getFavoriteById',
