@@ -1,10 +1,12 @@
 .carousel__slide {
     overflow: hidden;
-
+    
     .carousel-card{
         width: 240px;
         height: 330px;
-        margin: 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+
         
         .image-container {
             width: 100%;
@@ -33,12 +35,12 @@
                 @include breakpoints(1100px) {
                     width: 280px;
                     margin: 0 5px;
-                    height: 280px;
                 }
                 
                 @include breakpoints(960px) {
                     margin: 0 5px;
                     width: 250px;
+                    text-align: center;
                 }
             
                 @include breakpoints(842px) {
@@ -97,7 +99,7 @@
     position: absolute;
     right: 100%;
 
-    @include breakpoints(750px) {
+    @include breakpoints(1265px) {
         display: none;
     }
 }
@@ -106,7 +108,7 @@
     position: absolute;
     left: 100%;
 
-    @include breakpoints(750px) {
+    @include breakpoints(1265px) {
         display: none;
     }
 }

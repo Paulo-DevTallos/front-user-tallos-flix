@@ -458,7 +458,6 @@ export default defineComponent({
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
-      console.log(this.likeComment);
       if (this.likeComment === true) {
         this.PostLike(commentId);
       } else if (this.likeComment === false) {
@@ -479,7 +478,6 @@ export default defineComponent({
     RemoveLike(commentId: string) {
       this.likeComment = false;
       this.DeslikeComment = false;
-      console.log('Remover like');
       (this.userlike.commentId = commentId),
         (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
       (this.userlike.userLike[0].like = false),
@@ -544,7 +542,6 @@ export default defineComponent({
     editComments(commentId: string) {
       this.teste = commentId;
       this.editComment = false;
-      console.log(this.editComment);
     },
     cancelEdit() {
       this.editComment = true;
@@ -556,6 +553,14 @@ export default defineComponent({
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.responseComments();
     });
+
+    this.socketService.registerListener(
+      'new-liked',
+      'new-liked',
+      (commentId) => {
+        this.LikeComment(commentId);
+      },
+    );
   },
 });
 </script>

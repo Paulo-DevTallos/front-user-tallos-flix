@@ -79,7 +79,7 @@
             "
           >
             <Icon icon="simple-icons:rottentomatoes" />
-            <p>{{ this.TomatoesRating }}%</p>
+            <p>{{ this.TomatoesRating.toFixed(2) }}%</p>
           </div>
           <div
             class="d-flex"

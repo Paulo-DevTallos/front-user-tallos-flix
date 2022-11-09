@@ -99,6 +99,7 @@ export default defineComponent({
           limit: this.limit,
         },
       });
+
       // for (
       //   let index = 0;
       //   index < this.$store.state.Comments.Comments.commentsMovie.length;
@@ -116,6 +117,8 @@ export default defineComponent({
       this.$store.dispatch('Comments/createComment', userComent);
 
       const cleanInputComment = (userComent.text = '');
+
+      this.commentsRender();
 
       return cleanInputComment;
     },
@@ -162,7 +165,6 @@ export default defineComponent({
 
     this.commentsRender();
     console.log(this.$store.state.Likes.getComment);
-    console.log(this.userId);
   },
 });
 </script>
