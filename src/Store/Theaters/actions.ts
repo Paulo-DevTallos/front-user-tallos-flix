@@ -25,7 +25,6 @@ export default {
     });
   },
   async getTheatersByCity({ commit }: any, data: any) {
-    console.log(data);
     await TheaterRequests.getTheatersByCity(data).then((res) => {
       commit('GET_THEATERS_LOCATION', res.data);
     });

@@ -92,8 +92,8 @@ export default defineComponent({
     closeOptionModal() {
       this.hiddenOptionModal = false;
     },
-    async commentsRender() {
-      await this.$store.dispatch('Comments/getByMovieId', {
+    commentsRender() {
+      this.$store.dispatch('Comments/getByMovieId', {
         movie: this.movie,
         params: {
           limit: this.limit,
@@ -113,7 +113,6 @@ export default defineComponent({
       // }
     },
     commentPost(userComent: Object) {
-      console.log(userComent);
       this.$store.dispatch('Comments/createComment', userComent);
 
       const cleanInputComment = (userComent.text = '');
@@ -164,7 +163,6 @@ export default defineComponent({
     );
 
     this.commentsRender();
-    console.log(this.$store.state.Likes.getComment);
   },
 });
 </script>

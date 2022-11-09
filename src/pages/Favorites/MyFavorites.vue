@@ -194,7 +194,6 @@ export default defineComponent({
   },
   methods: {
     callOptionsModal(id: string) {
-      console.log(id);
       this.hiddenOptionModal = true;
 
       this.id = id;
@@ -203,7 +202,6 @@ export default defineComponent({
       this.hiddenOptionModal = false;
     },
     async deleteFavorite(data: string, FavoriteIndex: any) {
-      console.log(data, FavoriteIndex);
       this.favorites.splice(FavoriteIndex, 1);
       await this.$store.dispatch('Favorites/deleteFavorite', {
         id: this.$store.state.Users.UserId,
