@@ -1,108 +1,109 @@
 <template>
   <div>
     <!-- comentarios principais -->
-    <div v-for="comment in renderComments.commentsMovie" :key="comment.id">
+    <div class="comments-container" v-for="comment in renderComments.commentsMovie" :key="comment.id">
       <b-row class="pb-4" v-if="!comment.isReply">
-        <b-col class="d-flex justify-content-end align-items-center" cols="2"
-          ><b-avatar
+        <div class="avatar-container">
+          <img
             :src="
               '/img/' +
               (comment.userAvatar !== undefined
                 ? comment.userAvatar
                 : 'user-default.png')
             "
-            size="5rem"
-          ></b-avatar
-        ></b-col>
-        <b-col cols="9" class="p-0">
-          <h5 class="text-color">{{ comment.name }}</h5>
-          <b-form-textarea
-            class="comment-text"
-            no-resize
-            :plaintext="
-              (editComment && teste !== comment._id) ||
-              (!editComment && teste !== comment._id)
-            "
-            rows="3"
-            max-rows="4"
-            v-model:model-value="comment.text"
-          ></b-form-textarea>
-          <div class="pt-3 d-flex justify-content-between">
-            <h6 class="text-color">
-              {{
-                new Date(comment.date).toLocaleString().slice(0, 10) +
-                '\xa0' +
-                new Date(comment.date).toLocaleString().slice(10, 16)
-              }}
-            </h6>
-            <div class="d-flex" v-if="btnViewsComments && teste != comment._id">
-              <div
-                class="items-color comp-icons d-flex justify-content-between pe-2"
-              >
-                <div v-for="likes in likesComments" :key="likes._id">
-                  <p v-if="likes.data.id === comment._id">
-                    <!--  comparar aq icon -->
-                    {{ likes.data.likes }}
-                  </p>
+          />
+        </div>
+        <div class="content-fields-comments">
+          <b-col class="p-0">
+            <h5 class="text-color">{{ comment.name }}</h5>
+            <b-form-textarea
+              class="comment-text"
+              no-resize
+              :plaintext="
+                (editComment && teste !== comment._id) ||
+                (!editComment && teste !== comment._id)
+              "
+              rows="3"
+              max-rows="4"
+              v-model:model-value="comment.text"
+            ></b-form-textarea>
+            <div class="pt-3 d-flex justify-content-between info-comments">
+              <h6 class="text-color date-time">
+                {{
+                  new Date(comment.date).toLocaleString().slice(0, 10) +
+                  '\xa0' +
+                  new Date(comment.date).toLocaleString().slice(11, 17)
+                }}
+              </h6>
+              <div class="d-flex info-comments-contents" v-if="btnViewsComments && teste != comment._id">
+                <div
+                  class="items-color comp-icons d-flex justify-content-between pe-2"
+                >
+                  <div v-for="likes in likesComments" :key="likes._id">
+                    <p v-if="likes.data.id === comment._id">
+                      <!--  comparar aq icon -->
+                      {{ likes.data.likes }}
+                    </p>
+                  </div>
+                  <Icon
+                    :icon="
+                      idCommentLike === comment._id && likeComment
+                        ? 'carbon:thumbs-up-filled'
+                        : 'carbon:thumbs-up'
+                    "
+                    class="like-icon"
+                    @click="LikeComment(comment._id)"
+                  />
+                  <Icon
+                    :icon="
+                      DeslikeComment &&
+                      idCommentLike === comment._id &&
+                      DeslikeComment
+                        ? 'carbon:thumbs-down-filled'
+                        : 'carbon:thumbs-down'
+                    "
+                    class="like-icon"
+                    @click="UnlikeComment(comment._id)"
+                  />
                 </div>
-                <Icon
-                  :icon="
-                    idCommentLike === comment._id && likeComment
-                      ? 'carbon:thumbs-up-filled'
-                      : 'carbon:thumbs-up'
-                  "
-                  class="like-icon"
-                  @click="LikeComment(comment._id)"
-                />
-                <Icon
-                  :icon="
-                    DeslikeComment &&
-                    idCommentLike === comment._id &&
-                    DeslikeComment
-                      ? 'carbon:thumbs-down-filled'
-                      : 'carbon:thumbs-down'
-                  "
-                  class="like-icon"
-                  @click="UnlikeComment(comment._id)"
-                />
+                <div class="d-flex">
+                  <h6
+                    class="text-response pe-2"
+                    @click="ViewResponses(comment._id)"
+                  >
+                    {{
+                      responseComment && id === comment._id && responseComment
+                        ? 'Ocultar respostas'
+                        : 'Ver respostas'
+                    }}
+                  </h6>
+                  <h6
+                    class="text-response"
+                    @click.prevent="getcomment(comment._id)"
+                  >
+                    {{
+                      responseView && id === comment._id && responseView
+                        ? 'Ocultar'
+                        : 'Responder'
+                    }}
+                  </h6>
+                </div>
               </div>
-              <div class="d-flex">
-                <h6
-                  class="text-response pe-2"
-                  @click="ViewResponses(comment._id)"
+              <div class="btnsEdit" v-if="!editComment && teste === comment._id">
+                <b-button block squared @click.prevent="cancelEdit"
+                  >Cancelar</b-button
                 >
-                  {{
-                    responseComment && id === comment._id && responseComment
-                      ? 'Ocultar respostas'
-                      : 'Ver respostas'
-                  }}
-                </h6>
-                <h6
-                  class="text-response"
-                  @click.prevent="getcomment(comment._id)"
+                <b-button
+                  block
+                  squared
+                  class="saveBE"
+                  @click="$emit('saveEdit', comment)"
+                  >Salvar</b-button
                 >
-                  {{
-                    responseView && id === comment._id && responseView
-                      ? 'Ocultar'
-                      : 'Responder'
-                  }}
-                </h6>
               </div>
             </div>
-            <div class="btnsEdit" v-if="!editComment && teste === comment._id">
-              <b-button block squared @click.prevent="cancelEdit"
-                >Cancelar</b-button
-              >
-              <b-button
-                block
-                squared
-                class="saveBE"
-                @click="$emit('saveEdit', comment)"
-                >Salvar</b-button
-              >
-            </div>
-          </div>
-        </b-col>
+          </b-col>
+        </div>
         <b-col
           class="p-0 m-0 text-color"
           v-if="comment.email === this.$store.state.Users.UserEmail"

@@ -1,5 +1,14 @@
 .theaters-form-container {
-  width: 90%;
+  width: 91%;
+  padding-left: 45px;
+
+  @include breakpoints(700px) {
+    width: 100%;
+  }
+
+  @include mobile {
+    padding-left: 0;
+  }
   
   .form-theater-title {
     color: $primary-color-black-seven;

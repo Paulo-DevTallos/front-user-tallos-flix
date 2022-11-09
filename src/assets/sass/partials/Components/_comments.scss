@@ -1,3 +1,51 @@
+.comments-container {  
+    .avatar-container {
+        width: 15%;
+        
+        @include breakpoints(1145px) {
+            width: 100px;
+            height: 100px;
+        }
+
+        @include breakpoints(590px) {
+            width: 20%;
+        }
+        
+        img {
+            border-radius: 100%;
+            width: 80px;
+
+            @include breakpoints(590px) {
+                width: 70px;
+            }
+
+            @include mobile {
+                width: 50px;
+            }
+        }
+    }
+
+    .content-fields-comments {
+        width: 75%;
+        
+        @include breakpoints(1075px) {
+            width: 73%;
+        }
+
+        @include breakpoints(840px) {
+            font-size: 14px;
+            width: 70%;
+        }
+
+        @include breakpoints(590px) {
+            width: 65%;
+        }
+
+        @include mobile {
+            width: 60%;
+        }
+    }
+}
 .text-color {
     color: white;
 }
@@ -29,6 +77,14 @@
     &:focus {
         color: $orange-color-two;
     }
+
+    @include breakpoints(800px) {
+        font-size: 14px;
+    }
+
+    @include mobile {
+        font-size: 12px;
+    }
 }
 
 .viewmore {
@@ -47,9 +103,42 @@
     padding-left: 35px;
     padding-right: 35px;
     border-radius: 5px;
+    width: 100%;
 
     &:focus {
         background-color: $primary-color-bg-comment;
+    }
+
+    @include breakpoints(1125px) {
+        width: 100%;
+    } 
+}
+
+.info-comments {
+    display: flex;
+    @include breakpoints(840px) {
+        flex-direction: column;
+    }
+    
+    .date-time {
+        @include breakpoints(840px) {
+            width: 100%;
+        }
+
+        @include mobile {
+            font-size: 12px;   
+        }
+
+    }
+
+    .info-comments-content {
+        @include breakpoints(840px) {
+            width: 100%;
+        }
+
+        @include mobile {
+            font-size: 12px;   
+        }
     }
 }
 
@@ -77,8 +166,9 @@
     width: 90%;
 }
 
+//btn-menu hamburguer
 .actions {
-    height: 87%;
+    height: 50%;
 
     .icon-menu {
         font-size: 30px;

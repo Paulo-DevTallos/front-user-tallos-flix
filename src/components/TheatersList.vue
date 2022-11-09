@@ -1,6 +1,6 @@
 <template>
   <div class="theaters-form-container">
-    <p class="plot-title mt-4">Lista de cinemas perto de você</p>
+    <p class="plot-title ps-5 mt-4">Lista de cinemas perto de você</p>
     <hr class="orange-line-separator" />
     <ul
       class="theaters-list d-flex flex-column"
