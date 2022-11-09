@@ -445,6 +445,8 @@ export default defineComponent({
       (this.userlike.userLike[0].like = true),
         (this.userlike.userLike[0].unlike = false),
         this.$store.dispatch('createLikeComment', this.userlike);
+
+      console.log(commentId)
     },
     RemoveLike(commentId: string) {
       this.likeComment = false;
@@ -460,23 +462,6 @@ export default defineComponent({
       this.DeslikeComment = !this.DeslikeComment;
       this.likeComment = false;
       this.idCommentLike = commentId;
-    },
-    async RenderLikes() {
-      // if (
-      //   this.likesComments[0].data.results[0].userLike[0].userId ===
-      //   this.$store.state.Users.UserId
-      // ) {
-      //   this.likeComment = false; this.teste?.[0].data.results?.[0].userLike?.[0].userId
-      // }
-      // const teste = { ...this.likesComments };
-      // await console.log(teste[0].data.results[0].userLike[0].userId);
-      // console.log(this.$store.state.Users.UserId);
-      // if (
-      //   teste?.[0].data.results[0].userLike[0].userId ===
-      //   this.$store.state.Users.UserId
-      // ) {
-      //   this.likeComment = true;
-      // }
     },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
@@ -519,6 +504,15 @@ export default defineComponent({
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.responseComments();
     });
+
+    this.socketService.registerListener(
+      'new-liked',
+      'new-liked',
+      (commentId) => {
+        console.log(commentId);
+        this.LikeComment(commentId);
+      },
+    );
   },
 });
 </script>
