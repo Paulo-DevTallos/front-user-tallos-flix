@@ -185,9 +185,36 @@
                     class="items-color comp-icons d-flex justify-content-between pe-2"
                     v-if="btnViewsComments && teste != reply._id"
                   >
-                    <p>5</p>
-                    <Icon icon="carbon:thumbs-up" class="like-icon" />
-                    <Icon icon="carbon:thumbs-down" class="like-icon" />
+                    <div>
+                      <p>
+                        {{ reply.like }}
+                      </p>
+                    </div>
+                    <Icon
+                      :icon="
+                        idCommentLike === reply._id && likeComment
+                          ? 'carbon:thumbs-up-filled'
+                          : 'carbon:thumbs-up'
+                      "
+                      class="like-icon"
+                      @click="LikeComment(reply._id)"
+                    />
+                    <div>
+                      <p>
+                        {{ reply.deslike }}
+                      </p>
+                    </div>
+                    <Icon
+                      :icon="
+                        DeslikeComment &&
+                        idCommentLike === reply._id &&
+                        DeslikeComment
+                          ? 'carbon:thumbs-down-filled'
+                          : 'carbon:thumbs-down'
+                      "
+                      class="like-icon"
+                      @click="UnlikeComment(reply._id)"
+                    />
                   </div>
                   <div
                     class="btnsEditR"
@@ -426,6 +453,7 @@ export default defineComponent({
     },
   },
   methods: {
+    // tratamento para botao like
     LikeComment(commentId: string) {
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
@@ -437,6 +465,7 @@ export default defineComponent({
         this.RemoveLike(commentId);
       }
     },
+    // adicionar like
     PostLike(commentId: string) {
       this.likeComment = true;
       this.DeslikeComment = false;
@@ -446,6 +475,7 @@ export default defineComponent({
         (this.userlike.userLike[0].unlike = false),
         this.$store.dispatch('createLikeComment', this.userlike);
     },
+    // remover like
     RemoveLike(commentId: string) {
       this.likeComment = false;
       this.DeslikeComment = false;
@@ -456,27 +486,34 @@ export default defineComponent({
         (this.userlike.userLike[0].unlike = false),
         this.$store.dispatch('createLikeComment', this.userlike);
     },
+    // tratamento para botao deslike
     UnlikeComment(commentId: string) {
       this.DeslikeComment = !this.DeslikeComment;
       this.likeComment = false;
       this.idCommentLike = commentId;
+      if (this.DeslikeComment === true) {
+        this.PostDeslike(commentId);
+      } else if (this.DeslikeComment === false) {
+        this.RemoveDeslike(commentId);
+      }
     },
-    async RenderLikes() {
-      // if (
-      //   this.likesComments[0].data.results[0].userLike[0].userId ===
-      //   this.$store.state.Users.UserId
-      // ) {
-      //   this.likeComment = false; this.teste?.[0].data.results?.[0].userLike?.[0].userId
-      // }
-      // const teste = { ...this.likesComments };
-      // await console.log(teste[0].data.results[0].userLike[0].userId);
-      // console.log(this.$store.state.Users.UserId);
-      // if (
-      //   teste?.[0].data.results[0].userLike[0].userId ===
-      //   this.$store.state.Users.UserId
-      // ) {
-      //   this.likeComment = true;
-      // }
+    PostDeslike(commentId: string) {
+      this.DeslikeComment = true;
+      this.likeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = true),
+        this.$store.dispatch('createLikeComment', this.userlike);
+    },
+    RemoveDeslike(commentId: string) {
+      this.DeslikeComment = false;
+      this.likeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
     },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
