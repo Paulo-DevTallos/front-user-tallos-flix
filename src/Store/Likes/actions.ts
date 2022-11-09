@@ -9,4 +9,9 @@ export default {
       },
     );
   },
+  async createLikeComment({ commit }: any, userLike: Object) {
+    await LikesRequests.createLikeComment(userLike).then((res) => {
+      console.log(res);
+    });
+  },
 };

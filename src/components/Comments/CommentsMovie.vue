@@ -1,7 +1,11 @@
 <template>
   <div>
     <!-- comentarios principais -->
-    <div class="comments-container" v-for="comment in renderComments.commentsMovie" :key="comment.id">
+    <div
+      class="comments-container"
+      v-for="comment in renderComments.commentsMovie"
+      :key="comment.id"
+    >
       <b-row class="pb-4" v-if="!comment.isReply">
         <div class="avatar-container">
           <img
@@ -35,14 +39,16 @@
                   new Date(comment.date).toLocaleString().slice(11, 17)
                 }}
               </h6>
-              <div class="d-flex info-comments-contents" v-if="btnViewsComments && teste != comment._id">
+              <div
+                class="d-flex info-comments-contents"
+                v-if="btnViewsComments && teste != comment._id"
+              >
                 <div
                   class="items-color comp-icons d-flex justify-content-between pe-2"
                 >
-                  <div v-for="likes in likesComments" :key="likes._id">
-                    <p v-if="likes.data.id === comment._id">
-                      <!--  comparar aq icon -->
-                      {{ likes.data.likes }}
+                  <div>
+                    <p>
+                      {{ comment.like }}
                     </p>
                   </div>
                   <Icon
@@ -54,6 +60,11 @@
                     class="like-icon"
                     @click="LikeComment(comment._id)"
                   />
+                  <div>
+                    <p>
+                      {{ comment.deslike }}
+                    </p>
+                  </div>
                   <Icon
                     :icon="
                       DeslikeComment &&
@@ -89,7 +100,10 @@
                   </h6>
                 </div>
               </div>
-              <div class="btnsEdit" v-if="!editComment && teste === comment._id">
+              <div
+                class="btnsEdit"
+                v-if="!editComment && teste === comment._id"
+              >
                 <b-button block squared @click.prevent="cancelEdit"
                   >Cancelar</b-button
                 >
@@ -377,6 +391,16 @@ export default defineComponent({
         commentReply: '',
         date: new Date(),
       },
+      userlike: {
+        commentId: '',
+        userLike: [
+          {
+            userId: '',
+            like: true,
+            unlike: false,
+          },
+        ],
+      },
       Noavatar: '/img/user-default.png',
       avatar: '/img/' + this.$store.state.Users.UserAvatar,
       id: '',
@@ -406,6 +430,31 @@ export default defineComponent({
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
+      console.log(this.likeComment);
+      if (this.likeComment === true) {
+        this.PostLike(commentId);
+      } else if (this.likeComment === false) {
+        this.RemoveLike(commentId);
+      }
+    },
+    PostLike(commentId: string) {
+      this.likeComment = true;
+      this.DeslikeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = true),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
+    },
+    RemoveLike(commentId: string) {
+      this.likeComment = false;
+      this.DeslikeComment = false;
+      console.log('Remover like');
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
     },
     UnlikeComment(commentId: string) {
       this.DeslikeComment = !this.DeslikeComment;
@@ -466,7 +515,7 @@ export default defineComponent({
     },
   },
 
-  mouted() {
+  mounted() {
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.responseComments();
     });
