@@ -184,7 +184,6 @@ import { Icon } from '@iconify/vue';
 import TraillerModal from '@/components/Modals/TraillerModal.vue';
 import StarRating from '../Rating/StarRating.vue';
 import OptionsModal from '../Modals/OptionsModal.vue';
-import { APP_URL } from '@/constants';
 
 export default defineComponent({
   name: 'CardMovie',
@@ -202,7 +201,7 @@ export default defineComponent({
       ColorStyle: 'none',
       IsFavoriteBefore: undefined,
       TomatoesRating: 0,
-      APP_URL: APP_URL,
+      APP_URL: import.meta.env.VITE_APP_URL,
       rating: this.$store.state.Movies.currentMovie.imdb.rating / 2,
     };
   },

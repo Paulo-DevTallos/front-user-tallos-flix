@@ -32,7 +32,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
-import { APP_URL } from '@/constants';
 
 export default defineComponent({
   name: 'AvatarModal',
@@ -40,7 +39,7 @@ export default defineComponent({
   emits: ['closeWindow'],
   data() {
     return {
-      field: APP_URL + 'img',
+      field: import.meta.env.VITE_APP_URL + 'img',
       selectedAvatar: '',
     };
   },
