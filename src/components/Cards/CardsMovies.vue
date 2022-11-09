@@ -25,7 +25,7 @@
                 <b-card-title v-if="movie.title ? movie.title : vazio.title">{{
                   movie.title || vazio.title
                 }}</b-card-title>
-                <b-card-subtitle
+                <b-card-subtitle v-if="movie.runtime"
                   >Duração:
                   {{
                     Math.trunc(movie.runtime / 60) +

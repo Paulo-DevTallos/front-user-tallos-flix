@@ -40,7 +40,7 @@
         </div>
         <div class="info-movies" v-if="hiddenMovieInfo">
           <h3>{{ movie.title }}</h3>
-          <p>
+          <p v-if="movie.runtime">
             Duração:
             {{
               Math.trunc(movie.runtime / 60) +
@@ -90,6 +90,7 @@ export default defineComponent({
     hiddenMovieInfo: { type: Boolean },
     RenderSeries: { type: Boolean },
     People: { type: Boolean },
+    IsRendered: {type: Boolean}
   },
   data() {
     return {
@@ -107,7 +108,7 @@ export default defineComponent({
     },
   },
   async mounted() {
-    if (this.People === false) {
+    if (this.People === false && this.IsRendered === false) {
       if (this.$store.state.Movies.IsMovieGenre == false) {
         if (this.RenderSeries === true) {
           await this.$store.dispatch('Movies/getSeries');

@@ -1,13 +1,25 @@
 .page-container {
-    // text-align: center;
     padding: 50px 100px;
 
-    @include tablet {
+    @include desktop {
+        padding: 50px 25px;
+    }
+
+    @include breakpoints(650px) {
         padding: 50px 0;
     }
 
     .comments-app {
         width: 91%;
+        padding-left: 45px;
+
+        @include breakpoints(700px) {
+            width: 100%;
+        }
+
+        @include mobile {
+            padding-left: 0;
+        }
     }
 
     .comments-comp {
