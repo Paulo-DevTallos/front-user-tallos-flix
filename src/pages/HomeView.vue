@@ -12,7 +12,7 @@
       v-if="hiddenCarousel"
     >
       <h4>Nos Cinemas</h4>
-      <Carousel :hiddenMovieInfo="false" />
+      <Carousel :hiddenMovieInfo="false" :IsRendered="this.hiddenCarousel" />
     </div>
     <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
   </div>

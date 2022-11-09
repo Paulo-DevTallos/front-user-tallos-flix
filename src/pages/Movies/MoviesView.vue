@@ -14,7 +14,11 @@
         <span id="genre-title">Gênero: </span>
         <span id="tagGenre">{{ this.$store.state.Movies.actualTag }}</span>
       </div>
-      <Carousel v-if="hiddenCarousel" :hiddenMovieInfo="true" />
+      <Carousel
+        v-if="hiddenCarousel"
+        :IsRendered="hiddenCarousel"
+        :hiddenMovieInfo="true"
+      />
       <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
     </div>
   </div>
