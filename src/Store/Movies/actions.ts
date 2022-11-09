@@ -1,54 +1,28 @@
 import MovieRequests from '@/services/axios/MovieRequests';
 export default {
   async createMovie({ commit }: any, data: any) {
-    await MovieRequests.createMovies(data.Movies)
-      .then((res) => {
-        commit();
-      })
-      .catch((error) => {
-        commit();
-      });
+    await MovieRequests.createMovies(data.Movies);
   },
   async updateMovie({ commit }: any, data: any) {
-    await MovieRequests.updateMovies(data.id, data.Movies)
-      .then((res) => {
-        commit();
-      })
-      .catch((error) => {
-        commit();
-      });
+    await MovieRequests.updateMovies(data.id, data.Movies);
   },
   async deleteMovie({ commit }: any, data: any) {
-    await MovieRequests.deleteMovies(data.id)
-      .then((res) => {
-        commit();
-      })
-      .catch((error) => {
-        commit();
-      });
+    await MovieRequests.deleteMovies(data.id);
   },
   async getAllMovies({ commit }: any) {
-    await MovieRequests.getAllMovies()
-      .then((res) => {
-        commit('GET_MOVIES', res.data);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await MovieRequests.getAllMovies().then((res) => {
+      commit('GET_MOVIES', res.data);
+    });
   },
   async getSeries({ commit }: any, data?: any) {
-    await MovieRequests.getSeries(data)
-      .then((res) => {
-        if (res.data.content.length === 0) {
-          commit('setErrorPage', true);
-        } else {
-          commit('setErrorPage', false);
-        }
-        commit('GET_SERIES', res.data);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await MovieRequests.getSeries(data).then((res) => {
+      if (res.data.content.length === 0) {
+        commit('setErrorPage', true);
+      } else {
+        commit('setErrorPage', false);
+      }
+      commit('GET_SERIES', res.data);
+    });
   },
   async getMovieFilter({ commit }: any, data?: any) {
     await MovieRequests.getMovieFilter(data)
@@ -59,7 +33,7 @@ export default {
           commit('setErrorPage', false);
         }
         commit('GET_MOVIES', res.data);
-        console.log(res)
+        console.log(res);
       })
       .catch((error) => {
         commit();

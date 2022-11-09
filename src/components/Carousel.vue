@@ -40,7 +40,7 @@
         </div>
         <div class="info-movies" v-if="hiddenMovieInfo">
           <h3>{{ movie.title }}</h3>
-          <p>
+          <p v-if="movie.runtime">
             Duração:
             {{
               Math.trunc(movie.runtime / 60) +
@@ -75,7 +75,6 @@ import { defineComponent } from 'vue';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import StarRating from './Rating/StarRating.vue';
-import { APP_URL } from '@/constants';
 import { Icon } from '@iconify/vue';
 
 export default defineComponent({
@@ -91,10 +90,11 @@ export default defineComponent({
     hiddenMovieInfo: { type: Boolean },
     RenderSeries: { type: Boolean },
     People: { type: Boolean },
+    IsRendered: {type: Boolean}
   },
   data() {
     return {
-      image_path: APP_URL + 'img/',
+      image_path: import.meta.env.VITE_APP_URL + 'img/',
       movies: [],
       empty: {
         poster: '/img/empty-img.png',
@@ -108,7 +108,7 @@ export default defineComponent({
     },
   },
   async mounted() {
-    if (this.People === false) {
+    if (this.People === false && this.IsRendered === false) {
       if (this.$store.state.Movies.IsMovieGenre == false) {
         if (this.RenderSeries === true) {
           await this.$store.dispatch('Movies/getSeries');

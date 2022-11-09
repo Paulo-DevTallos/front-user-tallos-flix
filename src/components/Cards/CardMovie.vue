@@ -26,7 +26,11 @@
         "
       >
         <div class="exibition pt-1">
-          <span>Avaliação ({{this.$store.state.Movies.currentMovie.imdb.votes}})</span>
+          <span
+            >Avaliação ({{
+              this.$store.state.Movies.currentMovie.imdb.votes
+            }})</span
+          >
           <StarRating class="responsive ms-1" v-model="this.rating" />
         </div>
       </div>
@@ -45,7 +49,15 @@
             }}</span>
           </div>
         </div>
-        <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
+        <p v-if="this.$store.state.Movies.currentMovie.runtime">
+          Duração:
+          {{
+            Math.trunc(this.$store.state.Movies.currentMovie.runtime / 60) +
+            'h' +
+            (this.$store.state.Movies.currentMovie.runtime % 60) +
+            'min'
+          }}
+        </p>
         <div class="icon-styles" @click="redirectModal">
           <Icon :icon="IconStyle" :color="ColorStyle" id="favoriteIcon" />
           <p id="tag-favorite">Salvar na minha lista</p>
@@ -184,7 +196,6 @@ import { Icon } from '@iconify/vue';
 import TraillerModal from '@/components/Modals/TraillerModal.vue';
 import StarRating from '../Rating/StarRating.vue';
 import OptionsModal from '../Modals/OptionsModal.vue';
-import { APP_URL } from '@/constants';
 
 export default defineComponent({
   name: 'CardMovie',
@@ -202,7 +213,7 @@ export default defineComponent({
       ColorStyle: 'none',
       IsFavoriteBefore: undefined,
       TomatoesRating: 0,
-      APP_URL: APP_URL,
+      APP_URL: import.meta.env.VITE_APP_URL,
       rating: this.$store.state.Movies.currentMovie.imdb.rating / 2,
     };
   },
@@ -290,11 +301,6 @@ export default defineComponent({
   },
   mounted() {
     console.log(this.$store.state.Movies.currentMovie.type);
-    this.$store.state.Movies.currentMovie.runtime =
-      Math.trunc(this.$store.state.Movies.currentMovie.runtime / 60) +
-      'h' +
-      (this.$store.state.Movies.currentMovie.runtime % 60) +
-      'min';
     this.$store.state.Movies.IsMovieGenre = false;
     this.$store.dispatch(
       'Favorites/getFavoriteById',
