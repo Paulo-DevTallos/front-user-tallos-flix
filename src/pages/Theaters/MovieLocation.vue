@@ -8,11 +8,11 @@
     <div class="map-location-field">
       <MapView />
     </div>
-    <div class="ps-5">
+    <div>
       <TheatersList />
     </div>
-    <div class="ps-5 comments-app">
-      <p class="plot-title mt-4">Comentários</p>
+    <div class="comments-app">
+      <p class="ps-5 plot-title mt-4">Comentários</p>
       <hr class="orange-line-separator" />
       <div
         class="p-4 d-flex justify-content-center plot-title"
