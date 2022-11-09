@@ -23,7 +23,11 @@
     </b-collapse>
     <nav>
       <b-navbar-nav @click="redirect" class="type-cursor">
-        <div class="d-flex align-items-center" @click="callDropDown">
+        <div
+          class="d-flex align-items-center"
+          @click="callDropDown"
+          ref="myref"
+        >
           <div class="m-2 name-user" v-if="UserLogged ? UserLogged : NoUser">
             {{ UserLogged || NoUser }}
           </div>
@@ -104,6 +108,14 @@ export default defineComponent({
     ['Users/getNewAvatar'](data) {
       this.avatar = '/img/' + data;
     },
+  },
+  mounted() {
+    const self: any = this.$refs.myref;
+    document.addEventListener('click', (e) => {
+      if (self !== undefined && self.contains(e.target) === false) {
+        this.hiddenDropDown = false;
+      }
+    });
   },
 });
 </script>
