@@ -16,7 +16,7 @@
       </div>
       <Carousel
         v-if="hiddenCarousel"
-        :IsRendered="hiddenCarousel"
+        :IsRendered="render"
         :hiddenMovieInfo="true"
       />
       <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
@@ -41,6 +41,7 @@ export default defineComponent({
       isChanged: '',
       hiddenCarousel: true,
       hiddenErrorSearch: false,
+      render: false,
     };
   },
   methods: {
@@ -66,9 +67,11 @@ export default defineComponent({
       if (data === true) {
         this.hiddenErrorSearch = true;
         this.hiddenCarousel = false;
+        this.render = false;
       } else {
         this.hiddenErrorSearch = false;
         this.hiddenCarousel = true;
+        this.render = true;
       }
     },
   },

@@ -19,7 +19,7 @@
       </div>
       <Carousel
         :hiddenMovieInfo="true"
-        :IsRendered="this.hiddenCarousel"
+        :IsRendered="render"
         :RenderSeries="true"
       />
     </div>
@@ -44,6 +44,7 @@ export default defineComponent({
       movies_name: '',
       hiddenCarousel: true,
       hiddenErrorSearch: false,
+      render: false,
     };
   },
 
@@ -69,9 +70,11 @@ export default defineComponent({
       if (data === true) {
         this.hiddenErrorSearch = true;
         this.hiddenCarousel = false;
+        this.render = false;
       } else {
         this.hiddenErrorSearch = false;
         this.hiddenCarousel = true;
+        this.render = true;
       }
     },
   },
