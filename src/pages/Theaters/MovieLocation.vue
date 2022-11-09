@@ -99,17 +99,17 @@ export default defineComponent({
           limit: this.limit,
         },
       });
-      for (
-        let index = 0;
-        index < this.$store.state.Comments.Comments.commentsMovie.length;
-        index++
-      ) {
-        await this.$store.dispatch('getAllLikesComment', {
-          id: this.$store.state.Comments.Comments.commentsMovie[index]._id,
-          userId: this.userId,
-        });
-        await this.likes.push(this.$store.state.Likes.getComment);
-      }
+      // for (
+      //   let index = 0;
+      //   index < this.$store.state.Comments.Comments.commentsMovie.length;
+      //   index++
+      // ) {
+      //   await this.$store.dispatch('getAllLikesComment', {
+      //     id: this.$store.state.Comments.Comments.commentsMovie[index]._id,
+      //     userId: this.userId,
+      //   });
+      //   await this.likes.push(this.$store.state.Likes.getComment);
+      // }
     },
     commentPost(userComent: Object) {
       console.log(userComent);

@@ -39,10 +39,9 @@
               <div
                 class="items-color comp-icons d-flex justify-content-between pe-2"
               >
-                <div v-for="likes in likesComments" :key="likes._id">
-                  <p v-if="likes.data.id === comment._id">
-                    <!--  comparar aq icon -->
-                    {{ likes.data.likes }}
+                <div>
+                  <p>
+                    {{ comment.like }}
                   </p>
                 </div>
                 <Icon
@@ -54,6 +53,11 @@
                   class="like-icon"
                   @click="LikeComment(comment._id)"
                 />
+                <div>
+                  <p>
+                    {{ comment.deslike }}
+                  </p>
+                </div>
                 <Icon
                   :icon="
                     DeslikeComment &&
@@ -380,7 +384,7 @@ export default defineComponent({
         commentId: '',
         userLike: [
           {
-            userId: this.$store.state.Users.UserId,
+            userId: '',
             like: true,
             unlike: false,
           },
@@ -411,22 +415,35 @@ export default defineComponent({
     },
   },
   methods: {
-    async LikeComment(commentId: string) {
+    LikeComment(commentId: string) {
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
       console.log(this.likeComment);
       if (this.likeComment === true) {
         this.PostLike(commentId);
+      } else if (this.likeComment === false) {
+        this.RemoveLike(commentId);
       }
     },
     PostLike(commentId: string) {
       this.likeComment = true;
       this.DeslikeComment = false;
       (this.userlike.commentId = commentId),
-        this.$store.dispatch('createLikeComment', {
-          userLike: this.userlike,
-        });
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = true),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
+    },
+    RemoveLike(commentId: string) {
+      this.likeComment = false;
+      this.DeslikeComment = false;
+      console.log('Remover like');
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
     },
     UnlikeComment(commentId: string) {
       this.DeslikeComment = !this.DeslikeComment;
