@@ -40,7 +40,7 @@
         </div>
         <div class="info-movies" v-if="hiddenMovieInfo">
           <h3>{{ movie.title }}</h3>
-          <p>
+          <p v-if="movie.runtime">
             Duração:
             {{
               Math.trunc(movie.runtime / 60) +
