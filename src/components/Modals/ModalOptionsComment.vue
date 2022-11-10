@@ -26,4 +26,3 @@ export default defineComponent({
   emits: ['edit', 'delete'],
 });
 </script>
-
