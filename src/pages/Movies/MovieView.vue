@@ -80,7 +80,6 @@ export default defineComponent({
     },
     commentPost(userComent: Object) {
       this.$store.dispatch('Comments/createComment', userComent);
-
       const cleanInputComment = (userComent.text = '');
 
       this.commentsRender();
@@ -104,8 +103,8 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.socketService.registerListener('new-comment', 'new-comment', () => {
-      this.commentsRender();
+    this.socketService.registerListener('new-comment', 'new-comment', (userComent) => {
+      this.commentPost(userComent);
     });
 
     this.socketService.registerListener(
