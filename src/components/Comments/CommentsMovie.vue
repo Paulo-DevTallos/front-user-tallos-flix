@@ -32,7 +32,7 @@
             />
             <div class="pt-3 d-flex justify-content-between info-comments">
               <DisplayInteractionInfos
-                class="text-color date-time"
+                class="text-color"
                 :data_timestamp="
                   new Date(comment.date).toLocaleString().slice(0, 10) +
                   '\xa0' +
@@ -86,6 +86,8 @@
               </div>
             </div>
           </b-col>
+        </div>
+        <div class="modal-actions">
           <ModalOptionsComment 
             v-if="comment.email === this.$store.state.Users.UserEmail"
             @edit="editComments(comment._id)"
@@ -198,7 +200,18 @@
             Nenhuma resposta encontrada
           </div>
         </b-col>
-        <!-- Responder Comentário -->
+        <!-- Responder Comentário transformar toda essa estrutura em um componente-->
+        <!--<b-col cols="12" v-if="responseView && id === comment._id">
+          <BoxComment 
+            :data_avatar_source="avatar ? avatar : Noavatar"
+            :rows="5"
+            :max_lenght="200"
+            v-model:model-value="userReply.text"
+            :data_lenght_count="userReply.text.length"
+            @redirect="$emit('redirectReq')"
+            @commentFlow="responseComments"
+          />
+        </b-col>-->
         <b-col cols="12" v-if="responseView && id === comment._id">
           <div class="w-100 d-flex justify-content-end">
             <b-row class="response-coment">
@@ -210,27 +223,24 @@
               </b-col>
               <b-col>
                 <h5 class="text-color">Seu Comentário</h5>
-                <b-form-textarea
+                <TextAreaField 
                   class="comment-text"
                   v-model="userReply.text"
-                  maxlength="200"
-                  rows="5"
+                  :rows="5"
+                  :max_lenght="200"
                   placeholder="Digite aqui um comentário"
-                  no-resize
-                ></b-form-textarea>
+                />
                 <div class="pt-3 d-flex justify-content-end">
                   <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
                 <div
                   class="d-flex justify-content-end"
-                  @click="$emit('redirect')"
+                  @click="$emit('redirectReq')"
                 >
-                  <b-button
-                    size="lg"
-                    class="btn-comment"
-                    @click="responseComments"
-                    >Comentar</b-button
-                  >
+                  <ButtonDefault 
+                    :data_btn_title="'Comentar'"
+                    @btnAction="responseComments"
+                  />
                 </div>
               </b-col>
             </b-row>
@@ -261,24 +271,21 @@
         </b-col>
         <b-col>
           <h5 class="text-color">Seu Comentário</h5>
-          <b-form-textarea
+          <TextAreaField 
             class="comment-text"
             v-model="userComent.text"
-            maxlength="200"
-            rows="5"
+            :rows="5"
+            :max_lenght="200"
             placeholder="Digite aqui um comentário"
-            no-resize
-          ></b-form-textarea>
+          />
           <div class="pt-3 d-flex justify-content-end">
             <h6 class="text-color">{{ userComent.text.length }}/200</h6>
           </div>
-          <div class="d-flex justify-content-center" @click="$emit('redirect')">
-            <b-button
-              size="lg"
-              class="btn-comment"
-              @click="$emit('postComment', userComent)"
-              >Comentar</b-button
-            >
+          <div class="d-flex justify-content-center" @click="$emit('redirectReq')">
+            <ButtonDefault 
+              :data_btn_title="'Comentar'"
+              @btnAction="$emit('postComment', userComent)"
+            />
           </div>
         </b-col>
       </b-row>
@@ -292,6 +299,8 @@ import Avatar from '../Avatars/Avatar.vue';
 import TextAreaField from './TextAreaField.vue';
 import DisplayInteractionInfos from './DisplayInteractionInfos.vue';
 import ModalOptionsComment from '@/components/Modals/ModalOptionsComment.vue';
+import ButtonDefault from '@/components/Buttons/ButtonDefault.vue';
+//import BoxComment from './BoxComment.vue';
 
 export default defineComponent({
   components: {
@@ -299,8 +308,16 @@ export default defineComponent({
     TextAreaField,
     DisplayInteractionInfos,
     ModalOptionsComment,
+    ButtonDefault,
+    //BoxComment,
   },
-  emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect', 'saveEdit'],
+  emits: [
+    'postComment',
+    'deleteComment',
+    'cancelEdit',
+    'redirectReq',
+    'saveEdit',
+  ],
   setup() {
     return {
       socketService: SocketModule.connect(),
@@ -436,6 +453,7 @@ export default defineComponent({
     },
     responseComments() {
       this.$store.dispatch('Comments/createComment', this.userReply);
+      console.log(this.userReply);
       this.userReply.text = '';
       (this.id = ''), (this.responseView = false);
     },

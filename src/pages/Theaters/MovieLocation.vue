@@ -22,7 +22,7 @@
       </div>
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
-        @redirect="redirectAction"
+        @redirectReq="redirectAction"
         @postComment="commentPost"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"

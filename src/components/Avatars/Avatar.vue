@@ -9,7 +9,7 @@ export default defineComponent({
   name: 'AvatarView',
   props: {
     source_data: {
-      type: Boolean,
+      type: String,
     },
   },
 });

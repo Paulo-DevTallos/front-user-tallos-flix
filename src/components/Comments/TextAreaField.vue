@@ -4,6 +4,7 @@
     :plaintext="data_reply_id"
     rows="rows"
     max-rows="max_rows"
+    maxLenght="max_lenght"
   ></b-form-textarea>
 </template>
 
@@ -20,6 +21,9 @@ export default defineComponent({
       type: Number,
     },
     max_rows: {
+      type: Number,
+    },
+    max_lenght: {
       type: Number,
     },
   },

@@ -1,4 +1,84 @@
-.comments-container {  
+.comments-container { 
+    .avatar-container {
+        width: 15%;
+        @include align-elements(flex, flex-end, center);
+    }
+
+    .content-fields-comments {
+        width: 80%;
+        
+        .text-color {
+            color: white;
+        }
+        
+        .comment-text {
+            background-color: $primary-color-bg-comment;
+            padding: 15px 35px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        
+        .info-comments {
+            display: flex;
+
+            h6 {
+                @extend .text-color;
+            }
+
+            .info-comments-content {
+                @include breakpoints(840px) {
+                    width: 100%;
+                }
+        
+                @include mobile {
+                    font-size: 12px;   
+                }
+
+                .items-color {
+                    color: $orange-color-one;
+                    font-weight: 500;
+
+                    p {
+                        margin: 0 5px 10px;
+                    }
+                }
+
+                h6 {
+                    @extend .items-color;
+                    margin: 0 10px;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .modal-actions {
+        width: 5%;
+        margin-top: 25px;
+        @include align-elements(flex, center, flex-start);
+        
+        .actions {
+            margin: 0;
+            
+            .icon-menu {
+                font-size: 30px;
+                color: white;
+                cursor: pointer;
+            }
+
+            .dropdown-toggle::after {
+                display: none;
+            }
+        }
+        
+        .iconDrop {
+            color: $primary-color-bg-comment !important;
+            font-size: 25px;
+        }
+    }
+}
+/*.comments-container {  
     //lembrar de remover os estilos
     border: 1px solid;
     
@@ -251,4 +331,4 @@
             background-color: $primary-color-beige-three;
         }
     }
-}
+}*/
