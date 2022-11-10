@@ -475,6 +475,23 @@ export default defineComponent({
   },
 
   mounted() {
+    this.socketService.registerListener(
+      'new-liked',
+      'new-liked',
+      (commentId) => {
+        console.log(commentId);
+        this.PostLike(commentId);
+      }
+    );
+
+    this.socketService.registerListener(
+      'all-likes',
+      'all-likes',
+      (commentId) => {
+        this.LikeComment(commentId);
+      }
+    )
+
     //fechar botoes de edição
     this.socketService.registerListener(
       'update-comment',

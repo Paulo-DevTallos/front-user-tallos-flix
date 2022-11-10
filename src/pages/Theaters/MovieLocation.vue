@@ -124,17 +124,11 @@ export default defineComponent({
       });
       this.commentsRender();
     },
-
-    closeReplyComment() {
-      this;
-    },
   },
-  mounted() {
-    this.socketService.registerListener(
-      'new-comment',
-      'new-comment',
-      (userComent) => {
-        console.log(userComent, 'teste');
+  created() {
+    this.socketService.registerListener('new-comment', 'new-comment', () => {
+      this.commentsRender();
+      console.log('teste');
     });
 
     //socket update
