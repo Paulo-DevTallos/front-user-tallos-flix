@@ -8,8 +8,8 @@
     >
       <b-row class="pb-4" v-if="!comment.isReply">
         <div class="avatar-container">
-          <img
-            :src="
+          <Avatar
+            :source_data="
               '/img/' +
               (comment.userAvatar !== undefined
                 ? comment.userAvatar
@@ -20,86 +20,55 @@
         <div class="content-fields-comments">
           <b-col class="p-0">
             <h5 class="text-color">{{ comment.name }}</h5>
-            <b-form-textarea
+            <TextAreaField
               class="comment-text"
-              no-resize
-              :plaintext="
+              :data_reply_id="
                 (editComment && teste !== comment._id) ||
                 (!editComment && teste !== comment._id)
               "
-              rows="3"
-              max-rows="4"
+              :rows="3"
+              :max_rows="8"
               v-model:model-value="comment.text"
-            ></b-form-textarea>
+            />
             <div class="pt-3 d-flex justify-content-between info-comments">
-              <h6 class="text-color date-time">
-                {{
+              <DisplayInteractionInfos
+                class="text-color date-time"
+                :data_timestamp="
                   new Date(comment.date).toLocaleString().slice(0, 10) +
                   '\xa0' +
                   new Date(comment.date).toLocaleString().slice(11, 17)
-                }}
-              </h6>
-              <div
-                class="d-flex info-comments-contents"
+                "
                 v-if="btnViewsComments && teste != comment._id"
-              >
-                <div
-                  class="items-color comp-icons d-flex justify-content-between pe-2"
-                >
-                  <div>
-                    <p>
-                      {{ comment.like }}
-                    </p>
-                  </div>
-                  <Icon
-                    :icon="
-                      idCommentLike === comment._id && likeComment
-                        ? 'carbon:thumbs-up-filled'
-                        : 'carbon:thumbs-up'
-                    "
-                    class="like-icon"
-                    @click="LikeComment(comment._id)"
-                  />
-                  <div>
-                    <p>
-                      {{ comment.deslike }}
-                    </p>
-                  </div>
-                  <Icon
-                    :icon="
-                      DeslikeComment &&
-                      idCommentLike === comment._id &&
-                      DeslikeComment
-                        ? 'carbon:thumbs-down-filled'
-                        : 'carbon:thumbs-down'
-                    "
-                    class="like-icon"
-                    @click="UnlikeComment(comment._id)"
-                  />
-                </div>
-                <div class="d-flex">
-                  <h6
-                    class="text-response pe-2"
-                    @click="ViewResponses(comment._id)"
-                  >
-                    {{
-                      responseComment && id === comment._id && responseComment
-                        ? 'Ocultar respostas'
-                        : 'Ver respostas'
-                    }}
-                  </h6>
-                  <h6
-                    class="text-response"
-                    @click.prevent="getcomment(comment._id)"
-                  >
-                    {{
-                      responseView && id === comment._id && responseView
-                        ? 'Ocultar'
-                        : 'Responder'
-                    }}
-                  </h6>
-                </div>
-              </div>
+                :data_statuslike="comment.like"
+                :data_statusdislike="comment.deslike"
+                :data_like="
+                  idCommentLike === comment._id && likeComment
+                    ? 'carbon:thumbs-up-filled'
+                    : 'carbon:thumbs-up'
+                "
+                @createlikeComment="LikeComment(comment._id)"
+                :data_dislike="
+                  DeslikeComment &&
+                  idCommentLike === comment._id &&
+                  DeslikeComment
+                    ? 'carbon:thumbs-down-filled'
+                    : 'carbon:thumbs-down'
+                "
+                @createdislikeComment="UnlikeComment(comment._id)"
+                :data_reply="
+                  responseComment && id === comment._id && responseComment
+                    ? 'Ocultar respostas'
+                    : 'Ver respostas'
+                "
+                @hiddenReply="ViewResponses(comment._id)"
+                :data_getreply="
+                  responseView && id === comment._id && responseView
+                    ? 'Ocultar'
+                    : 'Responder'
+                "
+                @getReply="getcomment(comment._id)"
+              />
+              <!--botoes de editacao do comentario principal-->
               <div
                 class="btnsEdit"
                 v-if="!editComment && teste === comment._id"
@@ -117,32 +86,12 @@
               </div>
             </div>
           </b-col>
+          <ModalOptionsComment 
+            v-if="comment.email === this.$store.state.Users.UserEmail"
+            @edit="editComments(comment._id)"
+            @delete="$emit('deleteComment', comment._id)"
+          />
         </div>
-        <b-col
-          class="p-0 m-0 text-color"
-          v-if="comment.email === this.$store.state.Users.UserEmail"
-        >
-          <div class="d-flex justify-content-start align-items-center actions">
-            <b-dropdown variant="link" dropright no-caret>
-              <template #button-content>
-                <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
-              </template>
-              <b-dropdown-item @click="editComments(comment._id)"
-                ><Icon
-                  icon="carbon:edit"
-                  class="iconDrop"
-                />Editar</b-dropdown-item
-              >
-              <b-dropdown-item
-                @click.prevent="$emit('deleteComment', comment._id)"
-                ><Icon
-                  icon="carbon:delete"
-                  class="iconDrop"
-                />Deletar</b-dropdown-item
-              >
-            </b-dropdown>
-          </div>
-        </b-col>
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
@@ -156,66 +105,54 @@
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
               >
-                <b-avatar
+                <Avatar
                   :src="
                     '/img/' +
                     (reply.userAvatar !== undefined
                       ? reply.userAvatar
                       : 'user-default.png')
                   "
-                  size="5rem"
-                ></b-avatar>
+                />
               </b-col>
               <b-col cols="9" class="p-0">
                 <h5 class="text-color">{{ reply.name }}</h5>
-                <b-form-textarea
+                <TextAreaField
                   class="comment-text"
-                  no-resize
-                  :plaintext="
+                  :data_reply_id="
                     (editComment && teste !== reply._id) ||
                     (!editComment && teste !== reply._id)
                   "
-                  rows="3"
-                  max-rows="8"
+                  :rows="3"
+                  :max_rows="8"
                   v-model:model-value="reply.text"
-                ></b-form-textarea>
+                />
                 <div class="pt-3 d-flex justify-content-between">
-                  <h6 class="text-color">{{ reply.date }}</h6>
-                  <div
-                    class="items-color comp-icons d-flex justify-content-between pe-2"
+                  <DisplayInteractionInfos
+                    class="text-color date-time"
+                    :data_timestamp="
+                      new Date(comment.date).toLocaleString().slice(0, 10) +
+                      '\xa0' +
+                      new Date(comment.date).toLocaleString().slice(11, 17)
+                    "
                     v-if="btnViewsComments && teste != reply._id"
-                  >
-                    <div>
-                      <p>
-                        {{ reply.like }}
-                      </p>
-                    </div>
-                    <Icon
-                      :icon="
-                        idCommentLike === reply._id && likeComment
-                          ? 'carbon:thumbs-up-filled'
-                          : 'carbon:thumbs-up'
-                      "
-                      class="like-icon"
-                      @click="LikeComment(reply._id)"
-                    />
-                    <div>
-                      <p>
-                        {{ reply.deslike }}
-                      </p>
-                    </div>
-                    <Icon
-                      :icon="
-                        DeslikeComment &&
-                        idCommentLike === reply._id &&
-                        DeslikeComment
-                          ? 'carbon:thumbs-down-filled'
-                          : 'carbon:thumbs-down'
-                      "
-                      class="like-icon"
-                      @click="UnlikeComment(reply._id)"
-                    />
-                  </div>
+                    :data_statuslike="reply.like"
+                    :data_statusdislike="reply.deslike"
+                    :data_like="
+                      idCommentLike === reply._id && likeComment
+                        ? 'carbon:thumbs-up-filled'
+                        : 'carbon:thumbs-up'
+                    "
+                    @createlikeComment="LikeComment(reply._id)"
+                    :data_dislike="
+                      DeslikeComment &&
+                      idCommentLike === reply._id &&
+                      DeslikeComment
+                        ? 'carbon:thumbs-down-filled'
+                        : 'carbon:thumbs-down'
+                    "
+                    @createdislikeComment="UnlikeComment(reply._id)"
+                  />
+                  <!--botoes de editacao do comentario de respostas-->
                   <div
                     class="btnsEditR"
                     v-if="!editComment && teste === reply._id"
@@ -232,36 +169,11 @@
                     >
                   </div>
                 </div>
-              </b-col>
-              <b-col
-                class="p-0 m-0 text-color"
-                v-if="reply.email === this.$store.state.Users.UserEmail"
-              >
-                <div
-                  class="d-flex justify-content-start align-items-center actions"
-                >
-                  <b-dropdown variant="link" dropright no-caret>
-                    <template #button-content>
-                      <Icon
-                        icon="carbon:overflow-menu-vertical"
-                        class="icon-menu"
-                      />
-                    </template>
-                    <b-dropdown-item @click="editComments(reply._id)"
-                      ><Icon
-                        icon="carbon:edit"
-                        class="iconDrop"
-                      />Editar</b-dropdown-item
-                    >
-                    <b-dropdown-item
-                      @click.prevent="$emit('deleteComment', reply._id)"
-                      ><Icon
-                        icon="carbon:delete"
-                        class="iconDrop"
-                      />Deletar</b-dropdown-item
-                    >
-                  </b-dropdown>
-                </div>
+                <ModalOptionsComment 
+                  v-if="reply.email === this.$store.state.Users.UserEmail"
+                  @edit="editComments(reply._id)"
+                  @delete="$emit('deleteComment', reply._id)"
+                />
               </b-col>
             </b-row>
           </div>
@@ -294,10 +206,7 @@
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
               >
-                <b-avatar
-                  :src="avatar ? avatar : Noavatar"
-                  size="5rem"
-                ></b-avatar>
+                <Avatar :src="avatar ? avatar : Noavatar" />
               </b-col>
               <b-col>
                 <h5 class="text-color">Seu Comentário</h5>
@@ -377,13 +286,19 @@
   </div>
 </template>
 <script lang="ts">
-import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
 import { SocketModule } from '@/services/socket';
+import Avatar from '../Avatars/Avatar.vue';
+import TextAreaField from './TextAreaField.vue';
+import DisplayInteractionInfos from './DisplayInteractionInfos.vue';
+import ModalOptionsComment from '@/components/Modals/ModalOptionsComment.vue';
 
 export default defineComponent({
   components: {
-    Icon,
+    Avatar,
+    TextAreaField,
+    DisplayInteractionInfos,
+    ModalOptionsComment,
   },
   emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect', 'saveEdit'],
   setup() {
