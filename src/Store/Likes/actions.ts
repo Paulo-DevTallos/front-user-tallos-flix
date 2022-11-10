@@ -5,7 +5,7 @@ export default {
     await LikesRequests.getAllLikesComment(data.id, data.userId).then(
       (data) => {
         commit('GET_LIKECOMMENT', data);
-        console.log(data);
+        commit('LIKE_lIST', data.data.resLike);
       },
     );
   },

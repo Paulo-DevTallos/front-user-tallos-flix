@@ -19,7 +19,9 @@
         </div>
         <div class="content-fields-comments">
           <b-col class="p-0">
-            <h5 class="text-color">{{ comment.name }}</h5>
+            <h5 class="text-color">
+              {{ comment.name }}
+            </h5>
             <TextAreaField
               class="comment-text"
               :data_reply_id="
@@ -42,7 +44,11 @@
                 :data_statuslike="comment.like"
                 :data_statusdislike="comment.deslike"
                 :data_like="
-                  idCommentLike === comment._id && likeComment
+                  (idCommentLike === comment._id && likeComment) ||
+                  (this.$store.state.Likes.likeList[
+                    renderComments.commentsMovie.indexOf(comment)
+                  ] === 'LIKE' &&
+                    LikeComment !== false)
                     ? 'carbon:thumbs-up-filled'
                     : 'carbon:thumbs-up'
                 "
@@ -88,7 +94,7 @@
           </b-col>
         </div>
         <div class="modal-actions">
-          <ModalOptionsComment 
+          <ModalOptionsComment
             v-if="comment.email === this.$store.state.Users.UserEmail"
             @edit="editComments(comment._id)"
             @delete="$emit('deleteComment', comment._id)"
@@ -171,7 +177,7 @@
                     >
                   </div>
                 </div>
-                <ModalOptionsComment 
+                <ModalOptionsComment
                   v-if="reply.email === this.$store.state.Users.UserEmail"
                   @edit="editComments(reply._id)"
                   @delete="$emit('deleteComment', reply._id)"
@@ -223,7 +229,7 @@
               </b-col>
               <b-col>
                 <h5 class="text-color">Seu Comentário</h5>
-                <TextAreaField 
+                <TextAreaField
                   class="comment-text"
                   v-model="userReply.text"
                   :rows="5"
@@ -237,7 +243,7 @@
                   class="d-flex justify-content-end"
                   @click="$emit('redirectReq')"
                 >
-                  <ButtonDefault 
+                  <ButtonDefault
                     :data_btn_title="'Comentar'"
                     @btnAction="responseComments"
                   />
@@ -271,7 +277,7 @@
         </b-col>
         <b-col>
           <h5 class="text-color">Seu Comentário</h5>
-          <TextAreaField 
+          <TextAreaField
             class="comment-text"
             v-model="userComent.text"
             :rows="5"
@@ -281,8 +287,11 @@
           <div class="pt-3 d-flex justify-content-end">
             <h6 class="text-color">{{ userComent.text.length }}/200</h6>
           </div>
-          <div class="d-flex justify-content-center" @click="$emit('redirectReq')">
-            <ButtonDefault 
+          <div
+            class="d-flex justify-content-center"
+            @click="$emit('redirectReq')"
+          >
+            <ButtonDefault
               :data_btn_title="'Comentar'"
               @btnAction="$emit('postComment', userComent)"
             />
@@ -335,6 +344,7 @@ export default defineComponent({
         name: this.$store.state.Users.UserName,
         email: this.$store.state.Users.UserEmail,
         movie_id: this.$store.state.Movies.currentMovie._id,
+        user_Id: this.$store.state.Users.UserName.UserId,
         text: '',
         likes: null,
         isReply: false,
@@ -390,7 +400,7 @@ export default defineComponent({
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
-  
+
       if (this.likeComment === true) {
         this.PostLike(commentId);
       } else if (this.likeComment === false) {
@@ -483,7 +493,7 @@ export default defineComponent({
     },
   },
 
-  mounted() {
+  async mounted() {
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.responseComments();
     });
@@ -495,6 +505,21 @@ export default defineComponent({
         this.LikeComment(commentId);
       },
     );
+    for (
+      let index = 0;
+      index < this.renderComments.commentsMovie.length;
+      index++
+    ) {
+      if (index !== this.$store.state.Likes.likeList.length) {
+        this.$store.state.Likes.likeList = [];
+      }
+      await this.$store.dispatch('getAllLikesComment', {
+        id: this.renderComments.commentsMovie[index]._id,
+        userId: {
+          userId: this.$store.state.Users.UserId,
+        },
+      });
+    }
   },
 });
 </script>
