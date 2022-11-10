@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <CardMovie />
-    <div>
+    <div v-if="this.$store.state.Movies.currentMovie.fullplot">
       <PlotView />
     </div>
     <div class="comments-app">
