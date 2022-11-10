@@ -1,6 +1,10 @@
 .comments-container {  
+    //lembrar de remover os estilos
+    border: 1px solid;
+    
     .avatar-container {
         width: 15%;
+        @include align-elements(flex, flex-end, center);
         
         @include breakpoints(1145px) {
             width: 100px;
@@ -27,6 +31,7 @@
 
     .content-fields-comments {
         width: 75%;
+        display: flex;
         
         @include breakpoints(1075px) {
             width: 73%;
@@ -44,6 +49,49 @@
         @include mobile {
             width: 60%;
         }
+
+        //btn-menu hamburguer
+        .actions {
+            height: 50%;
+            width: 10%;
+            margin-right: 0;    
+            
+            .icon-menu {
+                background-color: red;
+                font-size: 30px;
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        .info-comments {
+            display: flex;
+
+            @include breakpoints(840px) {
+                flex-direction: column;
+            }
+            
+            .date-time {
+                @include breakpoints(840px) {
+                    width: 100%;
+                }
+        
+                @include mobile {
+                    font-size: 12px;   
+                }
+        
+            }
+        
+            .info-comments-content {
+                @include breakpoints(840px) {
+                    width: 100%;
+                }
+        
+                @include mobile {
+                    font-size: 12px;   
+                }
+            }
+        }
     }
 }
 .text-color {
@@ -56,6 +104,7 @@
 
 .comp-icons {
     width: 63px;
+    background-color: red;
 }
 
 .like-icon {
@@ -114,34 +163,6 @@
     } 
 }
 
-.info-comments {
-    display: flex;
-    @include breakpoints(840px) {
-        flex-direction: column;
-    }
-    
-    .date-time {
-        @include breakpoints(840px) {
-            width: 100%;
-        }
-
-        @include mobile {
-            font-size: 12px;   
-        }
-
-    }
-
-    .info-comments-content {
-        @include breakpoints(840px) {
-            width: 100%;
-        }
-
-        @include mobile {
-            font-size: 12px;   
-        }
-    }
-}
-
 .btn-comment {
     background-color: $primary-color-beige-one;
     border-color: $primary-color-beige-one;
@@ -158,6 +179,7 @@
 .response-coment {
     width: 90%;
     padding-right: 6%;
+    background-color: red;
 }
 .boxYourComment {
     padding-right: 6%;
@@ -166,23 +188,11 @@
     width: 90%;
 }
 
-//btn-menu hamburguer
-.actions {
-    height: 50%;
-
-    .icon-menu {
-        font-size: 30px;
-        color: white;
-        cursor: pointer;
-    }
-}
-
 .dropdown-toggle::after {
     display: none !important;
 }
 
 .dropdownItens {
-    background-color: red;
 }
 
 .dropdown-menu {
@@ -194,6 +204,7 @@
         .iconDrop {
             color: $primary-color-bg-comment !important;
             font-size: 25px;
+
         }
 
         &:hover {
