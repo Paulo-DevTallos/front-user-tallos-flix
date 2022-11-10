@@ -1,14 +1,22 @@
 <template>
   <b-navbar toggleable="lg" type="light">
-    <div class="border-menu" @click="showMenuMobile">
+    <div class="border-menu" @click="showMenuMobile" ref="menuMobile">
       <Icon icon="charm:menu-hamburger" width="35" color="#fff" />
     </div>
     <div class="menu-mobile" v-if="hiddenMenuMobile">
-      <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
+      <b-nav-item
+        class="texto-navbar"
+        :to="{ name: 'theaters' }"
+        @click="showMenuMobile"
+      >
         Somente nos Cinemas
       </b-nav-item>
-      <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
-      <b-nav-item :to="{ name: 'series' }">Series</b-nav-item>
+      <b-nav-item :to="{ name: 'movies' }" @click="showMenuMobile">
+        Filmes
+      </b-nav-item>
+      <b-nav-item :to="{ name: 'series' }" @click="showMenuMobile"
+        >Series</b-nav-item
+      >
     </div>
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="d-flex justify-content-between">
@@ -110,10 +118,16 @@ export default defineComponent({
     },
   },
   mounted() {
+    const mobile: any = this.$refs.menuMobile;
     const self: any = this.$refs.myref;
     document.addEventListener('click', (e) => {
       if (self !== undefined && self.contains(e.target) === false) {
         this.hiddenDropDown = false;
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (mobile !== undefined && mobile.contains(e.target) === false) {
+        this.hiddenMenuMobile = false;
       }
     });
   },
