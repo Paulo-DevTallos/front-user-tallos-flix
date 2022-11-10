@@ -105,18 +105,20 @@
               <b-col
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
-              >
-                <Avatar
-                  :src="
-                    '/img/' +
-                    (reply.userAvatar !== undefined
-                      ? reply.userAvatar
-                      : 'user-default.png')
-                  "
-                />
+              > 
+                <div class="avatar-reply">
+                  <Avatar
+                    :src="
+                      '/img/' +
+                      (reply.userAvatar !== undefined
+                        ? reply.userAvatar
+                        : 'user-default.png')
+                    "
+                  />
+                </div>
               </b-col>
-              <b-col cols="9" class="p-0">
-                <h5 class="text-color">{{ reply.name }}</h5>
+              <b-col cols="9" class="p-0 info-reply">
+                <h5>{{ reply.name }}</h5>
                 <TextAreaField
                   class="comment-text"
                   :data_reply_id="
@@ -170,21 +172,21 @@
                     >
                   </div>
                 </div>
+              </b-col>
+              <div class="modal-actions">
                 <ModalOptionsComment 
                   v-if="reply.email === this.$store.state.Users.UserEmail"
                   @edit="editComments(reply._id)"
                   @delete="$emit('deleteComment', reply._id)"
                 />
-              </b-col>
+              </div>
             </b-row>
           </div>
           <div
             v-if="this.$store.state.Comments.GetCommentResponse.response > []"
             class="d-flex justify-content-end ViewMoreResponse"
           >
-            <p class="text-color viewmore" @click="viewMoreResponse">
-              Mostrar Mais
-            </p>
+            <p class="viewmore" @click="viewMoreResponse">Mostrar Mais</p>
           </div>
         </b-col>
         <b-col cols="12">
@@ -241,24 +243,26 @@
       v-if="renderComments.commentsMovie > []"
       class="d-flex justify-content-end"
     >
-      <p class="text-color viewmore" @click="viewMore">Mostrar Mais</p>
+      <p class="viewmore" @click="viewMore">Mostrar Mais</p>
     </div>
     <!-- Comentar -->
     <div>
       <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
-          <b-avatar
-            :src="
-              this.$store.state.Users.UserName &&
-              this.$store.state.Users.UserAvatar !== ''
-                ? this.avatar
-                : this.Noavatar
-            "
-            size="5rem"
-          ></b-avatar>
+          <div class="avatar-comment">
+            <b-avatar
+              :src="
+                this.$store.state.Users.UserName &&
+                this.$store.state.Users.UserAvatar !== ''
+                  ? this.avatar
+                  : this.Noavatar
+              "
+              size="5rem"
+            ></b-avatar>
+          </div>
         </b-col>
         <b-col>
-          <h5 class="text-color">Seu Comentário</h5>
+          <h5>Seu Comentário</h5>
           <TextAreaField 
             class="comment-text"
             v-model="userComent.text"

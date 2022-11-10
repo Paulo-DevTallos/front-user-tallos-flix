@@ -42,6 +42,11 @@
                     p {
                         margin: 0 5px 10px;
                     }
+
+                    .like-icon {
+                        @extend .items-color;
+                        cursor: pointer;
+                    }
                 }
 
                 h6 {
@@ -120,146 +125,81 @@
     }
 
     .response-reply {
-        background-color: red;
+        margin-top: 20px;
         width: 90%;
-    }
-    
-}
-/*.comments-container {  
-    //lembrar de remover os estilos
-    border: 1px solid;
-    
-    .avatar-container {
-        width: 15%;
-        @include align-elements(flex, flex-end, center);
-        
-        @include breakpoints(1145px) {
-            width: 100px;
-            height: 100px;
-        }
-
-        @include breakpoints(590px) {
-            width: 20%;
-        }
-        
-        img {
-            border-radius: 100%;
-            width: 80px;
-
-            @include breakpoints(590px) {
-                width: 70px;
-            }
-
-            @include mobile {
-                width: 50px;
-            }
-        }
-    }
-
-    .content-fields-comments {
-        width: 75%;
         display: flex;
         
-        @include breakpoints(1075px) {
-            width: 73%;
+        .avatar-reply {
+            width: 100%;
+            margin-top: 30px;
+            margin-right: 15px;
+            @include align-elements(flex, flex-end, flex-start);
         }
 
-        @include breakpoints(840px) {
-            font-size: 14px;
-            width: 70%;
-        }
-
-        @include breakpoints(590px) {
-            width: 65%;
-        }
-
-        @include mobile {
-            width: 60%;
-        }
-
-        //btn-menu hamburguer
-        .actions {
-            height: 50%;
-            width: 10%;
-            margin-right: 0;    
-            
-            .icon-menu {
-                background-color: red;
-                font-size: 30px;
-                color: white;
-                cursor: pointer;
-            }
-        }
-
-        .info-comments {
+        .info-reply {
             display: flex;
+            flex-direction: column;
+           
+            h5, h6 {
+                @extend .text-color;
+            }
+    
+            .comment-text {
+                @include comment-text;
+            }
 
-            @include breakpoints(840px) {
-                flex-direction: column;
-            }
-            
-            .date-time {
-                @include breakpoints(840px) {
-                    width: 100%;
+            .items-color {
+                color: $orange-color-one;
+                font-weight: 500;
+
+                p {
+                    margin: 0 5px 10px;
                 }
-        
-                @include mobile {
-                    font-size: 12px;   
-                }
-        
-            }
-        
-            .info-comments-content {
-                @include breakpoints(840px) {
-                    width: 100%;
-                }
-        
-                @include mobile {
-                    font-size: 12px;   
+
+                .like-icon {
+                    cursor: pointer;
                 }
             }
         }
     }
-}
-.text-color {
-    color: white;
-}
 
-.items-color {
-    color: $orange-color-one;
-}
+    .response-coment {   
+        width: 90%;
+        padding-right: 6%;
+        margin-top: 20px;
 
-.comp-icons {
-    width: 63px;
-    background-color: red;
-}
+        .comment-text {
+            background-color: $primary-color-bg-comment;
+            padding-left: 35px;
+            padding-right: 35px;
+            border-radius: 5px;
+            width: 100%;
+            height: 150px;
+        }
 
-.like-icon {
-    font-size: 20px;
-    width: 22px;
-    color: $orange-color-one;
-    cursor: pointer;
-}
+        .btn-comment {
+            background-color: $primary-color-beige-one;
+            border-color: $primary-color-beige-one;
+        
+            &:hover {
+                background-color: $primary-color-beige-two;
+            }
+        
+            &:active {
+                background-color: $primary-color-beige-three !important;
+            }
+        }
 
-.text-response {
-    color: $orange-color-one;
-    text-decoration: underline;
-    cursor: pointer;
-
-    &:hover {
-        color: $orange-color-two;
-    }
-
-    &:focus {
-        color: $orange-color-two;
-    }
-
-    @include breakpoints(800px) {
-        font-size: 14px;
-    }
-
-    @include mobile {
-        font-size: 12px;
+        .viewmore {
+            color: $orange-color-one;
+            text-decoration: underline;
+            cursor: pointer;
+            padding-right: 7%;
+        
+            &:hover {
+                color: $orange-color-two;
+            }
+        }
     }
 }
 
@@ -274,108 +214,39 @@
     }
 }
 
-.comment-text {
-    background-color: $primary-color-bg-comment;
-    padding-left: 35px;
-    padding-right: 35px;
-    border-radius: 5px;
-    width: 100%;
-
-    &:focus {
-        background-color: $primary-color-bg-comment;
-    }
-
-    @include breakpoints(1125px) {
-        width: 100%;
-    } 
-}
-
-.btn-comment {
-    background-color: $primary-color-beige-one;
-    border-color: $primary-color-beige-one;
-
-    &:hover {
-        background-color: $primary-color-beige-two;
-    }
-
-    &:active {
-        background-color: $primary-color-beige-three !important;
-    }
-}
-
-.response-coment {
-    width: 90%;
-    padding-right: 6%;
-    background-color: red;
-}
 .boxYourComment {
-    padding-right: 6%;
-}
-.response-reply {
-    width: 90%;
-}
+    padding-right: 5%;
+    
+    .avatar-comment {
+        margin-top: 30px;
+        @include align-elements(flex, center, center);
 
-.dropdown-toggle::after {
-    display: none !important;
-}
-
-.dropdownItens {
-}
-
-.dropdown-menu {
-    background-color: $primary-color-black-bg-icon;
-
-    .dropdown-item {
-        color: white;
-
-        .iconDrop {
-            color: $primary-color-bg-comment !important;
-            font-size: 25px;
-
-        }
-
-        &:hover {
-            background-color: $primary-color-icon;
-        }
-
-        &:active {
-            background-color: $primary-color-icon;
-        }
     }
-}
 
-.btnsEdit {
-    display: flex;
-    justify-content: space-between;
-    width: 28%;
+    h5, h6 {
+        color: #fff;
+    }
 
-    .saveBE {
+    .comment-text {
+        background-color: $primary-color-bg-comment;
+        padding-left: 35px;
+        padding-right: 35px;
+        border-radius: 5px;
+        width: 100%;
+        height: 150px;
+    }
+
+    .btn-comment {
         background-color: $primary-color-beige-one;
         border-color: $primary-color-beige-one;
-
+    
         &:hover {
             background-color: $primary-color-beige-two;
         }
-
+    
         &:active {
-            background-color: $primary-color-beige-three;
+            background-color: $primary-color-beige-three !important;
         }
     }
+
 }
-.btnsEditR {
-    display: flex;
-    justify-content: space-between;
-    width: 32%;
-    .saveBE {
-        background-color: $primary-color-beige-one;
-        border-color: $primary-color-beige-one;
-
-        &:hover {
-            background-color: $primary-color-beige-two;
-        }
-
-        &:active {
-            background-color: $primary-color-beige-three;
-        }
-    }
-}*/
