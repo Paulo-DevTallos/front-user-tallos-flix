@@ -2,7 +2,7 @@
   <div class="page-container">
     <CardMovie :hiddenBtnTrailer="true" />
     <div>
-      <PlotView />
+      <PlotView v-if="this.$store.state.Movies.currentMovie.fullplot" />
       <TheatersForm />
     </div>
     <div class="map-location-field">
