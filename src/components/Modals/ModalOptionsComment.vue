@@ -9,7 +9,7 @@
           <Icon icon="carbon:edit" class="iconDrop" />Editar
         </b-dropdown-item>
         <b-dropdown-item @click="$emit('delete')">
-          <Icon icon="carbon:delete" class="iconDrop"/>Deletar
+          <Icon icon="carbon:delete" class="iconDrop" />Deletar
         </b-dropdown-item>
       </b-dropdown>
     </div>
