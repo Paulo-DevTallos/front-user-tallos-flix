@@ -23,7 +23,7 @@
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
         @redirectReq="redirectAction"
-        @postComment="commentPost"
+        @postComment="createComment"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
         :viewMore="pageChange"
@@ -99,22 +99,9 @@ export default defineComponent({
           limit: this.limit,
         },
       });
-
-      // for (
-      //   let index = 0;
-      //   index < this.$store.state.Comments.Comments.commentsMovie.length;
-      //   index++
-      // ) {
-      //   await this.$store.dispatch('getAllLikesComment', {
-      //     id: this.$store.state.Comments.Comments.commentsMovie[index]._id,
-      //     userId: this.userId,
-      //   });
-      //   await this.likes.push(this.$store.state.Likes.getComment);
-      // }
     },
-    commentPost(userComent: Object) {
+    createComment(userComent: Object) {
       this.$store.dispatch('Comments/createComment', userComent);
-
       const cleanInputComment = (userComent.text = '');
 
       this.commentsRender();
@@ -129,6 +116,7 @@ export default defineComponent({
       this.$store.dispatch('Comments/deleteComment', IdComment);
       this.commentsRender();
     },
+    //update comment
     updateComment(commentUpdate: string) {
       this.$store.dispatch('Comments/updateComment', {
         id: commentUpdate._id,
@@ -142,23 +130,28 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.socketService.registerListener('new-comment', 'new-comment', () => {
-      this.commentsRender();
+    this.socketService.registerListener(
+      'new-comment',
+      'new-comment',
+      (userComent) => {
+        console.log(userComent, 'teste');
     });
 
-    this.socketService.registerListener(
-      'deleted-comment',
-      'deleted-comment',
-      (IdComment) => {
-        this.deleteComment(IdComment);
-      },
-    );
-
+    //socket update
     this.socketService.registerListener(
       'update-comment',
       'update-comment',
       (commentUpdate) => {
         this.updateComment(commentUpdate);
+      },
+    );
+
+    //socket delete
+    this.socketService.registerListener(
+      'deleted-comment',
+      'deleted-comment',
+      (IdComment) => {
+        this.deleteComment(IdComment);
       },
     );
 

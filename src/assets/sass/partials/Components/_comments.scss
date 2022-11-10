@@ -1,30 +1,31 @@
 .comments-container { 
+    .text-color {
+        color: white;
+    }
+
     .avatar-container {
         width: 15%;
         @include align-elements(flex, flex-end, center);
     }
-
+    
     .content-fields-comments {
         width: 80%;
         
-        .text-color {
-            color: white;
+        h5 {
+            @extend .text-color;
         }
         
         .comment-text {
-            background-color: $primary-color-bg-comment;
-            padding: 15px 35px;
-            border-radius: 5px;
-            width: 100%;
+            @include comment-text;
         }
         
         .info-comments {
             display: flex;
-
+            
             h6 {
                 @extend .text-color;
             }
-
+            
             .info-comments-content {
                 @include breakpoints(840px) {
                     width: 100%;
@@ -50,6 +51,25 @@
                     cursor: pointer;
                 }
             }
+
+            .btnsEdit {
+                display: flex;
+                justify-content: space-between;
+                width: 28%;
+            
+                .saveBE {
+                    background-color: $primary-color-beige-one;
+                    border-color: $primary-color-beige-one;
+            
+                    &:hover {
+                        background-color: $primary-color-beige-two;
+                    }
+            
+                    &:active {
+                        background-color: $primary-color-beige-three;
+                    }
+                }
+            }
         }
     }
 
@@ -70,6 +90,27 @@
             .dropdown-toggle::after {
                 display: none;
             }
+
+            .dropdown-menu {
+                background-color: $primary-color-black-bg-icon;
+            
+                .dropdown-item {
+                    color: white;
+            
+                    .iconDrop {
+                        color: $primary-color-bg-comment !important;
+                        font-size: 25px;
+                    }
+            
+                    &:hover {
+                        background-color: $primary-color-icon;
+                    }
+            
+                    &:active {
+                        background-color: $primary-color-icon;
+                    }
+                }
+            }
         }
         
         .iconDrop {
@@ -77,6 +118,12 @@
             font-size: 25px;
         }
     }
+
+    .response-reply {
+        background-color: red;
+        width: 90%;
+    }
+    
 }
 /*.comments-container {  
     //lembrar de remover os estilos

@@ -19,7 +19,7 @@
         </div>
         <div class="content-fields-comments">
           <b-col class="p-0">
-            <h5 class="text-color">{{ comment.name }}</h5>
+            <h5>{{ comment.name }}</h5>
             <TextAreaField
               class="comment-text"
               :data_reply_id="
@@ -32,7 +32,6 @@
             />
             <div class="pt-3 d-flex justify-content-between info-comments">
               <DisplayInteractionInfos
-                class="text-color"
                 :data_timestamp="
                   new Date(comment.date).toLocaleString().slice(0, 10) +
                   '\xa0' +
@@ -81,8 +80,8 @@
                   squared
                   class="saveBE"
                   @click="$emit('saveEdit', comment)"
-                  >Salvar</b-button
-                >
+                  >Salvar
+                </b-button>
               </div>
             </div>
           </b-col>
@@ -201,17 +200,6 @@
           </div>
         </b-col>
         <!-- Responder Comentário transformar toda essa estrutura em um componente-->
-        <!--<b-col cols="12" v-if="responseView && id === comment._id">
-          <BoxComment 
-            :data_avatar_source="avatar ? avatar : Noavatar"
-            :rows="5"
-            :max_lenght="200"
-            v-model:model-value="userReply.text"
-            :data_lenght_count="userReply.text.length"
-            @redirect="$emit('redirectReq')"
-            @commentFlow="responseComments"
-          />
-        </b-col>-->
         <b-col cols="12" v-if="responseView && id === comment._id">
           <div class="w-100 d-flex justify-content-end">
             <b-row class="response-coment">
@@ -373,7 +361,6 @@ export default defineComponent({
   props: {
     renderComments: {
       type: Object,
-      required: false,
     },
     likesComments: {
       type: Array,
@@ -484,6 +471,15 @@ export default defineComponent({
   },
 
   mounted() {
+    //fechar botoes de edição
+    this.socketService.registerListener(
+      'update-comment',
+      'update-comment',
+      () => {
+        this.cancelEdit();
+      },
+    );
+
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.responseComments();
     });
@@ -498,4 +494,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped></style>
