@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <CardMovie />
-    <div>
+    <div v-if="this.$store.state.Movies.currentMovie.fullplot">
       <PlotView />
     </div>
     <div class="comments-app">
@@ -18,7 +18,7 @@
         @postComment="commentPost"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
-        @redirect="redirectAction"
+        @redirectReq="redirectAction"
         :viewMore="pageChange"
         class="comments-comp"
       />
@@ -80,7 +80,6 @@ export default defineComponent({
     },
     commentPost(userComent: Object) {
       this.$store.dispatch('Comments/createComment', userComent);
-
       const cleanInputComment = (userComent.text = '');
 
       this.commentsRender();
@@ -104,8 +103,8 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.socketService.registerListener('new-comment', 'new-comment', () => {
-      this.commentsRender();
+    this.socketService.registerListener('new-comment', 'new-comment', (userComent) => {
+      this.commentPost(userComent);
     });
 
     this.socketService.registerListener(

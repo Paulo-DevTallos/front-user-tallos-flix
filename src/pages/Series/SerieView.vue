@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <CardMovie :hiddenBtnTrailer="false" />
-    <div>
+    <div v-if="this.$store.state.Movies.currentMovie.fullplot">
       <PlotView />
     </div>
     <div class="comments-app">
@@ -18,7 +18,7 @@
         @postComment="commentPost"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
-        @redirect="redirectAction"
+        @redirectReq="redirectAction"
         :viewMore="pageChange"
         class="comments-comp"
       />

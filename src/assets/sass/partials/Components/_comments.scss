@@ -1,30 +1,87 @@
 .comments-container { 
+    .text-color {
+        color: white;
+    }
+
+    .plot-title {
+        @include mobile {
+            font-size: 14px;
+        }
+    }
+
     .avatar-container {
         width: 15%;
         @include align-elements(flex, flex-end, center);
-    }
 
+        @include breakpoints(655px) {
+            margin-top: 33px;
+            @include align-elements(flex, flex-end, flex-start);
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+
+            @include breakpoints(655px) {
+                width: 60px;
+                height: 60px;
+            } 
+
+            @include mobile {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+    
     .content-fields-comments {
         width: 80%;
         
-        .text-color {
-            color: white;
+        @include breakpoints(655px) {
+            width: 75%;
+        }
+
+        @include mobile {
+            padding: 0 5px;    
+        }
+
+        h5 {
+            @extend .text-color;
+
+            @include mobile {
+                font-size: 14px; 
+            }
         }
         
         .comment-text {
-            background-color: $primary-color-bg-comment;
-            padding: 15px 35px;
-            border-radius: 5px;
-            width: 100%;
+            @include comment-text;
+
+            @include mobile {
+                font-size: 12px;
+                padding: 10px 20px;
+            }
         }
         
         .info-comments {
             display: flex;
 
+            @include breakpoints(850px) {
+                flex-direction: column
+            }
+            
             h6 {
                 @extend .text-color;
-            }
 
+                @include breakpoints(890px) {
+                    font-size: 14px
+                }
+
+                @include mobile {
+                    font-size: 10px;
+                }
+            }
+            
             .info-comments-content {
                 @include breakpoints(840px) {
                     width: 100%;
@@ -41,6 +98,11 @@
                     p {
                         margin: 0 5px 10px;
                     }
+
+                    .like-icon {
+                        @extend .items-color;
+                        cursor: pointer;
+                    }
                 }
 
                 h6 {
@@ -48,6 +110,29 @@
                     margin: 0 10px;
                     text-decoration: underline;
                     cursor: pointer;
+
+                    @include mobile {
+                        margin: 0 5px;
+                    }
+                }
+            }
+
+            .btnsEdit {
+                display: flex;
+                justify-content: space-between;
+                width: 28%;
+            
+                .saveBE {
+                    background-color: $primary-color-beige-one;
+                    border-color: $primary-color-beige-one;
+            
+                    &:hover {
+                        background-color: $primary-color-beige-two;
+                    }
+            
+                    &:active {
+                        background-color: $primary-color-beige-three;
+                    }
                 }
             }
         }
@@ -70,6 +155,27 @@
             .dropdown-toggle::after {
                 display: none;
             }
+
+            .dropdown-menu {
+                background-color: $primary-color-black-bg-icon;
+            
+                .dropdown-item {
+                    color: white;
+            
+                    .iconDrop {
+                        color: $primary-color-bg-comment !important;
+                        font-size: 25px;
+                    }
+            
+                    &:hover {
+                        background-color: $primary-color-icon;
+                    }
+            
+                    &:active {
+                        background-color: $primary-color-icon;
+                    }
+                }
+            }
         }
         
         .iconDrop {
@@ -77,142 +183,152 @@
             font-size: 25px;
         }
     }
-}
-/*.comments-container {  
-    //lembrar de remover os estilos
-    border: 1px solid;
-    
-    .avatar-container {
-        width: 15%;
-        @include align-elements(flex, flex-end, center);
-        
-        @include breakpoints(1145px) {
-            width: 100px;
-            height: 100px;
-        }
 
-        @include breakpoints(590px) {
-            width: 20%;
+    .response-reply {
+        margin-top: 20px;
+        width: 90%;
+        display: flex;
+
+        @include mobile {
+            width: 100%;
         }
         
-        img {
-            border-radius: 100%;
-            width: 80px;
-
-            @include breakpoints(590px) {
-                width: 70px;
+        .avatar-reply {
+            width: 100%;
+            margin-top: 30px;
+            margin-right: 15px;
+            @include align-elements(flex, flex-end, flex-start);
+        
+            @include breakpoints(655px) {
+                margin-top: 33px;
+                @include align-elements(flex, flex-end, flex-start);
             }
+    
+            img {
+                width: 80px;
+                height: 80px;
+                border-radius: 100%;
+    
+                @include breakpoints(655px) {
+                    width: 60px;
+                    height: 60px;
+                } 
+    
+                @include mobile {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+
+        .info-reply {
+            display: flex;
+            flex-direction: column;
+           
+            h5, h6 {
+                @extend .text-color;
+
+                @include mobile {
+                    font-size: 14px; 
+                }
+            }
+    
+            .comment-text {
+                @include comment-text;
+
+                @include mobile {
+                    font-size: 14px;
+                }
+            }
+
+            .items-color {
+                color: $orange-color-one;
+                font-weight: 500;
+
+                @include mobile {
+                    font-size: 12px;   
+                }
+
+                p {
+                    margin: 0 5px 10px;
+                }
+
+                .like-icon {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .response-coment {   
+        width: 90%;
+        padding-right: 6%;
+        margin-top: 20px;
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            margin-top: 30px;
+
+            @include breakpoints(655px) {
+                width: 60px;
+                height: 60px;
+            } 
 
             @include mobile {
                 width: 50px;
-            }
-        }
-    }
-
-    .content-fields-comments {
-        width: 75%;
-        display: flex;
-        
-        @include breakpoints(1075px) {
-            width: 73%;
-        }
-
-        @include breakpoints(840px) {
-            font-size: 14px;
-            width: 70%;
-        }
-
-        @include breakpoints(590px) {
-            width: 65%;
-        }
-
-        @include mobile {
-            width: 60%;
-        }
-
-        //btn-menu hamburguer
-        .actions {
-            height: 50%;
-            width: 10%;
-            margin-right: 0;    
-            
-            .icon-menu {
-                background-color: red;
-                font-size: 30px;
-                color: white;
-                cursor: pointer;
+                height: 50px;
             }
         }
 
-        .info-comments {
-            display: flex;
-
-            @include breakpoints(840px) {
-                flex-direction: column;
-            }
-            
-            .date-time {
-                @include breakpoints(840px) {
-                    width: 100%;
-                }
-        
-                @include mobile {
-                    font-size: 12px;   
-                }
-        
-            }
-        
-            .info-comments-content {
-                @include breakpoints(840px) {
-                    width: 100%;
-                }
-        
-                @include mobile {
-                    font-size: 12px;   
-                }
+        h5, h6 {
+            @include mobile {
+                font-size: 14px; 
             }
         }
-    }
-}
-.text-color {
-    color: white;
-}
 
-.items-color {
-    color: $orange-color-one;
-}
+        .comment-text {
+            background-color: $primary-color-bg-comment;
+            padding-left: 35px;
+            padding-right: 35px;
+            border-radius: 5px;
+            width: 100%;
+            height: 150px;
 
-.comp-icons {
-    width: 63px;
-    background-color: red;
-}
+            @include mobile {
+                font-size: 12px;
+                height: 100px;
+            }
+        }
 
-.like-icon {
-    font-size: 20px;
-    width: 22px;
-    color: $orange-color-one;
-    cursor: pointer;
-}
+        .btn-comment {
+            background-color: $primary-color-beige-one;
+            border-color: $primary-color-beige-one;
+        
+            &:hover {
+                background-color: $primary-color-beige-two;
+            }
+        
+            &:active {
+                background-color: $primary-color-beige-three !important;
+            }
+        }
 
-.text-response {
-    color: $orange-color-one;
-    text-decoration: underline;
-    cursor: pointer;
+        .viewmore {
+            color: $orange-color-one;
+            text-decoration: underline;
+            cursor: pointer;
+            padding-right: 7%;
+        
+            &:hover {
+                color: $orange-color-two;
+            }
 
-    &:hover {
-        color: $orange-color-two;
-    }
-
-    &:focus {
-        color: $orange-color-two;
-    }
-
-    @include breakpoints(800px) {
-        font-size: 14px;
-    }
-
-    @include mobile {
-        font-size: 12px;
+            @include mobile {
+                font-size: 14px;
+            }
+        }
     }
 }
 
@@ -225,110 +341,70 @@
     &:hover {
         color: $orange-color-two;
     }
-}
 
-.comment-text {
-    background-color: $primary-color-bg-comment;
-    padding-left: 35px;
-    padding-right: 35px;
-    border-radius: 5px;
-    width: 100%;
-
-    &:focus {
-        background-color: $primary-color-bg-comment;
-    }
-
-    @include breakpoints(1125px) {
-        width: 100%;
-    } 
-}
-
-.btn-comment {
-    background-color: $primary-color-beige-one;
-    border-color: $primary-color-beige-one;
-
-    &:hover {
-        background-color: $primary-color-beige-two;
-    }
-
-    &:active {
-        background-color: $primary-color-beige-three !important;
+    @include mobile {
+        font-size: 14px;
     }
 }
 
-.response-coment {
-    width: 90%;
-    padding-right: 6%;
-    background-color: red;
-}
 .boxYourComment {
-    padding-right: 6%;
-}
-.response-reply {
-    width: 90%;
-}
+    padding-right: 5%;
+    
 
-.dropdown-toggle::after {
-    display: none !important;
-}
+    .avatar-comment {
+        margin-top: 30px;
+        @include align-elements(flex, center, center);
 
-.dropdownItens {
-}
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
 
-.dropdown-menu {
-    background-color: $primary-color-black-bg-icon;
+            @include breakpoints(655px) {
+                width: 60px;
+                height: 60px;
+            } 
 
-    .dropdown-item {
-        color: white;
-
-        .iconDrop {
-            color: $primary-color-bg-comment !important;
-            font-size: 25px;
-
-        }
-
-        &:hover {
-            background-color: $primary-color-icon;
-        }
-
-        &:active {
-            background-color: $primary-color-icon;
+            @include mobile {
+                width: 50px;
+                height: 50px;
+            }
         }
     }
-}
 
-.btnsEdit {
-    display: flex;
-    justify-content: space-between;
-    width: 28%;
+    h5, h6 {
+        color: #fff;
 
-    .saveBE {
+        @include mobile {
+            font-size: 14px; 
+        }
+    }
+
+    .comment-text {
+        background-color: $primary-color-bg-comment;
+        padding-left: 35px;
+        padding-right: 35px;
+        border-radius: 5px;
+        width: 100%;
+        height: 150px;
+
+        @include mobile {
+            font-size: 12px;
+            height: 100px;
+        }
+    }
+
+    .btn-comment {
         background-color: $primary-color-beige-one;
         border-color: $primary-color-beige-one;
-
+    
         &:hover {
             background-color: $primary-color-beige-two;
         }
-
+    
         &:active {
-            background-color: $primary-color-beige-three;
+            background-color: $primary-color-beige-three !important;
         }
     }
+
 }
-.btnsEditR {
-    display: flex;
-    justify-content: space-between;
-    width: 32%;
-    .saveBE {
-        background-color: $primary-color-beige-one;
-        border-color: $primary-color-beige-one;
-
-        &:hover {
-            background-color: $primary-color-beige-two;
-        }
-
-        &:active {
-            background-color: $primary-color-beige-three;
-        }
-    }
-}*/

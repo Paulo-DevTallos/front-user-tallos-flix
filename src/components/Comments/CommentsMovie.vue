@@ -19,9 +19,7 @@
         </div>
         <div class="content-fields-comments">
           <b-col class="p-0">
-            <h5 class="text-color">
-              {{ comment.name }}
-            </h5>
+            <h5>{{ comment.name }}</h5>
             <TextAreaField
               class="comment-text"
               :data_reply_id="
@@ -32,14 +30,9 @@
               :max_rows="8"
               v-model:model-value="comment.text"
             />
-            <div class="pt-3 d-flex justify-content-between info-comments">
+            <div class="pt-3 d-flex justify-content-between info-comments"> 
               <DisplayInteractionInfos
-                class="text-color"
-                :data_timestamp="
-                  new Date(comment.date).toLocaleString().slice(0, 10) +
-                  '\xa0' +
-                  new Date(comment.date).toLocaleString().slice(11, 17)
-                "
+                :data_timestamp="new Date(comment.date).toLocaleString()"
                 v-if="btnViewsComments && teste != comment._id"
                 :data_statuslike="comment.like"
                 :data_statusdislike="comment.deslike"
@@ -98,8 +91,8 @@
                   squared
                   class="saveBE"
                   @click="$emit('saveEdit', comment)"
-                  >Salvar</b-button
-                >
+                  >Salvar
+                </b-button>
               </div>
             </div>
           </b-col>
@@ -123,18 +116,20 @@
               <b-col
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
-              >
-                <Avatar
-                  :src="
-                    '/img/' +
-                    (reply.userAvatar !== undefined
-                      ? reply.userAvatar
-                      : 'user-default.png')
-                  "
-                />
+              > 
+                <div class="avatar-reply">
+                  <Avatar
+                    :src="
+                      '/img/' +
+                      (reply.userAvatar !== undefined
+                        ? reply.userAvatar
+                        : 'user-default.png')
+                    "
+                  />
+                </div>
               </b-col>
-              <b-col cols="9" class="p-0">
-                <h5 class="text-color">{{ reply.name }}</h5>
+              <b-col cols="9" class="p-0 info-reply">
+                <h5>{{ reply.name }}</h5>
                 <TextAreaField
                   class="comment-text"
                   :data_reply_id="
@@ -188,21 +183,21 @@
                     >
                   </div>
                 </div>
-                <ModalOptionsComment
+              </b-col>
+              <div class="modal-actions">
+                <ModalOptionsComment 
                   v-if="reply.email === this.$store.state.Users.UserEmail"
                   @edit="editComments(reply._id)"
                   @delete="$emit('deleteComment', reply._id)"
                 />
-              </b-col>
+              </div>
             </b-row>
           </div>
           <div
             v-if="this.$store.state.Comments.GetCommentResponse.response > []"
             class="d-flex justify-content-end ViewMoreResponse"
           >
-            <p class="text-color viewmore" @click="viewMoreResponse">
-              Mostrar Mais
-            </p>
+            <p class="viewmore" @click="viewMoreResponse">Mostrar Mais</p>
           </div>
         </b-col>
         <b-col cols="12">
@@ -218,17 +213,6 @@
           </div>
         </b-col>
         <!-- Responder Comentário transformar toda essa estrutura em um componente-->
-        <!--<b-col cols="12" v-if="responseView && id === comment._id">
-          <BoxComment 
-            :data_avatar_source="avatar ? avatar : Noavatar"
-            :rows="5"
-            :max_lenght="200"
-            v-model:model-value="userReply.text"
-            :data_lenght_count="userReply.text.length"
-            @redirect="$emit('redirectReq')"
-            @commentFlow="responseComments"
-          />
-        </b-col>-->
         <b-col cols="12" v-if="responseView && id === comment._id">
           <div class="w-100 d-flex justify-content-end">
             <b-row class="response-coment">
@@ -270,25 +254,27 @@
       v-if="renderComments.commentsMovie > []"
       class="d-flex justify-content-end"
     >
-      <p class="text-color viewmore" @click="viewMore">Mostrar Mais</p>
+      <p class="viewmore" @click="viewMore">Mostrar Mais</p>
     </div>
     <!-- Comentar -->
     <div>
       <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
-          <b-avatar
-            :src="
-              this.$store.state.Users.UserName &&
-              this.$store.state.Users.UserAvatar !== ''
-                ? this.avatar
-                : this.Noavatar
-            "
-            size="5rem"
-          ></b-avatar>
+          <div class="avatar-comment">
+            <img
+              :src="
+                this.$store.state.Users.UserName &&
+                this.$store.state.Users.UserAvatar !== ''
+                  ? this.avatar
+                  : this.Noavatar
+              "
+              size="5rem"
+            />
+          </div>
         </b-col>
         <b-col>
-          <h5 class="text-color">Seu Comentário</h5>
-          <TextAreaField
+          <h5>Seu Comentário</h5>
+          <TextAreaField 
             class="comment-text"
             v-model="userComent.text"
             :rows="5"
@@ -395,7 +381,6 @@ export default defineComponent({
   props: {
     renderComments: {
       type: Object,
-      required: false,
     },
     likesComments: {
       type: Array,
@@ -513,7 +498,33 @@ export default defineComponent({
     },
   },
 
-  async mounted() {
+async mounted() {
+    this.socketService.registerListener(
+      'new-liked',
+      'new-liked',
+      (commentId) => {
+        console.log(commentId);
+        this.PostLike(commentId);
+      }
+    );
+
+    this.socketService.registerListener(
+      'all-likes',
+      'all-likes',
+      (commentId) => {
+        this.LikeComment(commentId);
+      }
+    )
+
+    //fechar botoes de edição
+    this.socketService.registerListener(
+      'update-comment',
+      'update-comment',
+      () => {
+        this.cancelEdit();
+      },
+    );
+
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.responseComments();
     });
@@ -543,4 +554,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped></style>
