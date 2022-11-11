@@ -45,13 +45,13 @@
             :src="AvatarUser"
           ></b-avatar>
         </div>
-        <div class="drop-down-menu" v-show="hiddenDropDown">
-          <b-dropdown-item @click="changeAvatar">Trocar Avatar</b-dropdown-item>
-          <b-dropdown-item :to="{ name: 'favorites' }"
-            >Meus Favoritos</b-dropdown-item
-          >
-          <b-dropdown-item @click="Logout">Sair</b-dropdown-item>
-        </div>
+        <CardProfile 
+          v-if="hiddenDropDown"
+          :favorites="'favorites'"
+          :avaliable="'avaliable'"
+          @changeAvatar="changeAvatar"
+          @logout="Logout"
+        />
       </b-navbar-nav>
     </nav>
   </b-navbar>
@@ -60,12 +60,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AvatarModal from '@/components/Modals/AvatarModal.vue';
+import CardProfile from '@/components/Navbar/CardProfile.vue';
 import { Icon } from '@iconify/vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'NavbarApp',
-  components: { AvatarModal, Icon },
+  components: { AvatarModal, Icon, CardProfile },
   data() {
     return {
       UserLogged: this.$store.state.Users.UserName,
