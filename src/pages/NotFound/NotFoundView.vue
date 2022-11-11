@@ -3,7 +3,7 @@
     <header-app />
     <div class="template-container">
       <div class="container-error mt-4">
-        <h2>Erro 404 pagina não encontrada</h2>
+        <h2>Erro 404 página não encontrada</h2>
         <img src="/img/cuate.png" alt="imagem de erro" />
       </div>
     </div>
@@ -20,7 +20,11 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.erro-field-container{
-    background-color: #3f3f3f;
+.erro-field-container {
+  font-family: 'Nunito', sans-serif;
+  background-color: #3f3f3f;
+  h2{
+    color: #cbd6db;
+}
 }
 </style>
