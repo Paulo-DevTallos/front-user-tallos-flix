@@ -1,5 +1,5 @@
 <template>
-  <b-avatar :src="source_data" size="5rem"></b-avatar>
+  <img :src="source_data" size="5rem" />
 </template>
 
 <script lang="ts">

@@ -30,13 +30,9 @@
               :max_rows="8"
               v-model:model-value="comment.text"
             />
-            <div class="pt-3 d-flex justify-content-between info-comments">
+            <div class="pt-3 d-flex justify-content-between info-comments"> 
               <DisplayInteractionInfos
-                :data_timestamp="
-                  new Date(comment.date).toLocaleString().slice(0, 10) +
-                  '\xa0' +
-                  new Date(comment.date).toLocaleString().slice(11, 17)
-                "
+                :data_timestamp="new Date(comment.date).toLocaleString()"
                 v-if="btnViewsComments && teste != comment._id"
                 :data_statuslike="comment.like"
                 :data_statusdislike="comment.deslike"
@@ -250,7 +246,7 @@
       <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
           <div class="avatar-comment">
-            <b-avatar
+            <img
               :src="
                 this.$store.state.Users.UserName &&
                 this.$store.state.Users.UserAvatar !== ''
@@ -258,7 +254,7 @@
                   : this.Noavatar
               "
               size="5rem"
-            ></b-avatar>
+            />
           </div>
         </b-col>
         <b-col>
@@ -381,7 +377,7 @@ export default defineComponent({
       this.likeComment = !this.likeComment;
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
-  
+
       if (this.likeComment === true) {
         this.PostLike(commentId);
       } else if (this.likeComment === false) {
