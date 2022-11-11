@@ -49,7 +49,9 @@
                     renderComments.commentsMovie.indexOf(comment)
                   ] === 'LIKE' &&
                     LikeComment !== false) ||
-                  this.handlerState[renderComments.commentsMovie.indexOf(comment)] === 'LIKE'
+                  this.handlerState[
+                    renderComments.commentsMovie.indexOf(comment)
+                  ] === 'LIKE'
                     ? 'carbon:thumbs-up-filled'
                     : 'carbon:thumbs-up'
                 "
