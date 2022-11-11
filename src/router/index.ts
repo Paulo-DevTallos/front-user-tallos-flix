@@ -7,10 +7,10 @@ import {
 
 const authGuard =
   () => (to: RouteLocation, from: RouteLocation, next: NavigationGuardNext) => {
-    if (localStorage.getItem('token') || "") {
+    if (localStorage.getItem('token') || '') {
       next();
     } else {
-      next("/");
+      next('/');
     }
   };
 
@@ -73,16 +73,16 @@ const router = createRouter({
           component: () => import('../pages/Theaters/MovieLocation.vue'),
         },
         {
-        path: 'Peoples/:name',
-        name: 'DirectorPage',
-        component: () => import('../pages/Peoples/PeopleView.vue'),
+          path: 'Peoples/:name',
+          name: 'DirectorPage',
+          component: () => import('../pages/Peoples/PeopleView.vue'),
         },
       ],
     },
-    { 
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
-      component: () => import('../components/ErrorComponent.vue'), 
+      component: () => import('@/pages/NotFound/NotFoundView.vue'),
     },
   ],
 });
