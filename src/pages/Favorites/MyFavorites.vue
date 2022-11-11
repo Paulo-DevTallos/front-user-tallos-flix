@@ -114,13 +114,41 @@
             this.favorites.indexOf(favorite) >= this.actualElement
           "
         >
-          <div>
+          <div
+            v-if="
+              (this.fullPlot === false &&
+                this.actualIndex !== this.favorites.indexOf(favorite)) ||
+              this.actualIndex !== this.favorites.indexOf(favorite)
+            "
+          >
             <b-card-title class="pb-2">Sinopse: </b-card-title>
             <p v-if="favorite.result.plot ? favorite.result.plot : vazio.plot">
               {{ favorite.result.plot || vazio.plot }}
             </p>
-            <div v-if="favorite.result.plot">
+            <div
+              v-if="favorite.result.plot"
+              @click="fullPlotClick(this.favorites.indexOf(favorite))"
+            >
               <p class="d-flex justify-content-end view-more">Ver mais</p>
+            </div>
+          </div>
+          <div v-else>
+            <b-card-title class="pb-2">Sinopse: </b-card-title>
+            <p
+              v-if="
+                favorite.result.fullplot ? favorite.result.fullplot : vazio.plot
+              "
+            >
+              {{ favorite.result.fullplot || vazio.plot }}
+            </p>
+            <div
+              v-if="
+                favorite.result.fullplot &&
+                this.actualIndex === this.favorites.indexOf(favorite)
+              "
+              @click="fullPlotClick(this.favorites.indexOf(favorite))"
+            >
+              <p class="d-flex justify-content-end view-more">Ver menos</p>
             </div>
           </div>
         </b-col>
@@ -161,6 +189,8 @@ export default defineComponent({
       favorites: [],
       hiddenOptionModal: false,
       id: '',
+      fullPlot: false,
+      actualIndex: -1,
     };
   },
   computed: {
@@ -213,6 +243,13 @@ export default defineComponent({
     changePage() {
       this.oldRole = this.perPage * this.currentPage - 1;
       this.actualElement = this.perPage * (this.currentPage - 1);
+    },
+    fullPlotClick(data: number) {
+      this.fullPlot = !this.fullPlot;
+      this.actualIndex = data;
+      if (this.fullPlot === false) {
+        this.actualIndex = -1;
+      }
     },
   },
 });
