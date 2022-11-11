@@ -48,11 +48,20 @@
                   (this.$store.state.Likes.likeList[
                     renderComments.commentsMovie.indexOf(comment)
                   ] === 'LIKE' &&
-                    LikeComment !== false)
+                    LikeComment !== false) ||
+                  this.handlerState[renderComments.commentsMovie.indexOf(comment)] === 'LIKE'
                     ? 'carbon:thumbs-up-filled'
                     : 'carbon:thumbs-up'
                 "
-                @createlikeComment="LikeComment(comment._id)"
+                @createlikeComment="
+                  LikeComment(
+                    comment._id,
+                    this.$store.state.Likes.likeList[
+                      renderComments.commentsMovie.indexOf(comment)
+                    ],
+                    renderComments.commentsMovie.indexOf(comment),
+                  )
+                "
                 :data_dislike="
                   DeslikeComment &&
                   idCommentLike === comment._id &&
@@ -334,6 +343,7 @@ export default defineComponent({
   },
   data() {
     return {
+      handlerState: [],
       responseComment: false,
       responseView: false,
       editComment: true,
@@ -396,8 +406,16 @@ export default defineComponent({
   },
   methods: {
     // tratamento para botao like
-    LikeComment(commentId: string) {
-      this.likeComment = !this.likeComment;
+    LikeComment(commentId: string, like: string, index: number) {
+      if (like === 'LIKE' || this.handlerState === 'LIKE') {
+        this.likeComment = false;
+        this.$store.state.Likes.likeList[index] = 'NOT';
+        this.handlerState[index] = 'NOT';
+      } else {
+        this.likeComment = !this.likeComment;
+        this.$store.state.Likes.likeList[index] = 'LIKE';
+        this.handlerState[index] = 'LIKE';
+      }
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
 
