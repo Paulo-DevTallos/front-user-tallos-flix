@@ -18,7 +18,7 @@
         @postComment="commentPost"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
-        @redirect="redirectAction"
+        @redirectReq="redirectAction"
         :viewMore="pageChange"
         class="comments-comp"
       />
