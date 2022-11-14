@@ -38,7 +38,10 @@
                   }}</b-card-subtitle
                 >
                 <div class="d-flex">
-                  <star-rating :ratingRawValue="movie.imdb.rating" class="rating"/>
+                  <star-rating
+                    :ratingRawValue="movie.imdb.rating"
+                    class="rating"
+                  />
                 </div>
                 <router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
                   <ButtonDefault

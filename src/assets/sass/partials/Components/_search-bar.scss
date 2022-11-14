@@ -20,6 +20,7 @@
     }
 }
 .text-input{
+    padding: 0 7px;
     color:$primary-color-black-seven;
     background-color: $primary-color-black-one;
     border: none;
@@ -29,6 +30,10 @@
     font-size: $font-size-common;
     &::placeholder {
         color:$primary-color-black-seven;
+
+        @include mobile {
+            font-size: 18px;
+        }
     }
     &:focus {
         outline: none;
