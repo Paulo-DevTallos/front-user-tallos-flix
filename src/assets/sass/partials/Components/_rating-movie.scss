@@ -32,3 +32,7 @@
         background-color: $primary-color-beige-two;
     }
 }
+.btn:disabled {
+    background-color: $primary-color-beige-one;
+    border-color: $primary-color-beige-one;
+}
