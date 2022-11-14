@@ -1,0 +1,4 @@
+.btn-styles {
+  @include btn-config-font(20px);
+  @include btn-config;
+}
