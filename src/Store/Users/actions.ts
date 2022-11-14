@@ -3,69 +3,37 @@ import jwtDecode from 'jwt-decode';
 
 export default {
   async updateUser({ commit }: any, data: any) {
-    await UserRequests.updateUser(data.id, data.user)
-      .then((res) => {
-        commit('GET_AVATAR', res.data.avatar);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await UserRequests.updateUser(data.id, data.user).then((res) => {
+      commit('GET_AVATAR', res.data.avatar);
+    });
   },
   async deleteUser({ commit }: any, data: any) {
-    await UserRequests.deleteUser(data.id)
-      .then((res) => {
-        commit();
-      })
-      .catch((error) => {
-        commit();
-      });
+    await UserRequests.deleteUser(data.id);
   },
   async getAllUsers({ commit }: any) {
-    await UserRequests.getAllUsers()
-      .then((res) => {
-        commit('GET_USERS', res.data);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await UserRequests.getAllUsers().then((res) => {
+      commit('GET_USERS', res.data);
+    });
   },
   async getUserById({ commit }: any, data: any) {
-    await UserRequests.getUserById(data.id)
-      .then((res) => {
-        commit('GET_USER', res.data);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await UserRequests.getUserById(data.id).then((res) => {
+      commit('GET_USER', res.data);
+    });
   },
   async getAvatar({ commit }: any, data: any) {
-    await UserRequests.getAvatar(data)
-      .then((res) => {
-        commit('GET_AVATAR', res.data);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await UserRequests.getAvatar(data).then((res) => {
+      commit('GET_AVATAR', res.data);
+    });
   },
   async getMe({ commit }: any) {
-    await UserRequests.getMe()
-      .then((res) => {
-        commit('GET_ME', res.data);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await UserRequests.getMe().then((res) => {
+      commit('GET_ME', res.data);
+    });
   },
   async getUsersPaginate({ commit }: any, data: any) {
-    await UserRequests.usersPaginate(data.limit, data.skip)
-      .then((res) => {
-        commit('GET_USERS', res.data);
-      })
-      .catch((error) => {
-        commit();
-      });
+    await UserRequests.usersPaginate(data.limit, data.skip).then((res) => {
+      commit('GET_USERS', res.data);
+    });
   },
   async login({ commit }: any, data: Object) {
     await UserRequests.login(data).then((res) => {

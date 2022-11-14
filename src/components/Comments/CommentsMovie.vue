@@ -1,122 +1,109 @@
 <template>
   <div>
     <!-- comentarios principais -->
-    <div v-for="comment in renderComments.commentsMovie" :key="comment.id">
+    <div
+      class="comments-container"
+      v-for="comment in renderComments.commentsMovie"
+      :key="comment.id"
+    >
       <b-row class="pb-4" v-if="!comment.isReply">
-        <b-col class="d-flex justify-content-end align-items-center" cols="2"
-          ><b-avatar
-            v-if="comment.avatar ? comment.avatar : Noavatar"
-            :src="comment.avatar || Noavatar"
-            size="5rem"
-          ></b-avatar
-        ></b-col>
-        <b-col cols="9" class="p-0">
-          <h5 class="text-color">{{ comment.name }}</h5>
-          <b-form-textarea
-            class="comment-text"
-            no-resize
-            :plaintext="
-              (editComment && teste !== comment._id) ||
-              (!editComment && teste !== comment._id)
+        <div class="avatar-container">
+          <Avatar
+            :source_data="
+              '/img/' +
+              (comment.userAvatar !== undefined
+                ? comment.userAvatar
+                : 'user-default.png')
             "
-            rows="3"
-            max-rows="4"
-            v-model:model-value="comment.text"
-          ></b-form-textarea>
-          <div class="pt-3 d-flex justify-content-between">
-            <h6 class="text-color">{{ comment.date }}</h6>
-            <div class="d-flex" v-if="btnViewsComments && teste != comment._id">
+          />
+        </div>
+        <div class="content-fields-comments">
+          <b-col class="p-0">
+            <h5>{{ comment.name }}</h5>
+            <TextAreaField
+              class="comment-text"
+              :data_reply_id="
+                (editComment && teste !== comment._id) ||
+                (!editComment && teste !== comment._id)
+              "
+              :rows="3"
+              :max_rows="8"
+              v-model:model-value="comment.text"
+            />
+            <div class="pt-3 d-flex justify-content-between info-comments"> 
+              <DisplayInteractionInfos
+                :data_timestamp="new Date(comment.date).toLocaleString()"
+                v-if="btnViewsComments && teste != comment._id"
+                :data_statuslike="comment.like"
+                :data_statusdislike="comment.deslike"
+                :data_like="
+                  (idCommentLike === comment._id && likeComment) ||
+                  (this.$store.state.Likes.likeList[
+                    renderComments.commentsMovie.indexOf(comment)
+                  ] === 'LIKE' &&
+                    LikeComment !== false) ||
+                  this.handlerState[
+                    renderComments.commentsMovie.indexOf(comment)
+                  ] === 'LIKE'
+                    ? 'carbon:thumbs-up-filled'
+                    : 'carbon:thumbs-up'
+                "
+                @createlikeComment="
+                  LikeComment(
+                    comment._id,
+                    this.$store.state.Likes.likeList[
+                      renderComments.commentsMovie.indexOf(comment)
+                    ],
+                    renderComments.commentsMovie.indexOf(comment),
+                  )
+                "
+                :data_dislike="
+                  DeslikeComment &&
+                  idCommentLike === comment._id &&
+                  DeslikeComment
+                    ? 'carbon:thumbs-down-filled'
+                    : 'carbon:thumbs-down'
+                "
+                @createdislikeComment="UnlikeComment(comment._id)"
+                :data_reply="
+                  responseComment && id === comment._id && responseComment
+                    ? 'Ocultar respostas'
+                    : 'Ver respostas'
+                "
+                @hiddenReply="ViewResponses(comment._id)"
+                :data_getreply="
+                  responseView && id === comment._id && responseView
+                    ? 'Ocultar'
+                    : 'Responder'
+                "
+                @getReply="getcomment(comment._id)"
+              />
+              <!--botoes de editacao do comentario principal-->
               <div
-                class="items-color comp-icons d-flex justify-content-between pe-2"
+                class="btnsEdit"
+                v-if="!editComment && teste === comment._id"
               >
-                <!-- <div v-for="likes in likesComments" :key="likes._id">
-                  <p v-if="likes.data.results[0].commentId === comment._id">
-                    {{ likes.data.likeNumbers.likes }}
-                  </p>
-                </div> -->
-                <Icon
-                  :icon="
-                    likeComment && idCommentLike === comment._id && likeComment
-                      ? 'carbon:thumbs-up-filled'
-                      : 'carbon:thumbs-up'
-                  "
-                  class="like-icon"
-                  @click="LikeComment(comment._id)"
-                />
-                <Icon
-                  :icon="
-                    DeslikeComment &&
-                    idCommentLike === comment._id &&
-                    DeslikeComment
-                      ? 'carbon:thumbs-down-filled'
-                      : 'carbon:thumbs-down'
-                  "
-                  class="like-icon"
-                  @click="UnlikeComment(comment._id)"
-                />
-              </div>
-              <div class="d-flex">
-                <h6
-                  class="text-response pe-2"
-                  @click="ViewResponses(comment._id)"
+                <b-button block squared @click.prevent="cancelEdit"
+                  >Cancelar</b-button
                 >
-                  {{
-                    responseComment && id === comment._id && responseComment
-                      ? 'Ocultar respostas'
-                      : 'Ver respostas'
-                  }}
-                </h6>
-                <h6
-                  class="text-response"
-                  @click.prevent="getcomment(comment._id)"
-                >
-                  {{
-                    responseView && id === comment._id && responseView
-                      ? 'Ocultar'
-                      : 'Responder'
-                  }}
-                </h6>
+                <b-button
+                  block
+                  squared
+                  class="saveBE"
+                  @click="$emit('saveEdit', comment)"
+                  >Salvar
+                </b-button>
               </div>
             </div>
-            <div class="btnsEdit" v-if="!editComment && teste === comment._id">
-              <b-button block squared @click.prevent="cancelEdit"
-                >Cancelar</b-button
-              >
-              <b-button
-                block
-                squared
-                class="saveBE"
-                @click="$emit('saveEdit', comment)"
-                >Salvar</b-button
-              >
-            </div>
-          </div>
-        </b-col>
-        <b-col
-          class="p-0 m-0 text-color"
-          v-if="comment.email === this.$store.state.Users.UserEmail"
-        >
-          <div class="d-flex justify-content-start align-items-center actions">
-            <b-dropdown variant="link" dropright no-caret>
-              <template #button-content>
-                <Icon icon="carbon:overflow-menu-vertical" class="icon-menu" />
-              </template>
-              <b-dropdown-item @click="editComments(comment._id)"
-                ><Icon
-                  icon="carbon:edit"
-                  class="iconDrop"
-                />Editar</b-dropdown-item
-              >
-              <b-dropdown-item
-                @click.prevent="$emit('deleteComment', comment._id)"
-                ><Icon
-                  icon="carbon:delete"
-                  class="iconDrop"
-                />Deletar</b-dropdown-item
-              >
-            </b-dropdown>
-          </div>
-        </b-col>
+          </b-col>
+        </div>
+        <div class="modal-actions">
+          <ModalOptionsComment
+            v-if="comment.email === this.$store.state.Users.UserEmail"
+            @edit="editComments(comment._id)"
+            @delete="$emit('deleteComment', comment._id)"
+          />
+        </div>
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
@@ -129,35 +116,57 @@
               <b-col
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
-              >
-                <b-avatar
-                  :src="reply.avatar ? reply.avatar : Noavatar"
-                  size="5rem"
-                ></b-avatar>
+              > 
+                <div class="avatar-reply">
+                  <Avatar
+                    :src="
+                      '/img/' +
+                      (reply.userAvatar !== undefined
+                        ? reply.userAvatar
+                        : 'user-default.png')
+                    "
+                  />
+                </div>
               </b-col>
-              <b-col cols="9" class="p-0">
-                <h5 class="text-color">{{ reply.name }}</h5>
-                <b-form-textarea
+              <b-col cols="9" class="p-0 info-reply">
+                <h5>{{ reply.name }}</h5>
+                <TextAreaField
                   class="comment-text"
-                  no-resize
-                  :plaintext="
+                  :data_reply_id="
                     (editComment && teste !== reply._id) ||
                     (!editComment && teste !== reply._id)
                   "
-                  rows="3"
-                  max-rows="8"
+                  :rows="3"
+                  :max_rows="8"
                   v-model:model-value="reply.text"
-                ></b-form-textarea>
+                />
                 <div class="pt-3 d-flex justify-content-between">
-                  <h6 class="text-color">{{ reply.date }}</h6>
-                  <div
-                    class="items-color comp-icons d-flex justify-content-between pe-2"
+                  <DisplayInteractionInfos
+                    class="text-color date-time"
+                    :data_timestamp="
+                      new Date(comment.date).toLocaleString().slice(0, 10) +
+                      '\xa0' +
+                      new Date(comment.date).toLocaleString().slice(11, 17)
+                    "
                     v-if="btnViewsComments && teste != reply._id"
-                  >
-                    <p>5</p>
-                    <Icon icon="carbon:thumbs-up" class="like-icon" />
-                    <Icon icon="carbon:thumbs-down" class="like-icon" />
-                  </div>
+                    :data_statuslike="reply.like"
+                    :data_statusdislike="reply.deslike"
+                    :data_like="
+                      idCommentLike === reply._id && likeComment
+                        ? 'carbon:thumbs-up-filled'
+                        : 'carbon:thumbs-up'
+                    "
+                    @createlikeComment="LikeComment(reply._id)"
+                    :data_dislike="
+                      DeslikeComment &&
+                      idCommentLike === reply._id &&
+                      DeslikeComment
+                        ? 'carbon:thumbs-down-filled'
+                        : 'carbon:thumbs-down'
+                    "
+                    @createdislikeComment="UnlikeComment(reply._id)"
+                  />
+                  <!--botoes de editacao do comentario de respostas-->
                   <div
                     class="btnsEditR"
                     v-if="!editComment && teste === reply._id"
@@ -175,45 +184,20 @@
                   </div>
                 </div>
               </b-col>
-              <b-col
-                class="p-0 m-0 text-color"
-                v-if="reply.email === this.$store.state.Users.UserEmail"
-              >
-                <div
-                  class="d-flex justify-content-start align-items-center actions"
-                >
-                  <b-dropdown variant="link" dropright no-caret>
-                    <template #button-content>
-                      <Icon
-                        icon="carbon:overflow-menu-vertical"
-                        class="icon-menu"
-                      />
-                    </template>
-                    <b-dropdown-item @click="editComments(reply._id)"
-                      ><Icon
-                        icon="carbon:edit"
-                        class="iconDrop"
-                      />Editar</b-dropdown-item
-                    >
-                    <b-dropdown-item
-                      @click.prevent="$emit('deleteComment', reply._id)"
-                      ><Icon
-                        icon="carbon:delete"
-                        class="iconDrop"
-                      />Deletar</b-dropdown-item
-                    >
-                  </b-dropdown>
-                </div>
-              </b-col>
+              <div class="modal-actions">
+                <ModalOptionsComment 
+                  v-if="reply.email === this.$store.state.Users.UserEmail"
+                  @edit="editComments(reply._id)"
+                  @delete="$emit('deleteComment', reply._id)"
+                />
+              </div>
             </b-row>
           </div>
           <div
             v-if="this.$store.state.Comments.GetCommentResponse.response > []"
             class="d-flex justify-content-end ViewMoreResponse"
           >
-            <p class="text-color viewmore" @click="viewMoreResponse">
-              Mostrar Mais
-            </p>
+            <p class="viewmore" @click="viewMoreResponse">Mostrar Mais</p>
           </div>
         </b-col>
         <b-col cols="12">
@@ -228,7 +212,7 @@
             Nenhuma resposta encontrada
           </div>
         </b-col>
-        <!-- Responder Comentário -->
+        <!-- Responder Comentário transformar toda essa estrutura em um componente-->
         <b-col cols="12" v-if="responseView && id === comment._id">
           <div class="w-100 d-flex justify-content-end">
             <b-row class="response-coment">
@@ -236,31 +220,28 @@
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
               >
-                <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
+                <Avatar :src="avatar ? avatar : Noavatar" />
               </b-col>
               <b-col>
                 <h5 class="text-color">Seu Comentário</h5>
-                <b-form-textarea
+                <TextAreaField
                   class="comment-text"
                   v-model="userReply.text"
-                  maxlength="200"
-                  rows="5"
+                  :rows="5"
+                  :max_lenght="200"
                   placeholder="Digite aqui um comentário"
-                  no-resize
-                ></b-form-textarea>
+                />
                 <div class="pt-3 d-flex justify-content-end">
                   <h6 class="text-color">{{ userReply.text.length }}/200</h6>
                 </div>
                 <div
                   class="d-flex justify-content-end"
-                  @click="$emit('redirect')"
+                  @click="$emit('redirectReq')"
                 >
-                  <b-button
-                    size="lg"
-                    class="btn-comment"
-                    @click="responseComments"
-                    >Comentar</b-button
-                  >
+                  <ButtonDefault
+                    :data_btn_title="'Comentar'"
+                    @btnAction="responseComments"
+                  />
                 </div>
               </b-col>
             </b-row>
@@ -273,34 +254,44 @@
       v-if="renderComments.commentsMovie > []"
       class="d-flex justify-content-end"
     >
-      <p class="text-color viewmore" @click="viewMore">Mostrar Mais</p>
+      <p class="viewmore" @click="viewMore">Mostrar Mais</p>
     </div>
     <!-- Comentar -->
     <div>
       <b-row class="boxYourComment">
         <b-col class="d-flex justify-content-end align-items-start" cols="2">
-          <b-avatar src="/img/avatar1.png" size="5rem"></b-avatar>
+          <div class="avatar-comment">
+            <img
+              :src="
+                this.$store.state.Users.UserName &&
+                this.$store.state.Users.UserAvatar !== ''
+                  ? this.avatar
+                  : this.Noavatar
+              "
+              size="5rem"
+            />
+          </div>
         </b-col>
         <b-col>
-          <h5 class="text-color">Seu Comentário</h5>
-          <b-form-textarea
+          <h5>Seu Comentário</h5>
+          <TextAreaField 
             class="comment-text"
             v-model="userComent.text"
-            maxlength="200"
-            rows="5"
+            :rows="5"
+            :max_lenght="200"
             placeholder="Digite aqui um comentário"
-            no-resize
-          ></b-form-textarea>
+          />
           <div class="pt-3 d-flex justify-content-end">
             <h6 class="text-color">{{ userComent.text.length }}/200</h6>
           </div>
-          <div class="d-flex justify-content-center" @click="$emit('redirect')">
-            <b-button
-              size="lg"
-              class="btn-comment"
-              @click="$emit('postComment', userComent)"
-              >Comentar</b-button
-            >
+          <div
+            class="d-flex justify-content-center"
+            @click="$emit('redirectReq')"
+          >
+            <ButtonDefault
+              :data_btn_title="'Comentar'"
+              @btnAction="$emit('postComment', userComent)"
+            />
           </div>
         </b-col>
       </b-row>
@@ -308,16 +299,39 @@
   </div>
 </template>
 <script lang="ts">
-import { Icon } from '@iconify/vue';
 import { defineComponent } from 'vue';
+import { SocketModule } from '@/services/socket';
+import Avatar from '../Avatars/Avatar.vue';
+import TextAreaField from './TextAreaField.vue';
+import DisplayInteractionInfos from './DisplayInteractionInfos.vue';
+import ModalOptionsComment from '@/components/Modals/ModalOptionsComment.vue';
+import ButtonDefault from '@/components/Buttons/ButtonDefault.vue';
+//import BoxComment from './BoxComment.vue';
 
 export default defineComponent({
   components: {
-    Icon,
+    Avatar,
+    TextAreaField,
+    DisplayInteractionInfos,
+    ModalOptionsComment,
+    ButtonDefault,
+    //BoxComment,
   },
-  emits: ['postComment', 'deleteComment', 'cancelEdit', 'redirect', 'saveEdit'],
+  emits: [
+    'postComment',
+    'deleteComment',
+    'cancelEdit',
+    'redirectReq',
+    'saveEdit',
+  ],
+  setup() {
+    return {
+      socketService: SocketModule.connect(),
+    };
+  },
   data() {
     return {
+      handlerState: [],
       responseComment: false,
       responseView: false,
       editComment: true,
@@ -328,6 +342,7 @@ export default defineComponent({
         name: this.$store.state.Users.UserName,
         email: this.$store.state.Users.UserEmail,
         movie_id: this.$store.state.Movies.currentMovie._id,
+        user_Id: this.$store.state.Users.UserName.UserId,
         text: '',
         likes: null,
         isReply: false,
@@ -343,7 +358,18 @@ export default defineComponent({
         commentReply: '',
         date: new Date(),
       },
+      userlike: {
+        commentId: '',
+        userLike: [
+          {
+            userId: '',
+            like: true,
+            unlike: false,
+          },
+        ],
+      },
       Noavatar: '/img/user-default.png',
+      avatar: '/img/' + this.$store.state.Users.UserAvatar,
       id: '',
       teste: '',
       idCommentLike: '',
@@ -355,7 +381,6 @@ export default defineComponent({
   props: {
     renderComments: {
       type: Object,
-      required: false,
     },
     likesComments: {
       type: Array,
@@ -367,35 +392,74 @@ export default defineComponent({
     },
   },
   methods: {
-    //     getLikeValidate(id: string){
-    //       this.apiService.get(passar o id e verificar se existe)
-    //       se n existir: chama a rota ('  http://localhost:4000/likes/ e  passa o corpo no body
-    //       {
-    // 	"commentId": "63641a951c859a0e64f72816",
-    // 	"userLike":[{
-    //   "userId": "635680e2bea91464d376670a",
-    //   "like": true,
-    //   "unlike": false
-    // }]}
-    //           ')
-    //       se existir: ('http://localhost:4000/likes/id do comentario = 63640f2b1c859a0e64f72733  ')
-    //       o corpo:
-    // {
-    //   "userId": "635680e2bea91464d376670a",
-    //   "like": true,
-    //   "unlike": false
-    // }
-
-    //     }
-    LikeComment(commentId: string) {
-      this.likeComment = !this.likeComment;
+    // tratamento para botao like
+    LikeComment(commentId: string, like: string, index: number) {
+      if (like === 'LIKE' || this.handlerState === 'LIKE') {
+        this.likeComment = false;
+        this.$store.state.Likes.likeList[index] = 'NOT';
+        this.handlerState[index] = 'NOT';
+      } else {
+        this.likeComment = !this.likeComment;
+        this.$store.state.Likes.likeList[index] = 'LIKE';
+        this.handlerState[index] = 'LIKE';
+      }
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
+
+      if (this.likeComment === true) {
+        this.PostLike(commentId);
+      } else if (this.likeComment === false) {
+        this.RemoveLike(commentId);
+      }
     },
+    // adicionar like
+    PostLike(commentId: string) {
+      this.likeComment = true;
+      this.DeslikeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = true),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
+    },
+    // remover like
+    RemoveLike(commentId: string) {
+      this.likeComment = false;
+      this.DeslikeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
+    },
+    // tratamento para botao deslike
     UnlikeComment(commentId: string) {
       this.DeslikeComment = !this.DeslikeComment;
       this.likeComment = false;
       this.idCommentLike = commentId;
+      if (this.DeslikeComment === true) {
+        this.PostDeslike(commentId);
+      } else if (this.DeslikeComment === false) {
+        this.RemoveDeslike(commentId);
+      }
+    },
+    PostDeslike(commentId: string) {
+      this.DeslikeComment = true;
+      this.likeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = true),
+        this.$store.dispatch('createLikeComment', this.userlike);
+    },
+    RemoveDeslike(commentId: string) {
+      this.DeslikeComment = false;
+      this.likeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeComment', this.userlike);
     },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
@@ -427,13 +491,66 @@ export default defineComponent({
     editComments(commentId: string) {
       this.teste = commentId;
       this.editComment = false;
-      console.log(this.editComment);
     },
     cancelEdit() {
       this.editComment = true;
       this.teste = '';
     },
   },
+
+async mounted() {
+    this.socketService.registerListener(
+      'new-liked',
+      'new-liked',
+      (commentId) => {
+        console.log(commentId);
+        this.PostLike(commentId);
+      }
+    );
+
+    this.socketService.registerListener(
+      'all-likes',
+      'all-likes',
+      (commentId) => {
+        this.LikeComment(commentId);
+      }
+    )
+
+    //fechar botoes de edição
+    this.socketService.registerListener(
+      'update-comment',
+      'update-comment',
+      () => {
+        this.cancelEdit();
+      },
+    );
+
+    this.socketService.registerListener('new-comment', 'new-comment', () => {
+      this.responseComments();
+    });
+
+    this.socketService.registerListener(
+      'new-liked',
+      'new-liked',
+      (commentId) => {
+        this.LikeComment(commentId);
+      },
+    );
+    for (
+      let index = 0;
+      index < this.renderComments.commentsMovie.length;
+      index++
+    ) {
+      if (index !== this.$store.state.Likes.likeList.length) {
+        this.$store.state.Likes.likeList = [];
+      }
+      await this.$store.dispatch('getAllLikesComment', {
+        id: this.renderComments.commentsMovie[index]._id,
+        userId: {
+          userId: this.$store.state.Users.UserId,
+        },
+      });
+    }
+  },
 });
 </script>
-<style lang="scss" scoped></style>

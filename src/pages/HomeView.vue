@@ -12,7 +12,7 @@
       v-if="hiddenCarousel"
     >
       <h4>Nos Cinemas</h4>
-      <Carousel :hiddenMovieInfo="false" />
+      <Carousel :hiddenMovieInfo="false" :IsRendered="render" />
     </div>
     <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
   </div>
@@ -39,6 +39,7 @@ export default defineComponent({
       movies_name: '',
       hiddenCarousel: true,
       hiddenErrorSearch: false,
+      render: false,
     };
   },
 
@@ -46,7 +47,6 @@ export default defineComponent({
     searchMovie(data: string) {
       if (data !== this.isChanged) {
         this.isChanged = data;
-        console.log(this.isChanged);
         setTimeout(() => {
           this.movies_name = data;
           if (this.isChanged === data) {
@@ -62,13 +62,14 @@ export default defineComponent({
 
   watch: {
     ['Movies/getErrorPage'](data) {
-      console.log(data);
       if (data === true) {
         this.hiddenErrorSearch = true;
         this.hiddenCarousel = false;
+         this.render = false;
       } else {
         this.hiddenErrorSearch = false;
         this.hiddenCarousel = true;
+        this.render = true;
       }
     },
   },

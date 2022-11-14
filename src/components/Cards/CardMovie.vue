@@ -2,21 +2,39 @@
   <div class="card-fluid card-config">
     <div class="poster-container">
       <div class="backspace" v-if="routerMovies ? routerMovies : routerSeries">
-        <router-link :to="routerMovies || routerSeries">
+        <router-link :to="routerMovies || routerSeries" class="return-arrow">
           <Icon icon="bx:arrow-back" />
           Voltar
         </router-link>
       </div>
       <div class="poster-wd">
         <img
-          :src="this.$store.state.Movies.currentMovie.poster"
+          :src="
+            this.$store.state.Movies.currentMovie.poster
+              ? this.$store.state.Movies.currentMovie.poster
+              : `${this.APP_URL}img/empty-img.png`
+          "
           alt="card-filme"
+          onerror="this.onerror=null;this.src='/img/empty-img.png';"
         />
       </div>
-      <div class="available-field d-flex pt-3 justify-content-center">
-        <span class="pt-1">Avaliação (15)</span>
-        <StarRating class="ms-1" />
+      <div
+        class="available-field d-flex pt-3 justify-content-center"
+        v-if="
+          this.$store.state.Movies.currentMovie.imdb.rating &&
+          this.$store.state.Movies.currentMovie.imdb.votes
+        "
+      >
+        <div class="exibition pt-1">
+          <span
+            >Avaliação ({{
+              this.$store.state.Movies.currentMovie.imdb.votes
+            }})</span
+          >
+          <StarRating class="responsive ms-1" v-model="this.rating" />
+        </div>
       </div>
+      <div v-else class="pb-3"></div>
     </div>
     <div class="info-movie">
       <header class="card-header">
@@ -31,22 +49,43 @@
             }}</span>
           </div>
         </div>
-        <p>Duração: {{ this.$store.state.Movies.currentMovie.runtime }}</p>
+        <p v-if="this.$store.state.Movies.currentMovie.runtime">
+          Duração:
+          {{
+            Math.trunc(this.$store.state.Movies.currentMovie.runtime / 60) +
+            'h' +
+            (this.$store.state.Movies.currentMovie.runtime % 60) +
+            'min'
+          }}
+        </p>
         <div class="icon-styles" @click="redirectModal">
           <Icon :icon="IconStyle" :color="ColorStyle" id="favoriteIcon" />
           <p id="tag-favorite">Salvar na minha lista</p>
         </div>
         <div class="info-generals-movies">
-          <div class="d-flex icon-styles">
+          <div
+            class="d-flex icon-styles"
+            v-if="this.$store.state.Movies.currentMovie.imdb.rating"
+          >
             <Icon icon="la:imdb" />
-            <p>7.8/10</p>
+            <p>{{ this.$store.state.Movies.currentMovie.imdb.rating }}/10</p>
           </div>
-          <div class="d-flex icon-styles">
+          <div
+            class="d-flex icon-styles"
+            v-if="
+              this.$store.state.Movies.currentMovie.tomatoes &&
+              this.$store.state.Movies.currentMovie.tomatoes.viewer &&
+              this.$store.state.Movies.currentMovie.tomatoes.critic
+            "
+          >
             <Icon icon="simple-icons:rottentomatoes" />
-            <p>68%</p>
+            <p>{{ this.TomatoesRating.toFixed(2) }}%</p>
           </div>
-          <div class="d-flex">
-            <p>Ganhador de 1 oscar, 5 indicações</p>
+          <div
+            class="d-flex"
+            v-if="this.$store.state.Movies.currentMovie.awards.text"
+          >
+            <p>{{ this.$store.state.Movies.currentMovie.awards.text }}</p>
           </div>
         </div>
       </header>
@@ -74,6 +113,7 @@
               <router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
                 @click="GetPeople(Movie, 'directors')"
+                class="people-link"
                 >{{ Movie }}</router-link
               >
               <span
@@ -93,9 +133,10 @@
             <span
               v-for="Movie in this.$store.state.Movies.currentMovie.writers"
               :key="Movie.length"
-              >{<router-link
+              ><router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
                 @click="GetPeople(Movie, 'writers')"
+                class="people-link"
                 >{{ Movie }}</router-link
               >
               <span
@@ -116,6 +157,7 @@
               ><router-link
                 :to="{ path: `/home/Peoples/${Movie}` }"
                 @click="GetPeople(Movie, 'cast')"
+                class="people-link"
                 >{{ Movie }}</router-link
               >
               <span
@@ -141,6 +183,7 @@
     />
     <OptionsModal
       v-if="hiddenOptionModal"
+      :hiddenBtnLogin="true"
       @closeWindow="closeOptionModal"
       :action="message"
     />
@@ -159,7 +202,7 @@ export default defineComponent({
   components: { Icon, TraillerModal, StarRating, OptionsModal },
   data() {
     return {
-      message: 'adicionar aos favoritos',
+      message: 'Você precisa está logado para adicionar aos favoritos!',
       routerMovies: '/home/movies',
       routerSeries: '/home/series',
       isLogged: localStorage.getItem('token'),
@@ -169,6 +212,9 @@ export default defineComponent({
       IconStyle: 'carbon:favorite',
       ColorStyle: 'none',
       IsFavoriteBefore: undefined,
+      TomatoesRating: 0,
+      APP_URL: import.meta.env.VITE_APP_URL,
+      rating: this.$store.state.Movies.currentMovie.imdb.rating / 2,
     };
   },
   methods: {
@@ -194,12 +240,21 @@ export default defineComponent({
 
     searchGenre(movie: string) {
       this.$store.state.Movies.actualTag = movie;
-      this.$store.dispatch('Movies/getMovieFilter', {
-        field: 'genres',
-        search: movie,
-      });
-      this.$store.state.Movies.IsMovieGenre = true;
-      this.$router.push('/home/movies');
+      if (this.$store.state.Movies.currentMovie.type === 'movie') {
+        this.$store.dispatch('Movies/getMovieFilter', {
+          field: 'genres',
+          search: movie,
+        });
+        this.$store.state.Movies.IsMovieGenre = true;
+        this.$router.push('/home/movies');
+      } else {
+        this.$store.dispatch('Movies/getSeries', {
+          field: 'genres',
+          search: movie,
+        });
+        this.$store.state.Movies.IsSeriesGenre = true;
+        this.$router.push('/home/series');
+      }
     },
 
     favoriteMovie() {
@@ -235,8 +290,8 @@ export default defineComponent({
       }
     },
     GetPeople(data: string, Field: string) {
+      this.$store.state.Favorites.PeopleName = data;
       this.$store.dispatch('Peoples/getPeopleByName', data);
-      console.log(Field)
       this.$store.dispatch('Movies/getMovieFilter', {
         field: Field,
         search: data,
@@ -244,19 +299,24 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.$store.state.Movies.currentMovie.runtime =
-      Math.trunc(this.$store.state.Movies.currentMovie.runtime / 60) +
-      'h' +
-      (this.$store.state.Movies.currentMovie.runtime % 60) +
-      'min';
     this.$store.state.Movies.IsMovieGenre = false;
     this.$store.dispatch(
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,
     );
+    if (
+      this.$store.state.Movies.currentMovie.tomatoes &&
+      this.$store.state.Movies.currentMovie.tomatoes.viewer &&
+      this.$store.state.Movies.currentMovie.tomatoes.critic
+    ) {
+      this.TomatoesRating =
+        ((this.$store.state.Movies.currentMovie.tomatoes.viewer.rating +
+          this.$store.state.Movies.currentMovie.tomatoes.critic.rating) /
+          2) *
+        10;
+    }
   },
   async created() {
-    console.log(await this.$store.state.Favorites.Favorite);
     if ((await this.$store.state.Favorites.Favorite.length) !== 0) {
       this.IsFavoriteBefore =
         this.$store.state.Favorites.Favorite[0].movie_Id.find(

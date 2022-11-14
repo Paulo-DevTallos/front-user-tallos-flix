@@ -1,29 +1,27 @@
 <template>
   <b-navbar toggleable="lg" type="light">
-    <div class="border-menu" @click="showMenuMobile">
+    <div class="border-menu" @click="showMenuMobile" ref="menuMobile">
       <Icon icon="charm:menu-hamburger" width="35" color="#fff" />
     </div>
     <div class="menu-mobile" v-if="hiddenMenuMobile">
-      <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
+      <b-nav-item
+        class="texto-navbar"
+        :to="{ name: 'theaters' }"
+        @click="showMenuMobile"
+      >
         Somente nos Cinemas
       </b-nav-item>
-      <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
-      <b-nav-item :to="{ name: 'series' }">Series</b-nav-item>
+      <b-nav-item :to="{ name: 'movies' }" @click="showMenuMobile">Filmes</b-nav-item>
+      <b-nav-item :to="{ name: 'series' }" @click="showMenuMobile">Series</b-nav-item>
     </div>
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="d-flex justify-content-between">
-        <b-collapse class="d-flex">
-          <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
-            Somente nos Cinemas
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
-          <b-nav-item :to="{ name: 'series' }">Series</b-nav-item>
-        </b-collapse>
-      </b-navbar-nav>
-    </b-collapse>
+    <MenuMobile :movies="'movies'" :series="'series'" />
     <nav>
       <b-navbar-nav @click="redirect" class="type-cursor">
-        <div class="d-flex align-items-center" @click="callDropDown">
+        <div
+          class="d-flex align-items-center"
+          @click="callDropDown"
+          ref="myref"
+        >
           <div class="m-2 name-user" v-if="UserLogged ? UserLogged : NoUser">
             {{ UserLogged || NoUser }}
           </div>
@@ -33,13 +31,13 @@
             :src="AvatarUser"
           ></b-avatar>
         </div>
-        <div class="drop-down-menu" v-show="hiddenDropDown">
-          <b-dropdown-item @click="changeAvatar">Trocar Avatar</b-dropdown-item>
-          <b-dropdown-item :to="{ name: 'favorites' }"
-            >Meus Favoritos</b-dropdown-item
-          >
-          <b-dropdown-item @click="Logout">Sair</b-dropdown-item>
-        </div>
+        <CardProfile 
+          v-if="hiddenDropDown"
+          :favorites="'favorites'"
+          :avaliable="'avaliable'"
+          @changeAvatar="changeAvatar"
+          @logout="Logout"
+        />
       </b-navbar-nav>
     </nav>
   </b-navbar>
@@ -48,12 +46,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AvatarModal from '@/components/Modals/AvatarModal.vue';
+import CardProfile from '@/components/Navbar/CardProfile.vue';
+import MenuMobile from '@/components/Navbar/MenuMobile.vue';
 import { Icon } from '@iconify/vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'NavbarApp',
-  components: { AvatarModal, Icon },
+  components: { AvatarModal, Icon, CardProfile, MenuMobile },
   data() {
     return {
       UserLogged: this.$store.state.Users.UserName,
@@ -104,6 +104,20 @@ export default defineComponent({
     ['Users/getNewAvatar'](data) {
       this.avatar = '/img/' + data;
     },
+  },
+  mounted() {
+    const mobile: any = this.$refs.menuMobile;
+    const self: any = this.$refs.myref;
+    document.addEventListener('click', (e) => {
+      if (self !== undefined && self.contains(e.target) === false) {
+        this.hiddenDropDown = false;
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (mobile !== undefined && mobile.contains(e.target) === false) {
+        this.hiddenMenuMobile = false;
+      }
+    });
   },
 });
 </script>

@@ -1,33 +1,334 @@
-.text-color {
-    color: white;
-}
-
-.items-color {
-    color: $orange-color-one;
-}
-
-.comp-icons {
-    width: 63px;
-}
-
-.like-icon {
-    font-size: 20px;
-    width: 22px;
-    color: $orange-color-one;
-    cursor: pointer;
-}
-
-.text-response {
-    color: $orange-color-one;
-    text-decoration: underline;
-    cursor: pointer;
-
-    &:hover {
-        color: $orange-color-two;
+.comments-container { 
+    .text-color {
+        color: white;
     }
 
-    &:focus {
-        color: $orange-color-two;
+    .plot-title {
+        @include mobile {
+            font-size: 14px;
+        }
+    }
+
+    .avatar-container {
+        width: 15%;
+        @include align-elements(flex, flex-end, center);
+
+        @include breakpoints(655px) {
+            margin-top: 33px;
+            @include align-elements(flex, flex-end, flex-start);
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+
+            @include breakpoints(655px) {
+                width: 60px;
+                height: 60px;
+            } 
+
+            @include mobile {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+    
+    .content-fields-comments {
+        width: 80%;
+        
+        @include breakpoints(655px) {
+            width: 75%;
+        }
+
+        @include mobile {
+            padding: 0 5px;    
+        }
+
+        h5 {
+            @extend .text-color;
+
+            @include mobile {
+                font-size: 14px; 
+            }
+        }
+        
+        .comment-text {
+            @include comment-text;
+
+            @include mobile {
+                font-size: 12px;
+                padding: 10px 20px;
+            }
+        }
+        
+        .info-comments {
+            display: flex;
+
+            @include breakpoints(850px) {
+                flex-direction: column
+            }
+            
+            h6 {
+                @extend .text-color;
+
+                @include breakpoints(890px) {
+                    font-size: 14px
+                }
+
+                @include mobile {
+                    font-size: 10px;
+                }
+            }
+            
+            .info-comments-content {
+                @include breakpoints(840px) {
+                    width: 100%;
+                }
+        
+                @include mobile {
+                    font-size: 12px;   
+                }
+
+                .items-color {
+                    color: $orange-color-one;
+                    font-weight: 500;
+
+                    p {
+                        margin: 0 5px 10px;
+                    }
+
+                    .like-icon {
+                        @extend .items-color;
+                        cursor: pointer;
+                    }
+                }
+
+                h6 {
+                    @extend .items-color;
+                    margin: 0 10px;
+                    text-decoration: underline;
+                    cursor: pointer;
+
+                    @include mobile {
+                        margin: 0 5px;
+                    }
+                }
+            }
+
+            .btnsEdit {
+                display: flex;
+                justify-content: space-between;
+                width: 28%;
+            
+                .saveBE {
+                    background-color: $primary-color-beige-one;
+                    border-color: $primary-color-beige-one;
+            
+                    &:hover {
+                        background-color: $primary-color-beige-two;
+                    }
+            
+                    &:active {
+                        background-color: $primary-color-beige-three;
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-actions {
+        width: 5%;
+        margin-top: 25px;
+        @include align-elements(flex, center, flex-start);
+        
+        .actions {
+            margin: 0;
+            
+            .icon-menu {
+                font-size: 30px;
+                color: white;
+                cursor: pointer;
+            }
+
+            .dropdown-toggle::after {
+                display: none;
+            }
+
+            .dropdown-menu {
+                background-color: $primary-color-black-bg-icon;
+            
+                .dropdown-item {
+                    color: white;
+            
+                    .iconDrop {
+                        color: $primary-color-bg-comment !important;
+                        font-size: 25px;
+                    }
+            
+                    &:hover {
+                        background-color: $primary-color-icon;
+                    }
+            
+                    &:active {
+                        background-color: $primary-color-icon;
+                    }
+                }
+            }
+        }
+        
+        .iconDrop {
+            color: $primary-color-bg-comment !important;
+            font-size: 25px;
+        }
+    }
+
+    .response-reply {
+        margin-top: 20px;
+        width: 90%;
+        display: flex;
+
+        @include mobile {
+            width: 100%;
+        }
+        
+        .avatar-reply {
+            width: 100%;
+            margin-top: 30px;
+            margin-right: 15px;
+            @include align-elements(flex, flex-end, flex-start);
+        
+            @include breakpoints(655px) {
+                margin-top: 33px;
+                @include align-elements(flex, flex-end, flex-start);
+            }
+    
+            img {
+                width: 80px;
+                height: 80px;
+                border-radius: 100%;
+    
+                @include breakpoints(655px) {
+                    width: 60px;
+                    height: 60px;
+                } 
+    
+                @include mobile {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+
+        .info-reply {
+            display: flex;
+            flex-direction: column;
+           
+            h5, h6 {
+                @extend .text-color;
+
+                @include mobile {
+                    font-size: 14px; 
+                }
+            }
+    
+            .comment-text {
+                @include comment-text;
+
+                @include mobile {
+                    font-size: 14px;
+                }
+            }
+
+            .items-color {
+                color: $orange-color-one;
+                font-weight: 500;
+
+                @include mobile {
+                    font-size: 12px;   
+                }
+
+                p {
+                    margin: 0 5px 10px;
+                }
+
+                .like-icon {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .response-coment {   
+        width: 90%;
+        padding-right: 6%;
+        margin-top: 20px;
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            margin-top: 30px;
+
+            @include breakpoints(655px) {
+                width: 60px;
+                height: 60px;
+            } 
+
+            @include mobile {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        h5, h6 {
+            @include mobile {
+                font-size: 14px; 
+            }
+        }
+
+        .comment-text {
+            background-color: $primary-color-bg-comment;
+            padding-left: 35px;
+            padding-right: 35px;
+            border-radius: 5px;
+            width: 100%;
+            height: 150px;
+
+            @include mobile {
+                font-size: 12px;
+                height: 100px;
+            }
+        }
+
+        .btn-comment {
+            background-color: $primary-color-beige-one;
+            border-color: $primary-color-beige-one;
+        
+            &:hover {
+                background-color: $primary-color-beige-two;
+            }
+        
+            &:active {
+                background-color: $primary-color-beige-three !important;
+            }
+        }
+
+        .viewmore {
+            color: $orange-color-one;
+            text-decoration: underline;
+            cursor: pointer;
+            padding-right: 7%;
+        
+            &:hover {
+                color: $orange-color-two;
+            }
+
+            @include mobile {
+                font-size: 14px;
+            }
+        }
     }
 }
 
@@ -40,114 +341,70 @@
     &:hover {
         color: $orange-color-two;
     }
-}
 
-.comment-text {
-    background-color: $primary-color-bg-comment;
-    padding-left: 35px;
-    padding-right: 35px;
-    border-radius: 5px;
-
-    &:focus {
-        background-color: $primary-color-bg-comment;
+    @include mobile {
+        font-size: 14px;
     }
 }
 
-.btn-comment {
-    background-color: $primary-color-beige-one;
-    border-color: $primary-color-beige-one;
-
-    &:hover {
-        background-color: $primary-color-beige-two;
-    }
-
-    &:active {
-        background-color: $primary-color-beige-three !important;
-    }
-}
-
-.response-coment {
-    width: 90%;
-    padding-right: 6%;
-}
 .boxYourComment {
-    padding-right: 6%;
-}
-.response-reply {
-    width: 90%;
-}
+    padding-right: 5%;
+    
 
-.actions {
-    height: 87%;
+    .avatar-comment {
+        margin-top: 30px;
+        @include align-elements(flex, center, center);
 
-    .icon-menu {
-        font-size: 30px;
-        color: white;
-        cursor: pointer;
-    }
-}
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
 
-.dropdown-toggle::after {
-    display: none !important;
-}
+            @include breakpoints(655px) {
+                width: 60px;
+                height: 60px;
+            } 
 
-.dropdownItens {
-    background-color: red;
-}
-
-.dropdown-menu {
-    background-color: $primary-color-black-bg-icon;
-
-    .dropdown-item {
-        color: white;
-
-        .iconDrop {
-            color: $primary-color-bg-comment !important;
-            font-size: 25px;
-        }
-
-        &:hover {
-            background-color: $primary-color-icon;
-        }
-
-        &:active {
-            background-color: $primary-color-icon;
+            @include mobile {
+                width: 50px;
+                height: 50px;
+            }
         }
     }
-}
 
-.btnsEdit {
-    display: flex;
-    justify-content: space-between;
-    width: 28%;
+    h5, h6 {
+        color: #fff;
 
-    .saveBE {
+        @include mobile {
+            font-size: 14px; 
+        }
+    }
+
+    .comment-text {
+        background-color: $primary-color-bg-comment;
+        padding-left: 35px;
+        padding-right: 35px;
+        border-radius: 5px;
+        width: 100%;
+        height: 150px;
+
+        @include mobile {
+            font-size: 12px;
+            height: 100px;
+        }
+    }
+
+    .btn-comment {
         background-color: $primary-color-beige-one;
         border-color: $primary-color-beige-one;
-
+    
         &:hover {
             background-color: $primary-color-beige-two;
         }
-
+    
         &:active {
-            background-color: $primary-color-beige-three;
+            background-color: $primary-color-beige-three !important;
         }
     }
-}
-.btnsEditR {
-    display: flex;
-    justify-content: space-between;
-    width: 32%;
-    .saveBE {
-        background-color: $primary-color-beige-one;
-        border-color: $primary-color-beige-one;
 
-        &:hover {
-            background-color: $primary-color-beige-two;
-        }
-
-        &:active {
-            background-color: $primary-color-beige-three;
-        }
-    }
 }

@@ -1,17 +1,94 @@
-.form-theater-title{
+.theaters-form-container {
+  width: 91%;
+  padding-left: 45px;
+
+  @include breakpoints(700px) {
+    width: 100%;
+  }
+
+  @include mobile {
+    padding-left: 0;
+  }
+  
+  .form-theater-title {
     color: $primary-color-black-seven;
     text-align: left;
-}
-.map-location-field{
-    background-color: $primary-color-black-one;
-    height: 70vh;
-}
-.theaters-form-container{
-    width: 90%;
-}
-.theaters-list{
-    align-items: flex-start;
-    list-style-type: disc;
-    color: $primary-color-black-seven;
-    gap: 1rem;
+  }
+
+  .box-form {
+    @include breakpoints(655px) {
+      flex-direction: column;
+    }
+    
+    .location-input {
+      background-color: $primary-color-black-one;
+      border: 1px $primary-color-black-seven solid;
+      border-top: 1px $primary-color-black-five solid;
+      align-items: center;
+      width: 50%;
+      
+      @include breakpoints(655px) {
+        width: 400px;
+      }
+
+      @include mobile {
+        width: 100%;
+      }
+  
+      input {
+        color:$primary-color-black-seven;
+        background-color: $primary-color-black-one;
+        border: none;
+        border-radius: 10px;
+        height: 100%;
+        width: 97%;
+  
+        &::placeholder {
+          color:$primary-color-black-seven;
+        }
+        &:focus {
+            outline: none;
+        }
+      }
+  
+      .iconLocation{
+        color:$primary-color-black-seven;
+        scale: 1.5;
+      }
+    }
+    
+    .container-btn-gps {
+      display: flex;
+      
+      .localization-button {
+        color: white;
+        background-color: #d36643;
+        border: none;
+        padding: 10px;
+        &:hover {
+          filter: brightness(1.2);
+        }
+  
+        @include breakpoints(1170px) {
+          font-size: 11.5px;
+        }
+
+        @include breakpoints(655px) {
+          font-size: 20px;
+        }
+
+        @include mobile {
+          font-size: 14px;
+        }
+      }
+    
+      .ou {
+        color: white;
+        justify-self: center;
+        margin: 0 15px;
+        display: flex;
+        align-items: center;
+      } 
+    }
+  }
 }

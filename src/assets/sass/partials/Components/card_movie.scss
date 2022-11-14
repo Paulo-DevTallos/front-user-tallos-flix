@@ -7,8 +7,16 @@
     border-radius: 0;
     font-size: 14px;
 
+    @include breakpoints(550px) {
+        flex-direction: column;
+    }
+
     .poster-container {
         width: 40%;
+        
+        @include breakpoints(550px) {
+            width: 100%;
+        }
 
         .backspace {
             padding-bottom: 20px;
@@ -22,20 +30,41 @@
 
             &:hover {
                 color: #fff;
+            }
+            .return-arrow{
+                &:hover {
+                    color: #fff;
+                } 
             } 
         }
         
         .poster-wd {
             padding-right: 20px;
+            
+            @include breakpoints(550px) {
+                padding: 0;
+            }
 
             img {
                 width: 100%;
             }
-        }
 
+        }
+        
         .available-field {            
-            span {
+            .exibition {
+                display: flex;
                 font-size: 16px;
+                padding-top: 10px;
+                padding-right: 20px;
+
+                span {
+                    padding-top: 3px;
+                }
+
+                @include breakpoints(950px) {
+                    flex-direction: column;
+                }
             }
         }
     }
@@ -45,8 +74,12 @@
         text-align: start;
         padding-top: 40px;
 
+        @include breakpoints(550px) {
+            width: 100%;
+            padding-top: 20px;
+        }
+        
         .card-header {
-
             h2 {
                 margin-bottom: 15px;
                 font-family: 'Nunito', sans-serif;
@@ -117,94 +150,8 @@
         }
     }
 }
-/*.tagGenre {
-    border: 2px solid #d36643;
-    border-radius: 15px;
-    padding: 1px 12px;
-    color: #efefef;
-    @include align-elements(flex, center, center);
-    transition: .2s ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #d36643;
+.people-link{
+    &:hover{
+        color: $orange-color-one;
     }
 }
-#genre-title{
-    color: $primary-color-black-seven;
-    font-size: $font-size-common;
-}
-
-.card-config {
-    background-color: $primary-color-black-card;
-    color: #fff;
-    padding: 20px 16px;
-    display: flex;
-    border-radius: 0;
-
-    .poster-container {
-        width: 35%;
-
-        .poster-wd {
-            img {
-                width: 100%;
-            }
-        }
-
-        .available-field {
-            padding-top: 20px;
-        }
-    }
-
-    .info-movie {
-        width: 65%;
-        text-align: start;
-        padding-left: 25px;
-
-        .card-header {
-            height: 50%;
-
-            h2 {
-                margin-bottom: 15px;
-                font-family: 'Nunito', sans-serif;
-                font-weight: bold;
-            }
-    
-            .tagGenre {
-                border: 2px solid #d36643;
-                border-radius: 15px;
-                padding: 1px 12px;
-                color: #efefef;
-            }
-
-            p {
-                margin-top: 15px;
-            }
-
-            .icon-favorite {
-                @include align-elements(flex, flex-start, center);
-
-                svg {
-                    font-size: 30px;
-                    margin-right: 10px;
-                    cursor: pointer;
-                }
-
-                #tag-favorite {
-                    font-size: 10px;
-                    margin: 0;
-                }
-            }
-        }
-
-        .card-technics {
-            ul {
-                padding: 0;
-
-                li {
-                    padding: 9px 0;
-                }
-            }
-        }
-    }
-}*/

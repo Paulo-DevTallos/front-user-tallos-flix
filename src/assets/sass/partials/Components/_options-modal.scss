@@ -1,14 +1,18 @@
 .wd-modal {
   position: fixed;
   z-index: 2000;
-  padding: 10px;
+  padding: 0 30px;
   width: 500px;
-  height: 150px;
+  text-align: center;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.593);
   animation: downSlide .1s;
+
+  @include mobile {
+    width: 80%;
+  }
 
   @keyframes downSlide {
     0% {

@@ -47,6 +47,11 @@
 //estilos do filter e box
 .box-filter-container {
     position: relative;
+
+    @include breakpoints(1180px) {
+        width: 130px;
+        margin-top: 10px;
+    }
     
     .styles-filter {
         border: solid $primary-color-black-seven 1px;

@@ -60,7 +60,7 @@
 
 			.nav-link {
 				color: $main-white-color !important;
-				padding: 0 25px;
+				margin: 0 25px;
 				background-color: rgba(255, 255, 255, 0) !important;
 
 				&:focus {
@@ -89,6 +89,7 @@
 			right: 0px;
 			background-color: $primary-color-black-three;
 			animation: downslide .2s ease-in-out;
+			z-index: 999;
 
 			@keyframes downslide {
 				from {

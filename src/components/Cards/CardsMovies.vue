@@ -13,6 +13,7 @@
             <b-card-img
               :src="movie.poster || vazio.poster"
               v-if="movie.poster ? movie.poster : vazio.poster"
+              onerror="this.onerror=null;this.src='/img/empty-img.png';"
               class="rounded-0"
             ></b-card-img>
           </b-col>
@@ -24,7 +25,7 @@
                 <b-card-title v-if="movie.title ? movie.title : vazio.title">{{
                   movie.title || vazio.title
                 }}</b-card-title>
-                <b-card-subtitle
+                <b-card-subtitle v-if="movie.runtime"
                   >Duração:
                   {{
                     Math.trunc(movie.runtime / 60) +
@@ -34,7 +35,7 @@
                   }}</b-card-subtitle
                 >
                 <div class="d-flex">
-                  <star-rating v-model="movie.imdb.rating" />
+                  <star-rating :ratingRawValue="movie.imdb.rating" />
                 </div>
                 <router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
                   <b-button
@@ -81,5 +82,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped>
-</style>

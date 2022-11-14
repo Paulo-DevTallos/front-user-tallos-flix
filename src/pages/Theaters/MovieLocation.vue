@@ -2,17 +2,17 @@
   <div class="page-container">
     <CardMovie :hiddenBtnTrailer="true" />
     <div>
-      <PlotView />
+      <PlotView v-if="this.$store.state.Movies.currentMovie.fullplot" />
       <TheatersForm />
     </div>
-    <div class="map-location-field px-5 py-4">
+    <div class="map-location-field">
       <MapView />
     </div>
-    <div class="ps-5">
+    <div>
       <TheatersList />
     </div>
-    <div class="ps-5 comments-app">
-      <p class="plot-title mt-4">Comentários</p>
+    <div class="comments-app">
+      <p class="ps-5 plot-title mt-4">Comentários</p>
       <hr class="orange-line-separator" />
       <div
         class="p-4 d-flex justify-content-center plot-title"
@@ -22,8 +22,8 @@
       </div>
       <comments-movie
         :renderComments="this.$store.state.Comments.Comments"
-        @redirect="redirectAction"
-        @postComment="commentPost"
+        @redirectReq="redirectAction"
+        @postComment="createComment"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
         :viewMore="pageChange"
@@ -32,6 +32,7 @@
       />
       <OptionsModal
         v-if="hiddenOptionModal"
+        :hiddenBtnLogin="true"
         @closeWindow="closeOptionModal"
         :action="message"
       />
@@ -67,11 +68,14 @@ export default defineComponent({
   },
   data() {
     return {
-      message: 'adicionar comentário',
+      message: 'Você precisa está logado para realizar está ação!',
       limit: 5,
       isLogged: localStorage.getItem('token'),
       hiddenOptionModal: false,
       likes: [],
+      userId: {
+        userId: this.$store.state.Users.UserId,
+      },
       movie: {
         movie: this.$store.state.Movies.currentMovie._id,
       },
@@ -88,30 +92,19 @@ export default defineComponent({
     closeOptionModal() {
       this.hiddenOptionModal = false;
     },
-    async commentsRender() {
-      await this.$store.dispatch('Comments/getByMovieId', {
+    commentsRender() {
+      this.$store.dispatch('Comments/getByMovieId', {
         movie: this.movie,
         params: {
           limit: this.limit,
         },
       });
-      for (
-        let index = 0;
-        index < this.$store.state.Comments.Comments.commentsMovie.length;
-        index++
-      ) {
-        await this.$store.dispatch(
-          'getAllLikesComment',
-          this.$store.state.Comments.Comments.commentsMovie[index]._id,
-        );
-        await this.likes.push(this.$store.state.Likes.getComment);
-      }
     },
-    commentPost(userComent: Object) {
-      console.log(userComent);
+    createComment(userComent: Object) {
       this.$store.dispatch('Comments/createComment', userComent);
-
       const cleanInputComment = (userComent.text = '');
+
+      this.commentsRender();
 
       return cleanInputComment;
     },
@@ -123,25 +116,40 @@ export default defineComponent({
       this.$store.dispatch('Comments/deleteComment', IdComment);
       this.commentsRender();
     },
+    //update comment
     updateComment(commentUpdate: string) {
       this.$store.dispatch('Comments/updateComment', {
         id: commentUpdate._id,
         comment: commentUpdate,
       });
-      this.$router.go();
       this.commentsRender();
     },
   },
-  mounted() {
+  created() {
     this.socketService.registerListener('new-comment', 'new-comment', () => {
       this.commentsRender();
+      console.log('teste');
     });
 
+    //socket update
+    this.socketService.registerListener(
+      'update-comment',
+      'update-comment',
+      (commentUpdate) => {
+        this.updateComment(commentUpdate);
+      },
+    );
+
+    //socket delete
+    this.socketService.registerListener(
+      'deleted-comment',
+      'deleted-comment',
+      (IdComment) => {
+        this.deleteComment(IdComment);
+      },
+    );
+
     this.commentsRender();
-    // console.log(this.$store.state.Likes.getComment);
-    console.log(this.likes);
   },
 });
 </script>
-
-<style lang="scss" scoped></style>

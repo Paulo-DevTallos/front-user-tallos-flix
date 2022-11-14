@@ -3,7 +3,7 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <div class="d-flex justify-content-center search-components">
-      <FilterButton />
+      <FilterButton :FilterSeries="false" />
       <SearchBar @search="searchMovie" />
     </div>
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
@@ -14,7 +14,11 @@
         <span id="genre-title">Gênero: </span>
         <span id="tagGenre">{{ this.$store.state.Movies.actualTag }}</span>
       </div>
-      <Carousel v-if="hiddenCarousel" :hiddenMovieInfo="true" />
+      <Carousel
+        v-if="hiddenCarousel"
+        :IsRendered="render"
+        :hiddenMovieInfo="true"
+      />
       <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
     </div>
   </div>
@@ -37,6 +41,7 @@ export default defineComponent({
       isChanged: '',
       hiddenCarousel: true,
       hiddenErrorSearch: false,
+      render: false,
     };
   },
   methods: {
@@ -58,13 +63,14 @@ export default defineComponent({
 
   watch: {
     ['Movies/getErrorPage'](data) {
-      console.log(data);
       if (data === true) {
         this.hiddenErrorSearch = true;
         this.hiddenCarousel = false;
+        this.render = false;
       } else {
         this.hiddenErrorSearch = false;
         this.hiddenCarousel = true;
+        this.render = true;
       }
     },
   },
@@ -72,6 +78,7 @@ export default defineComponent({
     ...mapGetters(['Movies/getErrorPage']),
   },
   mounted() {
+    this.$store.state.Movies.IsSeriesGenre = false;
     this.$store.dispatch(
       'Favorites/getFavoriteById',
       this.$store.state.Users.UserId,

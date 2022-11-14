@@ -61,10 +61,6 @@ export default defineComponent({
     togglePassword(): void {
       this.inputType = this.isPasswordVisible ? 'password' : 'text';
     },
-
-    teste() {
-      console.log('teste');
-    }
   },
 });
 </script>
