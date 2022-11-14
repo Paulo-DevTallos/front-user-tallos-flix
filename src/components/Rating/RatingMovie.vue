@@ -29,6 +29,9 @@ export default defineComponent({
       avaliation: 0,
     };
   },
+  methods: {
+    SaveRating() {},
+  },
 });
 </script>
 <style lang="scss" scoped></style>
