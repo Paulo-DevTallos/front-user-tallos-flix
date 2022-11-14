@@ -10,12 +10,15 @@
       <b-card no-body class="overflow-hidden">
         <b-row class="d-flex justify-content-center">
           <b-col lg="4">
-            <b-card-img
-              :src="movie.poster || vazio.poster"
-              v-if="movie.poster ? movie.poster : vazio.poster"
-              onerror="this.onerror=null;this.src='/img/empty-img.png';"
-              class="rounded-0"
-            ></b-card-img>
+            <router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
+              <b-card-img
+                :src="movie.poster || vazio.poster"
+                v-if="movie.poster ? movie.poster : vazio.poster"
+                onerror="this.onerror=null;this.src='/img/empty-img.png';"
+                class="rounded-0"
+                @click="currentMovie(movie)"
+              ></b-card-img>
+            </router-link>
           </b-col>
           <b-col lg="7">
             <b-card-body
@@ -38,13 +41,11 @@
                   <star-rating :ratingRawValue="movie.imdb.rating" />
                 </div>
                 <router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
-                  <b-button
-                    size="lg"
-                    class="w-75 btn-movie"
+                  <ButtonDefault
+                    class="btn-styles"
                     @click="currentMovie(movie)"
-                  >
-                    Ver cinemas
-                  </b-button>
+                    :data_btn_title="'Ver Cinemas'"
+                  />
                 </router-link>
               </div>
             </b-card-body>
@@ -57,10 +58,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import StarRating from '../Rating/StarRating.vue';
+import ButtonDefault from '../Buttons/ButtonDefault.vue';
 
 export default defineComponent({
+  name: 'CardsMovies',
+  emits: ['redirectTo'],
   components: {
     StarRating,
+    ButtonDefault,
   },
   data() {
     return {
