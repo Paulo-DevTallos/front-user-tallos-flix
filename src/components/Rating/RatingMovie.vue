@@ -40,11 +40,40 @@ export default defineComponent({
   },
   methods: {
     SaveRating() {
-      if (this.rating.allRate[0].rate === 0) {
-        console.log(' não da pra criar ');
-      } else if (this.rating.allRate[0].rate > 0) {
-        this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
+      this.$store.dispatch(
+        'Ratings/getAllRatingsUser',
+        this.$store.state.Movies.currentMovie._id,
+      );
+      for (
+        let index = 0;
+        index < this.$store.state.Ratings.RatingsUser.length;
+        index++
+      ) {
+        if (this.rating.allRate[0].rate === 0) {
+          console.log(' não da pra criar ');
+        } else if (
+          this.$store.state.Ratings.RatingsUser[index].movie_id ===
+          this.$store.state.Movies.currentMovie._id
+        ) {
+          console.log(' Ja existe avaliação');
+          // this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
+        }  else if (
+          this.$store.state.Ratings.RatingsUser[index].movie_id !==
+          this.$store.state.Movies.currentMovie._id
+        ) {
+          console.log(' nao existe avaliação');
+        }
       }
+      // console.log(this.$store.state.Ratings.RatingsUser[0].movie_id);
+      // if (this.rating.allRate[0].rate === 0) {
+      //   console.log(' não da pra criar ');
+      // } else if (
+      //   this.$store.state.Ratings.RatingsUser[0].movie_id !=
+      //   this.$store.state.Movies.currentMovie._id
+      // ) {
+      //   console.log(' Ja existe');
+      //   // this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
+      // }
     },
   },
 });

@@ -6,4 +6,10 @@ export default {
       console.log(data);
     });
   },
+  async getAllRatingsUser({ commit }: any, id: string) {
+    await RatingsRequest.getAllRatingsUser(id).then((res) => {
+      commit('ALL_RATINGS', res.data);
+    //   console.log(res.data);
+    });
+  },
 };
