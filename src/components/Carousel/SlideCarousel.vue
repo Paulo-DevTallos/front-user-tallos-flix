@@ -79,11 +79,11 @@ export default defineComponent({
       display: flex;
       flex-flow: row wrap;
       gap: 15px;
-      padding: 15px;
+      padding: 25px;
 
       .item-image-poster {
         width: 250px;
-        height: 250px;
+        height: 330px;
         flex-shrink: 0;
       }
     }
