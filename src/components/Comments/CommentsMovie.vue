@@ -19,7 +19,13 @@
         </div>
         <div class="content-fields-comments">
           <b-col class="p-0">
-            <h5>{{ comment.name }}</h5>
+            <h5>
+              {{ comment.name }}:{{
+                this.$store.state.Likes.likeList[
+                  renderComments.commentsMovie.indexOf(comment)
+                ]
+              }}
+            </h5>
             <TextAreaField
               class="comment-text"
               :data_reply_id="
@@ -30,19 +36,14 @@
               :max_rows="8"
               v-model:model-value="comment.text"
             />
-            <div class="pt-3 d-flex justify-content-between info-comments"> 
+            <div class="pt-3 d-flex justify-content-between info-comments">
               <DisplayInteractionInfos
                 :data_timestamp="new Date(comment.date).toLocaleString()"
                 v-if="btnViewsComments && teste != comment._id"
                 :data_statuslike="comment.like"
                 :data_statusdislike="comment.deslike"
                 :data_like="
-                  (idCommentLike === comment._id && likeComment) ||
-                  (this.$store.state.Likes.likeList[
-                    renderComments.commentsMovie.indexOf(comment)
-                  ] === 'LIKE' &&
-                    LikeComment !== false) ||
-                  this.handlerState[
+                  this.$store.state.Likes.likeList[
                     renderComments.commentsMovie.indexOf(comment)
                   ] === 'LIKE'
                     ? 'carbon:thumbs-up-filled'
@@ -51,9 +52,6 @@
                 @createlikeComment="
                   LikeComment(
                     comment._id,
-                    this.$store.state.Likes.likeList[
-                      renderComments.commentsMovie.indexOf(comment)
-                    ],
                     renderComments.commentsMovie.indexOf(comment),
                   )
                 "
@@ -116,7 +114,7 @@
               <b-col
                 class="d-flex justify-content-end align-items-start"
                 cols="2"
-              > 
+              >
                 <div class="avatar-reply">
                   <Avatar
                     :src="
@@ -185,7 +183,7 @@
                 </div>
               </b-col>
               <div class="modal-actions">
-                <ModalOptionsComment 
+                <ModalOptionsComment
                   v-if="reply.email === this.$store.state.Users.UserEmail"
                   @edit="editComments(reply._id)"
                   @delete="$emit('deleteComment', reply._id)"
@@ -274,7 +272,7 @@
         </b-col>
         <b-col>
           <h5>Seu Comentário</h5>
-          <TextAreaField 
+          <TextAreaField
             class="comment-text"
             v-model="userComent.text"
             :rows="5"
@@ -306,6 +304,7 @@ import TextAreaField from './TextAreaField.vue';
 import DisplayInteractionInfos from './DisplayInteractionInfos.vue';
 import ModalOptionsComment from '@/components/Modals/ModalOptionsComment.vue';
 import ButtonDefault from '@/components/Buttons/ButtonDefault.vue';
+import { mapGetters } from 'vuex';
 //import BoxComment from './BoxComment.vue';
 
 export default defineComponent({
@@ -393,44 +392,46 @@ export default defineComponent({
   },
   methods: {
     // tratamento para botao like
-    LikeComment(commentId: string, like: string, index: number) {
-      if (like === 'LIKE' || this.handlerState === 'LIKE') {
-        this.likeComment = false;
-        this.$store.state.Likes.likeList[index] = 'NOT';
-        this.handlerState[index] = 'NOT';
-      } else {
-        this.likeComment = !this.likeComment;
-        this.$store.state.Likes.likeList[index] = 'LIKE';
-        this.handlerState[index] = 'LIKE';
-      }
+    LikeComment(commentId: string, index: number) {
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
+      if (this.$store.state.Likes.likeList[index] === 'LIKE') {
+        this.likeComment = false;
+      } else {
+        this.likeComment = true;
+      }
 
       if (this.likeComment === true) {
-        this.PostLike(commentId);
+        this.PostLike(commentId, index);
       } else if (this.likeComment === false) {
-        this.RemoveLike(commentId);
+        this.RemoveLike(commentId, index);
       }
     },
     // adicionar like
-    PostLike(commentId: string) {
+    PostLike(commentId: string, index: number) {
       this.likeComment = true;
       this.DeslikeComment = false;
       (this.userlike.commentId = commentId),
         (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
       (this.userlike.userLike[0].like = true),
         (this.userlike.userLike[0].unlike = false),
-        this.$store.dispatch('createLikeComment', this.userlike);
+        this.$store.dispatch('createLikeComment', {
+          like: this.userlike,
+          index: index,
+        });
     },
     // remover like
-    RemoveLike(commentId: string) {
+    RemoveLike(commentId: string, index: number) {
       this.likeComment = false;
       this.DeslikeComment = false;
       (this.userlike.commentId = commentId),
         (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
       (this.userlike.userLike[0].like = false),
         (this.userlike.userLike[0].unlike = false),
-        this.$store.dispatch('createLikeComment', this.userlike);
+        this.$store.dispatch('createLikeComment', {
+          like: this.userlike,
+          index: index,
+        });
     },
     // tratamento para botao deslike
     UnlikeComment(commentId: string) {
@@ -498,14 +499,14 @@ export default defineComponent({
     },
   },
 
-async mounted() {
+  async mounted() {
     this.socketService.registerListener(
       'new-liked',
       'new-liked',
       (commentId) => {
         console.log(commentId);
         this.PostLike(commentId);
-      }
+      },
     );
 
     this.socketService.registerListener(
@@ -513,8 +514,8 @@ async mounted() {
       'all-likes',
       (commentId) => {
         this.LikeComment(commentId);
-      }
-    )
+      },
+    );
 
     //fechar botoes de edição
     this.socketService.registerListener(
@@ -541,9 +542,6 @@ async mounted() {
       index < this.renderComments.commentsMovie.length;
       index++
     ) {
-      if (index !== this.$store.state.Likes.likeList.length) {
-        this.$store.state.Likes.likeList = [];
-      }
       await this.$store.dispatch('getAllLikesComment', {
         id: this.renderComments.commentsMovie[index]._id,
         userId: {
@@ -551,6 +549,29 @@ async mounted() {
         },
       });
     }
+  },
+  async beforeMount() {
+    this.$store.state.Likes.likeList = [];
+  },
+  computed: {
+    ...mapGetters(['Comments/getComments']),
+  },
+  watch: {
+    ['Comments/getComments'](data) {
+      this.$store.state.Likes.likeList = [];
+      for (
+        let index = 0;
+        index < this.renderComments.commentsMovie.length;
+        index++
+      ) {
+        this.$store.dispatch('getAllLikesComment', {
+          id: this.renderComments.commentsMovie[index]._id,
+          userId: {
+            userId: this.$store.state.Users.UserId,
+          },
+        });
+      }
+    },
   },
 });
 </script>
