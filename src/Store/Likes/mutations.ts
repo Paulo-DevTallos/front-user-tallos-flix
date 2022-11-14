@@ -6,10 +6,10 @@ export default {
     state.likeList.push(payload);
   },
   LIKE_LIST_UPDATE(state: any, payload: any) {
-    if(state.likeList[payload] === 'LIKE'){
+    console.log(payload);
+    if (state.likeList[payload] === 'LIKE') {
       state.likeList[payload] = 'NOT';
-    }
-    else if(state.likeList[payload] === 'NOT'){
+    } else if (state.likeList[payload] === 'NOT') {
       state.likeList[payload] = 'LIKE';
     }
   },

@@ -24,7 +24,7 @@
                 this.$store.state.Likes.likeList[
                   renderComments.commentsMovie.indexOf(comment)
                 ]
-              }}
+              }}:{{ renderComments.commentsMovie.indexOf(comment) }}
             </h5>
             <TextAreaField
               class="comment-text"
@@ -505,7 +505,7 @@ export default defineComponent({
       'new-liked',
       (commentId) => {
         console.log(commentId);
-        this.PostLike(commentId);
+        this.PostLike(commentId, 0);
       },
     );
 
@@ -513,7 +513,7 @@ export default defineComponent({
       'all-likes',
       'all-likes',
       (commentId) => {
-        this.LikeComment(commentId);
+        this.LikeComment(commentId, 0);
       },
     );
 
@@ -537,18 +537,20 @@ export default defineComponent({
         this.LikeComment(commentId);
       },
     );
-    for (
-      let index = 0;
-      index < this.renderComments.commentsMovie.length;
-      index++
-    ) {
-      await this.$store.dispatch('getAllLikesComment', {
-        id: this.renderComments.commentsMovie[index]._id,
-        userId: {
-          userId: this.$store.state.Users.UserId,
-        },
-      });
-    }
+    setTimeout(async () => {
+      for (
+        let index = 0;
+        index < this.renderComments.commentsMovie.length;
+        index++
+      ) {
+        await this.$store.dispatch('getAllLikesComment', {
+          id: this.renderComments.commentsMovie[index]._id,
+          userId: {
+            userId: this.$store.state.Users.UserId,
+          },
+        });
+      }
+    }, (this.renderComments.commentsMovie.length + 1) * 500);
   },
   async beforeMount() {
     this.$store.state.Likes.likeList = [];
@@ -559,18 +561,20 @@ export default defineComponent({
   watch: {
     ['Comments/getComments'](data) {
       this.$store.state.Likes.likeList = [];
-      for (
-        let index = 0;
-        index < this.renderComments.commentsMovie.length;
-        index++
-      ) {
-        this.$store.dispatch('getAllLikesComment', {
-          id: this.renderComments.commentsMovie[index]._id,
-          userId: {
-            userId: this.$store.state.Users.UserId,
-          },
-        });
-      }
+      setTimeout(() => {
+        for (
+          let index = 0;
+          index < this.renderComments.commentsMovie.length;
+          index++
+        ) {
+          this.$store.dispatch('getAllLikesComment', {
+            id: this.renderComments.commentsMovie[index]._id,
+            userId: {
+              userId: this.$store.state.Users.UserId,
+            },
+          });
+        }
+      }, (this.renderComments.commentsMovie.length + 1) * 500);
     },
   },
 });
