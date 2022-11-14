@@ -3,10 +3,12 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <h1>
-      Olá {{ this.$store.state.Users.UserName }}, sobre qual filme quer conhecer
-      hoje ?
+      Olá {{ $store.state.Users.UserName }}, sobre qual filme quer conhecer hoje ?
     </h1>
     <SearchBar @search="searchMovie" />
+    <div>
+      <SlideCarousel />
+    </div>
     <div
       class="home-carousel d-flex flex-column p-2 pb-3 mb-3"
       v-if="hiddenCarousel"
@@ -21,6 +23,7 @@
 import { defineComponent } from 'vue';
 import { SocketModule } from '@/services/socket';
 import ErrorComponent from '@/components/ErrorComponent.vue';
+import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
 import SearchBar from '@/components/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
 import { mapGetters } from 'vuex';
@@ -31,6 +34,7 @@ export default defineComponent({
     SearchBar,
     ErrorComponent,
     Carousel,
+    SlideCarousel,
   },
   data() {
     return {
