@@ -38,7 +38,7 @@
                 :data_statusdislike="comment.deslike"
                 :data_like="
                   (idCommentLike === comment._id && likeComment) ||
-                  (this.$store.state.Likes.likeList[
+                  ($store.state.Likes.likeList[
                     renderComments.commentsMovie.indexOf(comment)
                   ] === 'LIKE' &&
                     LikeComment !== false) ||
@@ -51,7 +51,7 @@
                 @createlikeComment="
                   LikeComment(
                     comment._id,
-                    this.$store.state.Likes.likeList[
+                    $store.state.Likes.likeList[
                       renderComments.commentsMovie.indexOf(comment)
                     ],
                     renderComments.commentsMovie.indexOf(comment),
@@ -99,7 +99,7 @@
         </div>
         <div class="modal-actions">
           <ModalOptionsComment
-            v-if="comment.email === this.$store.state.Users.UserEmail"
+            v-if="comment.email === $store.state.Users.UserEmail"
             @edit="editComments(comment._id)"
             @delete="$emit('deleteComment', comment._id)"
           />
@@ -107,8 +107,7 @@
         <!-- Respostas do Comentário -->
         <b-col cols="12" v-if="responseComment && id === comment._id">
           <div
-            v-for="reply in this.$store.state.Comments.GetCommentResponse
-              .response"
+            v-for="reply in $store.state.Comments.GetCommentResponse.response"
             :key="reply.id"
             class="w-100 d-flex justify-content-end"
           >
@@ -186,7 +185,7 @@
               </b-col>
               <div class="modal-actions">
                 <ModalOptionsComment 
-                  v-if="reply.email === this.$store.state.Users.UserEmail"
+                  v-if="reply.email === $store.state.Users.UserEmail"
                   @edit="editComments(reply._id)"
                   @delete="$emit('deleteComment', reply._id)"
                 />
@@ -194,7 +193,7 @@
             </b-row>
           </div>
           <div
-            v-if="this.$store.state.Comments.GetCommentResponse.response > []"
+            v-if="$store.state.Comments.GetCommentResponse.response > []"
             class="d-flex justify-content-end ViewMoreResponse"
           >
             <p class="viewmore" @click="viewMoreResponse">Mostrar Mais</p>
@@ -204,7 +203,7 @@
           <div
             class="p-4 d-flex justify-content-center plot-title"
             v-if="
-              this.$store.state.Comments.GetCommentResponse.response < [0] &&
+              $store.state.Comments.GetCommentResponse.response < [0] &&
               responseComment &&
               id === comment._id
             "
@@ -263,8 +262,8 @@
           <div class="avatar-comment">
             <img
               :src="
-                this.$store.state.Users.UserName &&
-                this.$store.state.Users.UserAvatar !== ''
+                $store.state.Users.UserName &&
+                $store.state.Users.UserAvatar !== ''
                   ? this.avatar
                   : this.Noavatar
               "
