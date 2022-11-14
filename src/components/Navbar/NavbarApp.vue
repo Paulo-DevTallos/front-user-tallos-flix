@@ -11,24 +11,10 @@
       >
         Somente nos Cinemas
       </b-nav-item>
-      <b-nav-item :to="{ name: 'movies' }" @click="showMenuMobile">
-        Filmes
-      </b-nav-item>
-      <b-nav-item :to="{ name: 'series' }" @click="showMenuMobile"
-        >Series</b-nav-item
-      >
+      <b-nav-item :to="{ name: 'movies' }" @click="showMenuMobile">Filmes</b-nav-item>
+      <b-nav-item :to="{ name: 'series' }" @click="showMenuMobile">Series</b-nav-item>
     </div>
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="d-flex justify-content-between">
-        <b-collapse class="d-flex">
-          <b-nav-item class="texto-navbar" :to="{ name: 'theaters' }">
-            Somente nos Cinemas
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'movies' }"> Filmes </b-nav-item>
-          <b-nav-item :to="{ name: 'series' }">Series</b-nav-item>
-        </b-collapse>
-      </b-navbar-nav>
-    </b-collapse>
+    <MenuMobile :movies="'movies'" :series="'series'" />
     <nav>
       <b-navbar-nav @click="redirect" class="type-cursor">
         <div
@@ -61,12 +47,13 @@
 import { defineComponent } from 'vue';
 import AvatarModal from '@/components/Modals/AvatarModal.vue';
 import CardProfile from '@/components/Navbar/CardProfile.vue';
+import MenuMobile from '@/components/Navbar/MenuMobile.vue';
 import { Icon } from '@iconify/vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'NavbarApp',
-  components: { AvatarModal, Icon, CardProfile },
+  components: { AvatarModal, Icon, CardProfile, MenuMobile },
   data() {
     return {
       UserLogged: this.$store.state.Users.UserName,
