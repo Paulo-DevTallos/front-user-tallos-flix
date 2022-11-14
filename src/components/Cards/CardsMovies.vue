@@ -7,9 +7,9 @@
       no-gutters
       class="mt-5"
     >
-      <b-card no-body class="overflow-hidden">
-        <b-row class="d-flex justify-content-center">
-          <b-col lg="4">
+      <b-card no-body>
+        <b-row class="d-flex">
+          <div class="card-info-img">
             <router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
               <b-card-img
                 :src="movie.poster || vazio.poster"
@@ -19,8 +19,8 @@
                 @click="currentMovie(movie)"
               ></b-card-img>
             </router-link>
-          </b-col>
-          <b-col lg="7">
+          </div>
+          <div class="card-info">
             <b-card-body
               class="d-flex flex-column-reverse h-100 pb-0 card-body"
             >
@@ -38,7 +38,7 @@
                   }}</b-card-subtitle
                 >
                 <div class="d-flex">
-                  <star-rating :ratingRawValue="movie.imdb.rating" />
+                  <star-rating :ratingRawValue="movie.imdb.rating" class="rating"/>
                 </div>
                 <router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
                   <ButtonDefault
@@ -49,7 +49,7 @@
                 </router-link>
               </div>
             </b-card-body>
-          </b-col>
+          </div>
         </b-row>
       </b-card>
     </b-col>
