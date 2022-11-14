@@ -24,7 +24,7 @@ export default {
       commit('GET_SERIES', res.data);
     });
   },
-  async getMovieFilter({ commit }: any, data?: any) {
+  async getMovieFilter({ commit }: any, data?: object) {
     await MovieRequests.getMovieFilter(data)
       .then((res) => {
         if (res.data.content.length === 0) {
@@ -34,7 +34,7 @@ export default {
         }
         commit('GET_MOVIES', res.data);
         console.log(res);
-      })
+    });
   },
   async getMovieFilterId({ commit }: any, data?: any) {
     await MovieRequests.getMovieFilterId(data)
