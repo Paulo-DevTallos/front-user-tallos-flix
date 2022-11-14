@@ -122,24 +122,6 @@
                 @include btn-config-font(20px);
                 @include btn-config;
             }
-    
-            /*.btn-movie {
-                background-color: $primary-color-beige-one;
-                border-color: $primary-color-beige-one;
-                
-                
-                &:hover {
-                    background-color: $primary-color-beige-two;
-                }
-                
-                &:active {
-                    background-color: $primary-color-beige-three;
-                }
-    
-                @include breakpoints(575px) {
-                
-                }
-            }*/
         }
     }
 }
