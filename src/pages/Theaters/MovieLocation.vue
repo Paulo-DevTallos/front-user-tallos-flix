@@ -11,6 +11,9 @@
     <div>
       <TheatersList />
     </div>
+    <div>
+      <rating-movie />
+    </div>
     <div class="comments-app">
       <p class="ps-5 plot-title mt-4">Comentários</p>
       <hr class="orange-line-separator" />
@@ -48,6 +51,7 @@ import OptionsModal from '@/components/Modals/OptionsModal.vue';
 import PlotView from '@/components/Plot.vue';
 import TheatersForm from '@/components/TheatersForm.vue';
 import TheatersList from '@/components/TheatersList.vue';
+import RatingMovie from '@/components/Rating/RatingMovie.vue';
 import { SocketModule } from '@/services/socket';
 import { defineComponent } from 'vue';
 export default defineComponent({
@@ -60,6 +64,7 @@ export default defineComponent({
     TheatersList,
     CommentsMovie,
     OptionsModal,
+    RatingMovie,
   },
   setup() {
     return {

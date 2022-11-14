@@ -6,6 +6,7 @@ import Comments from './Comments/CommentStore';
 import Favorites from './Favorites/FavoriteStore';
 import Peoples from './Peoples/PeoplesStore';
 import Likes from './Likes/LikesStore';
+import Ratings from './Ratings/RatingsStore';
 import createPersistedState from 'vuex-persistedstate';
 
 const store = createStore({
@@ -17,6 +18,7 @@ const store = createStore({
     Favorites,
     Peoples,
     Likes,
+    Ratings,
   },
   plugins: [createPersistedState()],
 });
