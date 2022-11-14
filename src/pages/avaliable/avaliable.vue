@@ -15,7 +15,21 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   components: { HeaderApp },
   mounted() {
-    
-  }
+    console.log(this.$store.state.Ratings.RatingsUser);
+    this.$store.dispatch(
+      'Ratings/getAllRatingsUser',
+      this.$store.state.Users.UserId,
+    );
+    for (
+      let index = 0;
+      index < this.$store.state.Ratings.RatingsUser.length;
+      index++
+    ) {
+      this.$store.dispatch(
+        'Movies/getMovieFilterId',
+        this.$store.state.Ratings.RatingsUser[index].movie_id,
+      );
+    }
+  },
 });
 </script>

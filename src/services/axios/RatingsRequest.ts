@@ -4,7 +4,10 @@ export default {
   createRatingsMovie: (data: Object) => {
     return http.post(`ratings`, data);
   },
-  getAllRatingsUser: (id: string) => {
+  getAllRatingsMovie: (id: string) => {
     return http.get(`ratings/movie/${id}`);
+  },
+  getAllRatingsUser: (id: string) => {
+    return http.get(`ratings/${id}`);
   }
 };

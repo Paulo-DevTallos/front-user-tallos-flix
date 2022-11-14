@@ -1,3 +1,4 @@
 export default {
+  RatingsMovie: [],
   RatingsUser: [],
 };

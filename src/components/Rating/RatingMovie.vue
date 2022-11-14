@@ -41,24 +41,24 @@ export default defineComponent({
   methods: {
     SaveRating() {
       this.$store.dispatch(
-        'Ratings/getAllRatingsUser',
+        'Ratings/getAllRatingsMovie',
         this.$store.state.Movies.currentMovie._id,
       );
       for (
         let index = 0;
-        index < this.$store.state.Ratings.RatingsUser.length;
+        index < this.$store.state.Ratings.RatingMovie.length;
         index++
       ) {
         if (this.rating.allRate[0].rate === 0) {
           console.log(' não da pra criar ');
         } else if (
-          this.$store.state.Ratings.RatingsUser[index].movie_id ===
+          this.$store.state.Ratings.RatingMovie[index].movie_id ===
           this.$store.state.Movies.currentMovie._id
         ) {
           console.log(' Ja existe avaliação');
           // this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
         }  else if (
-          this.$store.state.Ratings.RatingsUser[index].movie_id !==
+          this.$store.state.Ratings.RatingMovie[index].movie_id !==
           this.$store.state.Movies.currentMovie._id
         ) {
           console.log(' nao existe avaliação');
