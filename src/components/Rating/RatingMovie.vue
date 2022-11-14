@@ -3,13 +3,13 @@
     <p class="plot-title ps-5 mt-4">Avalie este Filme</p>
     <hr class="orange-line-separator" />
     <div class="d-flex flex-column align-items-center">
-      <p class="avaliationTitle">Avaliação</p>
+      <p class="avaliationTitle m-2">Avaliação</p>
       <div class="d-flex">
         <star-rating v-model="avaliation" :showControl="true" />
       </div>
       <div>
         <button-default
-          class="Btn-salvar"
+          class="BtnSalvar"
           :data_btn_title="'Salvar'"
           @btnAction="SaveRating"
         />
