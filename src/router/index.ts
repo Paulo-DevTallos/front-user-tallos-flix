@@ -33,6 +33,12 @@ const router = createRouter({
       component: () => import('../pages/Favorites/MyFavorites.vue'),
     },
     {
+      path: '/home/avaliable',
+      name: 'avaliable',
+      beforeEnter: authGuard(),
+      component: () => import('../pages/avaliable/avaliable.vue'),
+    },
+    {
       path: '/home',
       name: 'default',
       component: () => import('../layouts/DefaultLayout.vue'),
