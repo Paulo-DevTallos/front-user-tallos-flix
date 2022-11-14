@@ -3,7 +3,7 @@
     <p class="plot-title ps-5 mt-4">Avalie este Filme</p>
     <hr class="orange-line-separator" />
     <div class="d-flex flex-column align-items-center">
-      <div>Avaliação</div>
+      <p class="avaliationTitle">Avaliação</p>
       <div class="d-flex">
         <star-rating v-model="avaliation" :showControl="true" />
       </div>
@@ -31,3 +31,4 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped></style>
