@@ -16,4 +16,9 @@ export default {
       commit('ALL_RATINGS_USER', res.data);
     });
   },
+  async updateRatingUser({ commit }: any, data: any) {
+    await RatingsRequest.updateRatingUser(data.id, data.newRate).then((res) => {
+      console.log(res);
+    });
+  },
 };

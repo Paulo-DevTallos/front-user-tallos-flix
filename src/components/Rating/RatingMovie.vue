@@ -36,6 +36,10 @@ export default defineComponent({
           user_id: this.$store.state.Users.UserId,
         },
       },
+      newRateUser: {
+        rate: 0,
+        user_id: this.$store.state.Users.UserId,
+      },
     };
   },
   mounted() {
@@ -53,6 +57,11 @@ export default defineComponent({
     saveRating() {
       if (this.ratingMovie >= [0]) {
         console.log(' existe avaliação ');
+        (this.newRateUser.rate = this.rating.allRate.rate),
+          this.$store.dispatch('Ratings/updateRatingUser', {
+            id: this.$store.state.Movies.currentMovie._id,
+            newRate: this.newRateUser,
+          });
       } else if (this.ratingMovie <= []) {
         console.log(' não existe avaliação ');
         this.$store.dispatch('Ratings/createRatingsMovie', this.rating);

@@ -9,5 +9,8 @@ export default {
   },
   getAllRatingsUser: (id: string) => {
     return http.get(`ratings/${id}`);
-  }
+  },
+  updateRatingUser: (id: string, newRate: Object) => {
+    return http.put(`ratings/add/${id}`, newRate);
+  },
 };
