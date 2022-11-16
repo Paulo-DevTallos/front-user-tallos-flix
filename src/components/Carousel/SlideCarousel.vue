@@ -1,15 +1,15 @@
 <template>
+	<button @click="prev" class="arrow-right">Rights</button>
+	<button @click="next" class="arrow-left">Left</button>
   <div class="carousel-container">
-    <button class="arrow-right">Rights</button>
-    <button class="arrow-left">Left</button>
     <div
       v-for="movie in $store.state.Movies.Movies.content"
       :key="movie._id"
       class="gallery-wrapper"
     >
       <div class="gallery-movies">
-        <img 
-          class="item-image-poster" 
+        <img
+          class="item-image-poster"
           v-if="movie.poster ? movie.poster : empty.poster"
           :src="movie.poster || empty.poster"
           alt="movie.title"
@@ -23,15 +23,78 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'SlideCarousel',
+	name: 'SlideCarousel',
   data() {
-    return {
-      movies: [],
+		return {
+			movies: [],
       empty: {
-        poster: '/img/empty-img.png',
+				poster: '/img/empty-img.png',
       },
     };
   },
+
+  methods: {
+		prev() {
+			const items = document.querySelectorAll('.item-image-poster');
+			let currentItem = 0;
+			const maxItems = items.length;
+
+			currentItem -= 1
+
+			if (currentItem >= maxItems) {
+				currentItem = 0;
+			}
+
+			if (currentItem < 0) {
+				currentItem = maxItems - 1;
+			}
+
+			items[currentItem].scrollIntoView({
+				behavior: "smooth",
+				inline: "center"
+			});
+		},
+
+		next() {
+      alert('next');
+		},
+
+		carouselSet() {
+			const controls = document.querySelectorAll(".control");
+			let currentItem = 0;
+			const items = document.querySelectorAll(".item");
+			const maxItems = items.length;
+
+			controls.forEach((control) => {
+				control.addEventListener("click", (e) => {
+					isLeft = e.target.classList.contains("arrow-left");
+
+					if (isLeft) {
+						currentItem -= 1;
+					} else {
+						currentItem += 1;
+					}
+
+					if (currentItem >= maxItems) {
+						currentItem = 0;
+					}
+
+					if (currentItem < 0) {
+						currentItem = maxItems - 1;
+					}
+
+					items.forEach((item) => item.classList.remove("current-item"));
+
+					items[currentItem].scrollIntoView({
+						behavior: "smooth",
+						inline: "center"
+					});
+
+					items[currentItem].classList.add("current-item");
+				});
+			});
+		}
+	}
 });
 </script>
 
@@ -42,7 +105,7 @@ export default defineComponent({
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  overflow-x: auto;
+  overflow-x: hidden;
 
   .arrow-left,
   .arrow-right {
