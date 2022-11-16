@@ -7,10 +7,7 @@
     </h1>
     <SearchBar @search="searchMovie" />
     <div class="home-carousel" v-if="hiddenCarousel">
-      <SlideCarousel 
-        :hiddenMovieInfo="false"
-        :title_carousel="'Nos Cinemas'"
-      />
+      <SlideCarousel :hiddenMovieInfo="false" :title_carousel="'Nos Cinemas'" />
     </div>
     <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
   </div>

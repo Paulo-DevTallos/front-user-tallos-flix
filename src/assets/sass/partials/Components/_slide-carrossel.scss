@@ -14,9 +14,7 @@
 
 	.arrow-left,
 	.arrow-right {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+    @include align-elements(flex, center, center);
 		position: absolute;
     z-index: 10000;
     top: 50%;
@@ -52,12 +50,15 @@
 		margin: 0 auto;
 		overflow-x: hidden;
 		display: flex;
-
+    
 		.gallery-wrapper {
-      @include align-elements(flex, center, center);
+      padding: 0 50px 20px 0;
+      @include align-elements(flex, flex-start, unset);
+      flex-direction: column;
 
 			.gallery-movies {
-				padding: 0 25px 20px;
+        background-color: red;
+        display: flex;
         
         @include mobile {
           padding: 10px;
@@ -72,6 +73,7 @@
 
       .card-info-movies {
         color: $main-white-color;
+        margin-top: 20px;
 
         h4 {
           margin: 0;
