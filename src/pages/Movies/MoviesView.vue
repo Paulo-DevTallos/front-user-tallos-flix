@@ -9,10 +9,10 @@
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <div
         class="d-flex ms-5 mb-3 gap-2 align-items-center"
-        v-if="this.$store.state.Movies.IsMovieGenre == true"
+        v-if="$store.state.Movies.IsMovieGenre == true"
       >
         <span id="genre-title">Gênero: </span>
-        <span id="tagGenre">{{ this.$store.state.Movies.actualTag }}</span>
+        <span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
       </div>
       <Carousel
         v-if="hiddenCarousel"
