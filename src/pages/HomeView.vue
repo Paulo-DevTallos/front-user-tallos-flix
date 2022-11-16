@@ -6,15 +6,8 @@
       Olá {{ $store.state.Users.UserName }}, sobre qual filme quer conhecer hoje ?
     </h1>
     <SearchBar @search="searchMovie" />
-    <div>
+    <div class="d-flex">
       <SlideCarousel :title_carousel="'Nos Cinemas'"/>
-    </div>
-    <div
-      class="home-carousel d-flex flex-column p-2 pb-3 mb-3"
-      v-if="hiddenCarousel"
-    >
-      <h4>Nos Cinemas</h4>
-      <Carousel :hiddenMovieInfo="false" :IsRendered="render" />
     </div>
     <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
   </div>
@@ -25,7 +18,6 @@ import { SocketModule } from '@/services/socket';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
 import SearchBar from '@/components/SearchBar.vue';
-import Carousel from '@/components/Carousel.vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
@@ -33,7 +25,6 @@ export default defineComponent({
   components: {
     SearchBar,
     ErrorComponent,
-    Carousel,
     SlideCarousel,
   },
   data() {
