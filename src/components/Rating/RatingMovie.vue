@@ -68,26 +68,6 @@ export default defineComponent({
         this.getRatingMovie();
       }
     },
-    // SaveRating() {
-    //   console.log(this.$store.state.Ratings.RatingsMovie);
-    //   this.$store.dispatch(
-    //     'Ratings/getAllRatingsMovie',
-    //     this.$store.state.Movies.currentMovie._id,
-    //   );
-    //   for (
-    //     let index = 0;
-    //     index < this.$store.state.Ratings.RatingsMovie.length;
-    //     index++
-    //   ) {
-    //     if (this.$store.state.Ratings.RatingsMovie >= [1]) {
-    //       console.log(' Ja existe avaliação');
-    //       // this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
-    //     } else if (this.$store.state.Ratings.RatingsMovie <= [0]) {
-    //       console.log(' nao existe avaliação');
-    //       this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
-    //     }
-    //   }
-    // },
   },
 });
 </script>
