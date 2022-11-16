@@ -1,6 +1,7 @@
 .container-full {
 	position: relative;
-	max-width: 1280px;
+	max-width: 100%;
+  margin: 0 auto;
 
 	h4 {
 		margin-left: 6.4%;
@@ -17,8 +18,11 @@
 		justify-content: center;
 		align-items: center;
 		position: absolute;
-		top: 38%;
-		transform: translateY(-38%);
+    z-index: 10000;
+    top: 50%;
+    transform: translateY(-50%);
+    /*top: 38%;
+		transform: translateY(-38%);*/
 		left: 0;
 		right: auto;
 		bottom: 0;
@@ -50,12 +54,14 @@
 		display: flex;
 
 		.gallery-wrapper {
-			display: flex;
-      flex-direction: column;
-			justify-content: center;
+      @include align-elements(flex, center, center);
 
 			.gallery-movies {
-				padding: 0 60px 20px 0;
+				padding: 0 25px 20px;
+        
+        @include mobile {
+          padding: 10px;
+        }
 
 				.item-image-poster {
 					width: 230px;

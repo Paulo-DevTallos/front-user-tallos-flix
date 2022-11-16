@@ -8,68 +8,6 @@
     font-weight: bold;
   }
   .home-carousel {
-    width: 1280px;
-    display: flex;
-    justify-content: flex-start;
-
-    @include breakpoints(1270px) {
-      width: 1000px;
-    }
-
-    @include breakpoints(1100px) {
-      width: 900px;
-    }
-
-    @include breakpoints(960px) {
-      width: 800px;
-    }
-
-    @include breakpoints(842px) {
-      width: 700px;
-    }
-
-    @include breakpoints(695px) {
-      width: 650px;
-    }
-
-    @include breakpoints(650px) {
-      width: 600px;
-    }
-
-    @include breakpoints(600px) {
-      width: 550px;
-    }
-
-    @include breakpoints(555px) {
-      width: 500px;
-    }
-
-    @include breakpoints(500px) {
-      width: 450px;
-    }
-
-    @include mobile {
-      width: 420px;
-    }
-
-    @include breakpoints(420px) {
-      width: 400px;
-    }
-
-    @include breakpoints(405px) {
-      width: 380px;
-    }
-
-    @include breakpoints(382px) {
-      width: 350px;
-    }
-
-    h4 {
-      color: white;
-      width: 94%;
-      align-self: flex-end;
-      margin-bottom: 18px;
-      font-family: 'Nunito', sans-serif;
-    }
+    width: 100%;
   }
 }
