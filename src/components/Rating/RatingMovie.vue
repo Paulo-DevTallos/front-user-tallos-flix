@@ -39,20 +39,24 @@ export default defineComponent({
     };
   },
   mounted() {
-    ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
-      (result) => {
-        this.ratingMovie = result.data;
-        console.log(this.ratingMovie);
-      },
-    );
+    this.getRatingMovie();
   },
   methods: {
+    getRatingMovie() {
+      ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
+        (result) => {
+          this.ratingMovie = result.data;
+          console.log(this.ratingMovie);
+        },
+      );
+    },
     saveRating() {
       if (this.ratingMovie >= [0]) {
         console.log(' existe avaliação ');
       } else if (this.ratingMovie <= []) {
         console.log(' não existe avaliação ');
         this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
+        this.getRatingMovie();
       }
     },
     // SaveRating() {
