@@ -3,7 +3,7 @@
 	max-width: 1280px;
 
 	h4 {
-		margin-left: 7.7%;
+		margin-left: 6.4%;
 		margin-bottom: 0;
 		font-family: 'Nunito', Arial, Helvetica, sans-serif;
 		font-weight: 500;
@@ -17,8 +17,8 @@
 		justify-content: center;
 		align-items: center;
 		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
+		top: 38%;
+		transform: translateY(-38%);
 		left: 0;
 		right: auto;
 		bottom: 0;
@@ -44,18 +44,18 @@
 	.carousel-container {
 		padding: 15px;
 		position: relative;
-		max-width: 84%;
+		max-width: 87%;
 		margin: 0 auto;
 		overflow-x: hidden;
 		display: flex;
+
 		.gallery-wrapper {
 			display: flex;
+      flex-direction: column;
 			justify-content: center;
+
 			.gallery-movies {
-				display: flex;
-				flex-flow: row wrap;
-				gap: 15px;
-				padding: 0 40px 40px 0;
+				padding: 0 60px 20px 0;
 
 				.item-image-poster {
 					width: 230px;
@@ -63,6 +63,24 @@
 					flex-shrink: 0;
 				}
 			}
+
+      .card-info-movies {
+        color: $main-white-color;
+
+        h4 {
+          margin: 0;
+          font-size: 25px;
+        }
+
+        p {
+          margin: 0;
+          margin: 7px 0;
+        }
+
+        .rating {
+          display: flex;
+        }
+      }
 		}
 	}
 }
