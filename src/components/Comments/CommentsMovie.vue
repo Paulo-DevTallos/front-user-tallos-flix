@@ -57,13 +57,18 @@
                     )
                   "
                   :data_dislike="
-                    DeslikeComment &&
-                    idCommentLike === comment._id &&
-                    DeslikeComment
+                    this.$store.state.Likes.likeList[
+                      renderComments.commentsMovie.indexOf(comment)
+                    ] === 'UNLIKE'
                       ? 'carbon:thumbs-down-filled'
                       : 'carbon:thumbs-down'
                   "
-                  @createdislikeComment="UnlikeComment(comment._id)"
+                  @createdislikeComment="
+                    UnlikeComment(
+                      comment._id,
+                      renderComments.commentsMovie.indexOf(comment),
+                    )
+                  "
                   :data_reply="
                     responseComment && id === comment._id && responseComment
                       ? 'Ocultar respostas'
@@ -397,15 +402,21 @@ export default defineComponent({
     LikeComment(commentId: string, index: number) {
       this.DeslikeComment = false;
       this.idCommentLike = commentId;
-      if (this.$store.state.Likes.likeList[index] === 'LIKE') {
+      if (
+        this.$store.state.Likes.likeList[index] === 'LIKE' &&
+        this.DeslikeComment === false
+      ) {
         this.likeComment = false;
-      } else {
+      } else if (
+        this.$store.state.Likes.likeList[index] === 'NOT' &&
+        this.DeslikeComment === false
+      ) {
         this.likeComment = true;
       }
 
-      if (this.likeComment === true) {
+      if (this.likeComment === true && this.DeslikeComment === false) {
         this.PostLike(commentId, index);
-      } else if (this.likeComment === false) {
+      } else if (this.likeComment === false && this.DeslikeComment === false) {
         this.RemoveLike(commentId, index);
       }
     },
@@ -420,6 +431,7 @@ export default defineComponent({
         this.$store.dispatch('createLikeComment', {
           like: this.userlike,
           index: index,
+          deslike: false,
         });
     },
     // remover like
@@ -433,36 +445,55 @@ export default defineComponent({
         this.$store.dispatch('createLikeComment', {
           like: this.userlike,
           index: index,
+          deslike: false,
         });
     },
     // tratamento para botao deslike
-    UnlikeComment(commentId: string) {
-      this.DeslikeComment = !this.DeslikeComment;
+    UnlikeComment(commentId: string, index: number) {
       this.likeComment = false;
+      if (
+        this.$store.state.Likes.likeList[index] === 'UNLIKE' &&
+        this.likeComment === false
+      ) {
+        this.DeslikeComment = false;
+      } else if (
+        this.$store.state.Likes.likeList[index] === 'NOT' &&
+        this.likeComment === false
+      ) {
+        this.DeslikeComment = true;
+      }
       this.idCommentLike = commentId;
-      if (this.DeslikeComment === true) {
-        this.PostDeslike(commentId);
-      } else if (this.DeslikeComment === false) {
-        this.RemoveDeslike(commentId);
+      if (this.DeslikeComment === true && this.likeComment === false) {
+        this.PostDeslike(commentId, index);
+      } else if (this.DeslikeComment === false && this.likeComment === false) {
+        this.RemoveDeslike(commentId, index);
       }
     },
-    PostDeslike(commentId: string) {
+    PostDeslike(commentId: string, index: number) {
       this.DeslikeComment = true;
       this.likeComment = false;
       (this.userlike.commentId = commentId),
         (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
       (this.userlike.userLike[0].like = false),
         (this.userlike.userLike[0].unlike = true),
-        this.$store.dispatch('createLikeComment', this.userlike);
+        this.$store.dispatch('createLikeComment', {
+          like: this.userlike,
+          index: index,
+          deslike: true,
+        });
     },
-    RemoveDeslike(commentId: string) {
+    RemoveDeslike(commentId: string, index: number) {
       this.DeslikeComment = false;
       this.likeComment = false;
       (this.userlike.commentId = commentId),
         (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
       (this.userlike.userLike[0].like = false),
         (this.userlike.userLike[0].unlike = false),
-        this.$store.dispatch('createLikeComment', this.userlike);
+        this.$store.dispatch('createLikeComment', {
+          like: this.userlike,
+          index: index,
+          deslike: false,
+        });
     },
     getcomment(commentId: string) {
       this.responseView = !this.responseView;
@@ -544,7 +575,7 @@ export default defineComponent({
     this.$store.state.Likes.likeList = [];
     for (
       let index = 0;
-      index < await this.renderComments.commentsMovie.length;
+      index < (await this.renderComments.commentsMovie.length);
       index++
     ) {
       await this.$store.dispatch('getAllLikesComment', {
@@ -553,7 +584,7 @@ export default defineComponent({
           userId: await this.$store.state.Users.UserId,
         },
       });
-      if (index + 1 === await this.renderComments.commentsMovie.length) {
+      if (index + 1 === (await this.renderComments.commentsMovie.length)) {
         this.renderList = true;
       }
     }
@@ -567,7 +598,7 @@ export default defineComponent({
       this.$store.state.Likes.likeList = [];
       for (
         let index = 0;
-        index < await this.renderComments.commentsMovie.length;
+        index < (await this.renderComments.commentsMovie.length);
         index++
       ) {
         await this.$store.dispatch('getAllLikesComment', {
@@ -576,7 +607,7 @@ export default defineComponent({
             userId: await this.$store.state.Users.UserId,
           },
         });
-        if (index + 1 === await this.renderComments.commentsMovie.length) {
+        if (index + 1 === (await this.renderComments.commentsMovie.length)) {
           this.renderList = true;
         }
       }

@@ -10,8 +10,12 @@ export default {
     );
   },
   async createLikeComment({ commit }: any, userLike: any) {
+    console.log(userLike.deslike);
     await LikesRequests.createLikeComment(userLike.like).then((res) => {
-      commit('LIKE_LIST_UPDATE', userLike.index);
+      commit('LIKE_LIST_UPDATE', {
+        index: userLike.index,
+        deslike: userLike.deslike,
+      });
     });
   },
 };

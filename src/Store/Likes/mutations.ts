@@ -6,11 +6,18 @@ export default {
     state.likeList.push(payload);
   },
   LIKE_LIST_UPDATE(state: any, payload: any) {
-    console.log(payload);
-    if (state.likeList[payload] === 'LIKE') {
-      state.likeList[payload] = 'NOT';
-    } else if (state.likeList[payload] === 'NOT') {
-      state.likeList[payload] = 'LIKE';
+    if (
+      state.likeList[payload.index] === 'LIKE' ||
+      state.likeList[payload.index] === 'UNLIKE'
+    ) {
+      state.likeList[payload.index] = 'NOT';
+    } else if (
+      state.likeList[payload.index] === 'NOT' &&
+      payload.deslike === false
+    ) {
+      state.likeList[payload.index] = 'LIKE';
+    } else {
+      state.likeList[payload.index] = 'UNLIKE';
     }
   },
 };
