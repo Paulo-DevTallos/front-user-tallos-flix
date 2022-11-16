@@ -21,11 +21,7 @@
           <div class="content-fields-comments">
             <b-col class="p-0">
               <h5>
-                {{ comment.name }}:{{
-                  this.$store.state.Likes.likeList[
-                    renderComments.commentsMovie.indexOf(comment)
-                  ]
-                }}:{{ renderComments.commentsMovie.indexOf(comment) }}
+                {{ comment.name }}
               </h5>
               <TextAreaField
                 class="comment-text"
@@ -141,17 +137,7 @@
                 </b-col>
                 <b-col cols="9" class="p-0 info-reply">
                   <h5>
-                    {{ reply.name }}:{{
-                      this.$store.state.Likes.likeListResponses[
-                        this.$store.state.Comments.GetCommentResponse.response.indexOf(
-                          reply,
-                        )
-                      ]
-                    }}:{{
-                      this.$store.state.Comments.GetCommentResponse.response.indexOf(
-                        reply,
-                      )
-                    }}
+                    {{ reply.name }}
                   </h5>
                   <TextAreaField
                     class="comment-text"
@@ -662,7 +648,6 @@ export default defineComponent({
     },
     responseComments() {
       this.$store.dispatch('Comments/createComment', this.userReply);
-      console.log(this.userReply);
       this.userReply.text = '';
       (this.id = ''), (this.responseView = false);
     },
@@ -697,7 +682,6 @@ export default defineComponent({
       'new-liked',
       'new-liked',
       (commentId) => {
-        console.log(commentId);
         this.PostLike(commentId, 0);
       },
     );

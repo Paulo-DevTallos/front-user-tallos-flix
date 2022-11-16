@@ -27,7 +27,6 @@ export default {
     );
   },
   async createLikeCommentResponse({ commit }: any, userLike: any) {
-    console.log(userLike.deslike);
     await LikesRequests.createLikeComment(userLike.like).then((res) => {
       commit('LIKE_LIST_RESPONSE_UPDATE', {
         index: userLike.index,
