@@ -6,9 +6,9 @@
     snapAlign="start"
   >
     <slide
-      v-for="movie in this.RenderSeries === false
-        ? this.$store.state.Movies.Movies.content
-        : this.$store.state.Movies.Series.content"
+      v-for="movie in RenderSeries === false
+        ? $store.state.Movies.Movies.content
+        : $store.state.Movies.Series.content"
       :key="movie.id"
       class="carousel__slide"
     >
@@ -17,7 +17,7 @@
           <div class="image-container">
             <router-link
               :to="{ path: `/home/movie` }"
-              v-if="this.RenderSeries == false"
+              v-if="RenderSeries == false"
             >
               <img
                 v-if="movie.poster ? movie.poster : empty.poster"

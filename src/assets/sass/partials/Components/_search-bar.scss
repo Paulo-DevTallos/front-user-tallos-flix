@@ -12,7 +12,7 @@
     width: 850px;
     height: 35px;
     background-color: $primary-color-black-one;
-    border: solid $primary-color-black-seven 1px;
+    border: solid #AFA2A2 1px;
     display: flex;
 
     @include tablet {
@@ -20,6 +20,7 @@
     }
 }
 .text-input{
+    padding: 0 7px;
     color:$primary-color-black-seven;
     background-color: $primary-color-black-one;
     border: none;
@@ -28,7 +29,11 @@
     width: 97%;
     font-size: $font-size-common;
     &::placeholder {
-        color:$primary-color-black-seven;
+        color:#AFA2A2;
+
+        @include mobile {
+            font-size: 18px;
+        }
     }
     &:focus {
         outline: none;
@@ -40,7 +45,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    color: $primary-color-black-seven;
+    color: #AFA2A2;
     cursor: pointer;
 }
 

@@ -263,8 +263,8 @@
           <div class="avatar-comment">
             <img
               :src="
-                this.$store.state.Users.UserName &&
-                this.$store.state.Users.UserAvatar !== ''
+                $store.state.Users.UserName &&
+                $store.state.Users.UserAvatar !== ''
                   ? this.avatar
                   : this.Noavatar
               "
