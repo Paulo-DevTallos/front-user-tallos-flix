@@ -5,14 +5,14 @@
     <div class="d-flex flex-column align-items-center">
       <p class="avaliationTitle m-2">Avaliação</p>
       <div class="d-flex">
-        <star-rating v-model="rating.allRate[0].rate" :showControl="true" />
+        <star-rating v-model="rating.allRate.rate" :showControl="true" />
       </div>
       <div>
         <button-default
           class="BtnSalvar"
           :data_btn_title="'Salvar'"
-          @btnAction="SaveRating"
-          :disabled="rating.allRate[0].rate === 0"
+          @btnAction="saveRating"
+          :disabled="rating.allRate.rate === 0"
         />
       </div>
     </div>
@@ -22,58 +22,51 @@
 import { defineComponent } from 'vue';
 import ButtonDefault from '../Buttons/ButtonDefault.vue';
 import StarRating from './StarRating.vue';
+import ServiceGetRatingMovie from '@/services/axios/RatingsRequest';
 
 export default defineComponent({
   components: { StarRating, ButtonDefault },
   data() {
     return {
+      ratingMovie: [],
       rating: {
         movie_id: this.$store.state.Movies.currentMovie._id,
-        allRate: [
-          {
-            rate: 0,
-            user_id: this.$store.state.Users.UserId,
-          },
-        ],
+        allRate: {
+          rate: 0,
+          user_id: this.$store.state.Users.UserId,
+        },
+      },
+      newRateUser: {
+        rate: 0,
+        user_id: this.$store.state.Users.UserId,
       },
     };
   },
+  mounted() {
+    this.getRatingMovie();
+  },
   methods: {
-    SaveRating() {
-      this.$store.dispatch(
-        'Ratings/getAllRatingsUser',
-        this.$store.state.Movies.currentMovie._id,
+    getRatingMovie() {
+      ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
+        (result) => {
+          this.ratingMovie = result.data;
+          console.log(this.ratingMovie);
+        },
       );
-      for (
-        let index = 0;
-        index < this.$store.state.Ratings.RatingsUser.length;
-        index++
-      ) {
-        if (this.rating.allRate[0].rate === 0) {
-          console.log(' não da pra criar ');
-        } else if (
-          this.$store.state.Ratings.RatingsUser[index].movie_id ===
-          this.$store.state.Movies.currentMovie._id
-        ) {
-          console.log(' Ja existe avaliação');
-          // this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
-        }  else if (
-          this.$store.state.Ratings.RatingsUser[index].movie_id !==
-          this.$store.state.Movies.currentMovie._id
-        ) {
-          console.log(' nao existe avaliação');
-        }
+    },
+    saveRating() {
+      if (this.ratingMovie >= [0]) {
+        console.log(' existe avaliação ');
+        (this.newRateUser.rate = this.rating.allRate.rate),
+          this.$store.dispatch('Ratings/updateRatingUser', {
+            id: this.$store.state.Movies.currentMovie._id,
+            newRate: this.newRateUser,
+          });
+      } else if (this.ratingMovie <= []) {
+        console.log(' não existe avaliação ');
+        this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
+        this.getRatingMovie();
       }
-      // console.log(this.$store.state.Ratings.RatingsUser[0].movie_id);
-      // if (this.rating.allRate[0].rate === 0) {
-      //   console.log(' não da pra criar ');
-      // } else if (
-      //   this.$store.state.Ratings.RatingsUser[0].movie_id !=
-      //   this.$store.state.Movies.currentMovie._id
-      // ) {
-      //   console.log(' Ja existe');
-      //   // this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
-      // }
     },
   },
 });
