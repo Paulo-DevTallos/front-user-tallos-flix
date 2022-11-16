@@ -7,7 +7,7 @@
     </h1>
     <SearchBar @search="searchMovie" />
     <div>
-      <SlideCarousel />
+      <SlideCarousel :title_carousel="'Nos Cinemas'"/>
     </div>
     <div
       class="home-carousel d-flex flex-column p-2 pb-3 mb-3"
