@@ -109,7 +109,14 @@
             />
           </div>
           <!-- Respostas do Comentário -->
-          <b-col cols="12" v-if="responseComment && id === comment._id">
+          <b-col
+            cols="12"
+            v-if="
+              responseComment &&
+              id === comment._id &&
+              this.renderListComments === true
+            "
+          >
             <div
               v-for="reply in this.$store.state.Comments.GetCommentResponse
                 .response"
@@ -133,7 +140,19 @@
                   </div>
                 </b-col>
                 <b-col cols="9" class="p-0 info-reply">
-                  <h5>{{ reply.name }}</h5>
+                  <h5>
+                    {{ reply.name }}:{{
+                      this.$store.state.Likes.likeListResponses[
+                        this.$store.state.Comments.GetCommentResponse.response.indexOf(
+                          reply,
+                        )
+                      ]
+                    }}:{{
+                      this.$store.state.Comments.GetCommentResponse.response.indexOf(
+                        reply,
+                      )
+                    }}
+                  </h5>
                   <TextAreaField
                     class="comment-text"
                     :data_reply_id="
@@ -147,28 +166,44 @@
                   <div class="pt-3 d-flex justify-content-between">
                     <DisplayInteractionInfos
                       class="text-color date-time"
-                      :data_timestamp="
-                        new Date(comment.date).toLocaleString().slice(0, 10) +
-                        '\xa0' +
-                        new Date(comment.date).toLocaleString().slice(11, 17)
-                      "
+                      :data_timestamp="new Date(comment.date).toLocaleString()"
                       v-if="btnViewsComments && teste != reply._id"
                       :data_statuslike="reply.like"
                       :data_statusdislike="reply.deslike"
                       :data_like="
-                        idCommentLike === reply._id && likeComment
+                        this.$store.state.Likes.likeListResponses[
+                          this.$store.state.Comments.GetCommentResponse.response.indexOf(
+                            reply,
+                          )
+                        ] === 'LIKE'
                           ? 'carbon:thumbs-up-filled'
                           : 'carbon:thumbs-up'
                       "
-                      @createlikeComment="LikeComment(reply._id)"
+                      @createlikeComment="
+                        LikeCommentResponse(
+                          reply._id,
+                          this.$store.state.Comments.GetCommentResponse.response.indexOf(
+                            reply,
+                          ),
+                        )
+                      "
                       :data_dislike="
-                        DeslikeComment &&
-                        idCommentLike === reply._id &&
-                        DeslikeComment
+                        this.$store.state.Likes.likeListResponses[
+                          this.$store.state.Comments.GetCommentResponse.response.indexOf(
+                            reply,
+                          )
+                        ] === 'UNLIKE'
                           ? 'carbon:thumbs-down-filled'
                           : 'carbon:thumbs-down'
                       "
-                      @createdislikeComment="UnlikeComment(reply._id)"
+                      @createdislikeComment="
+                        UnlikeCommentResponse(
+                          reply._id,
+                          this.$store.state.Comments.GetCommentResponse.response.indexOf(
+                            reply,
+                          ),
+                        )
+                      "
                     />
                     <!--botoes de editacao do comentario de respostas-->
                     <div
@@ -338,6 +373,7 @@ export default defineComponent({
   data() {
     return {
       renderList: false,
+      renderListComments: false,
       responseComment: false,
       responseView: false,
       editComment: true,
@@ -412,12 +448,17 @@ export default defineComponent({
         this.DeslikeComment === false
       ) {
         this.likeComment = true;
+      } else if (this.$store.state.Likes.likeList[index] === 'UNLIKE') {
+        this.DeslikeComment = true;
+        this.likeComment = false;
       }
 
       if (this.likeComment === true && this.DeslikeComment === false) {
         this.PostLike(commentId, index);
       } else if (this.likeComment === false && this.DeslikeComment === false) {
         this.RemoveLike(commentId, index);
+      } else {
+        this.PostDeslike(commentId, index);
       }
     },
     // adicionar like
@@ -432,6 +473,7 @@ export default defineComponent({
           like: this.userlike,
           index: index,
           deslike: false,
+          Islike: true,
         });
     },
     // remover like
@@ -446,6 +488,7 @@ export default defineComponent({
           like: this.userlike,
           index: index,
           deslike: false,
+          Islike: false,
         });
     },
     // tratamento para botao deslike
@@ -461,12 +504,17 @@ export default defineComponent({
         this.likeComment === false
       ) {
         this.DeslikeComment = true;
+      } else if (this.$store.state.Likes.likeList[index] === 'LIKE') {
+        this.DeslikeComment = false;
+        this.likeComment = true;
       }
       this.idCommentLike = commentId;
       if (this.DeslikeComment === true && this.likeComment === false) {
         this.PostDeslike(commentId, index);
       } else if (this.DeslikeComment === false && this.likeComment === false) {
         this.RemoveDeslike(commentId, index);
+      } else {
+        this.PostLike(commentId, index);
       }
     },
     PostDeslike(commentId: string, index: number) {
@@ -480,6 +528,7 @@ export default defineComponent({
           like: this.userlike,
           index: index,
           deslike: true,
+          Islike: false,
         });
     },
     RemoveDeslike(commentId: string, index: number) {
@@ -493,6 +542,117 @@ export default defineComponent({
           like: this.userlike,
           index: index,
           deslike: false,
+          Islike: false,
+        });
+    },
+     LikeCommentResponse(commentId: string, index: number) {
+      this.DeslikeComment = false;
+      this.idCommentLike = commentId;
+      if (
+        this.$store.state.Likes.likeListResponses[index] === 'LIKE' &&
+        this.DeslikeComment === false
+      ) {
+        this.likeComment = false;
+      } else if (
+        this.$store.state.Likes.likeListResponses[index] === 'NOT' &&
+        this.DeslikeComment === false
+      ) {
+        this.likeComment = true;
+      } else if (this.$store.state.Likes.likeListResponses[index] === 'UNLIKE') {
+        this.DeslikeComment = true;
+        this.likeComment = false;
+      }
+
+      if (this.likeComment === true && this.DeslikeComment === false) {
+        this.PostLikeResponse(commentId, index);
+      } else if (this.likeComment === false && this.DeslikeComment === false) {
+        this.RemoveLikeResponse(commentId, index);
+      } else {
+        this.PostDeslikeResponse(commentId, index);
+      }
+    },
+    // adicionar like
+    PostLikeResponse(commentId: string, index: number) {
+      this.likeComment = true;
+      this.DeslikeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = true),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeCommentResponse', {
+          like: this.userlike,
+          index: index,
+          deslike: false,
+          Islike: true,
+        });
+    },
+    // remover like
+    RemoveLikeResponse(commentId: string, index: number) {
+      this.likeComment = false;
+      this.DeslikeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeCommentResponse', {
+          like: this.userlike,
+          index: index,
+          deslike: false,
+          Islike: false,
+        });
+    },
+    // tratamento para botao deslike
+    UnlikeCommentResponse(commentId: string, index: number) {
+      this.likeComment = false;
+      if (
+        this.$store.state.Likes.likeListResponses[index] === 'UNLIKE' &&
+        this.likeComment === false
+      ) {
+        this.DeslikeComment = false;
+      } else if (
+        this.$store.state.Likes.likeListResponses[index] === 'NOT' &&
+        this.likeComment === false
+      ) {
+        this.DeslikeComment = true;
+      } else if (this.$store.state.Likes.likeListResponses[index] === 'LIKE') {
+        this.DeslikeComment = false;
+        this.likeComment = true;
+      }
+      this.idCommentLike = commentId;
+      if (this.DeslikeComment === true && this.likeComment === false) {
+        this.PostDeslikeResponse(commentId, index);
+      } else if (this.DeslikeComment === false && this.likeComment === false) {
+        this.RemoveDeslikeResponse(commentId, index);
+      } else {
+        this.PostLikeResponse(commentId, index);
+      }
+    },
+    PostDeslikeResponse(commentId: string, index: number) {
+      this.DeslikeComment = true;
+      this.likeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = true),
+        this.$store.dispatch('createLikeCommentResponse', {
+          like: this.userlike,
+          index: index,
+          deslike: true,
+          Islike: false,
+        });
+    },
+    RemoveDeslikeResponse(commentId: string, index: number) {
+      this.DeslikeComment = false;
+      this.likeComment = false;
+      (this.userlike.commentId = commentId),
+        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+      (this.userlike.userLike[0].like = false),
+        (this.userlike.userLike[0].unlike = false),
+        this.$store.dispatch('createLikeCommentResponse', {
+          like: this.userlike,
+          index: index,
+          deslike: false,
+          Islike: false,
         });
     },
     getcomment(commentId: string) {
@@ -591,9 +751,10 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters(['Comments/getComments']),
+    ...mapGetters(['Comments/getCommentsResponse']),
   },
   watch: {
-    async ['Comments/getComments'](data) {
+    async ['Comments/getComments']() {
       this.renderList = false;
       this.$store.state.Likes.likeList = [];
       for (
@@ -609,6 +770,31 @@ export default defineComponent({
         });
         if (index + 1 === (await this.renderComments.commentsMovie.length)) {
           this.renderList = true;
+        }
+      }
+    },
+    async ['Comments/getCommentsResponse']() {
+      this.renderListComments = false;
+      this.$store.state.Likes.likeListResponses = [];
+      for (
+        let index = 0;
+        index <
+        (await this.$store.state.Comments.GetCommentResponse.response.length);
+        index++
+      ) {
+        await this.$store.dispatch('getAllLikesCommentResponse', {
+          id: await this.$store.state.Comments.GetCommentResponse.response[
+            index
+          ]._id,
+          userId: {
+            userId: await this.$store.state.Users.UserId,
+          },
+        });
+        if (
+          index + 1 ===
+          (await this.$store.state.Comments.GetCommentResponse.response.length)
+        ) {
+          this.renderListComments = true;
         }
       }
     },
