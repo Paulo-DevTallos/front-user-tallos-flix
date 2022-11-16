@@ -1,29 +1,38 @@
 <template>
-	<button @click="prev" class="arrow-right">Rights</button>
-	<button @click="next" class="arrow-left">Left</button>
-  <div class="carousel-container">
-    <div
-      v-for="movie in $store.state.Movies.Movies.content"
-      :key="movie._id"
-      class="gallery-wrapper"
-    >
-      <div class="gallery-movies">
-        <img
-          class="item-image-poster"
-          v-if="movie.poster ? movie.poster : empty.poster"
-          :src="movie.poster || empty.poster"
-          alt="movie.title"
-        />
-      </div>
-    </div>
-  </div>
+	<div class="container-full">
+		<h4>Nos Cinemas</h4>
+		<button @click="prev" class="arrow-left">
+			<Icon icon="carbon:chevron-left" />	
+		</button>
+		<button @click="next" class="arrow-right">
+			<Icon icon="carbon:chevron-right" />
+		</button>
+		<div class="carousel-container">
+			<div
+				v-for="movie in $store.state.Movies.Movies.content"
+				:key="movie._id"
+				class="gallery-wrapper"
+			>
+				<div class="gallery-movies">
+					<img
+						class="item-image-poster"
+						v-if="movie.poster ? movie.poster : empty.poster"
+						:src="movie.poster || empty.poster"
+						alt="movie.title"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { Icon } from '@iconify/vue';
 
 export default defineComponent({
 	name: 'SlideCarousel',
+	components: { Icon },
   data() {
 		return {
 			movies: [],
@@ -34,12 +43,12 @@ export default defineComponent({
   },
 
   methods: {
-		prev() {
+		next() {
 			const items = document.querySelectorAll('.item-image-poster');
 			let currentItem = 0;
 			const maxItems = items.length;
 
-			currentItem -= 1
+			currentItem--
 
 			if (currentItem >= maxItems) {
 				currentItem = 0;
@@ -51,105 +60,101 @@ export default defineComponent({
 
 			items[currentItem].scrollIntoView({
 				behavior: "smooth",
-				inline: "center"
+				block: 'nearest',
 			});
 		},
 
-		next() {
-      alert('next');
-		},
-
-		carouselSet() {
-			const controls = document.querySelectorAll(".control");
+		prev() {
+			const items = document.querySelectorAll('.item-image-poster');
 			let currentItem = 0;
-			const items = document.querySelectorAll(".item");
 			const maxItems = items.length;
 
-			controls.forEach((control) => {
-				control.addEventListener("click", (e) => {
-					isLeft = e.target.classList.contains("arrow-left");
+			currentItem++;
 
-					if (isLeft) {
-						currentItem -= 1;
-					} else {
-						currentItem += 1;
-					}
+			if (currentItem <= maxItems) {
+				currentItem = 0;
+			}
 
-					if (currentItem >= maxItems) {
-						currentItem = 0;
-					}
+			if (currentItem > 0) {
+				currentItem = maxItems + 1;
+			}
 
-					if (currentItem < 0) {
-						currentItem = maxItems - 1;
-					}
-
-					items.forEach((item) => item.classList.remove("current-item"));
-
-					items[currentItem].scrollIntoView({
-						behavior: "smooth",
-						inline: "center"
-					});
-
-					items[currentItem].classList.add("current-item");
-				});
+			items[currentItem].scrollIntoView({
+				behavior: "smooth",
+				block: 'nearest',
 			});
-		}
+		},
 	}
 });
 </script>
 
 <style lang="scss" scoped>
-.carousel-container {
-  padding: 15px;
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  overflow-x: hidden;
+.container-full {
+	position: relative;
+	max-width: 1280px;
 
-  .arrow-left,
-  .arrow-right {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: auto;
-    bottom: 0;
-    font-size: 20px;
-    line-height: 250px;
-    width: 40px;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    opacity: 0.1;
-    background-image: linear-gradient(to left, transparent 0%, black 200%);
-    transition: all 600ms ease-in-out;
+	h4 {
+		margin-left: 9%;
+		margin-bottom: 0;
+		font-family: 'Nunito', Arial, Helvetica, sans-serif;
+		font-weight: 500;
+		font-size: 30px;
+		color: #fff;
+	}
 
-    &:hover {
-      opacity: 1;
-    }
-  }
+	.arrow-left,
+	.arrow-right {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 0;
+		right: auto;
+		bottom: 0;
+		font-size: 20px;
+		width: 40px;
+		height: 40px;
+		text-align: center;
+		color: #009acc;
+		cursor: pointer;
+		border: none;
+		border-radius: 100%;
+		opacity: 1;
+		background: #212121;
+		transition: all 600ms ease-in-out;
+	}
 
-  .arrow-right {
-    left: auto;
-    right: 0;
-    background-image: linear-gradient(to right, transparent 0%, black 200%);
-  }
+	.arrow-right {
+		left: auto;
+		right: 0;
+		background-image: linear-gradient(to right, transparent 0%, black 200%);
+	}
 
+	.carousel-container {
+		padding: 15px;
+		position: relative;
+		max-width: 84%;
+		margin: 0 auto;
+		overflow-x: hidden;
+		display: flex;
+		.gallery-wrapper {
+			display: flex;
+			justify-content: center;
+			.gallery-movies {
+				display: flex;
+				flex-flow: row wrap;
+				gap: 15px;
+				padding: 0 40px 40px 0;
 
-  .gallery-wrapper {
-    .gallery-movies {
-      display: flex;
-      flex-flow: row wrap;
-      gap: 15px;
-      padding: 25px;
-
-      .item-image-poster {
-        width: 250px;
-        height: 330px;
-        flex-shrink: 0;
-      }
-    }
-  }
+				.item-image-poster {
+					width: 230px;
+					height: 330px;
+					flex-shrink: 0;
+				}
+			}
+		}
+	}
 }
 </style>

@@ -14,7 +14,7 @@ export default defineComponent({
   data() {
     return {
       page: 1,
-      limit: 10,
+      limit: 8,
     };
   },
   computed: {
