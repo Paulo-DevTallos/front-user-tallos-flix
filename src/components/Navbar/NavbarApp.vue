@@ -56,7 +56,10 @@ export default defineComponent({
   components: { AvatarModal, Icon, CardProfile, MenuMobile },
   data() {
     return {
-      UserLogged: this.$store.state.Users.UserName,
+      UserLogged: this.$store.state.Users.UserName.split(' ')
+        .slice(0, 2)
+        .toString()
+        .replace(',', ' '),
       NoUser: 'Faça Login',
       avatar: '/img/' + this.$store.state.Users.UserAvatar,
       noAvatar: '/img/user-default.png',
