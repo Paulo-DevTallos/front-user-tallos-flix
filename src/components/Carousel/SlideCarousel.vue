@@ -21,7 +21,7 @@
             alt="movie.title"
           />
         </div>
-        <div class="card-info-movies">
+        <div class="card-info-movies" v-if="hiddenMovieInfo">
           <h4
             v-if="
               movie.title.length > 16
@@ -29,7 +29,7 @@
                 : (substring = `${movie.title.substring(0, 16)} `)
             "
           >
-          	{{ substring }}
+            {{ substring }}
           </h4>
           <p>
             Duração:
@@ -40,7 +40,7 @@
               'min'
             }}
           </p>
-					<StarRating class="rating" :ratingRawValue="movie.imdb.rating" />
+          <StarRating class="rating" :ratingRawValue="movie.imdb.rating" />
         </div>
       </div>
     </div>
@@ -58,6 +58,9 @@ export default defineComponent({
   props: {
     title_carousel: {
       type: String,
+    },
+    hiddenMovieInfo: {
+      type: Boolean,
     },
   },
   data() {
@@ -112,6 +115,9 @@ export default defineComponent({
         block: 'nearest',
       });
     },
+  },
+  mounted() {
+    
   },
 });
 </script>

@@ -6,7 +6,7 @@
           Somente nos Cinemas
         </b-nav-item>
         <b-nav-item :to="{ name: `${movies}` }"> Filmes </b-nav-item>
-        <b-nav-item :to="{ name: `${series}` }">Series</b-nav-item>
+        <b-nav-item :to="{ name: `${series}` }">Séries</b-nav-item>
       </b-collapse>
     </b-navbar-nav>
   </b-collapse>

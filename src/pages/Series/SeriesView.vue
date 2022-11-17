@@ -15,7 +15,7 @@
         v-if="this.$store.state.Movies.IsSeriesGenre == true"
       >
         <span id="genre-title">Gênero: </span>
-        <span id="tagGenre">{{ this.$store.state.Movies.actualTag }}</span>
+        <span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
       </div>
       <Carousel
         :hiddenMovieInfo="true"
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import SearchBar from '@/components/SearchBar.vue';
+import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import Carousel from '@/components/Carousel.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
@@ -89,5 +89,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="sass" scoped></style>

@@ -4,14 +4,16 @@
       type="text"
       class="text-input"
       placeholder="Digite aqui o nome do filme"
-      v-model="this.MovieFilter"
+      v-model="MovieFilter"
       @keyup="$emit('search', MovieFilter)"
     />
-    <Icon
-      icon="carbon:search"
-      class="icon"
-      @click="$emit('search', MovieFilter)"
-    />
+    <router-link :to="{ path: '/home/movies' }">
+      <Icon
+        icon="carbon:search"
+        class="icon"
+        @click="$emit('search', MovieFilter)"
+      />
+    </router-link>
   </div>
 </template>
 <script lang="ts">
@@ -21,7 +23,10 @@ import { Icon } from '@iconify/vue';
 export default defineComponent({
   name: 'search-bar',
   components: { Icon },
-  props: { Series: Boolean },
+  props: {
+    Series: { type: Boolean },
+    RenderMovie: { type: Boolean },
+  },
   emits: ['search'],
   data() {
     return {
@@ -31,4 +36,3 @@ export default defineComponent({
   },
 });
 </script>
-

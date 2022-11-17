@@ -444,7 +444,7 @@ export default defineComponent({
       } else if (this.likeComment === false && this.DeslikeComment === false) {
         this.RemoveLike(commentId, index);
       } else {
-        this.PostDeslike(commentId, index);
+        this.PostLike(commentId, index);
       }
     },
     // adicionar like
@@ -500,7 +500,7 @@ export default defineComponent({
       } else if (this.DeslikeComment === false && this.likeComment === false) {
         this.RemoveDeslike(commentId, index);
       } else {
-        this.PostLike(commentId, index);
+        this.PostDeslike(commentId, index);
       }
     },
     PostDeslike(commentId: string, index: number) {
@@ -554,7 +554,7 @@ export default defineComponent({
       } else if (this.likeComment === false && this.DeslikeComment === false) {
         this.RemoveLikeResponse(commentId, index);
       } else {
-        this.PostDeslikeResponse(commentId, index);
+        this.PostLikeResponse(commentId, index);
       }
     },
     // adicionar like
@@ -610,7 +610,7 @@ export default defineComponent({
       } else if (this.DeslikeComment === false && this.likeComment === false) {
         this.RemoveDeslikeResponse(commentId, index);
       } else {
-        this.PostLikeResponse(commentId, index);
+         this.PostDeslikeResponse(commentId, index);
       }
     },
     PostDeslikeResponse(commentId: string, index: number) {
