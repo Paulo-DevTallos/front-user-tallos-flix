@@ -15,7 +15,7 @@
         <span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
       </div>
       <div class="home-carousel" v-if="hiddenCarousel">
-        <SlideCarousel :hiddenMovieInfo="true" />
+        <SlideCarousel :hiddenMovieInfo="true" :IsRendered="render" />
       </div>
       <!--<Carousel
 				v-if="hiddenCarousel"

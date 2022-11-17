@@ -33,7 +33,7 @@ export default defineComponent({
       isChanged: '',
       movies_name: '',
       title_dislogged: 'Olá,',
-      user_name_logged: `Ola${ this.$store.state.Users.UserName.split(' ')
+      user_name_logged: `Ola ${this.$store.state.Users.UserName.split(' ')
         .slice(0, 2)
         .toString()
         .replace(',', ' ')},`,
