@@ -6,4 +6,6 @@ export default {
   IsSeriesGenre: false,
   actualTag: String,
   ErrorPage: false,
+  dontRender: false,
+  searchData: '',
 };

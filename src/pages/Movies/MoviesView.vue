@@ -24,23 +24,34 @@
 			/>-->
     </div>
     <div>
-			<p v-if="movies_name.length > 5">Filmes com a palavra {{ movies_name }}</p>
-			<ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
+      <p v-if="movies_name.length > 5">
+        Filmes com a palavra {{ movies_name }}
+      </p>
+      <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
       <CardsMovies
-				v-if="isMoviesRenderVisible"
-				:moviesRender="$store.state.Movies.Movies.content"/>
+        v-if="isMoviesRenderVisible"
+        :moviesRender="$store.state.Movies.Movies.content"
+      />
+      <PaginationPage
+        class="paginationTT"
+        v-model="page"
+        :per-page="limit"
+        :rows="rows"
+        @click="handlePageChange"
+      />
     </div>
   </div>
 </template>
 
-<script lang="ts"> 
+<script lang="ts">
 import { defineComponent } from 'vue';
 import { mapGetters } from 'vuex';
-import SearchBar from '@/components/SearchBar.vue';
+import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
 import CardsMovies from '@/components/Cards/CardsMovies.vue';
+import PaginationPage from '@/components/Pagination/PaginationPage.vue';
 
 export default defineComponent({
   name: 'MoviesView',
@@ -50,6 +61,7 @@ export default defineComponent({
     FilterButton,
     ErrorComponent,
     CardsMovies,
+    PaginationPage,
   },
   data() {
     return {
@@ -58,7 +70,9 @@ export default defineComponent({
       hiddenCarousel: true,
       hiddenErrorSearch: false,
       render: false,
-			isMoviesRenderVisible: false,
+      isMoviesRenderVisible: false,
+      page: 1,
+      limit: 8,
     };
   },
   methods: {
@@ -74,10 +88,24 @@ export default defineComponent({
             });
           }
         }, 1000);
-				if (data.length !== 0 ) this.isMoviesRenderVisible = true;
-				else return this.isMoviesRenderVisible = false;
+        if (data.length !== 0) this.isMoviesRenderVisible = true;
+        else return (this.isMoviesRenderVisible = false);
       }
-
+    },
+    reloadRequest() {
+      try {
+        this.$store.dispatch('Movies/getMovieFilter', {
+          page: this.page,
+          limit: this.limit,
+          sortValue: -1,
+        });
+      } catch (error) {
+        return [];
+      }
+    },
+    handlePageChange() {
+      this.page + 1;
+      this.reloadRequest();
     },
   },
 
@@ -96,15 +124,28 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters(['Movies/getErrorPage']),
+		rows() {
+      return this.$store.state.Movies.Movies.numberOfElements;
+    },
   },
   mounted() {
+    this.reloadRequest();
     this.$store.state.Movies.IsSeriesGenre = false;
-    this.$store.dispatch(
-      'Favorites/getFavoriteById',
-      this.$store.state.Users.UserId,
-    );
+    
+
+		if (this.$store.state.Movies.dontRender === true) {
+      this.$store.dispatch('Movies/getMovieFilter', {
+        field: 'title',
+        search: this.$store.state.Movies.searchData,
+      });
+      this.$store.state.Movies.dontRender = false;
+      this.$store.state.Movies.searchData = '';
+    } else {
+			this.$store.dispatch(
+				'Favorites/getFavoriteById',
+				this.$store.state.Users.UserId,
+			);
+		}
   },
 });
 </script>
-
-<style lang="sass" scoped></style>

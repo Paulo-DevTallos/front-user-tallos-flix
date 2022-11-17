@@ -3,7 +3,8 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <h1>
-      Olá {{ $store.state.Users.UserName }}, sobre qual filme quer conhecer hoje ?
+      Olá {{ $store.state.Users.UserName }}, sobre qual filme quer conhecer hoje
+      ?
     </h1>
     <SearchBar @search="searchMovie" />
     <div class="home-carousel" v-if="hiddenCarousel">
@@ -17,7 +18,7 @@ import { defineComponent } from 'vue';
 import { SocketModule } from '@/services/socket';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
-import SearchBar from '@/components/SearchBar.vue';
+import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
@@ -40,6 +41,10 @@ export default defineComponent({
 
   methods: {
     searchMovie(data: string) {
+      this.$store.state.Movies.dontRender = true;
+      this.$store.state.Movies.searchData = data;
+    },
+    /*searchMovie(data: string) {
       if (data !== this.isChanged) {
         this.isChanged = data;
         setTimeout(() => {
@@ -52,7 +57,7 @@ export default defineComponent({
           }
         }, 1000);
       }
-    },
+    },*/
   },
 
   watch: {
@@ -60,7 +65,7 @@ export default defineComponent({
       if (data === true) {
         this.hiddenErrorSearch = true;
         this.hiddenCarousel = false;
-         this.render = false;
+        this.render = false;
       } else {
         this.hiddenErrorSearch = false;
         this.hiddenCarousel = true;
@@ -88,4 +93,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped></style>
