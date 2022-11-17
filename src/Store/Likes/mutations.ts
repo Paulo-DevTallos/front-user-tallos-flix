@@ -22,7 +22,7 @@ export default {
       state.likeList[payload.index] = 'LIKE';
     } else if (
       state.likeList[payload.index] === 'UNLIKE' &&
-      payload.deslike === true
+      payload.Islike === true
     ) {
       state.likeList[payload.index] = 'LIKE';
     } else if (
@@ -53,7 +53,7 @@ export default {
       state.likeListResponses[payload.index] = 'LIKE';
     } else if (
       state.likeListResponses[payload.index] === 'UNLIKE' &&
-      payload.deslike === true
+      payload.Islike === true
     ) {
       state.likeListResponses[payload.index] = 'LIKE';
     } else if (
