@@ -15,14 +15,6 @@
           :disabled="rating.allRate.rate === 0"
         />
       </div>
-      <!-- <div v-if="!viewRating">
-        <button-default
-          class="BtnSalvar"
-          :data_btn_title="'Salvar'"
-          @btnAction="saveRating"
-          :disabled="rating.allRate.rate === 0"
-        />
-      </div> -->
     </div>
   </div>
 </template>
@@ -36,8 +28,7 @@ export default defineComponent({
   components: { StarRating, ButtonDefault },
   data() {
     return {
-      ratingUser: [],
-      viewRating: true,
+      ratingMovie: [],
       rating: {
         movie_id: this.$store.state.Movies.currentMovie._id,
         allRate: {
@@ -45,23 +36,39 @@ export default defineComponent({
           user_id: this.$store.state.Users.UserId,
         },
       },
-      newRateUser: {
-        rate: 0,
-        user_id: this.$store.state.Users.UserId,
-      },
     };
   },
   mounted() {
-    this.getRatingUser();
+    this.getRatingsUser();
+    this.getRatingMovie();
   },
   methods: {
-    getRatingUser() {
-      this.$store
-        .dispatch('Ratings/getAllRatingsUser', this.$store.state.Users.UserId)
-        .then((result) => {
-          this.ratingUser = result.data;
-        });
-      console.log(this.$store.state.Ratings.RatingsUser);
+    getRatingsUser() {
+      this.$store.dispatch(
+        'Ratings/getAllRatingsUser',
+        this.$store.state.Users.UserId,
+      );
+    },
+    getRatingMovie() {
+      ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
+        (result) => {
+          this.ratingMovie = result.data;
+          console.log(this.ratingMovie[0].allRate.length);
+        },
+      );
+    },
+    saveRating() {
+      for (let index = 0; index < this.ratingMovie[0].allRate.length; index++) {
+        if (
+          this.ratingMovie[0].allRate[index].user_id ===
+          this.$store.state.Users.UserId
+        ) {
+          console.log('esse filme foi avaliado por este usuario');
+        } else if (this.ratingMovie[0].allRate[index].user_id !=
+          this.$store.state.Users.UserId) {
+            console.log(" usuario não avaliou este filme, criar");
+          }
+      }
     },
   },
 });
