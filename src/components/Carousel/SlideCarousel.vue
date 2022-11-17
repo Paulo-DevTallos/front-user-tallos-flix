@@ -71,6 +71,12 @@ export default defineComponent({
     RenderSeries: {
       type: Boolean,
     },
+    People: {
+      type: Boolean,
+    },
+    IsRendered: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -129,6 +135,20 @@ export default defineComponent({
     currentMovie(movie: object) {
       this.$store.state.Movies.currentMovie = movie;
     },
+  },
+
+  async mounted() {
+    if (this.People === false && this.IsRendered === false) {
+      if (this.$store.state.Movies.IsMovieGenre == false) {
+        if (this.RenderSeries === true) {
+          await this.$store.dispatch('Movies/getSeries');
+        } else {
+          await this.$store.dispatch('Movies/getMovieFilter');
+        }
+      } else {
+        this.$store.state.Movies.IsMovieGenre == true;
+      }
+    }
   },
 });
 </script>

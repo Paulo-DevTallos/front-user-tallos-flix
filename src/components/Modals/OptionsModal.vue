@@ -31,7 +31,7 @@ export default defineComponent({
   },
   methods: {
     redirectAction(): void | URL {
-      return location.replace('/login');
+      return this.$router.replace({ path: '/login' });
     }
   }
 });
