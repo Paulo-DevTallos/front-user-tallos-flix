@@ -101,6 +101,8 @@ export default defineComponent({
           this.hiddenErrorMessage = true;
         }
       });
+
+      this.$router.go(-1);
     },
 
     //evento de create new user
