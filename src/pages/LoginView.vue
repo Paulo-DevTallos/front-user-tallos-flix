@@ -79,27 +79,29 @@ export default defineComponent({
 
     //evento de login
     async handleSubmitLogin(user: object) {
-      await this.$store.dispatch('Users/login', user).catch(err => {
-        if (user.email === '' && user.password === '') {
-          console.error(err.response.data.message);
-          this.message = 'Campos vazio, digite seu email e senha!';
-          this.hiddenErrorMessage = true;
-        }
-        else if (!user.email) {
-          console.error(err.response.data.message);
-          this.message = 'O campo de e-mail está vazio!';
-          this.hiddenErrorMessage = true;
-        }
-        else if (!user.password) {
-          console.error(err.response.data.message);
-          this.message = 'O campo de senha está vazio!';
-          this.hiddenErrorMessage = true;
-        }
-        else if (err) {
-          console.error(err.response.data.message);
-          this.message = 'E-mail ou Senha incorretos, Verifique novamente!';
-          this.hiddenErrorMessage = true;
-        }
+      await this.$store.dispatch('Users/login', user)
+        .then(res => this.$router.go(-1))
+        .catch((err) => {
+          if (user.email === '' && user.password === '') {
+            console.error(err.response.data.message);
+            this.message = 'Campos vazio, digite seu email e senha!';
+            this.hiddenErrorMessage = true;
+          }
+          else if (!user.email) {
+            console.error(err.response.data.message);
+            this.message = 'O campo de e-mail está vazio!';
+            this.hiddenErrorMessage = true;
+          }
+          else if (!user.password) {
+            console.error(err.response.data.message);
+            this.message = 'O campo de senha está vazio!';
+            this.hiddenErrorMessage = true;
+          }
+          else if (err) {
+            console.error(err.response.data.message);
+            this.message = 'E-mail ou Senha incorretos, Verifique novamente!';
+            this.hiddenErrorMessage = true;
+          }
       });
     },
 

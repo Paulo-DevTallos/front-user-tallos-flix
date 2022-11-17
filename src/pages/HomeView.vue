@@ -2,9 +2,8 @@
   <div
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
-    <h1>
-      Olá {{ $store.state.Users.UserName }}, sobre qual filme quer conhecer hoje
-      ?
+    <h1 v-if="user_name_logged ? user_name_logged : title_dislogged">
+      {{ user_name_logged || title_dislogged }} sobre qual filme quer conhecer hoje ?
     </h1>
     <SearchBar @search="searchMovie" />
     <div class="home-carousel" v-if="hiddenCarousel">
@@ -33,6 +32,11 @@ export default defineComponent({
       socketService: SocketModule.connect(),
       isChanged: '',
       movies_name: '',
+      title_dislogged: 'Olá,',
+      user_name_logged: `Ola${ this.$store.state.Users.UserName.split(' ')
+        .slice(0, 2)
+        .toString()
+        .replace(',', ' ')},`,
       hiddenCarousel: true,
       hiddenErrorSearch: false,
       render: false,
