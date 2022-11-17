@@ -151,7 +151,9 @@
     }
 }
 .people-link{
+    color: $orange-color-one;
     &:hover{
+        text-decoration: underline;
         color: $orange-color-one;
     }
 }
