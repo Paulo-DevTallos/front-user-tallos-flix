@@ -28,7 +28,16 @@ export default defineComponent({
   components: { StarRating, ButtonDefault },
   data() {
     return {
-      ratingMovie: [],
+      ratingMovie: [
+        {
+          allRate: [
+            {
+              rate: 0,
+              user_id: '',
+            },
+          ],
+        },
+      ],
       rating: {
         movie_id: this.$store.state.Movies.currentMovie._id,
         allRate: {
@@ -36,6 +45,11 @@ export default defineComponent({
           user_id: this.$store.state.Users.UserId,
         },
       },
+      newRateUser: {
+        rate: 0,
+        user_id: this.$store.state.Users.UserId,
+      },
+      ValidateRating: false,
     };
   },
   mounted() {
@@ -48,26 +62,49 @@ export default defineComponent({
         'Ratings/getAllRatingsUser',
         this.$store.state.Users.UserId,
       );
+      console.log(this.$store.state.Ratings.RatingsUser);
     },
     getRatingMovie() {
       ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
         (result) => {
           this.ratingMovie = result.data;
-          console.log(this.ratingMovie[0].allRate.length);
+          console.log(this.ratingMovie);
         },
       );
     },
-    saveRating() {
-      for (let index = 0; index < this.ratingMovie[0].allRate.length; index++) {
-        if (
-          this.ratingMovie[0].allRate[index].user_id ===
-          this.$store.state.Users.UserId
+    async saveRating() {
+      if (this.ratingMovie <= []) {
+        console.log('criar primeira avaliação do filme');
+        await this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
+        this.getRatingsUser();
+        this.getRatingMovie();
+      } else if (this.ratingMovie >= []) {
+        for (
+          let index = 0;
+          index < this.ratingMovie[0].allRate.length;
+          index++
         ) {
-          console.log('esse filme foi avaliado por este usuario');
-        } else if (this.ratingMovie[0].allRate[index].user_id !=
-          this.$store.state.Users.UserId) {
-            console.log(" usuario não avaliou este filme, criar");
+          if (
+            this.ratingMovie[0].allRate[index].user_id ===
+            this.$store.state.Users.UserId
+          ) {
+            console.log('esse filme foi avaliado por este usuario');
+            this.ValidateRating = true;
+            (this.newRateUser.rate = this.rating.allRate.rate),
+              await this.$store.dispatch('Ratings/updateRatingUser', {
+                id: this.$store.state.Movies.currentMovie._id,
+                newRate: this.newRateUser,
+              });
+            this.getRatingsUser();
+            this.getRatingMovie();
           }
+        }
+        if (this.ValidateRating === false) {
+          console.log('filme com avaliação, mas o usuario logado nao tem');
+          await this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
+          this.getRatingsUser();
+          this.getRatingMovie();
+        }
       }
     },
   },
