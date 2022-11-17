@@ -4,7 +4,7 @@
       type="text"
       class="text-input"
       placeholder="Digite aqui o nome do filme"
-      v-model="this.MovieFilter"
+      v-model="MovieFilter"
       @keyup="$emit('search', MovieFilter)"
     />
     <Icon

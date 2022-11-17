@@ -52,17 +52,17 @@
 		display: flex;
     
 		.gallery-wrapper {
-      padding: 0 50px 20px 0;
-      @include align-elements(flex, flex-start, unset);
-      flex-direction: column;
+			padding: 0 50px 20px 0;
+			@include align-elements(flex, flex-start, unset);
+			flex-direction: column;
 
-			.gallery-movies {
-        background-color: red;
-        display: flex;
-        
-        @include mobile {
-          padding: 10px;
-        }
+		.gallery-movies {
+			background-color: red;
+			display: flex;
+			
+			@include mobile {
+			padding: 10px;
+			}
 
 				.item-image-poster {
 					width: 230px;
@@ -71,24 +71,24 @@
 				}
 			}
 
-      .card-info-movies {
-        color: $main-white-color;
-        margin-top: 20px;
+			.card-info-movies {
+				color: $main-white-color;
+				margin-top: 20px;
 
-        h4 {
-          margin: 0;
-          font-size: 25px;
-        }
+				h4 {
+				margin: 0;
+				font-size: 25px;
+				}
 
-        p {
-          margin: 0;
-          margin: 7px 0;
-        }
+				p {
+				margin: 0;
+				margin: 7px 0;
+				}
 
-        .rating {
-          display: flex;
-        }
-      }
+				.rating {
+				display: flex;
+				}
+			}
 		}
 	}
 }
