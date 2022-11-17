@@ -64,14 +64,14 @@
         </div>
         <div class="info-generals-movies">
           <div
-            class="d-flex icon-styles"
+            class="d-flex icon-styles2"
             v-if="this.$store.state.Movies.currentMovie.imdb.rating"
           >
             <Icon icon="la:imdb" />
             <p>{{ this.$store.state.Movies.currentMovie.imdb.rating }}/10</p>
           </div>
           <div
-            class="d-flex icon-styles"
+            class="d-flex icon-styles2"
             v-if="
               this.$store.state.Movies.currentMovie.tomatoes &&
               this.$store.state.Movies.currentMovie.tomatoes.viewer &&

@@ -1,6 +1,9 @@
 <template>
   <div class="container-error">
-    <h2>Não encontramos filmes com a palavra {{ data_word }}</h2><!--lembrar de remover o v-prev-->
+    <h2 class="error-text-message">
+      Não encontramos filmes com a palavra {{ data_word }}
+    </h2>
+    <!--lembrar de remover o v-prev-->
     <img src="/img/cuate.png" alt="imagem de erro" />
   </div>
 </template>
@@ -16,4 +19,9 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.error-text-message {
+  color: #cbd6db;
+  font-family: 'Nunito', sans-serif;
+}
+</style>
