@@ -4,45 +4,10 @@
     <hr class="orange-line-separator" />
     <div class="d-flex flex-column align-items-center">
       <p class="avaliationTitle m-2">Avaliação</p>
-      <div
-        class="d-flex"
-        v-for="ratingUser in this.$store.state.Ratings.RatingsUser"
-        :key="ratingUser._id"
-      >
-        <div
-          v-if="
-            ratingUser.movie_id === this.$store.state.Movies.currentMovie._id &&
-            ratingUser.allRate[0].user_id === this.$store.state.Users.UserId
-          "
-        >
-          <star-rating
-            v-model="ratingUser.allRate[0].rate"
-            :showControl="true"
-          />
-        </div>
-      </div>
-      <div v-if="ratingMovie <= []">
+      <div class="d-flex">
         <star-rating v-model="rating.allRate.rate" :showControl="true" />
       </div>
-      <div
-        v-for="ratingUser in this.$store.state.Ratings.RatingsUser"
-        :key="ratingUser._id"
-      >
-        <div
-          v-if="
-            ratingUser.movie_id === this.$store.state.Movies.currentMovie._id &&
-            ratingUser.allRate[0].user_id === this.$store.state.Users.UserId
-          "
-        >
-          <button-default
-            class="BtnSalvar"
-            :data_btn_title="'Salvar'"
-            @btnAction="saveRating(ratingUser)"
-            :disabled="ratingUser.allRate[0].rate === 0"
-          />
-        </div>
-      </div>
-      <div v-if="ratingMovie <= []">
+      <div>
         <button-default
           class="BtnSalvar"
           :data_btn_title="'Salvar'"
@@ -71,7 +36,7 @@ export default defineComponent({
   components: { StarRating, ButtonDefault },
   data() {
     return {
-      ratingMovie: [],
+      ratingUser: [],
       viewRating: true,
       rating: {
         movie_id: this.$store.state.Movies.currentMovie._id,
@@ -87,42 +52,17 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.getRatingMovie();
     this.getRatingUser();
   },
   methods: {
     getRatingUser() {
-      this.$store.dispatch(
-        'Ratings/getAllRatingsUser',
-        this.$store.state.Users.UserId,
-      );
+      this.$store
+        .dispatch('Ratings/getAllRatingsUser', this.$store.state.Users.UserId)
+        .then((result) => {
+          this.ratingUser = result.data;
+        });
       console.log(this.$store.state.Ratings.RatingsUser);
-    },
-    getRatingMovie() {
-      ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
-        (result) => {
-          this.ratingMovie = result.data;
-          console.log(this.ratingMovie);
-        },
-      );
-    },
-    async saveRating(ratingUser) {
-      if (this.ratingMovie >= [0]) {
-        console.log(' existe avaliação ');
-        (this.newRateUser.rate = ratingUser.allRate[0].rate),
-          await this.$store.dispatch('Ratings/updateRatingUser', {
-            id: this.$store.state.Movies.currentMovie._id,
-            newRate: this.newRateUser,
-          });
-        this.getRatingMovie();
-      } else if (this.ratingMovie <= []) {
-        console.log(' não existe avaliação ');
-        await this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
-        this.getRatingMovie();
-        this.getRatingUser();
-      }
     },
   },
 });
 </script>
-<style lang="scss" scoped></style>
