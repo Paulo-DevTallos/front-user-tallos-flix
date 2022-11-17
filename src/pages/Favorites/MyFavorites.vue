@@ -62,16 +62,21 @@
           >
             <b-row>
               <b-col cols="4">
-                <b-card-img
-                  :src="favorite.result.poster || vazio.poster"
-                  v-if="
-                    favorite.result.poster
-                      ? favorite.result.poster
-                      : vazio.poster
-                  "
-                  onerror="this.onerror=null;this.src='/img/empty-img.png';"
-                  class="rounded-0"
-                ></b-card-img>
+                <router-link
+                  :to="{ path: `/home/movieLocation/${favorite.result._id}` }"
+                >
+                  <b-card-img
+                    @click="currentMovie(favorite.result)"
+                    :src="favorite.result.poster || vazio.poster"
+                    v-if="
+                      favorite.result.poster
+                        ? favorite.result.poster
+                        : vazio.poster
+                    "
+                    onerror="this.onerror=null;this.src='/img/empty-img.png';"
+                    class="rounded-0"
+                  ></b-card-img>
+                </router-link>
               </b-col>
               <b-col cols="7" class="card-info">
                 <b-card-body>
@@ -250,6 +255,9 @@ export default defineComponent({
       if (this.fullPlot === false) {
         this.actualIndex = -1;
       }
+    },
+    currentMovie(movie: Object) {
+      this.$store.state.Movies.currentMovie = movie;
     },
   },
 });
