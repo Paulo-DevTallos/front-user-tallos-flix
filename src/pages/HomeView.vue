@@ -33,7 +33,7 @@ export default defineComponent({
       isChanged: '',
       movies_name: '',
       title_dislogged: 'Olá,',
-      user_name_logged: `Ola${ this.$store.state.Users.UserName.split(' ')
+      user_name_logged: `Ola ${this.$store.state.Users.UserName.split(' ')
         .slice(0, 2)
         .toString()
         .replace(',', ' ')},`,
@@ -48,20 +48,6 @@ export default defineComponent({
       this.$store.state.Movies.dontRender = true;
       this.$store.state.Movies.searchData = data;
     },
-    /*searchMovie(data: string) {
-      if (data !== this.isChanged) {
-        this.isChanged = data;
-        setTimeout(() => {
-          this.movies_name = data;
-          if (this.isChanged === data) {
-            this.$store.dispatch('Movies/getMovieFilter', {
-              field: 'title',
-              search: data,
-            });
-          }
-        }, 1000);
-      }
-    },*/
   },
 
   watch: {

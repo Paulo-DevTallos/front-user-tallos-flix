@@ -1,4 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="screen">
     <div class="content">
@@ -7,8 +6,19 @@
           <img src="/img/logo-tallos.png" alt="Logo Tallos" />
         </div>
         <div class="slide-controls">
-          <input type="radio" name="slide" id="enter" checked @click="formLogin" />
-          <input type="radio" name="slide" id="register" @click="formRegister" />
+          <input
+            type="radio"
+            name="slide"
+            id="enter"
+            checked
+            @click="formLogin"
+          />
+          <input
+            type="radio"
+            name="slide"
+            id="register"
+            @click="formRegister"
+          />
           <label for="enter" class="slide enter">Entrar</label>
           <label for="register" class="slide register">Cadastrar</label>
           <div class="slider-tab"></div>
@@ -80,7 +90,7 @@ export default defineComponent({
     //evento de login
     async handleSubmitLogin(user: object) {
       await this.$store.dispatch('Users/login', user)
-        .then(res => this.$router.go(-1))
+        .then(res => this.$router.push('/'))
         .catch((err) => {
           if (user.email === '' && user.password === '') {
             console.error(err.response.data.message);
@@ -152,5 +162,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped></style>
