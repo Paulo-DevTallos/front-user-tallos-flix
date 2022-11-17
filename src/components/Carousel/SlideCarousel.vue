@@ -14,12 +14,18 @@
         class="gallery-wrapper"
       >
         <div class="gallery-movies">
-          <img
-            class="item-image-poster"
-            v-if="movie.poster ? movie.poster : empty.poster"
-            :src="movie.poster || empty.poster"
-            alt="movie.title"
-          />
+          <router-link
+            v-if="RenderSeries === false ? movieRouter : serieRouter"
+            :to="{ path: `${movieRouter || serieRouter}` }"
+          >
+            <img
+              class="item-image-poster"
+              v-if="movie.poster ? movie.poster : empty.poster"
+              :src="movie.poster || empty.poster"
+              alt="movie.title"
+              @click="currentMovie(movie)"
+            />
+          </router-link>
         </div>
         <div class="card-info-movies" v-if="hiddenMovieInfo">
           <h4
@@ -31,7 +37,7 @@
           >
             {{ substring }}
           </h4>
-          <p>
+          <p v-if="movie.runtime">
             Duração:
             {{
               Math.trunc(movie.runtime / 60) +
@@ -62,6 +68,9 @@ export default defineComponent({
     hiddenMovieInfo: {
       type: Boolean,
     },
+    RenderSeries: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -70,6 +79,8 @@ export default defineComponent({
         poster: '/img/empty-img.png',
       },
       substring: '',
+      movieRouter: '/home/movie',
+      serieRouter: '/home/serie',
     };
   },
 
@@ -115,9 +126,9 @@ export default defineComponent({
         block: 'nearest',
       });
     },
-  },
-  mounted() {
-    
+    currentMovie(movie: object) {
+      this.$store.state.Movies.currentMovie = movie;
+    },
   },
 });
 </script>
