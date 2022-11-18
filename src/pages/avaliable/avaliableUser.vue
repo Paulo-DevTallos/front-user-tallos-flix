@@ -6,7 +6,17 @@
         <h3 class="title">Minhas Avaliações</h3>
       </div>
       <b-row col no-gutters>
-        <b-col class="Colprin" v-for="avaliable in moviesAvaliable" :key="avaliable">aaa</b-col>
+        <b-col
+          class="Colprin"
+          v-for="avaliable in moviesAvaliable"
+          :key="avaliable"
+        >
+          <b-row>
+            <b-col>
+              <b-card-img :src="avaliable.data.result.poster"></b-card-img>
+            </b-col>
+          </b-row>
+        </b-col>
       </b-row>
     </b-container>
     <!-- <b-container class="pt-5">
