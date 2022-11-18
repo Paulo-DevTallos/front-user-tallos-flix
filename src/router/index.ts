@@ -36,7 +36,7 @@ const router = createRouter({
       path: '/home/avaliable',
       name: 'avaliable',
       beforeEnter: authGuard(),
-      component: () => import('../pages/avaliable/avaliable.vue'),
+      component: () => import('../pages/avaliable/avaliableUser.vue'),
     },
     {
       path: '/home',
