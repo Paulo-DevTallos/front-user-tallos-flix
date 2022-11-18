@@ -1,3 +1,4 @@
+//align-elements
 @mixin align-elements($display, $vertical, $horizontal) {
   display: $display;
   justify-content: $vertical;
@@ -12,8 +13,18 @@
   border-radius: 10px;
   border: none;
   text-align: center;
+
+	&:hover {
+    background-color: $primary-color-beige-two;
+  }
+
+  &:focus {
+    border: none !important;
+    background-color: $primary-color-beige-three !important;
+  }
 }
 
+//excluir
 @mixin btn-config {
   background-color: $primary-color-beige-one;
   color: #fff;
