@@ -4,9 +4,24 @@
     <hr class="orange-line-separator" />
     <div class="d-flex flex-column align-items-center">
       <p class="avaliationTitle m-2">Avaliação</p>
-      <div class="d-flex">
-        <star-rating v-model="rating.allRate.rate" :showControl="true" />
+      <div class="d-flex"></div>
+      <div
+        class="d-flex"
+        v-for="ratingUser in ratingMovie[0].allRate"
+        :key="ratingUser._id"
+      >
+        {{ ratingUser }}
+        <star-rating
+          v-if="ratingUser.user_id === this.$store.state.Users.UserId"
+          v-model="ratingUser.rate"
+          :showControl="true"
+        />
       </div>
+      <star-rating
+        v-if="teste"
+        v-model="rating.allRate.rate"
+        :showControl="true"
+      />
       <div>
         <button-default
           class="BtnSalvar"
@@ -50,6 +65,8 @@ export default defineComponent({
         user_id: this.$store.state.Users.UserId,
       },
       ValidateRating: false,
+      teste: true,
+      outro: true,
     };
   },
   mounted() {
