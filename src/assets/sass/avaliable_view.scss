@@ -1,0 +1,17 @@
+.Colprin {
+    padding-left: 8%;
+}
+.btnRemove{
+    color: #ED4537;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+        color: #e73424;
+    }
+    &:focus {
+        color: #e73424;
+    }
+    &:active {
+        color: #e73424;
+    }
+}
