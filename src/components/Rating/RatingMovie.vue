@@ -23,7 +23,6 @@
         >
           <button-default
             v-if="ratingUser.user_id === this.$store.state.Users.UserId"
-            class="BtnSalvar"
             :data_btn_title="'Salvar'"
             @btnAction="saveRating(ratingUser.rate)"
             :disabled="ratingUser.rate === 0"
@@ -38,7 +37,6 @@
       <div>
         <button-default
           v-if="ValidateComponent"
-          class="BtnSalvar"
           :data_btn_title="'Salvar'"
           @btnAction="saveRating"
           :disabled="rating.allRate.rate === 0"
