@@ -31,8 +31,13 @@
 									class="d-flex"
 									v-model="rate.myRate.rate"
 								/>
+								<h6
+									class="btnRemove"
+									v-if="rate.movie === avaliable.data.result._id"
+								>
+									Remover a avaliação
+								</h6>
 							</div>
-							<h6 class="btnRemove">Remover a avaliação</h6>
 						</b-col>
 					</b-row>
 				</b-col>
