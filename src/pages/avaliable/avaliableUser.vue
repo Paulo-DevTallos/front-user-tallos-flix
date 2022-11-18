@@ -4,6 +4,9 @@
 		<b-container class="pt-5 favorite-container">
 			<div class="pb-2">
 				<h3 class="title">Minhas Avaliações</h3>
+				<div class="description" v-if="moviesAvaliable.length === 0">
+					<p>Parece que você ainda não tem filmes ou séries Avaliados</p>
+				</div>
 			</div>
 			<b-row col no-gutters>
 				<b-col
@@ -19,7 +22,16 @@
 						<b-col>
 							<h5>{{ avaliable.data.result.title }}</h5>
 							<h6>Sua avaliação</h6>
-							<star-rating class="d-flex" />
+							<div
+								v-for="rate in this.$store.state.Ratings.RatingsUser"
+								:key="rate"
+							>
+								<star-rating
+									v-if="rate.movie === avaliable.data.result._id"
+									class="d-flex"
+									v-model="rate.myRate.rate"
+								/>
+							</div>
 							<h6 class="btnRemove">Remover a avaliação</h6>
 						</b-col>
 					</b-row>
@@ -53,17 +65,10 @@ export default defineComponent({
 			index++
 		) {
 			ServiceGetRatingMovie.getMovieFilterId(
-				this.$store.state.Ratings.RatingsUser[index].movie_id,
-			)
-				.then((result) => {
-					this.moviesAvaliable.push(result);
-				})
-				.catch((err) => {});
-			// this.$store.dispatch(
-			//   'Movies/getMovieFilterId',
-			//   this.$store.state.Ratings.RatingsUser[index].movie_id,
-			// );
-			// console.log(this.$store.state.Movies.Movies);
+				this.$store.state.Ratings.RatingsUser[index].movie,
+			).then((result) => {
+				this.moviesAvaliable.push(result);
+			});
 		}
 		console.log(this.moviesAvaliable);
 	},
