@@ -26,6 +26,8 @@
       <CardsMovies
         v-if="isMoviesRenderVisible"
         :moviesRender="$store.state.Movies.Movies.content"
+        :resource="'movie'"
+        :btn_name="'Ver Filme'"
       />
       <PaginationPage
         class="paginationTT"
@@ -119,16 +121,15 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters(['Movies/getErrorPage']),
-		rows() {
+    rows() {
       return this.$store.state.Movies.Movies.numberOfElements;
     },
   },
   mounted() {
     this.reloadRequest();
     this.$store.state.Movies.IsSeriesGenre = false;
-    
 
-		if (this.$store.state.Movies.dontRender === true) {
+    if (this.$store.state.Movies.dontRender === true) {
       this.$store.dispatch('Movies/getMovieFilter', {
         field: 'title',
         search: this.$store.state.Movies.searchData,
@@ -136,11 +137,11 @@ export default defineComponent({
       this.$store.state.Movies.dontRender = false;
       this.$store.state.Movies.searchData = '';
     } else {
-			this.$store.dispatch(
-				'Favorites/getFavoriteById',
-				this.$store.state.Users.UserId,
-			);
-		}
+      this.$store.dispatch(
+        'Favorites/getFavoriteById',
+        this.$store.state.Users.UserId,
+      );
+    }
   },
 });
 </script>
