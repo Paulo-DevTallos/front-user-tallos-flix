@@ -12,16 +12,19 @@
     >
       <div
         class="d-flex ms-5 mb-3 gap-2 align-items-center"
-        v-if="this.$store.state.Movies.IsSeriesGenre == true"
+        v-if="$store.state.Movies.IsSeriesGenre == true"
       >
         <span id="genre-title">Gênero: </span>
         <span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
       </div>
-      <Carousel
-        :hiddenMovieInfo="true"
-        :IsRendered="render"
-        :RenderSeries="true"
-      />
+      <div class="home-carousel">
+        <SlideCarousel
+          :resource="'serie'"
+          :hiddenMovieInfo="true"
+          :IsRendered="render"
+          :RenderSeries="true"
+        />
+      </div>
     </div>
     <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
   </div>
@@ -30,14 +33,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SearchBar from '@/components/SearchBar/SearchBar.vue';
-import Carousel from '@/components/Carousel.vue';
+import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'SeriesView',
-  components: { SearchBar, Carousel, FilterButton, ErrorComponent },
+  components: { SearchBar, SlideCarousel, FilterButton, ErrorComponent },
   data() {
     return {
       isChanged: '',

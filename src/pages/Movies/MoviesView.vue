@@ -15,26 +15,32 @@
         <span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
       </div>
       <div class="home-carousel" v-if="hiddenCarousel">
-        <SlideCarousel :hiddenMovieInfo="true" :IsRendered="render" />
+        <SlideCarousel
+          :resource="'movie'"
+          :hiddenMovieInfo="true"
+          :IsRendered="render"
+        />
       </div>
     </div>
-    <div v-if="isMoviesRenderVisible">
+    <div>
       <p v-if="movies_name.length > 5">
         Filmes com a palavra {{ movies_name }}
       </p>
       <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
-      <CardsMovies
-        :moviesRender="$store.state.Movies.Movies.content"
-        :resource="'movie'"
-        :btn_name="'Ver Filme'"
-      />
-      <PaginationPage
-        class="paginationTT"
-        v-model="page"
-        :per-page="limit"
-        :rows="rows"
-        @click="handlePageChange"
-      />
+      <div v-if="isMoviesRenderVisible">
+        <CardsMovies
+          :moviesRender="$store.state.Movies.Movies.content"
+          :resource="'movie'"
+          :btn_name="'Ver Filme'"
+        />
+        <PaginationPage
+          class="paginationTT"
+          v-model="page"
+          :per-page="limit"
+          :rows="rows"
+          @click="handlePageChange"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -9,7 +9,9 @@
     </button>
     <div class="carousel-container">
       <div
-        v-for="movie in $store.state.Movies.Movies.content"
+        v-for="movie in RenderSeries === false
+          ? $store.state.Movies.Movies.content
+          : $store.state.Movies.Series.content"
         :key="movie._id"
         class="gallery-wrapper"
       >
