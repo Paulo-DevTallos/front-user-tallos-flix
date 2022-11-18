@@ -90,7 +90,11 @@ export default defineComponent({
     //evento de login
     async handleSubmitLogin(user: object) {
       await this.$store.dispatch('Users/login', user)
-        .then(res => this.$router.push('/'))
+        .then(res => {
+          this.$router.push('/home').then(() => {
+            location.reload();
+          });
+          })
         .catch((err) => {
           if (user.email === '' && user.password === '') {
             console.error(err.response.data.message);
