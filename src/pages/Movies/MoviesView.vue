@@ -26,7 +26,11 @@
       <p v-if="movies_name.length > 5">
         Filmes com a palavra {{ movies_name }}
       </p>
-      <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
+      <ErrorComponent
+        :error_value="'Não encontramos filmes com a palavra'"
+        :data_word="movies_name"
+        v-if="hiddenErrorSearch"
+      />
       <div v-if="isMoviesRenderVisible">
         <CardsMovies
           :moviesRender="$store.state.Movies.Movies.content"

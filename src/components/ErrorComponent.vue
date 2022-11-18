@@ -1,10 +1,8 @@
 <template>
 	<div class="container-error">
 		<h2 class="error-text-message">{{ error_value }} {{ data_word }}</h2>
-		<!--lembrar de remover o v-prev-->
 		<img src="/img/cuate.png" alt="imagem de erro" />
 	</div>
-	<!--Não encontramos filmes com a palavra-->
 </template>
 
 <script lang="ts">

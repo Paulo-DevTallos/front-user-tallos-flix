@@ -109,7 +109,7 @@
 							:key="Movie.length"
 						>
 							<router-link
-								:to="{ path: `/home/Peoples/${Movie}` }"
+								:to="{ path: `/home/people/${Movie}` }"
 								@click="GetPeople(Movie, 'directors')"
 								class="people-link"
 								>{{ Movie }}</router-link
@@ -132,7 +132,7 @@
 							v-for="Movie in this.$store.state.Movies.currentMovie.writers"
 							:key="Movie.length"
 							><router-link
-								:to="{ path: `/home/Peoples/${Movie}` }"
+								:to="{ path: `/home/people/${Movie}` }"
 								@click="GetPeople(Movie, 'writers')"
 								class="people-link"
 								>{{ Movie }}</router-link
@@ -153,7 +153,7 @@
 							v-for="Movie in this.$store.state.Movies.currentMovie.cast"
 							:key="Movie.length"
 							><router-link
-								:to="{ path: `/home/Peoples/${Movie}` }"
+								:to="{ path: `/home/people/${Movie}` }"
 								@click="GetPeople(Movie, 'cast')"
 								class="people-link"
 								>{{ Movie }}</router-link
