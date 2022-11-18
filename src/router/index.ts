@@ -79,7 +79,7 @@ const router = createRouter({
 					component: () => import('../pages/Theaters/MovieLocation.vue'),
 				},
 				{
-					path: 'Peoples/:name',
+					path: 'people/:name',
 					name: 'DirectorPage',
 					component: () => import('../pages/Peoples/PeopleView.vue'),
 				},

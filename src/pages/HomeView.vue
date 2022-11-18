@@ -14,7 +14,11 @@
         :title_carousel="'Nos Cinemas'"
       />
     </div>
-    <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
+    <ErrorComponent
+      :error_value="'Não encontramos filmes com a palavra'"
+      :data_word="movies_name"
+      v-if="hiddenErrorSearch"
+    />
   </div>
 </template>
 <script lang="ts">
