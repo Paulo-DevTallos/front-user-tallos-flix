@@ -46,7 +46,7 @@
 								<router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
 									<ButtonDefault
 										@click="currentMovie(movie)"
-										:data_btn_title="'Ver Cinemas'"
+										:data_btn_title="btn_name_theater"
 									/>
 								</router-link>
 							</div>
@@ -65,6 +65,14 @@ import ButtonDefault from '../Buttons/ButtonDefault.vue';
 export default defineComponent({
 	name: 'CardsMovies',
 	emits: ['redirectTo'],
+	props: {
+		moviesRender: {
+			type: Function,
+		},
+		btn_name_theater: {
+			type: String,
+		},
+	},
 	components: {
 		StarRating,
 		ButtonDefault,
@@ -76,11 +84,6 @@ export default defineComponent({
 				title: 'Filme sem titulo',
 			},
 		};
-	},
-	props: {
-		moviesRender: {
-			type: Function,
-		},
 	},
 	methods: {
 		currentMovie(movie: Object) {
