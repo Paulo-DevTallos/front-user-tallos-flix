@@ -50,7 +50,7 @@
 		margin: 0 auto;
 		overflow-x: hidden;
 		display: flex;
-    
+
 		.gallery-wrapper {
 			padding: 0 50px 20px 0;
 			@include align-elements(flex, flex-start, unset);
@@ -59,7 +59,7 @@
 		.gallery-movies {
 			background-color: red;
 			display: flex;
-			
+
 			@include mobile {
 			padding: 10px;
 			}
