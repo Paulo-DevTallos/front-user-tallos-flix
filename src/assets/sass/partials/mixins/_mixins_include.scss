@@ -5,8 +5,13 @@
 }
 
 //config btn
-@mixin btn-config-font($font-size) {
+@mixin btn-config-styles($font-size) {
   font-size: $font-size;
+	background-color: $primary-color-beige-one;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
 }
 
 @mixin btn-config {
@@ -42,10 +47,10 @@
       opacity: 0;
       visibility: hidden;
       transform: translateY(-25%);
-    } 
+    }
     100% {
       opacity: 1;
-      visibility: visible; 
+      visibility: visible;
       transform: translateY(0);
     }
   }
@@ -56,11 +61,10 @@
     0% {
       opacity: 0;
       visibility: hidden;
-    } 
+    }
     100% {
       opacity: 1;
-      visibility: visible; 
+      visibility: visible;
     }
   }
 }
- 
