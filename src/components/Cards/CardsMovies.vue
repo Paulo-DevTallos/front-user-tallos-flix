@@ -10,13 +10,13 @@
 			<b-card no-body>
 				<b-row class="d-flex">
 					<div class="card-info-img">
-						<router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
+						<router-link :to="{ path: `/home/${resource}/${movie._id}` }">
 							<b-card-img
 								:src="movie.poster || vazio.poster"
 								v-if="movie.poster ? movie.poster : vazio.poster"
 								onerror="this.onerror=null;this.src='/img/empty-img.png';"
 								class="rounded-0"
-								@click="currentMovie(movie)"
+								@click="$emit('redirectTo', movie)"
 							></b-card-img>
 						</router-link>
 					</div>
@@ -43,10 +43,10 @@
 										class="rating"
 									/>
 								</div>
-								<router-link :to="{ path: `/home/movieLocation/${movie._id}` }">
+								<router-link :to="{ path: `/home/${resource}/${movie._id}` }">
 									<ButtonDefault
-										@click="currentMovie(movie)"
-										:data_btn_title="btn_name_theater"
+										@btnAction="$emit('redirectTo', movie)"
+										:data_btn_title="btn_name"
 									/>
 								</router-link>
 							</div>
@@ -69,7 +69,10 @@ export default defineComponent({
 		moviesRender: {
 			type: Function,
 		},
-		btn_name_theater: {
+		btn_name: {
+			type: String,
+		},
+		resource: {
 			type: String,
 		},
 	},
@@ -84,11 +87,6 @@ export default defineComponent({
 				title: 'Filme sem titulo',
 			},
 		};
-	},
-	methods: {
-		currentMovie(movie: Object) {
-			this.$store.state.Movies.currentMovie = movie;
-		},
 	},
 });
 </script>
