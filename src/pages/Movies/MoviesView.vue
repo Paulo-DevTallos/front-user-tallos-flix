@@ -15,7 +15,11 @@
         <span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
       </div>
       <div class="home-carousel" v-if="hiddenCarousel">
-        <SlideCarousel :hiddenMovieInfo="true" :IsRendered="render" />
+        <SlideCarousel
+          :resource="'movie'"
+          :hiddenMovieInfo="true"
+          :IsRendered="render"
+        />
       </div>
     </div>
     <div>
@@ -23,17 +27,20 @@
         Filmes com a palavra {{ movies_name }}
       </p>
       <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
-      <CardsMovies
-        v-if="isMoviesRenderVisible"
-        :moviesRender="$store.state.Movies.Movies.content"
-      />
-      <PaginationPage
-        class="paginationTT"
-        v-model="page"
-        :per-page="limit"
-        :rows="rows"
-        @click="handlePageChange"
-      />
+      <div v-if="isMoviesRenderVisible">
+        <CardsMovies
+          :moviesRender="$store.state.Movies.Movies.content"
+          :resource="'movie'"
+          :btn_name="'Ver Filme'"
+        />
+        <PaginationPage
+          class="paginationTT"
+          v-model="page"
+          :per-page="limit"
+          :rows="rows"
+          @click="handlePageChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -119,16 +126,15 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters(['Movies/getErrorPage']),
-		rows() {
+    rows() {
       return this.$store.state.Movies.Movies.numberOfElements;
     },
   },
   mounted() {
     this.reloadRequest();
     this.$store.state.Movies.IsSeriesGenre = false;
-    
 
-		if (this.$store.state.Movies.dontRender === true) {
+    if (this.$store.state.Movies.dontRender === true) {
       this.$store.dispatch('Movies/getMovieFilter', {
         field: 'title',
         search: this.$store.state.Movies.searchData,
@@ -136,11 +142,11 @@ export default defineComponent({
       this.$store.state.Movies.dontRender = false;
       this.$store.state.Movies.searchData = '';
     } else {
-			this.$store.dispatch(
-				'Favorites/getFavoriteById',
-				this.$store.state.Users.UserId,
-			);
-		}
+      this.$store.dispatch(
+        'Favorites/getFavoriteById',
+        this.$store.state.Users.UserId,
+      );
+    }
   },
 });
 </script>

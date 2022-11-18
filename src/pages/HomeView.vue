@@ -3,11 +3,16 @@
     class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
   >
     <h1 v-if="user_name_logged ? user_name_logged : title_dislogged">
-      {{ user_name_logged || title_dislogged }} sobre qual filme quer conhecer hoje ?
+      {{ user_name_logged || title_dislogged }} sobre qual filme quer conhecer
+      hoje ?
     </h1>
     <SearchBar @search="searchMovie" />
     <div class="home-carousel" v-if="hiddenCarousel">
-      <SlideCarousel :hiddenMovieInfo="false" :title_carousel="'Nos Cinemas'" />
+      <SlideCarousel
+        :resource="'movieLocation'"
+        :hiddenMovieInfo="false"
+        :title_carousel="'Nos Cinemas'"
+      />
     </div>
     <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
   </div>

@@ -54,7 +54,7 @@ const router = createRouter({
 					component: () => import('../pages/Theaters/TheatersView.vue'),
 				},
 				{
-					path: 'movie',
+					path: 'movie/:id?',
 					name: 'movie',
 					component: () => import('../pages/Movies/MovieView.vue'),
 				},
@@ -64,7 +64,7 @@ const router = createRouter({
 					component: () => import('../pages/Movies/MoviesView.vue'),
 				},
 				{
-					path: 'serie',
+					path: 'serie/:id?',
 					name: 'serie',
 					component: () => import('../pages/Series/SerieView.vue'),
 				},
