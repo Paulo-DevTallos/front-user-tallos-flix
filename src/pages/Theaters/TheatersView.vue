@@ -1,6 +1,6 @@
 <template>
   <b-container class="pt-5 pb-5" fluid>
-    <cards-movies :moviesRender="$store.state.Movies.Movies.content" />
+    <cards-movies :btn_name_theater="'Nos Cinemas'" :moviesRender="$store.state.Movies.Movies.content" />
   </b-container>
 </template>
 <script lang="ts">
