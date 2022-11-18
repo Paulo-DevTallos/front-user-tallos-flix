@@ -3,7 +3,7 @@
 		class="d-flex peopleContainer gap-5 mb-5"
 		v-if="$store.state.Peoples.People.length !== 0"
 	>
-		<div v-for="people in $store.state.Peoples.People" :key="people._id">
+		<div>
 			<img
 				:src="$store.state.Peoples.People[0].image.url"
 				alt="PeopleImg"
@@ -20,6 +20,7 @@
 			Filmes de "{{ $store.state.Peoples.People[0].name }}"
 		</h3>
 		<!--<Carousel :People="true" class="pb-5" :hiddenMovieInfo="true" />-->
+		<SlideCarousel :People="true" class="pb-5" :hiddenMovieInfo="true" />
 	</div>
 	<div v-else id="carousel-people-notFind">
 		<h3 id="people-carousel-title">

@@ -292,7 +292,7 @@ export default defineComponent({
 			this.$store.dispatch('Peoples/getPeopleByName', data);
 			this.$store.dispatch('Movies/getMovieFilter', {
 				field: Field,
-				search: `${data}&nbsp`,
+				search: data,
 			});
 		},
 	},
