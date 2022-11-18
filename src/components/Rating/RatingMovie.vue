@@ -4,26 +4,40 @@
     <hr class="orange-line-separator" />
     <div class="d-flex flex-column align-items-center">
       <p class="avaliationTitle m-2">Avaliação</p>
-      <div class="d-flex"></div>
-      <div
-        class="d-flex"
-        v-for="ratingUser in ratingMovie[0].allRate"
-        :key="ratingUser._id"
-      >
-        {{ ratingUser }}
-        <star-rating
-          v-if="ratingUser.user_id === this.$store.state.Users.UserId"
-          v-model="ratingUser.rate"
-          :showControl="true"
-        />
+      <div v-if="!ValidateComponent">
+        <div
+          class="d-flex"
+          v-for="ratingUser in ratingMovie?.[0].allRate"
+          :key="ratingUser._id"
+        >
+          <star-rating
+            v-if="ratingUser.user_id === this.$store.state.Users.UserId"
+            v-model="ratingUser.rate"
+            :showControl="true"
+          />
+        </div>
+        <div
+          class="d-flex justify-content-center"
+          v-for="ratingUser in ratingMovie?.[0].allRate"
+          :key="ratingUser._id"
+        >
+          <button-default
+            v-if="ratingUser.user_id === this.$store.state.Users.UserId"
+            class="BtnSalvar"
+            :data_btn_title="'Salvar'"
+            @btnAction="saveRating(ratingUser.rate)"
+            :disabled="ratingUser.rate === 0"
+          />
+        </div>
       </div>
       <star-rating
-        v-if="teste"
+        v-if="ValidateComponent"
         v-model="rating.allRate.rate"
         :showControl="true"
       />
       <div>
         <button-default
+          v-if="ValidateComponent"
           class="BtnSalvar"
           :data_btn_title="'Salvar'"
           @btnAction="saveRating"
@@ -65,8 +79,7 @@ export default defineComponent({
         user_id: this.$store.state.Users.UserId,
       },
       ValidateRating: false,
-      teste: true,
-      outro: true,
+      ValidateComponent: true,
     };
   },
   mounted() {
@@ -81,15 +94,24 @@ export default defineComponent({
       );
       console.log(this.$store.state.Ratings.RatingsUser);
     },
-    getRatingMovie() {
-      ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
+    async getRatingMovie() {
+      await ServiceGetRatingMovie.getAllRatingsMovie(this.rating.movie_id).then(
         (result) => {
           this.ratingMovie = result.data;
           console.log(this.ratingMovie);
         },
       );
+      for (let index = 0; index < this.ratingMovie[0].allRate.length; index++) {
+        if (
+          this.ratingMovie[0].allRate[index].user_id ===
+          this.$store.state.Users.UserId
+        ) {
+          console.log('avaliou');
+          this.ValidateComponent = false;
+        }
+      }
     },
-    async saveRating() {
+    async saveRating(userRate: number) {
       if (this.ratingMovie <= []) {
         console.log('criar primeira avaliação do filme');
         await this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
@@ -107,7 +129,7 @@ export default defineComponent({
           ) {
             console.log('esse filme foi avaliado por este usuario');
             this.ValidateRating = true;
-            (this.newRateUser.rate = this.rating.allRate.rate),
+            (this.newRateUser.rate = userRate),
               await this.$store.dispatch('Ratings/updateRatingUser', {
                 id: this.$store.state.Movies.currentMovie._id,
                 newRate: this.newRateUser,
