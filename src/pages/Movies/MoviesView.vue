@@ -18,13 +18,12 @@
         <SlideCarousel :hiddenMovieInfo="true" :IsRendered="render" />
       </div>
     </div>
-    <div>
+    <div v-if="isMoviesRenderVisible">
       <p v-if="movies_name.length > 5">
         Filmes com a palavra {{ movies_name }}
       </p>
       <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
       <CardsMovies
-        v-if="isMoviesRenderVisible"
         :moviesRender="$store.state.Movies.Movies.content"
         :resource="'movie'"
         :btn_name="'Ver Filme'"
