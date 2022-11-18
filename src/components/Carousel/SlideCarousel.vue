@@ -14,10 +14,7 @@
         class="gallery-wrapper"
       >
         <div class="gallery-movies">
-          <router-link
-            v-if="RenderSeries === false ? movieRouter : serieRouter"
-            :to="{ path: `${movieRouter || serieRouter}` }"
-          >
+          <router-link :to="{ path: `/home/${resource}/${movie._id}` }">
             <img
               class="item-image-poster"
               v-if="movie.poster ? movie.poster : empty.poster"
@@ -77,6 +74,9 @@ export default defineComponent({
     IsRendered: {
       type: Boolean,
     },
+    resource: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -85,8 +85,6 @@ export default defineComponent({
         poster: '/img/empty-img.png',
       },
       substring: '',
-      movieRouter: '/home/movie',
-      serieRouter: '/home/serie',
     };
   },
 
