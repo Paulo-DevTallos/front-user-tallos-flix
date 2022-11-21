@@ -1,5 +1,5 @@
 <template>
-  <b-button size="lg" class="btn-comment" @click="$emit('btnAction')">
+  <b-button class="main-btn-styles" size="lg" @click="$emit('btnAction')">
     {{ data_btn_title }}
   </b-button>
 </template>

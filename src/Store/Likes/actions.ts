@@ -9,9 +9,30 @@ export default {
       },
     );
   },
-  async createLikeComment({ commit }: any, userLike: Object) {
-    await LikesRequests.createLikeComment(userLike).then((res) => {
-      console.log(res);
+  async createLikeComment({ commit }: any, userLike: any) {
+    await LikesRequests.createLikeComment(userLike.like).then((res) => {
+      commit('LIKE_LIST_UPDATE', {
+        index: userLike.index,
+        deslike: userLike.deslike,
+        Islike: userLike.Islike,
+      });
+    });
+  },
+  async getAllLikesCommentResponse({ commit }: any, data: any) {
+    await LikesRequests.getAllLikesComment(data.id, data.userId).then(
+      (data) => {
+        commit('GET_LIKECOMMENT', data);
+        commit('LIKE_lIST_RESPONSE', data.data.resLike);
+      },
+    );
+  },
+  async createLikeCommentResponse({ commit }: any, userLike: any) {
+    await LikesRequests.createLikeComment(userLike.like).then((res) => {
+      commit('LIKE_LIST_RESPONSE_UPDATE', {
+        index: userLike.index,
+        deslike: userLike.deslike,
+        Islike: userLike.Islike,
+      });
     });
   },
 };

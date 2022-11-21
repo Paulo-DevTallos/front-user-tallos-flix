@@ -1,126 +1,130 @@
 #box-filter2 {
-    position: absolute;
-    top: 0px;
-    left: 181px;
-    z-index: 1001;
-    background-color: #1d1c1c;
-    width: 180px;
-    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.431);
-    animation: downslide2 .2s ease-in-out;
+	position: absolute;
+	top: 0px;
+	left: 181px;
+	z-index: 1001;
+	background-color: #1d1c1c;
+	width: 180px;
+	box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.431);
+	animation: downslide2 0.2s ease-in-out;
 }
-.search-input{
-    width: 850px;
-    height: 35px;
-    background-color: $primary-color-black-one;
-    border: solid $primary-color-black-seven 1px;
-    display: flex;
+.search-input {
+	width: 850px;
+	height: 35px;
+	background-color: $primary-color-black-one;
+	border: solid #afa2a2 1px;
+	display: flex;
 
-    @include tablet {
-        width: 100%;
-    }
+	@include tablet {
+		width: 100%;
+	}
 }
-.text-input{
-    color:$primary-color-black-seven;
-    background-color: $primary-color-black-one;
-    border: none;
-    border-radius: 10px;
-    height: 100%;
-    width: 97%;
-    font-size: $font-size-common;
-    &::placeholder {
-        color:$primary-color-black-seven;
-    }
-    &:focus {
-        outline: none;
-    }
+.text-input {
+	padding: 0 7px;
+	color: $primary-color-black-seven;
+	background-color: $primary-color-black-one;
+	border: none;
+	border-radius: 10px;
+	height: 100%;
+	width: 97%;
+	font-size: $font-size-common;
+	&::placeholder {
+		color: #afa2a2;
+
+		@include mobile {
+			font-size: 18px;
+		}
+	}
+	&:focus {
+		outline: none;
+	}
 }
 .icon {
-    height: 100%;
-    width: 25px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    color: $primary-color-black-seven;
-    cursor: pointer;
+	height: 100%;
+	width: 25px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	color: #afa2a2;
+	cursor: pointer;
 }
 
 //estilos do filter e box
 .box-filter-container {
-    position: relative;
+	position: relative;
 
-    @include breakpoints(1180px) {
-        width: 130px;
-        margin-top: 10px;
-    }
-    
-    .styles-filter {
-        border: solid $primary-color-black-seven 1px;
-        border-radius: 20px;
-        background-color: #605d5d;
-        @include align-elements(flex, center, center);
-        padding: 0 13px;
-        cursor: pointer;
-        transition: .3s ease-in-out all;
-    
-        &:hover {
-            background-color: $primary-color-black-two;
-        }
-    
-        svg {
-            font-size: 27px;
-            margin-left: 20px;
-            color: #000;
-        }
-    }
-    
-    .box-filter-bar {
-        position: absolute;
-        top: 35px;
-        z-index: 1000;
-        background-color: #605d5d;
-        width: 180px;
-        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.431);
-        animation: downslide .2s ease-in-out;
+	@include breakpoints(1180px) {
+		width: 130px;
+		margin-top: 10px;
+	}
 
-        &:hover{
-            cursor: pointer;
-        }
+	.styles-filter {
+		border: solid $primary-color-black-seven 1px;
+		border-radius: 20px;
+		background-color: #605d5d;
+		@include align-elements(flex, center, center);
+		padding: 0 13px;
+		cursor: pointer;
+		transition: 0.3s ease-in-out all;
 
-        @keyframes downslide {
-            from {
-                opacity: 0;
-                transform: translateY(-25px);
-            } 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes downslide2 {
-            from {
-                opacity: 0;
-                transform: translateX(-25px);
-            } 
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+		&:hover {
+			background-color: $primary-color-black-two;
+		}
 
-        ul {
-            padding: 0 20px;
-            margin: 0;
+		svg {
+			font-size: 27px;
+			margin-left: 20px;
+			color: #000;
+		}
+	}
 
-            li {
-                margin: 20px 0;
-                font-size: 18px;
-                color: #fff;
+	.box-filter-bar {
+		position: absolute;
+		top: 35px;
+		z-index: 1000;
+		background-color: #605d5d;
+		width: 180px;
+		box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.431);
+		animation: downslide 0.2s ease-in-out;
 
-                &:hover{
-                    color: $orange-color-one;
-                }
-            }
-        }
-    }
+		&:hover {
+			cursor: pointer;
+		}
+
+		@keyframes downslide {
+			from {
+				opacity: 0;
+				transform: translateY(-25px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		@keyframes downslide2 {
+			from {
+				opacity: 0;
+				transform: translateX(-25px);
+			}
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
+		ul {
+			padding: 0 20px;
+			margin: 0;
+
+			li {
+				margin: 20px 0;
+				font-size: 18px;
+				color: #fff;
+
+				&:hover {
+					color: $orange-color-one;
+				}
+			}
+		}
+	}
 }
-

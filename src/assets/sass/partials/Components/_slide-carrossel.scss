@@ -1,0 +1,93 @@
+.container-full {
+	position: relative;
+	max-width: 100%;
+  margin: 0 auto;
+
+	h4 {
+		margin-left: 6.4%;
+		margin-bottom: 0;
+		font-family: 'Nunito', Arial, Helvetica, sans-serif;
+		font-weight: 500;
+		font-size: 30px;
+		color: #fff;
+	}
+
+	.arrow-left,
+	.arrow-right {
+    @include align-elements(flex, center, center);
+		position: absolute;
+    z-index: 10000;
+    top: 50%;
+    transform: translateY(-50%);
+    /*top: 38%;
+		transform: translateY(-38%);*/
+		left: 0;
+		right: auto;
+		bottom: 0;
+		font-size: 20px;
+		width: 40px;
+		height: 40px;
+		text-align: center;
+		color: #009acc;
+		cursor: pointer;
+		border: none;
+		border-radius: 100%;
+		opacity: 1;
+		background: #212121;
+		transition: all 600ms ease-in-out;
+	}
+
+	.arrow-right {
+		left: auto;
+		right: 0;
+		background-image: linear-gradient(to right, transparent 0%, black 200%);
+	}
+
+	.carousel-container {
+		padding: 15px;
+		position: relative;
+		max-width: 87%;
+		margin: 0 auto;
+		overflow-x: hidden;
+		display: flex;
+
+		.gallery-wrapper {
+			padding: 0 50px 20px 0;
+			@include align-elements(flex, flex-start, unset);
+			flex-direction: column;
+
+		.gallery-movies {
+			display: flex;
+
+			@include mobile {
+			padding: 10px;
+			}
+
+				.item-image-poster {
+					width: 230px;
+					height: 330px;
+					flex-shrink: 0;
+				}
+			}
+
+			.card-info-movies {
+				color: $main-white-color;
+				margin-top: 20px;
+
+				h4 {
+				margin: 0;
+				font-size: 25px;
+				}
+
+				p {
+				margin: 0;
+				margin: 7px 0;
+				}
+
+				.rating {
+				display: flex;
+				}
+			}
+		}
+	}
+}

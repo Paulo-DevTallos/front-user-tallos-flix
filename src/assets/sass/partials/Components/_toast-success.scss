@@ -6,12 +6,20 @@
   padding: 15px 30px;
   text-align: center;
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -5%);
   transition: .3s ease-in;
 
   p {
     margin: 0;
     font-weight: bold;
+  }
+
+  @include mobile {
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 7px;
+    min-width: 80%;
   }
 }

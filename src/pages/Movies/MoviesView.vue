@@ -9,32 +9,66 @@
     <div class="home-carousel d-flex flex-column p-2 pb-3 mb-3">
       <div
         class="d-flex ms-5 mb-3 gap-2 align-items-center"
-        v-if="this.$store.state.Movies.IsMovieGenre == true"
+        v-if="$store.state.Movies.IsMovieGenre == true"
       >
         <span id="genre-title">Gênero: </span>
-        <span id="tagGenre">{{ this.$store.state.Movies.actualTag }}</span>
+        <span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
       </div>
-      <Carousel
-        v-if="hiddenCarousel"
-        :IsRendered="render"
-        :hiddenMovieInfo="true"
+      <div class="home-carousel" v-if="hiddenCarousel">
+        <SlideCarousel
+          :resource="'movie'"
+          :hiddenMovieInfo="true"
+          :IsRendered="render"
+        />
+      </div>
+    </div>
+    <div>
+      <p v-if="movies_name.length > 5">
+        Filmes com a palavra {{ movies_name }}
+      </p>
+      <ErrorComponent
+        :error_value="'Não encontramos filmes com a palavra'"
+        :data_word="movies_name"
+        v-if="hiddenErrorSearch"
       />
-      <ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
+      <div v-if="isMoviesRenderVisible">
+        <CardsMovies
+          :moviesRender="$store.state.Movies.Movies.content"
+          :resource="'movie'"
+          :btn_name="'Ver Filme'"
+        />
+        <PaginationPage
+          class="paginationTT"
+          v-model="page"
+          :per-page="limit"
+          :rows="rows"
+          @click="handlePageChange"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import SearchBar from '@/components/SearchBar.vue';
-import Carousel from '@/components/Carousel.vue';
+import { mapGetters } from 'vuex';
+import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import { mapGetters } from 'vuex';
+import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import CardsMovies from '@/components/Cards/CardsMovies.vue';
+import PaginationPage from '@/components/Pagination/PaginationPage.vue';
 
 export default defineComponent({
   name: 'MoviesView',
-  components: { SearchBar, Carousel, FilterButton, ErrorComponent },
+  components: {
+    SearchBar,
+    SlideCarousel,
+    FilterButton,
+    ErrorComponent,
+    CardsMovies,
+    PaginationPage,
+  },
   data() {
     return {
       movies_name: '',
@@ -42,6 +76,9 @@ export default defineComponent({
       hiddenCarousel: true,
       hiddenErrorSearch: false,
       render: false,
+      isMoviesRenderVisible: false,
+      page: 1,
+      limit: 8,
     };
   },
   methods: {
@@ -57,7 +94,24 @@ export default defineComponent({
             });
           }
         }, 1000);
+        if (data.length !== 0) this.isMoviesRenderVisible = true;
+        else return (this.isMoviesRenderVisible = false);
       }
+    },
+    reloadRequest() {
+      try {
+        this.$store.dispatch('Movies/getMovieFilter', {
+          page: this.page,
+          limit: this.limit,
+          sortValue: -1,
+        });
+      } catch (error) {
+        return [];
+      }
+    },
+    handlePageChange() {
+      this.page + 1;
+      this.reloadRequest();
     },
   },
 
@@ -76,15 +130,27 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters(['Movies/getErrorPage']),
+    rows() {
+      return this.$store.state.Movies.Movies.numberOfElements;
+    },
   },
   mounted() {
+    this.reloadRequest();
     this.$store.state.Movies.IsSeriesGenre = false;
-    this.$store.dispatch(
-      'Favorites/getFavoriteById',
-      this.$store.state.Users.UserId,
-    );
+
+    if (this.$store.state.Movies.dontRender === true) {
+      this.$store.dispatch('Movies/getMovieFilter', {
+        field: 'title',
+        search: this.$store.state.Movies.searchData,
+      });
+      this.$store.state.Movies.dontRender = false;
+      this.$store.state.Movies.searchData = '';
+    } else {
+      this.$store.dispatch(
+        'Favorites/getFavoriteById',
+        this.$store.state.Users.UserId,
+      );
+    }
   },
 });
 </script>
-
-<style lang="sass" scoped></style>

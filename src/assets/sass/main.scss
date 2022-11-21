@@ -22,11 +22,15 @@
 @import './partials/Components/toast-success';
 @import './partials/Components/rating';
 @import './partials//Components/map-config';
+@import './partials/Components/cards-movies.scss';
+@import './partials/Components/rating-movie';
+@import './partials/Components/slide-carrossel';
+@import './partials/Components/Buttons/main-button';
 
 //pages
 @import './login.scss';
 @import './home_view.scss';
 @import './movie_view.scss';
-@import './theaters-view.scss';
 @import './movies_view.scss';
 @import './favorites-view.scss';
+@import './avaliable_view.scss';
