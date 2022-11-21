@@ -19,8 +19,6 @@
 			</div>
 			<div class="home-carousel">
 				<SlideCarousel
-					:resource="'serie'"
-					:query_param="''"
 					:hiddenMovieInfo="true"
 					:IsRendered="render"
 					:RenderSeries="true"
@@ -28,6 +26,20 @@
 			</div>
 		</div>
 		<ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
+		<div v-if="isMoviesRenderVisible">
+			<CardsMovies
+				:moviesRender="$store.state.Movies.Movies.content"
+				:resource="'serie'"
+				:btn_name="'Ver Serie'"
+			/>
+			<PaginationPage
+				class="paginationTT"
+				v-model="page"
+				:per-page="limit"
+				:rows="rows"
+				@click="handlePageChange"
+			/>
+		</div>
 	</div>
 </template>
 
@@ -49,6 +61,9 @@ export default defineComponent({
 			hiddenCarousel: true,
 			hiddenErrorSearch: false,
 			render: false,
+			isMoviesRenderVisible: false,
+			page: 1,
+			limit: 8,
 		};
 	},
 
@@ -67,6 +82,22 @@ export default defineComponent({
 				}, 1000);
 			}
 		},
+		reloadRequest() {
+			try {
+				this.$store.dispatch('Movies/getSeries', {
+					page: this.page,
+					limit: this.limit,
+					sortValue: -1,
+				});
+			} catch (error) {
+				return [];
+			}
+		},
+
+		handlePageChange() {
+			this.page + 1;
+			this.reloadRequest();
+		},
 	},
 	watch: {
 		['Movies/getErrorPage'](data) {
@@ -83,6 +114,9 @@ export default defineComponent({
 	},
 	computed: {
 		...mapGetters(['Movies/getErrorPage']),
+		rows() {
+			return this.$store.state.Movies.Movies.numberOfElements;
+		},
 	},
 	mounted() {
 		this.$store.state.Movies.IsMovieGenre = false;
