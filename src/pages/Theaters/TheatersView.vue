@@ -5,6 +5,7 @@
 			:btn_name="'Nos Cinemas'"
 			:moviesRender="$store.state.Movies.Movies.content"
 			:resource="'movieLocation'"
+			:query_param="''"
 		/>
 	</b-container>
 </template>

@@ -145,9 +145,9 @@ export default defineComponent({
 			const renderGenres = this.$store.state.Movies.IsMovieGenre;
 
 			if (!renderGenres && !this.RenderSeries) {
-				await this.$store.dispatch('Movies/getSeries');
-			} else {
 				await this.$store.dispatch('Movies/getMovieFilter');
+			} else {
+				await this.$store.dispatch('Movies/getSeries');
 			}
 		}
 	},
