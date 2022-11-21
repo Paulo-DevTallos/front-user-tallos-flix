@@ -14,7 +14,7 @@ export class SocketModule {
   public static connect() {
     if (SocketModule.instance) return SocketModule.instance;
 
-    SocketModule.instance = new SocketModule('ws://localhost:3008');
+    SocketModule.instance = new SocketModule('ws://wesleyromao.desenvolvimento.tallos.com.br/wss');
 
     return SocketModule.instance;
   }
