@@ -9,7 +9,7 @@
 		</button>
 		<div class="carousel-container">
 			<div
-				v-for="movie in RenderSeries === false
+				v-for="movie in RenderSeries
 					? $store.state.Movies.Movies.content
 					: $store.state.Movies.Series.content"
 				:key="movie._id"
