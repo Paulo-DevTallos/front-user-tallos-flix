@@ -34,12 +34,6 @@
 				:hiddenMovieInfo="true"
 			/>
 		</div>
-		<!--<Carousel
-      :People="true"
-      class="pb-5"
-      id="carousel-people-notFind"
-      :hiddenMovieInfo="true"
-    />-->
 	</div>
 </template>
 <script lang="ts">

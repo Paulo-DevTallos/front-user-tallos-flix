@@ -16,8 +16,6 @@
 			</div>
 			<div class="home-carousel" v-if="hiddenCarousel">
 				<SlideCarousel
-					:resource="'movie'"
-					:query_param="''"
 					:IsRendered="render"
 					:hiddenMovieInfo="true"
 					:RenderSeries="false"
@@ -73,6 +71,7 @@ export default defineComponent({
 	},
 	data() {
 		return {
+			SearchData: '',
 			movies_name: '',
 			isChanged: '',
 			hiddenCarousel: true,
@@ -90,6 +89,7 @@ export default defineComponent({
 				setTimeout(() => {
 					this.movies_name = data;
 					if (this.isChanged === data) {
+						this.SearchData = data;
 						this.$store.dispatch('Movies/getMovieFilter', {
 							field: 'title',
 							search: data,
@@ -103,6 +103,8 @@ export default defineComponent({
 		reloadRequest() {
 			try {
 				this.$store.dispatch('Movies/getMovieFilter', {
+					field: 'title',
+					search: this.SearchData,
 					page: this.page,
 					limit: this.limit,
 					sortValue: -1,
@@ -145,15 +147,15 @@ export default defineComponent({
 				field: 'title',
 				search: this.$store.state.Movies.searchData,
 			});
+			this.SearchData = this.$store.state.Movies.searchData;
 			this.$store.state.Movies.dontRender = false;
-			this.$store.state.Movies.searchData = '';
 			this.isMoviesRenderVisible = true;
 		} else {
 			this.$store.dispatch(
 				'Favorites/getFavoriteById',
 				this.$store.state.Users.UserId,
 			);
-				this.isMoviesRenderVisible = false;
+			this.isMoviesRenderVisible = false;
 		}
 	},
 });

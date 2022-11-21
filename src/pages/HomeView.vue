@@ -8,12 +8,7 @@
 		</h1>
 		<SearchBar @search="searchMovie" />
 		<div class="home-carousel" v-if="hiddenCarousel">
-			<SlideCarousel
-				:resource="'movieLocation'"
-				:query_param="''"
-				:hiddenMovieInfo="false"
-				:title_carousel="'Nos Cinemas'"
-			/>
+			<SlideCarousel :hiddenMovieInfo="false" :title_carousel="'Nos Cinemas'" />
 		</div>
 		<ErrorComponent
 			:error_value="'Não encontramos filmes com a palavra'"
