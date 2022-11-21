@@ -20,6 +20,7 @@
       <div class="home-carousel">
         <SlideCarousel
           :resource="'serie'"
+					query_param=""
           :hiddenMovieInfo="true"
           :IsRendered="render"
           :RenderSeries="true"

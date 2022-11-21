@@ -16,7 +16,7 @@
 				class="gallery-wrapper"
 			>
 				<div class="gallery-movies">
-					<router-link :to="{ path: `/home/${resource}/${movie._id}` }">
+					<router-link :to="{ path: `/home/${resource}${query_param}` }">
 						<img
 							class="item-image-poster"
 							v-if="movie.poster ? movie.poster : empty.poster"
@@ -77,6 +77,9 @@ export default defineComponent({
 			type: Boolean,
 		},
 		resource: {
+			type: String,
+		},
+		query_param: {
 			type: String,
 		},
 	},
