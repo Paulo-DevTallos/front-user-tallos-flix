@@ -94,7 +94,7 @@ export default defineComponent({
 							search: data,
 						});
 					}
-				}, 1000);
+				}, 300);
 				if (data.length !== 0) this.isMoviesRenderVisible = true;
 				else return (this.isMoviesRenderVisible = false);
 			}
@@ -136,7 +136,7 @@ export default defineComponent({
 		},
 	},
 	mounted() {
-		this.reloadRequest();
+		// this.reloadRequest();
 		this.$store.state.Movies.IsSeriesGenre = false;
 
 		if (this.$store.state.Movies.dontRender === true) {
@@ -146,11 +146,13 @@ export default defineComponent({
 			});
 			this.$store.state.Movies.dontRender = false;
 			this.$store.state.Movies.searchData = '';
+			this.isMoviesRenderVisible = true;
 		} else {
 			this.$store.dispatch(
 				'Favorites/getFavoriteById',
 				this.$store.state.Users.UserId,
 			);
+				this.isMoviesRenderVisible = false;
 		}
 	},
 });
