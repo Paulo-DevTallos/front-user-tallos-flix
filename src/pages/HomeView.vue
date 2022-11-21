@@ -10,6 +10,7 @@
 		<div class="home-carousel" v-if="hiddenCarousel">
 			<SlideCarousel
 				:resource="'movieLocation'"
+				:query_param="''"
 				:hiddenMovieInfo="false"
 				:title_carousel="'Nos Cinemas'"
 			/>
