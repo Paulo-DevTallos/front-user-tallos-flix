@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <CardMovie />
-    <div v-if="this.$store.state.Movies.currentMovie.fullplot">
+    <div v-if="$store.state.Movies.currentMovie.fullplot">
       <PlotView />
     </div>
     <div class="comments-app">
@@ -9,12 +9,12 @@
       <hr class="orange-line-separator" />
       <div
         class="p-4 d-flex justify-content-center plot-title"
-        v-if="this.$store.state.Comments.Comments.commentsMovie < [0]"
+        v-if="$store.state.Comments.Comments.commentsMovie < [0]"
       >
         Nenhum comentário encontrado
       </div>
       <comments-movie
-        :renderComments="this.$store.state.Comments.Comments"
+        :renderComments="$store.state.Comments.Comments"
         @postComment="commentPost"
         @deleteComment="deleteComment"
         @saveEdit="updateComment"
