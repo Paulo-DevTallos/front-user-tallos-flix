@@ -142,14 +142,12 @@ export default defineComponent({
 
 	async mounted() {
 		if (this.People === false && this.IsRendered === false) {
-			if (this.$store.state.Movies.IsMovieGenre == false) {
-				if (this.RenderSeries === true) {
-					await this.$store.dispatch('Movies/getSeries');
-				} else {
-					await this.$store.dispatch('Movies/getMovieFilter');
-				}
+			const renderGenres = this.$store.state.Movies.IsMovieGenre;
+
+			if (renderGenres === false && this.RenderSeries === true) {
+				await this.$store.dispatch('Movies/getSeries');
 			} else {
-				this.$store.state.Movies.IsMovieGenre == true;
+				await this.$store.dispatch('Movies/getMovieFilter');
 			}
 		}
 	},

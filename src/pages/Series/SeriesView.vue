@@ -23,7 +23,6 @@
 					query_param=""
           :hiddenMovieInfo="true"
           :IsRendered="render"
-          :RenderSeries="true"
         />
       </div>
     </div>
