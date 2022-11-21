@@ -10,7 +10,7 @@
 				class="peopleImage"
 			/>
 		</div>
-		<div class="peopleBiography">
+		<div class="peopleBiography px-4">
 			<h6 class="mb-4">Biografia:</h6>
 			<p>{{ $store.state.Peoples.People[0].miniBios }}</p>
 		</div>
