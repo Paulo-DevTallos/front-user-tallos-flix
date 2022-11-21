@@ -16,8 +16,6 @@
 			</div>
 			<div class="home-carousel" v-if="hiddenCarousel">
 				<SlideCarousel
-					:resource="'movie'"
-					:query_param="''"
 					:IsRendered="render"
 					:hiddenMovieInfo="true"
 					:RenderSeries="false"

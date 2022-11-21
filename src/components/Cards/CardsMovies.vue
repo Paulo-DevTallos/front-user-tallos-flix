@@ -10,7 +10,7 @@
 			<b-card no-body>
 				<b-row class="d-flex">
 					<div class="card-info-img">
-						<router-link :to="{ path: `/home/${resource}${query_param}` }">
+						<router-link :to="{ path: `/home/${resource}` }">
 							<b-card-img
 								:src="movie.poster || vazio.poster"
 								v-if="movie.poster ? movie.poster : vazio.poster"
@@ -43,7 +43,7 @@
 										class="rating"
 									/>
 								</div>
-								<router-link :to="{ path: `/home/${resource}${query_param}` }">
+								<router-link :to="{ path: `/home/${resource}` }">
 									<ButtonDefault
 										@btnAction="$emit('redirectTo', movie)"
 										:data_btn_title="btn_name"
@@ -73,9 +73,6 @@ export default defineComponent({
 			type: String,
 		},
 		resource: {
-			type: String,
-		},
-		query_param: {
 			type: String,
 		},
 	},
