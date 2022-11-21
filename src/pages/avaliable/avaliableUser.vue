@@ -50,7 +50,7 @@
 import HeaderApp from '@/components/Header/HeaderApp.vue';
 import { defineComponent } from 'vue';
 import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
-// import ServiceGetRatingUser from '@/services/axios/RatingsRequest';
+// import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
 import StarRating from '@/components/Rating/StarRating.vue';
 
 export default defineComponent({
@@ -92,7 +92,7 @@ export default defineComponent({
 					id: rate.movie,
 					delRate: this.delete,
 				});
-			await this.renderAvaliable();
+			(this.moviesAvaliable = []), await this.renderAvaliable();
 		},
 	},
 	mounted() {
