@@ -34,6 +34,7 @@
 								<h6
 									class="btnRemove"
 									v-if="rate.movie === avaliable.data.result._id"
+									@click="removeAvaliable(rate)"
 								>
 									Remover a avaliação
 								</h6>
@@ -49,6 +50,7 @@
 import HeaderApp from '@/components/Header/HeaderApp.vue';
 import { defineComponent } from 'vue';
 import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
+// import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
 import StarRating from '@/components/Rating/StarRating.vue';
 
 export default defineComponent({
@@ -56,26 +58,45 @@ export default defineComponent({
 	data() {
 		return {
 			moviesAvaliable: [],
+			userRatings: [],
+			delete: {
+				rate: 0,
+				user_id: '',
+			},
 		};
 	},
+	methods: {
+		async renderAvaliable() {
+			console.log(this.$store.state.Ratings.RatingsUser);
+			await this.$store.dispatch(
+				'Ratings/getAllRatingsUser',
+				this.$store.state.Users.UserId,
+			);
+			for (
+				let index = 0;
+				index < this.$store.state.Ratings.RatingsUser.length;
+				index++
+			) {
+				await ServiceGetRatingMovie.getMovieFilterId(
+					this.$store.state.Ratings.RatingsUser[index].movie,
+				).then((result) => {
+					this.moviesAvaliable.push(result);
+				});
+			}
+			console.log(this.moviesAvaliable);
+		},
+		async removeAvaliable(rate) {
+			(this.delete.rate = rate.myRate.rate),
+				(this.delete.user_id = rate.myRate.user_id),
+				await this.$store.dispatch('Ratings/removeRating', {
+					id: rate.movie,
+					delRate: this.delete,
+				});
+			(this.moviesAvaliable = []), await this.renderAvaliable();
+		},
+	},
 	mounted() {
-		console.log(this.$store.state.Ratings.RatingsUser);
-		this.$store.dispatch(
-			'Ratings/getAllRatingsUser',
-			this.$store.state.Users.UserId,
-		);
-		for (
-			let index = 0;
-			index < this.$store.state.Ratings.RatingsUser.length;
-			index++
-		) {
-			ServiceGetRatingMovie.getMovieFilterId(
-				this.$store.state.Ratings.RatingsUser[index].movie,
-			).then((result) => {
-				this.moviesAvaliable.push(result);
-			});
-		}
-		console.log(this.moviesAvaliable);
+		this.renderAvaliable();
 	},
 });
 </script>
