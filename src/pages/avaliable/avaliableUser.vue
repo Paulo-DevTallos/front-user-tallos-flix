@@ -50,13 +50,15 @@
 import HeaderApp from '@/components/Header/HeaderApp.vue';
 import { defineComponent } from 'vue';
 import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
+// import ServiceGetRatingUser from '@/services/axios/RatingsRequest';
 import StarRating from '@/components/Rating/StarRating.vue';
 
 export default defineComponent({
 	components: { HeaderApp, StarRating },
 	data() {
 		return {
-			moviesAvaliable: {},
+			moviesAvaliable: [],
+			userRatings: [],
 			delete: {
 				rate: 0,
 				user_id: '',
@@ -78,7 +80,7 @@ export default defineComponent({
 				await ServiceGetRatingMovie.getMovieFilterId(
 					this.$store.state.Ratings.RatingsUser[index].movie,
 				).then((result) => {
-					this.moviesAvaliable = result;
+					this.moviesAvaliable.push(result);
 				});
 			}
 			console.log(this.moviesAvaliable);
