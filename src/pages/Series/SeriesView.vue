@@ -4,7 +4,7 @@
 	>
 		<div class="d-flex justify-content-center search-components">
 			<FilterButton :FilterSeries="true" />
-			<SearchBar @search="searchMovie" :Series="true" />
+			<SearchBar @search="searchSerie" :Series="true" />
 		</div>
 		<div
 			class="home-carousel d-flex flex-column p-2 pb-3 mb-3"
@@ -17,18 +17,20 @@
 				<span id="genre-title">Gênero: </span>
 				<span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
 			</div>
-			<div class="home-carousel">
-				<SlideCarousel
-					:hiddenMovieInfo="true"
-					:IsRendered="render"
-					:RenderSeries="true"
-				/>
+			<div>
+				<h4 class="title-search-h4" v-if="serie_name.length > 3">
+					Filmes com a palavra {{ serie_name }}
+				</h4>
 			</div>
 		</div>
-		<ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
-		<div v-if="isMoviesRenderVisible">
+		<ErrorComponent
+			:error_value="'Não encontramos series com a palavra'"
+			:data_word="serie_name"
+			v-if="hiddenErrorSearch"
+		/>
+		<div>
 			<CardsMovies
-				:moviesRender="$store.state.Movies.Movies.content"
+				:moviesRender="$store.state.Movies.Series.content"
 				:resource="'serie'"
 				:btn_name="'Ver Serie'"
 			/>
@@ -45,35 +47,35 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapGetters } from 'vuex';
 import SearchBar from '@/components/SearchBar/SearchBar.vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import { mapGetters } from 'vuex';
+import CardsMovies from '@/components/Cards/CardsMovies.vue';
 
 export default defineComponent({
 	name: 'SeriesView',
-	components: { SearchBar, SlideCarousel, FilterButton, ErrorComponent },
+	components: { SearchBar, FilterButton, ErrorComponent, CardsMovies },
 	data() {
 		return {
+			searchDataSearie: '',
 			isChanged: '',
-			movies_name: '',
+			serie_name: '',
 			hiddenCarousel: true,
 			hiddenErrorSearch: false,
-			render: false,
-			isMoviesRenderVisible: false,
 			page: 1,
 			limit: 8,
 		};
 	},
 
 	methods: {
-		searchMovie(data: string) {
+		searchSerie(data: string) {
 			if (data !== this.isChanged) {
 				this.isChanged = data;
 				setTimeout(() => {
-					this.movies_name = data;
+					this.serie_name = data;
 					if (this.isChanged === data) {
+						this.searchDataSearie = data;
 						this.$store.dispatch('Movies/getSeries', {
 							field: 'title',
 							search: data,
@@ -85,6 +87,8 @@ export default defineComponent({
 		reloadRequest() {
 			try {
 				this.$store.dispatch('Movies/getSeries', {
+					field: 'title',
+					search: this.searchSerie,
 					page: this.page,
 					limit: this.limit,
 					sortValue: -1,
@@ -104,18 +108,16 @@ export default defineComponent({
 			if (data === true) {
 				this.hiddenErrorSearch = true;
 				this.hiddenCarousel = false;
-				this.render = false;
 			} else {
 				this.hiddenErrorSearch = false;
 				this.hiddenCarousel = true;
-				this.render = true;
 			}
 		},
 	},
 	computed: {
 		...mapGetters(['Movies/getErrorPage']),
 		rows() {
-			return this.$store.state.Movies.Movies.numberOfElements;
+			return this.$store.state.Movies.Series.numberOfElements;
 		},
 	},
 	mounted() {

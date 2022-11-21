@@ -1,6 +1,6 @@
 <template>
 	<div class="container-full">
-		<h4>{{ title_carousel }}</h4>
+		<h4 class="title-mode-h4">{{ title_carousel }}</h4>
 		<carousel
 			:items-to-show="4"
 			:items-to-scroll="1"

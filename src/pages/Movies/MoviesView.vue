@@ -14,24 +14,19 @@
 				<span id="genre-title">Gênero: </span>
 				<span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
 			</div>
-			<div class="home-carousel" v-if="hiddenCarousel">
-				<SlideCarousel
-					:IsRendered="render"
-					:hiddenMovieInfo="true"
-					:RenderSeries="false"
-				/>
+			<div>
+				<h4 class="title-search-h4" v-if="movies_name.length > 5">
+					Filmes com a palavra {{ movies_name }}
+				</h4>
 			</div>
 		</div>
 		<div>
-			<p v-if="movies_name.length > 5">
-				Filmes com a palavra {{ movies_name }}
-			</p>
 			<ErrorComponent
 				:error_value="'Não encontramos filmes com a palavra'"
 				:data_word="movies_name"
 				v-if="hiddenErrorSearch"
 			/>
-			<div v-if="isMoviesRenderVisible">
+			<div>
 				<CardsMovies
 					:moviesRender="$store.state.Movies.Movies.content"
 					:resource="'movie'"
@@ -55,7 +50,6 @@ import { mapGetters } from 'vuex';
 import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
 import CardsMovies from '@/components/Cards/CardsMovies.vue';
 import PaginationPage from '@/components/Pagination/PaginationPage.vue';
 
@@ -63,7 +57,6 @@ export default defineComponent({
 	name: 'MoviesView',
 	components: {
 		SearchBar,
-		SlideCarousel,
 		FilterButton,
 		ErrorComponent,
 		CardsMovies,
