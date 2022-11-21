@@ -56,7 +56,7 @@ export default defineComponent({
 	components: { HeaderApp, StarRating },
 	data() {
 		return {
-			moviesAvaliable: [],
+			moviesAvaliable: {},
 			delete: {
 				rate: 0,
 				user_id: '',
@@ -75,10 +75,10 @@ export default defineComponent({
 				index < this.$store.state.Ratings.RatingsUser.length;
 				index++
 			) {
-				ServiceGetRatingMovie.getMovieFilterId(
+				await ServiceGetRatingMovie.getMovieFilterId(
 					this.$store.state.Ratings.RatingsUser[index].movie,
 				).then((result) => {
-					this.moviesAvaliable.push(result);
+					this.moviesAvaliable = result;
 				});
 			}
 			console.log(this.moviesAvaliable);
@@ -90,7 +90,7 @@ export default defineComponent({
 					id: rate.movie,
 					delRate: this.delete,
 				});
-			this.renderAvaliable();
+			await this.renderAvaliable();
 		},
 	},
 	mounted() {
