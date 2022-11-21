@@ -532,45 +532,49 @@ export default defineComponent({
         });
     },
      LikeCommentResponse(commentId: string, index: number) {
-      this.DeslikeComment = false;
-      this.idCommentLike = commentId;
-      if (
-        this.$store.state.Likes.likeListResponses[index] === 'LIKE' &&
-        this.DeslikeComment === false
-      ) {
-        this.likeComment = false;
-      } else if (
-        this.$store.state.Likes.likeListResponses[index] === 'NOT' &&
-        this.DeslikeComment === false
-      ) {
-        this.likeComment = true;
-      } else if (this.$store.state.Likes.likeListResponses[index] === 'UNLIKE') {
-        this.DeslikeComment = true;
-        this.likeComment = false;
-      }
+				this.DeslikeComment = false;
+				this.idCommentLike = commentId;
+				if (
+					this.$store.state.Likes.likeListResponses[index] === 'LIKE' &&
+					this.DeslikeComment === false
+				) {
+					this.likeComment = false;
+				} else if (
+					this.$store.state.Likes.likeListResponses[index] === 'NOT' &&
+					this.DeslikeComment === false
+				) {
+					this.likeComment = true;
+				} else if (this.$store.state.Likes.likeListResponses[index] === 'UNLIKE') {
+					this.DeslikeComment = true;
+					this.likeComment = false;
+				}
 
-      if (this.likeComment === true && this.DeslikeComment === false) {
-        this.PostLikeResponse(commentId, index);
-      } else if (this.likeComment === false && this.DeslikeComment === false) {
-        this.RemoveLikeResponse(commentId, index);
-      } else {
-        this.PostLikeResponse(commentId, index);
-      }
+				if (this.likeComment === true && this.DeslikeComment === false) {
+					this.PostLikeResponse(commentId, index);
+				} else if (this.likeComment === false && this.DeslikeComment === false) {
+					this.RemoveLikeResponse(commentId, index);
+				} else {
+					this.PostLikeResponse(commentId, index);
+				}
     },
     // adicionar like
     PostLikeResponse(commentId: string, index: number) {
-      this.likeComment = true;
-      this.DeslikeComment = false;
-      (this.userlike.commentId = commentId),
-        (this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
-      (this.userlike.userLike[0].like = true),
-        (this.userlike.userLike[0].unlike = false),
-        this.$store.dispatch('createLikeCommentResponse', {
-          like: this.userlike,
-          index: index,
-          deslike: false,
-          Islike: true,
-        });
+			if (localStorage.getItem('token') === '') {
+				alert('teste')
+			} else {
+				this.likeComment = true;
+				this.DeslikeComment = false;
+				(this.userlike.commentId = commentId),
+					(this.userlike.userLike[0].userId = this.$store.state.Users.UserId);
+				(this.userlike.userLike[0].like = true),
+					(this.userlike.userLike[0].unlike = false),
+					this.$store.dispatch('createLikeCommentResponse', {
+						like: this.userlike,
+						index: index,
+						deslike: false,
+						Islike: true,
+					});
+			}
     },
     // remover like
     RemoveLikeResponse(commentId: string, index: number) {

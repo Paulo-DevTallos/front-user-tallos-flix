@@ -54,7 +54,7 @@ const router = createRouter({
 					component: () => import('../pages/Theaters/TheatersView.vue'),
 				},
 				{
-					path: 'movie/:id?',
+					path: 'movie',
 					name: 'movie',
 					component: () => import('../pages/Movies/MovieView.vue'),
 				},
@@ -64,7 +64,7 @@ const router = createRouter({
 					component: () => import('../pages/Movies/MoviesView.vue'),
 				},
 				{
-					path: 'serie/:id?',
+					path: 'serie',
 					name: 'serie',
 					component: () => import('../pages/Series/SerieView.vue'),
 				},
@@ -74,12 +74,12 @@ const router = createRouter({
 					component: () => import('../pages/Series/SeriesView.vue'),
 				},
 				{
-					path: 'movieLocation/:id',
+					path: 'movieLocation',
 					name: 'movieLocation',
 					component: () => import('../pages/Theaters/MovieLocation.vue'),
 				},
 				{
-					path: 'Peoples/:name',
+					path: 'people/:name',
 					name: 'DirectorPage',
 					component: () => import('../pages/Peoples/PeopleView.vue'),
 				},
