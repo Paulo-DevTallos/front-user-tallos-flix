@@ -19,7 +19,6 @@
 					:resource="'movie'"
 					:query_param="''"
 					:hiddenMovieInfo="true"
-					:IsRendered="render"
 				/>
 			</div>
 		</div>
