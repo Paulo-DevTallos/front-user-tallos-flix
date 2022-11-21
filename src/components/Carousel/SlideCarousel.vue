@@ -144,7 +144,7 @@ export default defineComponent({
 		if (this.People === false && this.IsRendered === false) {
 			const renderGenres = this.$store.state.Movies.IsMovieGenre;
 
-			if (renderGenres === false && this.RenderSeries === true) {
+			if (!renderGenres && !this.RenderSeries) {
 				await this.$store.dispatch('Movies/getSeries');
 			} else {
 				await this.$store.dispatch('Movies/getMovieFilter');

@@ -18,7 +18,9 @@
 				<SlideCarousel
 					:resource="'movie'"
 					:query_param="''"
+					:IsRendered="render"
 					:hiddenMovieInfo="true"
+					:RenderSeries="false"
 				/>
 			</div>
 		</div>
