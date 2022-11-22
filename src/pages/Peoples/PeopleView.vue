@@ -38,7 +38,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import SlideCarousel from '@/components/Caroussel.vue';
 //import Carousel from '@/components/Carousel.vue';
 export default defineComponent({
 	name: 'PeopleView',

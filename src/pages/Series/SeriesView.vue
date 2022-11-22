@@ -19,8 +19,8 @@
 			</div>
 			<div class="home-carousel">
 				<SlideCarousel
-					:hiddenMovieInfo="true"
 					:IsRendered="render"
+					:hiddenMovieInfo="true"
 					:RenderSeries="true"
 				/>
 			</div>
@@ -46,7 +46,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SearchBar from '@/components/SearchBar/SearchBar.vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import SlideCarousel from '@/components/Caroussel.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import { mapGetters } from 'vuex';
