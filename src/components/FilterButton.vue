@@ -27,6 +27,12 @@
               <li @click="searchGenre('Fantasy')">Fantasia</li>
               <li @click="searchGenre('Musical')">Musical</li>
               <li @click="searchGenre('Horror')">Terror</li>
+              <li @click="searchGenre('Mistery')">Mistério</li>
+              <li @click="searchGenre('Thriller')">Suspense</li>
+              <li @click="searchGenre('Biography')">Biografia</li>
+              <li @click="searchGenre('Sport')">Esporte</li>
+              <li @click="searchGenre('Romance')">Romantico</li>
+              <li @click="searchGenre('Animation')">Animação</li>
             </ul>
           </li>
           <li @click="callBoxFilter3">
