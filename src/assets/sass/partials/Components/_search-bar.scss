@@ -115,6 +115,8 @@
 		ul {
 			padding: 0 20px;
 			margin: 0;
+			max-height: 60vh;
+			overflow: auto;
 
 			li {
 				margin: 20px 0;
