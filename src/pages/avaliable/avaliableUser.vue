@@ -33,6 +33,13 @@
 								v-for="rate in this.$store.state.Ratings.RatingsUser"
 								:key="rate"
 							>
+								<options-modal
+									@closeWindow="hiddenModal"
+									@redirect="removeAvaliable(rate)"
+									:hiddenBtnRemoveFav="true"
+									v-if="showModal"
+									:action="`Deseja realmente remover sua avaliação?`"
+								/>
 								<star-rating
 									v-if="rate.movie === avaliable.data.result._id"
 									class="d-flex"
@@ -41,7 +48,7 @@
 								<h6
 									class="btnRemove"
 									v-if="rate.movie === avaliable.data.result._id"
-									@click="removeAvaliable(rate)"
+									@click="hiddenModal(rate)"
 								>
 									Remover a avaliação
 								</h6>
@@ -58,11 +65,14 @@ import HeaderApp from '@/components/Header/HeaderApp.vue';
 import { defineComponent } from 'vue';
 import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
 import StarRating from '@/components/Rating/StarRating.vue';
+import OptionsModal from '@/components/Modals/OptionsModal.vue';
 
 export default defineComponent({
-	components: { HeaderApp, StarRating },
+	components: { HeaderApp, StarRating, OptionsModal },
 	data() {
 		return {
+			MyRate: '',
+			showModal: false,
 			moviesAvaliable: [],
 			userRatings: [],
 			delete: {
@@ -86,13 +96,14 @@ export default defineComponent({
 				await ServiceGetRatingMovie.getMovieFilterId(
 					this.$store.state.Ratings.RatingsUser[index].movie,
 				).then((result) => {
-					console.log(result)
+					console.log(result);
 					this.moviesAvaliable.push(result);
 				});
 			}
 			console.log(this.moviesAvaliable);
 		},
-		async removeAvaliable(rate) {
+		async removeAvaliable(rate: any) {
+			rate = this.MyRate;
 			(this.delete.rate = rate.myRate.rate),
 				(this.delete.user_id = rate.myRate.user_id),
 				await this.$store.dispatch('Ratings/removeRating', {
@@ -100,6 +111,11 @@ export default defineComponent({
 					delRate: this.delete,
 				});
 			(this.moviesAvaliable = []), await this.renderAvaliable();
+			this.hiddenModal();
+		},
+		hiddenModal(rate?: any) {
+			this.showModal = !this.showModal;
+			this.MyRate = rate;
 		},
 	},
 	mounted() {
