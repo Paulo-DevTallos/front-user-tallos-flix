@@ -18,6 +18,7 @@
 					<b-row>
 						<b-col cols="6">
 							<b-card-img
+								onerror="this.onerror=null;this.src='/img/empty-img.png';"
 								:src="
 									avaliable.data.result.poster
 										? avaliable.data.result.poster
