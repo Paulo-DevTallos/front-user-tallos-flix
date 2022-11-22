@@ -135,6 +135,12 @@ export default defineComponent({
 					await this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
 					this.getRatingsUser();
 					this.getRatingMovie();
+					//toast de sucesso de avaliação
+					this.hiddenToastAvliable = true;
+					this.success = 'Avaliação adicionada com sucesso!';
+					setTimeout(() => {
+						this.hiddenToastAvliable = false;
+					}, 3000);
 				} else if (this.ratingMovie >= []) {
 					for (
 						let index = 0;
@@ -156,7 +162,7 @@ export default defineComponent({
 							this.getRatingMovie();
 							//toast de sucesso de avaliação
 							this.hiddenToastAvliable = true;
-							this.success = 'Avaliação adicionada com sucesso!';
+							this.success = 'Avaliação atualizada com sucesso!';
 							setTimeout(() => {
 								this.hiddenToastAvliable = false;
 							}, 3000);
@@ -167,6 +173,12 @@ export default defineComponent({
 						await this.$store.dispatch('Ratings/createRatingsMovie', this.rating);
 						this.getRatingsUser();
 						this.getRatingMovie();
+						//toast de sucesso de avaliação
+						this.hiddenToastAvliable = true;
+						this.success = 'Avaliação adicionada com sucesso!';
+						setTimeout(() => {
+							this.hiddenToastAvliable = false;
+						}, 3000);
 					}
 				}
 			}
