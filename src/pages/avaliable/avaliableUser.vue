@@ -86,6 +86,7 @@ export default defineComponent({
 				await ServiceGetRatingMovie.getMovieFilterId(
 					this.$store.state.Ratings.RatingsUser[index].movie,
 				).then((result) => {
+					console.log(result)
 					this.moviesAvaliable.push(result);
 				});
 			}
