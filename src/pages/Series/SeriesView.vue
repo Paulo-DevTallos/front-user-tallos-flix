@@ -17,29 +17,39 @@
 				<span id="genre-title">Gênero: </span>
 				<span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
 			</div>
-			<div class="home-carousel">
+			<div class="home-carousel"  v-if="hiddenCarousel">
 				<SlideCarousel
 					:IsRendered="render"
 					:hiddenMovieInfo="true"
 					:RenderSeries="true"
+					:resource="'serie'"
 				/>
 			</div>
 		</div>
-		<ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
-		<div v-if="isMoviesRenderVisible">
-			<CardsMovies
-				:moviesRender="$store.state.Movies.Movies.content"
-				:resource="'serie'"
-				:btn_name="'Ver Serie'"
-			/>
-			<PaginationPage
-				class="paginationTT"
-				v-model="page"
-				:per-page="limit"
-				:rows="rows"
-				@click="handlePageChange"
-			/>
-		</div>
+		<section>
+			<p class v-if="movies_name.length > 5">
+				Filmes com a palavra {{ movies_name }}
+			</p>
+			<ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
+			<div v-if="isMoviesRenderVisible">
+				<div class="container-search">
+					<CardsMovies
+						:moviesRender="listSeries"
+						:resource="'serie'"
+						:btn_name="'Ver Serie'"
+					/>
+				</div>
+				<div class="pagination-footer">
+					<PaginationPage
+						class="paginationTT"
+						v-model="page"
+						:per-page="limit"
+						:rows="rows"
+						@click="handlePageChange"
+					/>
+				</div>
+			</div>
+		</section>
 	</div>
 </template>
 
@@ -58,10 +68,11 @@ export default defineComponent({
 		return {
 			isChanged: '',
 			movies_name: '',
-			hiddenCarousel: true,
 			hiddenErrorSearch: false,
+			hiddenCarousel: true,
 			render: false,
 			isMoviesRenderVisible: false,
+			listSeries: this.$store.state.Movies.Series.content,
 			page: 1,
 			limit: 8,
 		};
@@ -88,7 +99,7 @@ export default defineComponent({
 					page: this.page,
 					limit: this.limit,
 					sortValue: -1,
-				});
+				})
 			} catch (error) {
 				return [];
 			}
@@ -115,11 +126,11 @@ export default defineComponent({
 	computed: {
 		...mapGetters(['Movies/getErrorPage']),
 		rows() {
-			return this.$store.state.Movies.Movies.numberOfElements;
+			return this.$store.state.Movies.Series.numberOfElements;
 		},
 	},
 	mounted() {
-		this.$store.state.Movies.IsMovieGenre = false;
+		this.$store.state.Movies.IsSeriesGenre = false;
 		this.$store.dispatch(
 			'Favorites/getFavoriteById',
 			this.$store.state.Users.UserId,
