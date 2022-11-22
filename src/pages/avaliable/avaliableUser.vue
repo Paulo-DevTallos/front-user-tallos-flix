@@ -17,7 +17,14 @@
 				>
 					<b-row>
 						<b-col cols="6">
-							<b-card-img :src="avaliable.data.result.poster"></b-card-img>
+							<b-card-img
+								onerror="this.onerror=null;this.src='/img/empty-img.png';"
+								:src="
+									avaliable.data.result.poster
+										? avaliable.data.result.poster
+										: '/img/empty-img.png'
+								"
+							></b-card-img>
 						</b-col>
 						<b-col>
 							<h5>{{ avaliable.data.result.title }}</h5>
@@ -50,7 +57,6 @@
 import HeaderApp from '@/components/Header/HeaderApp.vue';
 import { defineComponent } from 'vue';
 import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
-// import ServiceGetRatingMovie from '@/services/axios/MovieRequests';
 import StarRating from '@/components/Rating/StarRating.vue';
 
 export default defineComponent({
