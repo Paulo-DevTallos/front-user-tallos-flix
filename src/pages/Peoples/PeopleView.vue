@@ -10,7 +10,7 @@
 				class="peopleImage"
 			/>
 		</div>
-		<div class="peopleBiography">
+		<div class="peopleBiography px-4">
 			<h6 class="mb-4">Biografia:</h6>
 			<p>{{ $store.state.Peoples.People[0].miniBios }}</p>
 		</div>
@@ -34,17 +34,11 @@
 				:hiddenMovieInfo="true"
 			/>
 		</div>
-		<!--<Carousel
-      :People="true"
-      class="pb-5"
-      id="carousel-people-notFind"
-      :hiddenMovieInfo="true"
-    />-->
 	</div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import SlideCarousel from '@/components/Caroussel.vue';
 //import Carousel from '@/components/Carousel.vue';
 export default defineComponent({
 	name: 'PeopleView',

@@ -8,12 +8,13 @@
 		</h1>
 		<SearchBar @search="searchMovie" />
 		<div class="home-carousel" v-if="hiddenCarousel">
-			<SlideCarousel
+			<Caroussel />
+			<!--<SlideCarousel
 				:resource="'movieLocation'"
 				:query_param="''"
 				:hiddenMovieInfo="false"
 				:title_carousel="'Nos Cinemas'"
-			/>
+			/>-->
 		</div>
 		<ErrorComponent
 			:error_value="'Não encontramos filmes com a palavra'"
@@ -26,7 +27,7 @@
 import { defineComponent } from 'vue';
 import { SocketModule } from '@/services/socket';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import Caroussel from '@/components/Caroussel.vue';
 import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import { mapGetters } from 'vuex';
 
@@ -35,7 +36,7 @@ export default defineComponent({
 	components: {
 		SearchBar,
 		ErrorComponent,
-		SlideCarousel,
+		Caroussel,
 	},
 	data() {
 		return {

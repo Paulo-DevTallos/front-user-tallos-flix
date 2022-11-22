@@ -1,7 +1,5 @@
 <template>
-	<div
-		class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
-	>
+	<div class="container-movies-view gap-5">
 		<div class="d-flex justify-content-center search-components">
 			<FilterButton :FilterSeries="false" />
 			<SearchBar @search="searchMovie" />
@@ -15,17 +13,11 @@
 				<span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
 			</div>
 			<div class="home-carousel" v-if="hiddenCarousel">
-				<SlideCarousel
-					:resource="'movie'"
-					:query_param="''"
-					:hiddenMovieInfo="true"
-					:IsRendered="render"
-					:RenderSeries="render"
-				/>
+				<SlideCarousel :IsRendered="render" :hiddenMovieInfo="true" />
 			</div>
 		</div>
-		<div>
-			<p v-if="movies_name.length > 5">
+		<section>
+			<p class v-if="movies_name.length > 5">
 				Filmes com a palavra {{ movies_name }}
 			</p>
 			<ErrorComponent
@@ -34,20 +26,24 @@
 				v-if="hiddenErrorSearch"
 			/>
 			<div v-if="isMoviesRenderVisible">
-				<CardsMovies
-					:moviesRender="$store.state.Movies.Movies.content"
-					:resource="'movie'"
-					:btn_name="'Ver Filme'"
-				/>
-				<PaginationPage
-					class="paginationTT"
-					v-model="page"
-					:per-page="limit"
-					:rows="rows"
-					@click="handlePageChange"
-				/>
+				<div class="container-search">
+					<CardsMovies
+						:moviesRender="$store.state.Movies.Movies.content"
+						:resource="'movie'"
+						:btn_name="'Ver Filme'"
+					/>
+				</div>
+				<div class="pagination-footer">
+					<PaginationPage
+						class="paginationTT"
+						v-model="page"
+						:per-page="limit"
+						:rows="rows"
+						@click="handlePageChange"
+					/>
+				</div>
 			</div>
-		</div>
+		</section>
 	</div>
 </template>
 
@@ -57,7 +53,7 @@ import { mapGetters } from 'vuex';
 import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import SlideCarousel from '@/components/Caroussel.vue';
 import CardsMovies from '@/components/Cards/CardsMovies.vue';
 import PaginationPage from '@/components/Pagination/PaginationPage.vue';
 
@@ -73,6 +69,7 @@ export default defineComponent({
 	},
 	data() {
 		return {
+			SearchData: '',
 			movies_name: '',
 			isChanged: '',
 			hiddenCarousel: true,
@@ -90,12 +87,13 @@ export default defineComponent({
 				setTimeout(() => {
 					this.movies_name = data;
 					if (this.isChanged === data) {
+						this.SearchData = data;
 						this.$store.dispatch('Movies/getMovieFilter', {
 							field: 'title',
 							search: data,
 						});
 					}
-				}, 1000);
+				}, 300);
 				if (data.length !== 0) this.isMoviesRenderVisible = true;
 				else return (this.isMoviesRenderVisible = false);
 			}
@@ -103,6 +101,8 @@ export default defineComponent({
 		reloadRequest() {
 			try {
 				this.$store.dispatch('Movies/getMovieFilter', {
+					field: 'title',
+					search: this.SearchData,
 					page: this.page,
 					limit: this.limit,
 					sortValue: -1,
@@ -137,7 +137,7 @@ export default defineComponent({
 		},
 	},
 	mounted() {
-		this.reloadRequest();
+		// this.reloadRequest();
 		this.$store.state.Movies.IsSeriesGenre = false;
 
 		if (this.$store.state.Movies.dontRender === true) {
@@ -145,13 +145,15 @@ export default defineComponent({
 				field: 'title',
 				search: this.$store.state.Movies.searchData,
 			});
+			this.SearchData = this.$store.state.Movies.searchData;
 			this.$store.state.Movies.dontRender = false;
-			this.$store.state.Movies.searchData = '';
+			this.isMoviesRenderVisible = true;
 		} else {
 			this.$store.dispatch(
 				'Favorites/getFavoriteById',
 				this.$store.state.Users.UserId,
 			);
+			this.isMoviesRenderVisible = false;
 		}
 	},
 });

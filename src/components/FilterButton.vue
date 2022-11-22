@@ -1,6 +1,6 @@
 <template>
   <div class="me-5 box-filter-container">
-    <div class="d-flex gap-5">
+    <div class="d-flex gap-5" ref="filters">
       <button
         class="search-input wd-btn text-input styles-filter"
         @click="callBoxFilter"
@@ -91,6 +91,8 @@ export default defineComponent({
       }
     },
     order(Mynumber: number) {
+      this.$store.state.Movies.IsSeriesGenre = false;
+      this.$store.state.Movies.IsMovieGenre = false;
       if (this.FilterSeries === false) {
         this.$store.dispatch('Movies/getMovieFilter', {
           sortValue: Mynumber,
@@ -104,6 +106,17 @@ export default defineComponent({
       }
     },
   },
+  mounted(){
+     const filter: any = this.$refs.filters;
+      document.addEventListener('click', (e) => {
+      if (filter !== undefined && filter.contains(e.target) === false) {
+        this.hiddenBoxFilter = false;
+        this.hiddenBoxFilter2 = false;
+        this.hiddenBoxFilter3 = false;
+
+      }
+    });
+  }
 });
 </script>
 <style lang="scss" scoped></style>
