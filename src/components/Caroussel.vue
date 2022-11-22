@@ -40,14 +40,8 @@
 						</div>
 					</div>
 					<div class="info-movies" v-if="hiddenMovieInfo">
-						<h3
-							v-if="
-								movie.title.length > 16
-									? (substring = `${movie.title.substring(0, 16)}...`)
-									: (substring = `${movie.title.substring(0, 16)} `)
-								"
-							>
-								{{ substring }}
+						<h3>
+								{{ movie.title }}
 						</h3>
 						<p v-if="movie.runtime">
 							Duração:
