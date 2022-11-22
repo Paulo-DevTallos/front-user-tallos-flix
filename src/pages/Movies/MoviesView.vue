@@ -1,7 +1,5 @@
 <template>
-	<div
-		class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
-	>
+	<div class="container-movies-view gap-5">
 		<div class="d-flex justify-content-center search-components">
 			<FilterButton :FilterSeries="false" />
 			<SearchBar @search="searchMovie" />
@@ -22,8 +20,8 @@
 				/>
 			</div>
 		</div>
-		<div>
-			<p v-if="movies_name.length > 5">
+		<section>
+			<p class v-if="movies_name.length > 5">
 				Filmes com a palavra {{ movies_name }}
 			</p>
 			<ErrorComponent
@@ -31,21 +29,25 @@
 				:data_word="movies_name"
 				v-if="hiddenErrorSearch"
 			/>
-			<div v-if="isMoviesRenderVisible">
-				<CardsMovies
-					:moviesRender="$store.state.Movies.Movies.content"
-					:resource="'movie'"
-					:btn_name="'Ver Filme'"
-				/>
-				<PaginationPage
-					class="paginationTT"
-					v-model="page"
-					:per-page="limit"
-					:rows="rows"
-					@click="handlePageChange"
-				/>
-			</div>
-		</div>
+      <div v-if="isMoviesRenderVisible">
+        <div class="container-search">
+          <CardsMovies
+            :moviesRender="$store.state.Movies.Movies.content"
+            :resource="'movie'"
+            :btn_name="'Ver Filme'"
+          />
+        </div>  
+        <div class="pagination-footer"> 
+          <PaginationPage
+            class="paginationTT"
+            v-model="page"
+            :per-page="limit"
+            :rows="rows"
+            @click="handlePageChange"
+          />
+        </div>
+      </div>
+		</section>
 	</div>
 </template>
 

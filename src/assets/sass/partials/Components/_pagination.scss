@@ -1,8 +1,9 @@
 .pagination {
   @include breakpoints(540px) {
-    width: 105%;
+    width: 100%;
     text-align: center;
     padding-bottom: 50px;
+    min-height: 100vh;
   }
   
   .page-link {
