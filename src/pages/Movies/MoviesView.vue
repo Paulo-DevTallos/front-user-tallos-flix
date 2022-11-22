@@ -13,11 +13,7 @@
 				<span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
 			</div>
 			<div class="home-carousel" v-if="hiddenCarousel">
-				<SlideCarousel
-					:IsRendered="render"
-					:hiddenMovieInfo="true"
-					:RenderSeries="false"
-				/>
+				<SlideCarousel :IsRendered="render" :hiddenMovieInfo="true" />
 			</div>
 		</div>
 		<section>
@@ -29,24 +25,24 @@
 				:data_word="movies_name"
 				v-if="hiddenErrorSearch"
 			/>
-      <div v-if="isMoviesRenderVisible">
-        <div class="container-search">
-          <CardsMovies
-            :moviesRender="$store.state.Movies.Movies.content"
-            :resource="'movie'"
-            :btn_name="'Ver Filme'"
-          />
-        </div>  
-        <div class="pagination-footer"> 
-          <PaginationPage
-            class="paginationTT"
-            v-model="page"
-            :per-page="limit"
-            :rows="rows"
-            @click="handlePageChange"
-          />
-        </div>
-      </div>
+			<div v-if="isMoviesRenderVisible">
+				<div class="container-search">
+					<CardsMovies
+						:moviesRender="$store.state.Movies.Movies.content"
+						:resource="'movie'"
+						:btn_name="'Ver Filme'"
+					/>
+				</div>
+				<div class="pagination-footer">
+					<PaginationPage
+						class="paginationTT"
+						v-model="page"
+						:per-page="limit"
+						:rows="rows"
+						@click="handlePageChange"
+					/>
+				</div>
+			</div>
 		</section>
 	</div>
 </template>
@@ -57,7 +53,7 @@ import { mapGetters } from 'vuex';
 import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import SlideCarousel from '@/components/Caroussel.vue';
 import CardsMovies from '@/components/Cards/CardsMovies.vue';
 import PaginationPage from '@/components/Pagination/PaginationPage.vue';
 
