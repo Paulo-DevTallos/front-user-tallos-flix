@@ -7,7 +7,7 @@
       <div class="location-input rounded-3 px-2 py-2 d-flex">
         <input
           type="text"
-          placeholder="Digite aqui sua localização"
+          placeholder="Digite sua cidade"
           v-model="this.theaterCity"
         />
         <Icon icon="carbon:location" class="iconLocation" />
