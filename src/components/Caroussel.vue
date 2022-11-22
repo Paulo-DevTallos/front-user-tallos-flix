@@ -1,73 +1,83 @@
 <template>
-	<carousel
-		:items-to-show="4"
-		:items-to-scroll="1"
-		:wrapAround="false"
-		snapAlign="start"
-	>
-		<slide
-			v-for="movie in RenderSeries === false
-				? $store.state.Movies.Movies.content
-				: $store.state.Movies.Series.content"
-			:key="movie.id"
-			class="carousel__slide"
+	<div class="container-full">
+		<carousel
+			:items-to-show="4"
+			:items-to-scroll="1"
+			:wrapAround="false"
+			snapAlign="start"
 		>
-			<div>
-				<div class="carousel-card">
-					<div class="image-container">
-						<router-link
-							:to="{ path: `/home/movie` }"
-							v-if="RenderSeries == false"
-						>
-							<img
-								v-if="movie.poster ? movie.poster : empty.poster"
-								:src="movie.poster || empty.poster"
-								:alt="movie.title"
-								onerror="this.onerror=null;this.src='/img/empty-img.png';"
-								@click="currentMovie(movie)"
-							/>
-						</router-link>
-						<router-link :to="{ path: `/home/serie` }" v-else>
-							<img
-								v-if="movie.poster ? movie.poster : empty.poster"
-								:src="movie.poster || empty.poster"
-								:alt="movie.title"
-								onerror="this.onerror=null;this.src='/img/empty-img.png';"
-								@click="currentMovie(movie)"
-							/>
-						</router-link>
+			<slide
+				v-for="movie in RenderSeries === false
+					? $store.state.Movies.Movies.content
+					: $store.state.Movies.Series.content"
+				:key="movie.id"
+				class="carousel__slide"
+			>
+				<div>
+					<div class="carousel-card">
+						<div class="image-container">
+							<router-link
+								:to="{ path: `/home/movie` }"
+								v-if="RenderSeries == false"
+							>
+								<img
+									v-if="movie.poster ? movie.poster : empty.poster"
+									:src="movie.poster || empty.poster"
+									:alt="movie.title"
+									onerror="this.onerror=null;this.src='/img/empty-img.png';"
+									@click="currentMovie(movie)"
+								/>
+							</router-link>
+							<router-link :to="{ path: `/home/serie` }" v-else>
+								<img
+									v-if="movie.poster ? movie.poster : empty.poster"
+									:src="movie.poster || empty.poster"
+									:alt="movie.title"
+									onerror="this.onerror=null;this.src='/img/empty-img.png';"
+									@click="currentMovie(movie)"
+								/>
+							</router-link>
+						</div>
+					</div>
+					<div class="info-movies" v-if="hiddenMovieInfo">
+						<h3
+							v-if="
+								movie.title.length > 16
+									? (substring = `${movie.title.substring(0, 16)}...`)
+									: (substring = `${movie.title.substring(0, 16)} `)
+								"
+							>
+								{{ substring }}
+						</h3>
+						<p v-if="movie.runtime">
+							Duração:
+							{{
+								Math.trunc(movie.runtime / 60) +
+								'h' +
+								(movie.runtime % 60) +
+								'min'
+							}}
+						</p>
+						<StarRating class="rating" :ratingRawValue="movie.imdb.rating" />
 					</div>
 				</div>
-				<div class="info-movies" v-if="hiddenMovieInfo">
-					<h3>{{ movie.title }}</h3>
-					<p v-if="movie.runtime">
-						Duração:
-						{{
-							Math.trunc(movie.runtime / 60) +
-							'h' +
-							(movie.runtime % 60) +
-							'min'
-						}}
-					</p>
-					<StarRating class="rating" :ratingRawValue="movie.imdb.rating" />
-				</div>
-			</div>
-		</slide>
-		<template #addons>
-			<navigation>
-				<template #next>
-					<span class="icon-style position-rigth">
-						<Icon icon="carbon:chevron-right" />
-					</span>
-				</template>
-				<template #prev>
-					<span class="icon-style position-left">
-						<Icon icon="carbon:chevron-left" />
-					</span>
-				</template>
-			</navigation>
-		</template>
-	</carousel>
+			</slide>
+			<template #addons>
+				<navigation>
+					<template #next>
+						<span class="icon-style position-rigth">
+							<Icon icon="carbon:chevron-right" />
+						</span>
+					</template>
+					<template #prev>
+						<span class="icon-style position-left">
+							<Icon icon="carbon:chevron-left" />
+						</span>
+					</template>
+				</navigation>
+			</template>
+		</carousel>
+	</div>
 </template>
 
 <script lang="ts">
@@ -94,6 +104,7 @@ export default defineComponent({
 	},
 	data() {
 		return {
+			substring: '',
 			image_path: import.meta.env.VITE_APP_URL + 'img/',
 			movies: [],
 			empty: {
