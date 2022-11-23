@@ -18,12 +18,13 @@
 }
 
 section {
-	p {
+	.search-filter {
 		font-family: 'Nunito', sans-serif;
 		font-size: 25px;
 		font-weight: 700;
 		color: $main-white-color;
 		text-align: center;
+		margin-top: 30px;
 	}
 }
 
@@ -33,6 +34,7 @@ section {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: flex-start;
+	width: 100%;
 }
 
 .pagination-footer {

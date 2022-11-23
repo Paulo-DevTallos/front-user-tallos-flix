@@ -1,7 +1,5 @@
 <template>
-	<div
-		class="home-field d-flex justify-content-center align-items-center flex-column gap-5"
-	>
+	<div class="gap-5">
 		<div class="d-flex justify-content-center search-components">
 			<FilterButton :FilterSeries="true" />
 			<SearchBar @search="searchMovie" :Series="true" />
@@ -22,13 +20,12 @@
 					:IsRendered="render"
 					:hiddenMovieInfo="true"
 					:RenderSeries="true"
-					:resource="'serie'"
 				/>
 			</div>
 		</div>
 		<section>
-			<p class v-if="movies_name.length > 5">
-				Filmes com a palavra {{ movies_name }}
+			<p class="search-filter" v-if="movies_name.length > 3">
+				Series com a palavra {{ movies_name }}
 			</p>
 			<ErrorComponent
 				:error_value="'Não encontramos filmes com a palavra'"
@@ -84,7 +81,6 @@ export default defineComponent({
 			hiddenCarousel: true,
 			render: false,
 			isMoviesRenderVisible: false,
-			listSeries: this.$store.state.Movies.Series.content,
 			page: 1,
 			limit: 8,
 		};
