@@ -39,8 +39,9 @@
 				<div class="container-search">
 					<CardsMovies
 						:moviesRender="$store.state.Movies.Series.content"
-						:resource="'movie'"
+						:resource="'serie'"
 						:btn_name="'Ver Série'"
+						@redirectTo="currentSerie"
 					/>
 				</div>
 				<div class="pagination-footer">
@@ -90,6 +91,9 @@ export default defineComponent({
 	},
 
 	methods: {
+		currentSerie(serie: object) {
+			this.$store.state.Movies.currentMovie = serie;
+		},
 		searchMovie(data: string) {
 			if (data !== this.isChanged) {
 				this.isChanged = data;
