@@ -1,6 +1,6 @@
 <template>
 	<div class="theaters-form-container">
-		<p class="plot-title ps-5 mt-4">Avalie este Filme</p>
+		<p class="plot-title mt-4">Avalie este Filme</p>
 		<hr class="orange-line-separator" />
 		<div class="d-flex flex-column align-items-center">
 			<p class="avaliationTitle m-2">Avaliação</p>

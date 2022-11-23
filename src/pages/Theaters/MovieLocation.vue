@@ -15,7 +15,7 @@
 			<rating-movie />
 		</div>
 		<div class="comments-app">
-			<p class="ps-5 plot-title mt-4">Comentários</p>
+			<p class="plot-title mt-4">Comentários</p>
 			<hr class="orange-line-separator" />
 			<div
 				class="p-4 d-flex justify-content-center plot-title"
