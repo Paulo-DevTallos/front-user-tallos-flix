@@ -11,7 +11,7 @@
 
   .template-container {
     padding: 0 80px;
-    min-height: 80vh;
+    min-height: 100vh;
 
     @include landscape {
       padding: 0 20px;
