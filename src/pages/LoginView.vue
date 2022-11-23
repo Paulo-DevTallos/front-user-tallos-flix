@@ -92,7 +92,7 @@ export default defineComponent({
 			await this.$store
 				.dispatch('Users/login', user)
 				.then((res) => {
-					this.$router.back().then(() => {
+					this.$router.push('/home').then(() => {
 						location.reload();
 					});
 				})
