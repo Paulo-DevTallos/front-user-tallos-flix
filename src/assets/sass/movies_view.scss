@@ -1,40 +1,41 @@
 .search-components {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 20%;
-    margin-bottom: 30px;
-    
-    @include breakpoints(1180px) {
-        flex-direction: column-reverse;
-        width: 100%;
-    }    
-    
-    .resize-filter {
-        width: 15%;
-        margin-right: 47px;
-        border-radius: 20px;
-        color: #fff;
-    }
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 20%;
+	margin-bottom: 30px;
 
+	@include breakpoints(1180px) {
+		flex-direction: column-reverse;
+		width: 100%;
+	}
+
+	.resize-filter {
+		width: 15%;
+		margin-right: 47px;
+		border-radius: 20px;
+		color: #fff;
+	}
 }
 
 section {
-    p {
-        font-family: 'Nunito', sans-serif;
-        font-size: 25px;
-        font-weight: 700;
-        color: $main-white-color;
-        text-align: center;
-    }
+	p {
+		font-family: 'Nunito', sans-serif;
+		font-size: 25px;
+		font-weight: 700;
+		color: $main-white-color;
+		text-align: center;
+	}
 }
 
 .container-search {
-    padding: 0 50px 100px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; 
-    align-items: flex-start;
-    
-    .pagination-footer{
-    }
+	padding: 0 50px 100px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.pagination-footer {
+	padding: 0 50px;
+	min-height: 10vh;
 }

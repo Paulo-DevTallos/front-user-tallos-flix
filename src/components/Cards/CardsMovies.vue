@@ -17,7 +17,7 @@
 			</div>
 			<div class="card-info">
 				<div>
-					<h3 v-if="movie.title ? movie.title : vaxio.title">
+					<h3 v-if="movie.title ? movie.title : vazio.title">
 						{{ movie.title || vazio.title }}
 					</h3>
 					<div v-if="movie.runtime">
