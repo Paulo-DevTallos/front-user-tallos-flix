@@ -17,7 +17,7 @@
 				<span id="genre-title">Gênero: </span>
 				<span id="tagGenre">{{ $store.state.Movies.actualTag }}</span>
 			</div>
-			<div class="home-carousel"  v-if="hiddenCarousel">
+			<div class="home-carousel" v-if="hiddenCarousel">
 				<SlideCarousel
 					:IsRendered="render"
 					:hiddenMovieInfo="true"
@@ -30,13 +30,18 @@
 			<p class v-if="movies_name.length > 5">
 				Filmes com a palavra {{ movies_name }}
 			</p>
-			<ErrorComponent :data_word="movies_name" v-if="hiddenErrorSearch" />
+			<ErrorComponent
+				:error_value="'Não encontramos filmes com a palavra'"
+				:data_word="movies_name"
+				v-if="hiddenErrorSearch"
+			/>
 			<div v-if="isMoviesRenderVisible">
 				<div class="container-search">
 					<CardsMovies
-						:moviesRender="listSeries"
+						:moviesRender="$store.state.Movies.Series.content"
 						:resource="'serie'"
-						:btn_name="'Ver Serie'"
+						:btn_name="'Ver Série'"
+						@redirectTo="currentSerie"
 					/>
 				</div>
 				<div class="pagination-footer">
@@ -59,11 +64,18 @@ import SearchBar from '@/components/SearchBar/SearchBar.vue';
 import SlideCarousel from '@/components/Caroussel.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
+import CardsMovies from '@/components/Cards/CardsMovies.vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
 	name: 'SeriesView',
-	components: { SearchBar, SlideCarousel, FilterButton, ErrorComponent },
+	components: {
+		SearchBar,
+		SlideCarousel,
+		FilterButton,
+		ErrorComponent,
+		CardsMovies,
+	},
 	data() {
 		return {
 			isChanged: '',
@@ -79,6 +91,9 @@ export default defineComponent({
 	},
 
 	methods: {
+		currentSerie(serie: object) {
+			this.$store.state.Movies.currentMovie = serie;
+		},
 		searchMovie(data: string) {
 			if (data !== this.isChanged) {
 				this.isChanged = data;
@@ -91,6 +106,8 @@ export default defineComponent({
 						});
 					}
 				}, 1000);
+				if (data.length !== 0) this.isMoviesRenderVisible = true;
+				else return (this.isMoviesRenderVisible = false);
 			}
 		},
 		reloadRequest() {
@@ -99,7 +116,7 @@ export default defineComponent({
 					page: this.page,
 					limit: this.limit,
 					sortValue: -1,
-				})
+				});
 			} catch (error) {
 				return [];
 			}

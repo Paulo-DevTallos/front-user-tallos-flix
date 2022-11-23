@@ -31,6 +31,7 @@
 						:moviesRender="$store.state.Movies.Movies.content"
 						:resource="'movie'"
 						:btn_name="'Ver Filme'"
+						@redirectTo="currentMovie"
 					/>
 				</div>
 				<div class="pagination-footer">
@@ -81,6 +82,9 @@ export default defineComponent({
 		};
 	},
 	methods: {
+		currentMovie(movie: object) {
+			this.$store.state.Movies.currentMovie = movie;
+		},
 		searchMovie(data: string) {
 			if (data !== this.isChanged) {
 				this.isChanged = data;
