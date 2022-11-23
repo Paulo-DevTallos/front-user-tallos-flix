@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<section>
-			<p class v-if="movies_name.length > 5">
+			<p class="search-filter" v-if="movies_name.length > 5">
 				Filmes com a palavra {{ movies_name }}
 			</p>
 			<ErrorComponent
