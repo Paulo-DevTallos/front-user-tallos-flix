@@ -6,15 +6,9 @@
 			{{ user_name_logged || title_dislogged }} sobre qual filme quer conhecer
 			hoje ?
 		</h1>
-		<SearchBar @search="searchMovie" />
+		<SearchBar :loadRouter="'/home/movies'" @search="searchMovie" />
 		<div class="home-carousel" v-if="hiddenCarousel">
-			<Caroussel />
-			<!--<SlideCarousel
-				:resource="'movieLocation'"
-				:query_param="''"
-				:hiddenMovieInfo="false"
-				:title_carousel="'Nos Cinemas'"
-			/>-->
+			<Caroussel :title_carousel="'Nos Cinemas'" />
 		</div>
 		<ErrorComponent
 			:error_value="'Não encontramos filmes com a palavra'"
@@ -43,8 +37,8 @@ export default defineComponent({
 			socketService: SocketModule.connect(),
 			isChanged: '',
 			movies_name: '',
-			title_dislogged: 'Olá,',
-			user_name_logged: `Ola ${this.$store.state.Users.UserName.split(' ')
+			title_dislogged: `Olá, `,
+			user_name_logged: `Olá ${this.$store.state.Users.UserName.split(' ')
 				.slice(0, 2)
 				.toString()
 				.replace(',', ' ')},`,
@@ -80,9 +74,6 @@ export default defineComponent({
 	},
 
 	mounted() {
-		this.socketService.registerListener('is-logged', 'is-logged', (data) => {
-			alert(data);
-		});
 		this.$store.dispatch(
 			'Favorites/getFavoriteById',
 			this.$store.state.Users.UserId,
