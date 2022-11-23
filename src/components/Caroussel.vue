@@ -1,5 +1,6 @@
 <template>
 	<div class="container-full">
+		<h4>{{ title_carousel }}</h4>
 		<carousel
 			:items-to-show="4"
 			:items-to-scroll="1"
@@ -97,6 +98,7 @@ export default defineComponent({
 		hiddenMovieInfo: { type: Boolean },
 		RenderSeries: { type: Boolean },
 		People: { type: Boolean },
+		title_carousel: { type: String },
 		IsRendered: { type: Boolean },
 	},
 	data() {

@@ -595,7 +595,6 @@ export default defineComponent({
 		// adicionar like
 		PostLikeResponse(commentId: string, index: number) {
 			if (localStorage.getItem('token') === '') {
-				alert('teste');
 			} else {
 				this.likeComment = true;
 				this.DeslikeComment = false;
