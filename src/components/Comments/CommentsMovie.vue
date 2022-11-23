@@ -784,6 +784,8 @@ export default defineComponent({
 	},
 	watch: {
 		async ['Comments/getComments']() {
+			this.editComment = true;
+			this.teste = '';
 			this.renderList = false;
 			this.$store.state.Likes.likeList = [];
 			for (
