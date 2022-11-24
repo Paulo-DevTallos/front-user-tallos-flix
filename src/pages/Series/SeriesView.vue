@@ -77,6 +77,7 @@ export default defineComponent({
 	},
 	data() {
 		return {
+			SearchData: '',
 			isChanged: '',
 			movies_name: '',
 			hiddenErrorSearch: false,
@@ -98,6 +99,7 @@ export default defineComponent({
 				setTimeout(() => {
 					this.movies_name = data;
 					if (this.isChanged === data) {
+						this.SearchData = data;
 						this.$store.dispatch('Movies/getSeries', {
 							field: 'title',
 							search: data,
@@ -111,6 +113,8 @@ export default defineComponent({
 		reloadRequest() {
 			try {
 				this.$store.dispatch('Movies/getSeries', {
+					field: 'title',
+					search: this.SearchData,
 					page: this.page,
 					limit: this.limit,
 					sortValue: -1,
