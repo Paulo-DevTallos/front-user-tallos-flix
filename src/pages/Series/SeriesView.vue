@@ -62,6 +62,7 @@ import SlideCarousel from '@/components/Caroussel.vue';
 import FilterButton from '@/components/FilterButton.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import CardsMovies from '@/components/Cards/CardsMovies.vue';
+import PaginationPage from '@/components/Pagination/PaginationPage.vue';
 import { mapGetters } from 'vuex';
 
 export default defineComponent({
@@ -72,6 +73,7 @@ export default defineComponent({
 		FilterButton,
 		ErrorComponent,
 		CardsMovies,
+		PaginationPage,
 	},
 	data() {
 		return {
