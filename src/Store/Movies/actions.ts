@@ -40,4 +40,9 @@ export default {
 			commit('GET_MOVIES', res.data);
 		});
 	},
+	async getMovieCast({ commit }: any, data: any) {
+		await MovieRequests.getMovieCast(data).then((res) => {
+			commit('GET_MOVIES_CAST', res.data);
+		});
+	},
 };

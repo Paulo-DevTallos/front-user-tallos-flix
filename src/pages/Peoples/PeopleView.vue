@@ -17,14 +17,14 @@
 	</div>
 	<div v-if="$store.state.Peoples.People.length !== 0">
 		<h3 id="people-carousel-title-Biography">
-			Filmes de "{{ $store.state.Peoples.People[0].name }}"
+			Trabalhos de "{{ $store.state.Peoples.People[0].name }}"
 		</h3>
 		<!--<Carousel :People="true" class="pb-5" :hiddenMovieInfo="true" />-->
 		<SlideCarousel :People="true" class="pb-5" :hiddenMovieInfo="true" />
 	</div>
 	<div v-else id="carousel-people-notFind">
 		<h3 id="people-carousel-title">
-			Filmes de {{ $store.state.Favorites.PeopleName }}
+			Trabalhos de {{ $store.state.Favorites.PeopleName }}
 		</h3>
 		<div class="home-carousel">
 			<SlideCarousel

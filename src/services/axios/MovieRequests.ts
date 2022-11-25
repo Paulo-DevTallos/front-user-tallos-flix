@@ -13,6 +13,9 @@ export default {
   getMovieFilterId: (id: string) => {
     return http.get(`movies/search/${id}`);
   },
+  getMovieCast: (data: object) => {
+    return http.post(`movies/cast`, data);
+  },
   createMovies: (MoviesData: object) => {
     return http.post(`movies`, MoviesData);
   },
