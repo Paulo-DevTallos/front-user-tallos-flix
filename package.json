@@ -19,6 +19,8 @@
     "socket.io-client": "^4.5.3",
     "vue": "^3.2.38",
     "vue-carousel": "^0.18.0",
+    "vue-nprogress": "^0.2.0",
+    "vue-progress": "^0.2.1",
     "vue-router": "^4.1.5",
     "vue3-carousel": "^0.2.4",
     "vue3-star-ratings": "^1.1.0",

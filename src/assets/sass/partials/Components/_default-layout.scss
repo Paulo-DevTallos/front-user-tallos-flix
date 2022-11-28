@@ -3,7 +3,6 @@
   background-image: url('/img/Header-Background-grad.png');
   background-repeat: no-repeat;
   background-size: 100%;
-  height: 100%;
 
   @include mobile {
     background-size: 180%;
@@ -12,6 +11,11 @@
 
   .template-container {
     padding: 0 80px;
+    min-height: 150vh;
+
+		@include breakpoints(1350px) {
+			min-height: 180vh;
+		}
 
     @include landscape {
       padding: 0 20px;

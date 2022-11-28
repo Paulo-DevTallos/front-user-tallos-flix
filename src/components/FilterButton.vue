@@ -1,6 +1,6 @@
 <template>
   <div class="me-5 box-filter-container">
-    <div class="d-flex gap-5">
+    <div class="d-flex gap-5" ref="filters">
       <button
         class="search-input wd-btn text-input styles-filter"
         @click="callBoxFilter"
@@ -27,6 +27,12 @@
               <li @click="searchGenre('Fantasy')">Fantasia</li>
               <li @click="searchGenre('Musical')">Musical</li>
               <li @click="searchGenre('Horror')">Terror</li>
+              <li @click="searchGenre('Mistery')">Mistério</li>
+              <li @click="searchGenre('Thriller')">Suspense</li>
+              <li @click="searchGenre('Biography')">Biografia</li>
+              <li @click="searchGenre('Sport')">Esporte</li>
+              <li @click="searchGenre('Romance')">Romantico</li>
+              <li @click="searchGenre('Animation')">Animação</li>
             </ul>
           </li>
           <li @click="callBoxFilter3">
@@ -91,6 +97,8 @@ export default defineComponent({
       }
     },
     order(Mynumber: number) {
+      this.$store.state.Movies.IsSeriesGenre = false;
+      this.$store.state.Movies.IsMovieGenre = false;
       if (this.FilterSeries === false) {
         this.$store.dispatch('Movies/getMovieFilter', {
           sortValue: Mynumber,
@@ -104,6 +112,17 @@ export default defineComponent({
       }
     },
   },
+  mounted(){
+     const filter: any = this.$refs.filters;
+      document.addEventListener('click', (e) => {
+      if (filter !== undefined && filter.contains(e.target) === false) {
+        this.hiddenBoxFilter = false;
+        this.hiddenBoxFilter2 = false;
+        this.hiddenBoxFilter3 = false;
+
+      }
+    });
+  }
 });
 </script>
 <style lang="scss" scoped></style>

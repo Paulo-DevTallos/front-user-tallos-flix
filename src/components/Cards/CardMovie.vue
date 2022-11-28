@@ -289,11 +289,18 @@ export default defineComponent({
 		},
 		GetPeople(data: string, Field: string) {
 			this.$store.state.Favorites.PeopleName = data;
-			this.$store.dispatch('Peoples/getPeopleByName', data);
-			this.$store.dispatch('Movies/getMovieFilter', {
-				field: Field,
-				search: data,
-			});
+			if (Field === 'cast') {
+				this.$store.dispatch('Peoples/getPeopleByName', data);
+				this.$store.dispatch('Movies/getMovieCast', {
+					actor: data,
+				});
+			} else {
+				this.$store.dispatch('Peoples/getPeopleByName', data);
+				this.$store.dispatch('Movies/getMovieFilter', {
+					field: Field,
+					search: data,
+				});
+			}
 		},
 	},
 	mounted() {

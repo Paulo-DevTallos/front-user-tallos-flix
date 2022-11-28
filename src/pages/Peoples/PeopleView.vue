@@ -10,21 +10,21 @@
 				class="peopleImage"
 			/>
 		</div>
-		<div class="peopleBiography">
+		<div class="peopleBiography px-4">
 			<h6 class="mb-4">Biografia:</h6>
 			<p>{{ $store.state.Peoples.People[0].miniBios }}</p>
 		</div>
 	</div>
 	<div v-if="$store.state.Peoples.People.length !== 0">
 		<h3 id="people-carousel-title-Biography">
-			Filmes de "{{ $store.state.Peoples.People[0].name }}"
+			Trabalhos de "{{ $store.state.Peoples.People[0].name }}"
 		</h3>
 		<!--<Carousel :People="true" class="pb-5" :hiddenMovieInfo="true" />-->
 		<SlideCarousel :People="true" class="pb-5" :hiddenMovieInfo="true" />
 	</div>
 	<div v-else id="carousel-people-notFind">
 		<h3 id="people-carousel-title">
-			Filmes de {{ $store.state.Favorites.PeopleName }}
+			Trabalhos de {{ $store.state.Favorites.PeopleName }}
 		</h3>
 		<div class="home-carousel">
 			<SlideCarousel
@@ -34,17 +34,11 @@
 				:hiddenMovieInfo="true"
 			/>
 		</div>
-		<!--<Carousel
-      :People="true"
-      class="pb-5"
-      id="carousel-people-notFind"
-      :hiddenMovieInfo="true"
-    />-->
 	</div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import SlideCarousel from '@/components/Carousel/SlideCarousel.vue';
+import SlideCarousel from '@/components/Caroussel.vue';
 //import Carousel from '@/components/Carousel.vue';
 export default defineComponent({
 	name: 'PeopleView',
