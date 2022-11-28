@@ -13,6 +13,10 @@
     padding: 0 80px;
     min-height: 150vh;
 
+		@include breakpoints(1350px) {
+			min-height: 180vh;
+		}
+
     @include landscape {
       padding: 0 20px;
     }
