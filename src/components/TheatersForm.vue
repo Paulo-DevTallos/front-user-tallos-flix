@@ -25,18 +25,40 @@
 				</button>
 			</div>
 		</div>
+		<SuccessModal
+			v-if="hiddenToastAvliable"
+			:class="isError"
+			:message_success="message"
+		/>
 	</div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Icon } from '@iconify/vue';
+import SuccessModal from './Modals/SuccessModal.vue';
 
 export default defineComponent({
 	name: 'TheaterForm',
 	components: {
 		Icon,
+		SuccessModal,
+	},
+	data() {
+		return {
+			theaterCity: '',
+			message: '',
+			hiddenToastAvliable: false,
+			isError: 'toast_error',
+		};
 	},
 	methods: {
+		callToastMessanger(msg: string) {
+			this.hiddenToastAvliable = true;
+			this.message = msg;
+			setTimeout(() => {
+				this.hiddenToastAvliable = false;
+			}, 2500);
+		},
 		realTimeLocalization() {
 			window.navigator.geolocation.getCurrentPosition((postion) => {
 				const coords = {
@@ -48,20 +70,26 @@ export default defineComponent({
 			}, console.log);
 		},
 		SearchCity() {
-			this.$store.dispatch('Theaters/getTheatersByCity', this.theaterCity).catch(async (Error: string) => {
-				const response = await this.$store.state.Theaters.NearTheaters
-				console.log(Error)
-				if (response.length === 0) {
-					alert('deu ruim')
-				}
-			});
+			this.$store
+				.dispatch('Theaters/getTheatersByCity', this.theaterCity)
+				.then(async () => {
+					const response = await this.$store.state.Theaters.NearTheaters;
+					console.log(response);
+					if (response.length === 0) {
+						this.callToastMessanger('Nenhum resultado encontrado.');
+					}
+				}).catch((Error: object) => {
+					console.error(Error	);
+					this.callToastMessanger('Digite uma cidade');
+				});
 			console.log(this.theaterCity);
 		},
 	},
-	data() {
-		return {
-			theaterCity: '',
-		};
-	},
 });
 </script>
+
+<style>
+.toast_error {
+	background: red;
+}
+</style>
