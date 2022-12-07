@@ -131,7 +131,7 @@
               {{ favorite.result.plot || vazio.plot }}
             </p>
             <div
-              v-if="favorite.result.plot"
+              v-if="favorite.result.plot && favorite.result.fullplot"
               @click="fullPlotClick(this.favorites.indexOf(favorite))"
             >
               <p class="d-flex justify-content-end view-more">Ver mais</p>
