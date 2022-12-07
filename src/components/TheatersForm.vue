@@ -8,7 +8,7 @@
 				<input
 					type="text"
 					placeholder="Digite sua cidade"
-					v-model="this.theaterCity"
+					v-model="theaterCity"
 				/>
 				<Icon icon="carbon:location" class="iconLocation" />
 			</div>
@@ -48,7 +48,14 @@ export default defineComponent({
 			}, console.log);
 		},
 		SearchCity() {
-			this.$store.dispatch('Theaters/getTheatersByCity', this.theaterCity);
+			this.$store.dispatch('Theaters/getTheatersByCity', this.theaterCity).catch(async (Error: string) => {
+				const response = await this.$store.state.Theaters.NearTheaters
+				console.log(Error)
+				if (response.length === 0) {
+					alert('deu ruim')
+				}
+			});
+			console.log(this.theaterCity);
 		},
 	},
 	data() {
